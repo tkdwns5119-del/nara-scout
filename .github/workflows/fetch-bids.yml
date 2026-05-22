@@ -2,7 +2,6 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    # 나라장터 입찰공고는 실시간성이 낮으므로 1시간 주기 권장
     - cron: '0 */1 * * *'
   workflow_dispatch:
 
@@ -16,7 +15,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
