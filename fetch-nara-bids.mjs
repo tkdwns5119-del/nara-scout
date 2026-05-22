@@ -12,8 +12,8 @@ if (!RAW_API_KEY) {
     process.exit(1);
 }
 
-// GitHub Secret에 Encoding 키가 들어가 있어도 1회 디코딩해서 URLSearchParams에 태운다.
-// 권장값은 공공데이터포털의 Decoding 키.
+// GitHub Secret에는 Decoding 키 권장.
+// Encoding 키가 들어와도 한 번 디코딩해서 URLSearchParams에 태운다.
 function normalizeServiceKey(key) {
     try {
         return key.includes('%') ? decodeURIComponent(key) : key;
@@ -46,15 +46,10 @@ const ENDPOINTS = [
 
 const DAYS_TO_FETCH = 90;
 const NUM_OF_ROWS = 100;
-
-// 기존 250ms는 너무 짧음. 공공데이터 API는 최소 1초 텀 권장.
 const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 30000;
 const RETRY_COUNT = 3;
-
-// 검색어 1개당 최대 페이지 제한.
-// 90일 조회에서 특정 키워드가 너무 많이 걸릴 경우 API 과부하 방지.
 const MAX_PAGES_PER_QUERY = 5;
 
 function sleep(ms) {
@@ -210,7 +205,7 @@ async function fetchPageWithRetry(endpoint, keyword, dateRange, pageNo) {
         try {
             const result = await fetchPage(endpoint, keyword, dateRange, pageNo);
 
-            // 인증/파라미터성 XML 또는 API 오류는 재시도해도 의미가 작아서 그대로 반환.
+            // 인증/파라미터 오류는 재시도해도 의미가 적어서 그대로 반환.
             if (result.error) return result;
 
             return result;
@@ -386,7 +381,6 @@ async function main() {
         String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || ''))
     );
 
-    // 카테고리 분포 집계
     const categoryStats = {};
 
     for (const cat of Object.keys(KEYWORD_CATEGORY)) {
