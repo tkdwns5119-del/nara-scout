@@ -1,5 +1,5 @@
 // 나라장터(G2B) 입찰공고 수집 스크립트 — GitHub Actions cron 환경에서 실행
-// 매 실행 시 최근 30일치 데이터를 수집해 data/bids.json 에 덮어쓴다.
+// 매 실행 시 최근 30일치 데이터를 15일 단위로 나누어 수집해 data/bids.json 에 덮어쓴다.
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -33,18 +33,21 @@ const KEYWORD_CATEGORY = {
     "ITS/VMS 계열": ["ITS", "VMS"]
 };
 
+// 2025년 차세대 나라장터 신규 API 경로 기준.
+// 기존 /BidPublicInfoService04/...01 경로는 계속 HTTP 500이 날 수 있음.
 const ENDPOINTS = [
     {
         name: "물품",
-        url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoThngPPSSrch01"
+        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch"
     },
     {
         name: "용역",
-        url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoServcPPSSrch01"
+        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch"
     }
 ];
 
 const DAYS_TO_FETCH = 30;
+const CHUNK_DAYS = 15;
 const NUM_OF_ROWS = 100;
 const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
@@ -65,6 +68,31 @@ function formatG2BDate(d) {
     const mm = String(d.getMonth() + 1).padStart(2, '0');
     const dd = String(d.getDate()).padStart(2, '0');
     return `${yyyy}${mm}${dd}`;
+}
+
+function addDays(date, days) {
+    const d = new Date(date);
+    d.setDate(d.getDate() + days);
+    return d;
+}
+
+function makeDateRanges(startDate, endDate, chunkDays) {
+    const ranges = [];
+    let cur = new Date(startDate);
+
+    while (cur <= endDate) {
+        const chunkEnd = addDays(cur, chunkDays - 1);
+        const actualEnd = chunkEnd > endDate ? new Date(endDate) : chunkEnd;
+
+        ranges.push({
+            bgn: formatG2BDate(cur) + '0000',
+            end: formatG2BDate(actualEnd) + '2359'
+        });
+
+        cur = addDays(actualEnd, 1);
+    }
+
+    return ranges;
 }
 
 function normalizeKeyword(kw) {
@@ -91,9 +119,7 @@ function classifyRegion(name) {
 }
 
 function bodyPreview(text, max = 500) {
-    return String(text || '')
-        .replace(/\s+/g, ' ')
-        .slice(0, max);
+    return String(text || '').replace(/\s+/g, ' ').slice(0, max);
 }
 
 function parseXmlError(trimmed) {
@@ -205,7 +231,6 @@ async function fetchPageWithRetry(endpoint, keyword, dateRange, pageNo) {
         try {
             const result = await fetchPage(endpoint, keyword, dateRange, pageNo);
 
-            // 인증/파라미터 오류는 재시도해도 의미가 적어서 그대로 반환.
             if (result.error) return result;
 
             return result;
@@ -282,6 +307,7 @@ function makeBidRecord(i, term) {
 
     const budget =
         Number(i.assignBudgetAmt) ||
+        Number(i.asignBdgtAmt) ||
         Number(i.presmptPrce) ||
         Number(i.assignBdgtAmt) ||
         0;
@@ -305,7 +331,7 @@ function makeBidRecord(i, term) {
         region: classifyRegion(i.ntceInsttNm || i.dminsttNm || i.bidNtceNm),
         g2bUrl: i.bidNtceDtlUrl || (
             bidNoForUrl
-                ? `https://www.g2b.go.kr:8401/egp/bi/bid/bidDetail.do?bidNo=${bidNoForUrl}&bidSeq=${bidSeq}`
+                ? `https://www.g2b.go.kr/ep/invitation/publish/bidInfoDtl.do?bidno=${bidNoForUrl}`
                 : ''
         )
     };
@@ -317,47 +343,48 @@ async function main() {
 
     past.setDate(now.getDate() - DAYS_TO_FETCH);
 
-    const dateRange = {
-        bgn: formatG2BDate(past) + '0000',
-        end: formatG2BDate(now) + '2359'
-    };
+    const dateRanges = makeDateRanges(past, now, CHUNK_DAYS);
 
-    console.log(`[INFO] 수집 범위: ${dateRange.bgn} ~ ${dateRange.end}`);
-    console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 엔드포인트 ${ENDPOINTS.length}개 = ${SEARCH_TERMS.length * ENDPOINTS.length}개 기본 호출`);
-    console.log(`[INFO] 최대 페이지: 검색어/엔드포인트당 ${MAX_PAGES_PER_QUERY}페이지`);
+    console.log(`[INFO] 수집 범위: ${formatG2BDate(past)}0000 ~ ${formatG2BDate(now)}2359`);
+    console.log(`[INFO] 날짜 분할: ${dateRanges.length}개 구간 / ${CHUNK_DAYS}일 단위`);
+    console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 엔드포인트 ${ENDPOINTS.length}개 × 날짜구간 ${dateRanges.length}개 = ${SEARCH_TERMS.length * ENDPOINTS.length * dateRanges.length}개 기본 호출`);
+    console.log(`[INFO] 최대 페이지: 검색어/엔드포인트/날짜구간당 ${MAX_PAGES_PER_QUERY}페이지`);
     console.log(`[INFO] 요청 간격: ${REQUEST_DELAY_MS}ms, 타임아웃: ${REQUEST_TIMEOUT_MS}ms, 재시도: ${RETRY_COUNT}회`);
 
     const allBids = [];
     const errors = [];
     let successCount = 0;
 
-    for (const endpoint of ENDPOINTS) {
-        for (const term of SEARCH_TERMS) {
-            try {
-                const result = await fetchOne(endpoint, term, dateRange);
+    for (const dateRange of dateRanges) {
+        console.log(`[INFO] 구간 처리: ${dateRange.bgn} ~ ${dateRange.end}`);
 
-                if (result.error) {
-                    errors.push(`[${endpoint.name}/${term}] ${result.error}`);
-                    console.log(`  - FAIL ${endpoint.name} / "${term}" — ${result.error}`);
-                } else {
-                    successCount++;
-                    console.log(`  - OK   ${endpoint.name} / "${term}" — ${result.items.length}건 / totalCount ${result.totalCount}`);
+        for (const endpoint of ENDPOINTS) {
+            for (const term of SEARCH_TERMS) {
+                try {
+                    const result = await fetchOne(endpoint, term, dateRange);
 
-                    for (const i of result.items) {
-                        allBids.push(makeBidRecord(i, term));
+                    if (result.error) {
+                        errors.push(`[${endpoint.name}/${term}/${dateRange.bgn}-${dateRange.end}] ${result.error}`);
+                        console.log(`  - FAIL ${endpoint.name} / "${term}" — ${result.error}`);
+                    } else {
+                        successCount++;
+                        console.log(`  - OK   ${endpoint.name} / "${term}" — ${result.items.length}건 / totalCount ${result.totalCount}`);
+
+                        for (const i of result.items) {
+                            allBids.push(makeBidRecord(i, term));
+                        }
                     }
+                } catch (e) {
+                    const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
+                    errors.push(`[${endpoint.name}/${term}/${dateRange.bgn}-${dateRange.end}] ${msg}`);
+                    console.log(`  - FAIL ${endpoint.name} / "${term}" — ${msg}`);
                 }
-            } catch (e) {
-                const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
-                errors.push(`[${endpoint.name}/${term}] ${msg}`);
-                console.log(`  - FAIL ${endpoint.name} / "${term}" — ${msg}`);
-            }
 
-            await sleep(REQUEST_DELAY_MS);
+                await sleep(REQUEST_DELAY_MS);
+            }
         }
     }
 
-    // 전부 실패한 경우 기존 정상 bids.json 보호.
     if (successCount === 0) {
         console.error('');
         console.error('[ERROR] 모든 API 호출 실패. 기존 data/bids.json 보호를 위해 파일을 덮어쓰지 않습니다.');
@@ -368,7 +395,6 @@ async function main() {
         process.exit(1);
     }
 
-    // 중복 제거: bidId 우선, 없으면 bidNtceNo 기준.
     const uniqueMap = new Map();
 
     for (const b of allBids) {
@@ -402,8 +428,9 @@ async function main() {
         generatedAt: now.toISOString(),
         timezone: 'Asia/Seoul',
         rangeDays: DAYS_TO_FETCH,
-        rangeBegin: dateRange.bgn,
-        rangeEnd: dateRange.end,
+        chunkDays: CHUNK_DAYS,
+        rangeBegin: formatG2BDate(past) + '0000',
+        rangeEnd: formatG2BDate(now) + '2359',
         totalCount: unique.length,
         rawCount: allBids.length,
         successCalls: successCount,
