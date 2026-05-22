@@ -1,0 +1,42 @@
+name: Sync Nara Bids
+
+on:
+  schedule:
+    - cron: '0 0,4,8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-nara-bids
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch bids from data.go.kr
+        env:
+          NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
+        run: node scripts/fetch-nara-bids.mjs
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bids.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(data): sync bids $(date -u +'%Y-%m-%dT%H:%MZ')"
+            git push
+          fi
