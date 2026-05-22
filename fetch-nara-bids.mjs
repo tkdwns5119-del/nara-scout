@@ -1,5 +1,5 @@
 // 나라장터(G2B) 입찰공고 수집 스크립트 — GitHub Actions cron 환경에서 실행
-// 매 실행 시 최근 90일치 데이터를 수집해 data/bids.json 에 덮어쓴다.
+// 매 실행 시 최근 30일치 데이터를 수집해 data/bids.json 에 덮어쓴다.
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -44,7 +44,7 @@ const ENDPOINTS = [
     }
 ];
 
-const DAYS_TO_FETCH = 90;
+const DAYS_TO_FETCH = 30;
 const NUM_OF_ROWS = 100;
 const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
