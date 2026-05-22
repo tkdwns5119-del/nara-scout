@@ -2,7 +2,7 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0 */1 * * *'
   workflow_dispatch:
 
 permissions:
@@ -10,11 +10,13 @@ permissions:
 
 concurrency:
   group: sync-nara-bids
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,6 +25,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Check secret exists
+        run: |
+          if [ -z "$NARA_API_KEY" ]; then
+            echo "NARA_API_KEY is empty"
+            exit 1
+          fi
+          echo "NARA_API_KEY exists"
+        env:
+          NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
 
       - name: Fetch bids from data.go.kr
         env:
