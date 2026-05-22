@@ -2,7 +2,6 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    # KST 09:00, 13:00, 17:00 = UTC 00:00, 04:00, 08:00
     - cron: '0 0,4,8 * * *'
   workflow_dispatch:
 
