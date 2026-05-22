@@ -2,6 +2,7 @@ name: Sync Nara Bids
 
 on:
   schedule:
+    # 나라장터 입찰공고는 실시간성이 낮으므로 1시간 주기 권장
     - cron: '0 */1 * * *'
   workflow_dispatch:
 
@@ -15,7 +16,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -26,15 +27,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check secret exists
+      - name: Check NARA_API_KEY
+        env:
+          NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
         run: |
           if [ -z "$NARA_API_KEY" ]; then
             echo "NARA_API_KEY is empty"
             exit 1
           fi
           echo "NARA_API_KEY exists"
-        env:
-          NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
 
       - name: Fetch bids from data.go.kr
         env:
