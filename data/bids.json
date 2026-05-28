@@ -1,23 +1,171 @@
 {
-  "generatedAt": "2026-05-28T08:14:50.000Z",
+  "generatedAt": "2026-05-28T11:03:51.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202604280000",
   "rangeEnd": "202605282359",
-  "totalCount": 194,
-  "rawCount": 224,
-  "successCalls": 96,
-  "failedCalls": 0,
+  "totalCount": 248,
+  "rawCount": 278,
+  "successCalls": 144,
+  "failedCalls": 96,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
-  "categoryStats": {
-    "디스플레이/사이니지 계열": 88,
-    "미디어/파사드 계열": 88,
-    "ITS/VMS 계열": 18
+  "serviceStats": {
+    "공고": 199,
+    "사전규격": 49,
+    "발주계획": 0
   },
-  "errors": [],
+  "categoryStats": {
+    "디스플레이/사이니지 계열": 100,
+    "미디어/파사드 계열": 119,
+    "ITS/VMS 계열": 29
+  },
+  "errors": [
+    "[발주계획/물품/전광판/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 전광판/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/미디어/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 미디어/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/파사드/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 파사드/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/사이니지/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 사이니지/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디스플레이/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 디스플레이/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/LED/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 LED/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/ITS/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 ITS/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/VMS/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/물품/디지털 VMS/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/전광판/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 전광판/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/미디어/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 미디어/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/파사드/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 파사드/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/사이니지/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 사이니지/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디스플레이/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 디스플레이/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/LED/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 LED/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/ITS/202604280000-202605122359] HTTP 404: API not found",
+    "[발주계획/용역/디지털 ITS/202604280000-202605122359] HTTP 404: API not found"
+  ],
   "bids": [
+    {
+      "bidId": "R26BK01547825-001",
+      "bidNtceNo": "R26BK01547825",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "청양군 사회적공동체특화단지조성사업 관급자재(LED보안등) 구매",
+      "ntceInsttNm": "한국농어촌공사 충남지역본부 청양지사",
+      "dminsttNm": "한국농어촌공사 충남지역본부 청양지사",
+      "assignBudgetAmt": 3125000,
+      "bidNtceRegistDt": "2026-05-28 11:15",
+      "bidClseDt": "2026-05-28 12:00",
+      "searchKeyword": "LED",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01547825&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00233427",
+      "bidNtceNo": "BF-R26BD00233427",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "연암공과대학교산학협력단",
+      "dminsttNm": "연암공과대학교산학협력단",
+      "assignBudgetAmt": 196000000,
+      "bidNtceRegistDt": "2026-05-28 10:53",
+      "bidClseDt": "2026-06-01 23:59",
+      "searchKeyword": "사이니지",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00233427",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "R26BK01547825-000",
+      "bidNtceNo": "R26BK01547825",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "청양군 사회적공동체특화단지조성사업 관급자재(LED보안등) 구매",
+      "ntceInsttNm": "한국농어촌공사 충남지역본부 청양지사",
+      "dminsttNm": "한국농어촌공사 충남지역본부 청양지사",
+      "assignBudgetAmt": 3125000,
+      "bidNtceRegistDt": "2026-05-28 10:34",
+      "bidClseDt": "2026-05-28 12:00",
+      "searchKeyword": "LED",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01547825&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "R26BK01548105-000",
+      "bidNtceNo": "R26BK01548105",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "교통관리시스템(영상 관제시스템 및 ITS 자가망 광장비) 제조구매(설치포함)",
+      "ntceInsttNm": "신대구부산고속도로(주)",
+      "dminsttNm": "신대구부산고속도로(주)",
+      "assignBudgetAmt": 3148310000,
+      "bidNtceRegistDt": "2026-05-28 10:33",
+      "bidClseDt": "2026-06-08 15:00",
+      "searchKeyword": "ITS",
+      "region": "부산",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01548105&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "R26BK01548057-000",
+      "bidNtceNo": "R26BK01548057",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2차년도 RISE사업 성과홍보 미디어 콘텐츠 제작 용역",
+      "ntceInsttNm": "국립군산대학교 산학협력단",
+      "dminsttNm": "국립군산대학교 산학협력단",
+      "assignBudgetAmt": 36000000,
+      "bidNtceRegistDt": "2026-05-28 10:25",
+      "bidClseDt": "2026-06-09 12:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01548057&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "R26BK01540656-000",
+      "bidNtceNo": "R26BK01540656",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "국내외 뉴미디어 콘텐츠 트렌드 분석",
+      "ntceInsttNm": "(사)한국프로스포츠협회",
+      "dminsttNm": "(사)한국프로스포츠협회",
+      "assignBudgetAmt": 57000000,
+      "bidNtceRegistDt": "2026-05-28 09:49",
+      "bidClseDt": "2026-07-08 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01540656&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00233199",
+      "bidNtceNo": "BF-R26BD00233199",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "울산광역시",
+      "dminsttNm": "울산광역시",
+      "assignBudgetAmt": 703100000,
+      "bidNtceRegistDt": "2026-05-27 18:13",
+      "bidClseDt": "2026-05-30 23:59",
+      "searchKeyword": "ITS",
+      "region": "울산",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00233199",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
     {
       "bidId": "R26BK01546861-000",
       "bidNtceNo": "R26BK01546861",
@@ -30,7 +178,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "미디어",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546861&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546861&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01546681-000",
@@ -44,7 +194,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "전광판",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546681&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546681&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01542501-002",
@@ -58,7 +210,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "전광판",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=002"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=002",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01546055-000",
@@ -72,7 +226,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "LED",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546055&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546055&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01545379-000",
@@ -86,7 +242,25 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "ITS",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545379&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545379&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00232913",
+      "bidNtceNo": "BF-R26BD00232913",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "재단법인 청주시문화산업진흥재단",
+      "dminsttNm": "재단법인 청주시문화산업진흥재단",
+      "assignBudgetAmt": 1166000000,
+      "bidNtceRegistDt": "2026-05-27 13:50",
+      "bidClseDt": "2026-05-30 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00232913",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01545841-000",
@@ -100,13 +274,15 @@
       "bidClseDt": "2026-06-08 15:00",
       "searchKeyword": "미디어",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545841&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545841&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01545347-000",
       "bidNtceNo": "R26BK01545347",
       "bidNtceOrd": "000",
-      "bidNtceNm": "익산종합비즈니스센터 LED 전광판 구매 및 설치 ",
+      "bidNtceNm": "익산종합비즈니스센터 LED 전광판 구매 및 설치",
       "ntceInsttNm": "한국산업단지공단",
       "dminsttNm": "한국산업단지공단",
       "assignBudgetAmt": 73600000,
@@ -114,7 +290,9 @@
       "bidClseDt": "2026-06-02 15:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545347&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545347&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01545791-000",
@@ -125,10 +303,12 @@
       "dminsttNm": "인하대학교",
       "assignBudgetAmt": 30000000,
       "bidNtceRegistDt": "2026-05-27 13:28",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-04 13:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545791&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545791&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01536645-000",
@@ -141,8 +321,10 @@
       "bidNtceRegistDt": "2026-05-27 13:02",
       "bidClseDt": "2026-06-05 10:00",
       "searchKeyword": "디스플레이",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536645&bidPbancOrd=000"
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536645&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01544554-000",
@@ -156,7 +338,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544554&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544554&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01544791-000",
@@ -170,7 +354,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544791&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544791&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01544604-000",
@@ -184,7 +370,9 @@
       "bidClseDt": "2026-06-08 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544604&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544604&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01544795-000",
@@ -195,10 +383,12 @@
       "dminsttNm": "청운대학교",
       "assignBudgetAmt": 113000000,
       "bidNtceRegistDt": "2026-05-27 09:56",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-04 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544795&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544795&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01542628-000",
@@ -212,7 +402,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "LED",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542628&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542628&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01526874-004",
@@ -226,7 +418,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=004"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=004",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01544233-000",
@@ -237,10 +431,28 @@
       "dminsttNm": "경상북도 안동시",
       "assignBudgetAmt": 285000000,
       "bidNtceRegistDt": "2026-05-26 18:53",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-17 15:00",
       "searchKeyword": "ITS",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544233&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544233&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00232145",
+      "bidNtceNo": "BF-R26BD00232145",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "대구광역시 수성구",
+      "dminsttNm": "대구광역시 수성구",
+      "assignBudgetAmt": 540000000,
+      "bidNtceRegistDt": "2026-05-26 17:33",
+      "bidClseDt": "2026-05-29 23:59",
+      "searchKeyword": "미디어",
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00232145",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01541214-000",
@@ -251,10 +463,12 @@
       "dminsttNm": "강원특별자치도 인제군",
       "assignBudgetAmt": 270000000,
       "bidNtceRegistDt": "2026-05-26 17:10",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-25 16:30",
       "searchKeyword": "미디어",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01541214&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01541214&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01542501-001",
@@ -268,7 +482,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "전광판",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01529063-000",
@@ -282,7 +498,9 @@
       "bidClseDt": "2026-06-05 10:00",
       "searchKeyword": "미디어",
       "region": "대구",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529063&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529063&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01543200-000",
@@ -296,7 +514,9 @@
       "bidClseDt": "2026-06-08 10:00",
       "searchKeyword": "미디어",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01543200&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01543200&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01543220-000",
@@ -307,10 +527,12 @@
       "dminsttNm": "호원대학교 산학협력단",
       "assignBudgetAmt": 130000000,
       "bidNtceRegistDt": "2026-05-26 15:19",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-19 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01543220&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01543220&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01542501-000",
@@ -324,7 +546,25 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "전광판",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542501&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00232242",
+      "bidNtceNo": "BF-R26BD00232242",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국건강증진개발원",
+      "dminsttNm": "한국건강증진개발원",
+      "assignBudgetAmt": 95000000,
+      "bidNtceRegistDt": "2026-05-26 13:54",
+      "bidClseDt": "2026-05-31 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00232242",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01542186-000",
@@ -338,7 +578,9 @@
       "bidClseDt": "2026-06-05 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542186&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01542186&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01517502-001",
@@ -352,7 +594,9 @@
       "bidClseDt": "2026-06-02 11:00",
       "searchKeyword": "미디어",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517502&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517502&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01541732-000",
@@ -366,7 +610,9 @@
       "bidClseDt": "2026-06-11 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01541732&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01541732&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01536362-000",
@@ -380,7 +626,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "미디어",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536362&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536362&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01531168-000",
@@ -391,16 +639,18 @@
       "dminsttNm": "한서대학교 산학협력단",
       "assignBudgetAmt": 340000000,
       "bidNtceRegistDt": "2026-05-26 09:26",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-08 15:00",
       "searchKeyword": "디스플레이",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531168&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531168&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538993-000",
       "bidNtceNo": "R26BK01538993",
       "bidNtceOrd": "000",
-      "bidNtceNm": "2026시즌 KPGA 미디어 노출 효과 분석 ",
+      "bidNtceNm": "2026시즌 KPGA 미디어 노출 효과 분석",
       "ntceInsttNm": "사단법인 한국프로골프협회",
       "dminsttNm": "사단법인 한국프로골프협회",
       "assignBudgetAmt": 50000000,
@@ -408,7 +658,9 @@
       "bidClseDt": "2026-06-04 16:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538993&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538993&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01540946-000",
@@ -422,7 +674,9 @@
       "bidClseDt": "2026-06-04 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01540946&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01540946&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01540802-000",
@@ -436,7 +690,41 @@
       "bidClseDt": "2026-06-09 17:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01540802&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01540802&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00231872",
+      "bidNtceNo": "BF-R26BD00231872",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "국립군산대학교 산학협력단",
+      "dminsttNm": "국립군산대학교 산학협력단",
+      "assignBudgetAmt": 36000000,
+      "bidNtceRegistDt": "2026-05-22 17:05",
+      "bidClseDt": "2026-05-27 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00231872",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00231798",
+      "bidNtceNo": "BF-R26BD00231798",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "호원대학교 산학협력단",
+      "dminsttNm": "호원대학교 산학협력단",
+      "assignBudgetAmt": 130000000,
+      "bidNtceRegistDt": "2026-05-22 15:59",
+      "bidClseDt": "2026-05-25 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00231798",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01539091-000",
@@ -450,21 +738,25 @@
       "bidClseDt": "2026-05-27 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01539091&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01539091&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01531319-000",
       "bidNtceNo": "R26BK01531319",
       "bidNtceOrd": "000",
-      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역 ",
+      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역",
       "ntceInsttNm": "한국지능형교통체계협회",
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 27000000,
       "bidNtceRegistDt": "2026-05-22 13:48",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-02 15:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531319&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531319&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01539725-000",
@@ -478,7 +770,9 @@
       "bidClseDt": "2026-06-02 11:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01539725&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01539725&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538792-001",
@@ -489,10 +783,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-22 09:58",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538792&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538792&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538791-001",
@@ -503,10 +799,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 70000000,
       "bidNtceRegistDt": "2026-05-22 09:57",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538791&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538791&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538789-001",
@@ -517,10 +815,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 80000000,
       "bidNtceRegistDt": "2026-05-22 09:55",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538789&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538789&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538787-001",
@@ -531,10 +831,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-22 09:51",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538787&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538787&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538786-001",
@@ -545,10 +847,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 45000000,
       "bidNtceRegistDt": "2026-05-22 09:42",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538786&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538786&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538783-001",
@@ -559,10 +863,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-22 09:40",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538783&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538783&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538781-001",
@@ -573,10 +879,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 25000000,
       "bidNtceRegistDt": "2026-05-22 09:39",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538781&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538781&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538780-001",
@@ -587,10 +895,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 65000000,
       "bidNtceRegistDt": "2026-05-22 09:38",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538780&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538780&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538779-001",
@@ -601,10 +911,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 40000000,
       "bidNtceRegistDt": "2026-05-22 09:36",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538779&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538779&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538778-001",
@@ -615,10 +927,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 58000000,
       "bidNtceRegistDt": "2026-05-22 09:35",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538778&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538778&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538777-001",
@@ -629,10 +943,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 60000000,
       "bidNtceRegistDt": "2026-05-22 09:33",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "디지털 미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538777&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538777&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538776-001",
@@ -643,10 +959,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 70000000,
       "bidNtceRegistDt": "2026-05-22 09:31",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538776&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538776&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538774-001",
@@ -657,10 +975,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-22 09:30",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538774&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538774&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538771-001",
@@ -671,10 +991,28 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 30000000,
       "bidNtceRegistDt": "2026-05-22 09:27",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-01 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538771&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538771&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00231269",
+      "bidNtceNo": "BF-R26BD00231269",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "(사)한국프로스포츠협회",
+      "dminsttNm": "(사)한국프로스포츠협회",
+      "assignBudgetAmt": 57000000,
+      "bidNtceRegistDt": "2026-05-22 09:11",
+      "bidClseDt": "2026-05-27 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00231269",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01538792-000",
@@ -685,10 +1023,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-21 22:28",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538792&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538792&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538791-000",
@@ -699,10 +1039,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 70000000,
       "bidNtceRegistDt": "2026-05-21 22:26",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538791&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538791&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538789-000",
@@ -713,10 +1055,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 80000000,
       "bidNtceRegistDt": "2026-05-21 22:24",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538789&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538789&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538787-000",
@@ -727,10 +1071,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-21 22:22",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538787&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538787&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538786-000",
@@ -741,10 +1087,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 45000000,
       "bidNtceRegistDt": "2026-05-21 22:21",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538786&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538786&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538783-000",
@@ -755,10 +1103,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-21 22:19",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538783&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538783&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538781-000",
@@ -769,10 +1119,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 25000000,
       "bidNtceRegistDt": "2026-05-21 22:17",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538781&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538781&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538780-000",
@@ -783,10 +1135,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 65000000,
       "bidNtceRegistDt": "2026-05-21 22:15",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538780&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538780&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538779-000",
@@ -797,10 +1151,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 40000000,
       "bidNtceRegistDt": "2026-05-21 22:14",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538779&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538779&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538778-000",
@@ -811,10 +1167,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 58000000,
       "bidNtceRegistDt": "2026-05-21 22:12",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538778&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538778&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538777-000",
@@ -825,10 +1183,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 60000000,
       "bidNtceRegistDt": "2026-05-21 22:10",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "디지털 미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538777&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538777&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538776-000",
@@ -839,10 +1199,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 70000000,
       "bidNtceRegistDt": "2026-05-21 22:08",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538776&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538776&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538774-000",
@@ -853,10 +1215,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-21 22:07",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538774&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538774&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538771-000",
@@ -867,10 +1231,12 @@
       "dminsttNm": "방송미디어통신위원회",
       "assignBudgetAmt": 30000000,
       "bidNtceRegistDt": "2026-05-21 22:04",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 18:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538771&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538771&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538374-001",
@@ -881,10 +1247,12 @@
       "dminsttNm": "전라남도 화순군",
       "assignBudgetAmt": 2000000000,
       "bidNtceRegistDt": "2026-05-21 17:53",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-18 14:00",
       "searchKeyword": "미디어",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538374&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538374&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538374-000",
@@ -895,10 +1263,12 @@
       "dminsttNm": "전라남도 화순군",
       "assignBudgetAmt": 2000000000,
       "bidNtceRegistDt": "2026-05-21 17:44",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-18 14:00",
       "searchKeyword": "미디어",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538374&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538374&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01538212-000",
@@ -912,21 +1282,41 @@
       "bidClseDt": "2026-05-29 10:00",
       "searchKeyword": "LED",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538212&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01538212&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00231177",
+      "bidNtceNo": "BF-R26BD00231177",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "경기연구원",
+      "dminsttNm": "경기연구원",
+      "assignBudgetAmt": 80000000,
+      "bidNtceRegistDt": "2026-05-21 17:23",
+      "bidClseDt": "2026-05-26 23:59",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00231177",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01536834-000",
       "bidNtceNo": "R26BK01536834",
       "bidNtceOrd": "000",
-      "bidNtceNm": "2026년 국립서울현충원 미디어아트 공모전 대행 용역 ",
+      "bidNtceNm": "2026년 국립서울현충원 미디어아트 공모전 대행 용역",
       "ntceInsttNm": "조달청 대전지방조달청",
       "dminsttNm": "국가보훈부",
       "assignBudgetAmt": 151450000,
       "bidNtceRegistDt": "2026-05-21 17:04",
       "bidClseDt": "2026-06-11 10:00",
       "searchKeyword": "미디어",
-      "region": "대전",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536834&bidPbancOrd=000"
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536834&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01526874-003",
@@ -940,7 +1330,25 @@
       "bidClseDt": "2026-05-29 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=003"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=003",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00230994",
+      "bidNtceNo": "BF-R26BD00230994",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "국립대구과학관",
+      "assignBudgetAmt": 267324000,
+      "bidNtceRegistDt": "2026-05-21 15:13",
+      "bidClseDt": "2026-05-26 23:59",
+      "searchKeyword": "미디어",
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00230994",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01534952-000",
@@ -954,7 +1362,9 @@
       "bidClseDt": "2026-05-27 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534952&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534952&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01536567-000",
@@ -968,7 +1378,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "LED",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536567&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536567&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01535451-000",
@@ -982,7 +1394,9 @@
       "bidClseDt": "2026-05-21 16:50",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535451&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535451&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01535648-000",
@@ -996,7 +1410,9 @@
       "bidClseDt": "2026-05-28 10:00",
       "searchKeyword": "LED",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535648&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535648&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01535630-000",
@@ -1010,7 +1426,9 @@
       "bidClseDt": "2026-06-02 14:00",
       "searchKeyword": "미디어",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535630&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535630&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01535377-000",
@@ -1024,7 +1442,9 @@
       "bidClseDt": "2026-06-01 16:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535377&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01535377&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01534865-000",
@@ -1037,8 +1457,10 @@
       "bidNtceRegistDt": "2026-05-20 16:27",
       "bidClseDt": "2026-05-27 11:00",
       "searchKeyword": "전광판",
-      "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534865&bidPbancOrd=000"
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534865&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01531154-000",
@@ -1052,7 +1474,9 @@
       "bidClseDt": "2026-05-22 14:00",
       "searchKeyword": "사이니지",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531154&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531154&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01534387-000",
@@ -1066,7 +1490,9 @@
       "bidClseDt": "2026-05-28 16:00",
       "searchKeyword": "디지털 미디어",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534387&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534387&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01534450-000",
@@ -1080,7 +1506,9 @@
       "bidClseDt": "2026-05-28 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534450&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01534450&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01532353-000",
@@ -1094,7 +1522,25 @@
       "bidClseDt": "2026-05-22 15:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01532353&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01532353&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00230088",
+      "bidNtceNo": "BF-R26BD00230088",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국연구재단 정보통신기획평가원",
+      "dminsttNm": "한국연구재단 정보통신기획평가원",
+      "assignBudgetAmt": 70000000,
+      "bidNtceRegistDt": "2026-05-20 10:39",
+      "bidClseDt": "2026-05-25 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00230088",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01532287-000",
@@ -1107,8 +1553,10 @@
       "bidNtceRegistDt": "2026-05-20 09:33",
       "bidClseDt": "2026-05-22 12:00",
       "searchKeyword": "전광판",
-      "region": "대구",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01532287&bidPbancOrd=000"
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01532287&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01533399-000",
@@ -1122,7 +1570,25 @@
       "bidClseDt": "2026-05-20 11:30",
       "searchKeyword": "LED",
       "region": "충청",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01533399&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01533399&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00230007",
+      "bidNtceNo": "BF-R26BD00230007",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "사단법인 한국프로골프협회",
+      "dminsttNm": "사단법인 한국프로골프협회",
+      "assignBudgetAmt": 50000000,
+      "bidNtceRegistDt": "2026-05-20 09:20",
+      "bidClseDt": "2026-05-23 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00230007",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01528705-000",
@@ -1136,7 +1602,25 @@
       "bidClseDt": "2026-05-21 11:00",
       "searchKeyword": "LED",
       "region": "대전",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528705&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528705&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229639",
+      "bidNtceNo": "BF-R26BD00229639",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "경상남도 양산시",
+      "dminsttNm": "경상남도 양산시",
+      "assignBudgetAmt": 200000000,
+      "bidNtceRegistDt": "2026-05-19 14:59",
+      "bidClseDt": "2026-05-24 23:59",
+      "searchKeyword": "ITS",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229639",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01530750-000",
@@ -1150,7 +1634,9 @@
       "bidClseDt": "2026-06-29 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530750&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530750&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01531873-000",
@@ -1164,7 +1650,9 @@
       "bidClseDt": "2026-05-27 14:00",
       "searchKeyword": "LED",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531873&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531873&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01531805-000",
@@ -1178,7 +1666,25 @@
       "bidClseDt": "2026-05-27 14:00",
       "searchKeyword": "LED",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531805&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531805&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229571",
+      "bidNtceNo": "BF-R26BD00229571",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "충남테크노파크",
+      "assignBudgetAmt": 331709640,
+      "bidNtceRegistDt": "2026-05-19 14:18",
+      "bidClseDt": "2026-05-24 23:59",
+      "searchKeyword": "디스플레이",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229571",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01531674-000",
@@ -1189,10 +1695,12 @@
       "dminsttNm": "(주)엘지스포츠",
       "assignBudgetAmt": 240500000,
       "bidNtceRegistDt": "2026-05-19 14:12",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-29 18:00",
       "searchKeyword": "전광판",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531674&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531674&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01531186-000",
@@ -1205,8 +1713,10 @@
       "bidNtceRegistDt": "2026-05-19 14:10",
       "bidClseDt": "2026-05-21 11:00",
       "searchKeyword": "전광판",
-      "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531186&bidPbancOrd=000"
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531186&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01531037-000",
@@ -1220,7 +1730,25 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "전광판",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531037&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01531037&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229532",
+      "bidNtceNo": "BF-R26BD00229532",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "(주)엘지스포츠",
+      "dminsttNm": "(주)엘지스포츠",
+      "assignBudgetAmt": 240500000,
+      "bidNtceRegistDt": "2026-05-19 13:46",
+      "bidClseDt": "2026-05-24 23:59",
+      "searchKeyword": "전광판",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229532",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01530677-000",
@@ -1234,7 +1762,9 @@
       "bidClseDt": "2026-06-02 10:00",
       "searchKeyword": "미디어",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530677&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530677&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01524930-000",
@@ -1248,7 +1778,9 @@
       "bidClseDt": "2026-05-20 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524930&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524930&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01530753-000",
@@ -1262,7 +1794,41 @@
       "bidClseDt": "2026-05-27 11:00",
       "searchKeyword": "미디어",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530753&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01530753&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229361",
+      "bidNtceNo": "BF-R26BD00229361",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한서대학교 산학협력단",
+      "dminsttNm": "한서대학교 산학협력단",
+      "assignBudgetAmt": 340000000,
+      "bidNtceRegistDt": "2026-05-19 10:01",
+      "bidClseDt": "2026-05-25 23:59",
+      "searchKeyword": "디스플레이",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229361",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00229318",
+      "bidNtceNo": "BF-R26BD00229318",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "재단법인 부산정보산업진흥원",
+      "dminsttNm": "재단법인 부산정보산업진흥원",
+      "assignBudgetAmt": 65099000,
+      "bidNtceRegistDt": "2026-05-19 09:21",
+      "bidClseDt": "2026-05-24 23:59",
+      "searchKeyword": "미디어",
+      "region": "부산",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229318",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01529396-000",
@@ -1273,10 +1839,44 @@
       "dminsttNm": "전북대학교병원",
       "assignBudgetAmt": 80,
       "bidNtceRegistDt": "2026-05-19 08:46",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-26 11:00",
       "searchKeyword": "LED",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529396&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529396&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229211",
+      "bidNtceNo": "BF-R26BD00229211",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "재단법인 공주문화관광재단",
+      "dminsttNm": "재단법인 공주문화관광재단",
+      "assignBudgetAmt": 1100000000,
+      "bidNtceRegistDt": "2026-05-18 19:55",
+      "bidClseDt": "2026-05-21 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229211",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00229155",
+      "bidNtceNo": "BF-R26BD00229155",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 72000000,
+      "bidNtceRegistDt": "2026-05-18 17:57",
+      "bidClseDt": "2026-05-21 18:00",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229155",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01529772-000",
@@ -1287,10 +1887,12 @@
       "dminsttNm": "경기도 시흥시",
       "assignBudgetAmt": 100000000,
       "bidNtceRegistDt": "2026-05-18 17:22",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-29 18:00",
       "searchKeyword": "ITS",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529772&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529772&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01528042-000",
@@ -1304,7 +1906,25 @@
       "bidClseDt": "2026-05-29 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528042&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528042&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00229024",
+      "bidNtceNo": "BF-R26BD00229024",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "서울과학기술대학교 산학협력단",
+      "dminsttNm": "서울과학기술대학교 산학협력단",
+      "assignBudgetAmt": 206860000,
+      "bidNtceRegistDt": "2026-05-18 16:36",
+      "bidClseDt": "2026-05-21 23:59",
+      "searchKeyword": "LED",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00229024",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01529516-000",
@@ -1317,8 +1937,10 @@
       "bidNtceRegistDt": "2026-05-18 16:28",
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "LED",
-      "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529516&bidPbancOrd=000"
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01529516&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01528955-000",
@@ -1331,8 +1953,10 @@
       "bidNtceRegistDt": "2026-05-18 15:51",
       "bidClseDt": "2026-05-27 16:00",
       "searchKeyword": "전광판",
-      "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528955&bidPbancOrd=000"
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528955&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01526874-002",
@@ -1346,7 +1970,25 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=002"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=002",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00228775",
+      "bidNtceNo": "BF-R26BD00228775",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "(주)강원랜드",
+      "dminsttNm": "(주)강원랜드",
+      "assignBudgetAmt": 331100000,
+      "bidNtceRegistDt": "2026-05-18 13:20",
+      "bidClseDt": "2026-05-23 23:59",
+      "searchKeyword": "미디어",
+      "region": "강원",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00228775",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01527943-000",
@@ -1360,7 +2002,9 @@
       "bidClseDt": "2026-05-29 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01527943&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01527943&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01527975-000",
@@ -1371,10 +2015,12 @@
       "dminsttNm": "호원대학교 산학협력단",
       "assignBudgetAmt": 356000000,
       "bidNtceRegistDt": "2026-05-18 10:58",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-12 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01527975&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01527975&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01526874-001",
@@ -1388,7 +2034,9 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01524156-001",
@@ -1402,7 +2050,9 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524156&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524156&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01526874-000",
@@ -1416,7 +2066,25 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526874&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00228326",
+      "bidNtceNo": "BF-R26BD00228326",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "전라남도 화순군",
+      "dminsttNm": "전라남도 화순군",
+      "assignBudgetAmt": 2000000000,
+      "bidNtceRegistDt": "2026-05-15 15:46",
+      "bidClseDt": "2026-05-20 23:59",
+      "searchKeyword": "미디어",
+      "region": "전라",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00228326",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01526067-000",
@@ -1427,10 +2095,12 @@
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 80000000,
       "bidNtceRegistDt": "2026-05-15 15:05",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-26 17:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526067&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01526067&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01525903-000",
@@ -1444,7 +2114,9 @@
       "bidClseDt": "2026-05-15 15:30",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525903&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525903&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01525797-000",
@@ -1458,7 +2130,9 @@
       "bidClseDt": "2026-05-27 12:00",
       "searchKeyword": "디지털 전광판",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525797&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525797&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01525662-000",
@@ -1472,7 +2146,41 @@
       "bidClseDt": "2026-06-01 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525662&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01525662&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00228121",
+      "bidNtceNo": "BF-R26BD00228121",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "국토교통부 익산지방국토관리청",
+      "dminsttNm": "국토교통부 익산지방국토관리청",
+      "assignBudgetAmt": 1680000000,
+      "bidNtceRegistDt": "2026-05-15 13:28",
+      "bidClseDt": "2026-05-20 23:59",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00228121",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00228119",
+      "bidNtceNo": "BF-R26BD00228119",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "국토교통부 익산지방국토관리청",
+      "dminsttNm": "국토교통부 익산지방국토관리청",
+      "assignBudgetAmt": 1680000000,
+      "bidNtceRegistDt": "2026-05-15 13:27",
+      "bidClseDt": "2026-05-20 23:59",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00228119",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01500678-000",
@@ -1483,10 +2191,12 @@
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 50000000,
       "bidNtceRegistDt": "2026-05-15 11:56",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-26 15:00",
       "searchKeyword": "ITS",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500678&bidPbancOrd=000"
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500678&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01524978-000",
@@ -1500,7 +2210,25 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524978&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524978&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00227989",
+      "bidNtceNo": "BF-R26BD00227989",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 122000000,
+      "bidNtceRegistDt": "2026-05-15 10:26",
+      "bidClseDt": "2026-05-20 10:30",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00227989",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01523277-000",
@@ -1514,7 +2242,25 @@
       "bidClseDt": "2026-05-19 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01523277&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01523277&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00227925",
+      "bidNtceNo": "BF-R26BD00227925",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "호원대학교 산학협력단",
+      "dminsttNm": "호원대학교 산학협력단",
+      "assignBudgetAmt": 130000000,
+      "bidNtceRegistDt": "2026-05-15 09:09",
+      "bidClseDt": "2026-05-20 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00227925",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01524156-000",
@@ -1528,7 +2274,9 @@
       "bidClseDt": "2026-05-18 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524156&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01524156&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01523793-000",
@@ -1542,7 +2290,9 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "미디어",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01523793&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01523793&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01521059-000",
@@ -1556,13 +2306,15 @@
       "bidClseDt": "2026-05-27 11:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521059&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521059&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01522134-002",
       "bidNtceNo": "R26BK01522134",
       "bidNtceOrd": "002",
-      "bidNtceNm": "연세대학교 원주의과대학 멀티미디어 실습실 데스크탑 55대 구매 ",
+      "bidNtceNm": "연세대학교 원주의과대학 멀티미디어 실습실 데스크탑 55대 구매",
       "ntceInsttNm": "연세대학교 원주의과대학",
       "dminsttNm": "연세대학교 원주의과대학",
       "assignBudgetAmt": 71940000,
@@ -1570,7 +2322,9 @@
       "bidClseDt": "2026-05-28 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522134&bidPbancOrd=002"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522134&bidPbancOrd=002",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01522973-000",
@@ -1584,7 +2338,9 @@
       "bidClseDt": "2026-05-20 10:00",
       "searchKeyword": "전광판",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522973&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522973&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01522619-000",
@@ -1595,16 +2351,18 @@
       "dminsttNm": "전라남도 여수시",
       "assignBudgetAmt": 1380000000,
       "bidNtceRegistDt": "2026-05-14 13:15",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-05 16:30",
       "searchKeyword": "미디어",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522619&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522619&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01522134-001",
       "bidNtceNo": "R26BK01522134",
       "bidNtceOrd": "001",
-      "bidNtceNm": "연세대학교 원주의과대학 멀티미디어 실습실 데스크탑 55대 구매 ",
+      "bidNtceNm": "연세대학교 원주의과대학 멀티미디어 실습실 데스크탑 55대 구매",
       "ntceInsttNm": "연세대학교 원주의과대학",
       "dminsttNm": "연세대학교 원주의과대학",
       "assignBudgetAmt": 71940000,
@@ -1612,7 +2370,9 @@
       "bidClseDt": "2026-05-28 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522134&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01522134&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01496336-001",
@@ -1626,7 +2386,25 @@
       "bidClseDt": "2026-05-14 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496336&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496336&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00227239",
+      "bidNtceNo": "BF-R26BD00227239",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "코리아경기도주식회사",
+      "dminsttNm": "코리아경기도주식회사",
+      "assignBudgetAmt": 100000000,
+      "bidNtceRegistDt": "2026-05-14 09:21",
+      "bidClseDt": "2026-05-19 23:59",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00227239",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01519330-000",
@@ -1640,7 +2418,9 @@
       "bidClseDt": "2026-05-15 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519330&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519330&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01520272-000",
@@ -1654,7 +2434,25 @@
       "bidClseDt": "2026-05-27 10:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520272&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520272&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00227213",
+      "bidNtceNo": "BF-R26BD00227213",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청 대전지방조달청",
+      "dminsttNm": "국가보훈부",
+      "assignBudgetAmt": 151450000,
+      "bidNtceRegistDt": "2026-05-14 08:48",
+      "bidClseDt": "2026-05-19 23:59",
+      "searchKeyword": "미디어",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00227213",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01521621-000",
@@ -1668,7 +2466,25 @@
       "bidClseDt": "2026-05-14 12:00",
       "searchKeyword": "디스플레이",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521621&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521621&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00227181",
+      "bidNtceNo": "BF-R26BD00227181",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국과학창의재단",
+      "dminsttNm": "한국과학창의재단",
+      "assignBudgetAmt": 770000000,
+      "bidNtceRegistDt": "2026-05-13 21:20",
+      "bidClseDt": "2026-05-18 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00227181",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01521342-000",
@@ -1682,7 +2498,9 @@
       "bidClseDt": "2026-05-14 11:00",
       "searchKeyword": "전광판",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521342&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01521342&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01519912-000",
@@ -1696,7 +2514,9 @@
       "bidClseDt": "2026-05-22 10:00",
       "searchKeyword": "ITS",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519912&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519912&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01520505-000",
@@ -1707,10 +2527,12 @@
       "dminsttNm": "전라남도 강진군",
       "assignBudgetAmt": 5500000000,
       "bidNtceRegistDt": "2026-05-13 15:34",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-23 11:00",
       "searchKeyword": "미디어",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520505&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520505&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01520032-000",
@@ -1721,10 +2543,12 @@
       "dminsttNm": "주식회사 케이티스포츠",
       "assignBudgetAmt": 126500000,
       "bidNtceRegistDt": "2026-05-13 14:04",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-03 15:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520032&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01520032&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01517210-001",
@@ -1738,7 +2562,9 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517210&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517210&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01503499-000",
@@ -1752,7 +2578,25 @@
       "bidClseDt": "2026-05-22 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503499&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503499&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00226784",
+      "bidNtceNo": "BF-R26BD00226784",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "경기도 시흥시",
+      "dminsttNm": "경기도 시흥시",
+      "assignBudgetAmt": 100000000,
+      "bidNtceRegistDt": "2026-05-13 13:57",
+      "bidClseDt": "2026-05-16 23:59",
+      "searchKeyword": "ITS",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00226784",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01513983-000",
@@ -1766,7 +2610,25 @@
       "bidClseDt": "2026-05-19 12:00",
       "searchKeyword": "전광판",
       "region": "대구",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01513983&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01513983&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00226661",
+      "bidNtceNo": "BF-R26BD00226661",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "경기도 포천시",
+      "dminsttNm": "경기도 포천시",
+      "assignBudgetAmt": 80000000,
+      "bidNtceRegistDt": "2026-05-13 11:42",
+      "bidClseDt": "2026-05-18 23:59",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00226661",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01519245-000",
@@ -1780,7 +2642,9 @@
       "bidClseDt": "2026-05-14 11:00",
       "searchKeyword": "LED",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519245&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01519245&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01518318-000",
@@ -1794,7 +2658,9 @@
       "bidClseDt": "2026-05-22 15:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518318&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518318&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01517210-000",
@@ -1808,7 +2674,9 @@
       "bidClseDt": "2026-05-26 10:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517210&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517210&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01512137-000",
@@ -1822,7 +2690,9 @@
       "bidClseDt": "2026-05-14 15:00",
       "searchKeyword": "미디어",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512137&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512137&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01518832-000",
@@ -1836,7 +2706,9 @@
       "bidClseDt": "2026-05-13 12:00",
       "searchKeyword": "LED",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518832&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518832&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01518643-000",
@@ -1847,10 +2719,12 @@
       "dminsttNm": "한국인터넷진흥원",
       "assignBudgetAmt": 80000000,
       "bidNtceRegistDt": "2026-05-12 21:10",
-      "bidClseDt": "",
+      "bidClseDt": "2026-06-08 13:30",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518643&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01518643&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01515778-000",
@@ -1864,7 +2738,9 @@
       "bidClseDt": "2026-05-22 11:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515778&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515778&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01517502-000",
@@ -1878,7 +2754,9 @@
       "bidClseDt": "2026-05-27 11:00",
       "searchKeyword": "미디어",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517502&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01517502&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01515472-000",
@@ -1892,7 +2770,9 @@
       "bidClseDt": "2026-05-13 11:00",
       "searchKeyword": "전광판",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515472&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515472&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01515711-000",
@@ -1906,7 +2786,25 @@
       "bidClseDt": "2026-05-21 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515711&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515711&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00221999",
+      "bidNtceNo": "BF-R26BD00221999",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국지능형교통체계협회",
+      "dminsttNm": "한국지능형교통체계협회",
+      "assignBudgetAmt": 50000000,
+      "bidNtceRegistDt": "2026-05-11 19:01",
+      "bidClseDt": "2026-05-14 23:59",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221999",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01515513-000",
@@ -1920,7 +2818,25 @@
       "bidClseDt": "2026-05-22 16:00",
       "searchKeyword": "미디어",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515513&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01515513&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00225685",
+      "bidNtceNo": "BF-R26BD00225685",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "서울올림픽기념국민체육진흥공단",
+      "dminsttNm": "서울올림픽기념국민체육진흥공단",
+      "assignBudgetAmt": 150000000,
+      "bidNtceRegistDt": "2026-05-11 17:50",
+      "bidClseDt": "2026-05-14 23:59",
+      "searchKeyword": "미디어",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00225685",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01514276-000",
@@ -1934,7 +2850,25 @@
       "bidClseDt": "2026-05-14 11:00",
       "searchKeyword": "전광판",
       "region": "제주",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01514276&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01514276&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00225614",
+      "bidNtceNo": "BF-R26BD00225614",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "호원대학교 산학협력단",
+      "dminsttNm": "호원대학교 산학협력단",
+      "assignBudgetAmt": 356000000,
+      "bidNtceRegistDt": "2026-05-11 16:52",
+      "bidClseDt": "2026-05-16 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00225614",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01508267-000",
@@ -1948,7 +2882,9 @@
       "bidClseDt": "2026-05-13 12:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01508267&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01508267&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01512675-000",
@@ -1962,7 +2898,9 @@
       "bidClseDt": "2026-05-12 10:00",
       "searchKeyword": "LED",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512675&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512675&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01510070-000",
@@ -1976,7 +2914,9 @@
       "bidClseDt": "2026-05-13 11:00",
       "searchKeyword": "전광판",
       "region": "대전",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510070&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510070&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01501277-000",
@@ -1990,7 +2930,9 @@
       "bidClseDt": "2026-06-23 10:00",
       "searchKeyword": "전광판",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01501277&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01501277&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01512554-000",
@@ -2004,7 +2946,9 @@
       "bidClseDt": "2026-05-13 12:00",
       "searchKeyword": "LED",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512554&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512554&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01508181-000",
@@ -2018,13 +2962,31 @@
       "bidClseDt": "2026-05-22 11:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01508181&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01508181&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00225146",
+      "bidNtceNo": "BF-R26BD00225146",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청 서울지방조달청",
+      "dminsttNm": "방송미디어통신위원회",
+      "assignBudgetAmt": 154472800,
+      "bidNtceRegistDt": "2026-05-11 09:43",
+      "bidClseDt": "2026-05-16 23:59",
+      "searchKeyword": "미디어",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00225146",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01488084-001",
       "bidNtceNo": "R26BK01488084",
       "bidNtceOrd": "001",
-      "bidNtceNm": "죽녹원 미디어 파사드 조성사업 제안서 제출 공고 ",
+      "bidNtceNm": "죽녹원 미디어 파사드 조성사업 제안서 제출 공고",
       "ntceInsttNm": "전라남도 담양군",
       "dminsttNm": "전라남도 담양군",
       "assignBudgetAmt": 990000000,
@@ -2032,7 +2994,9 @@
       "bidClseDt": "2026-05-15 17:00",
       "searchKeyword": "파사드",
       "region": "전라",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01488084&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01488084&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01512189-000",
@@ -2046,7 +3010,9 @@
       "bidClseDt": "2026-05-14 10:00",
       "searchKeyword": "LED",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512189&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512189&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01512090-000",
@@ -2060,7 +3026,9 @@
       "bidClseDt": "2026-05-20 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512090&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01512090&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01511993-000",
@@ -2074,7 +3042,25 @@
       "bidClseDt": "2026-05-13 15:00",
       "searchKeyword": "LED",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01511993&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01511993&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00224468",
+      "bidNtceNo": "BF-R26BD00224468",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "인천광역시 서구",
+      "dminsttNm": "인천광역시 서구",
+      "assignBudgetAmt": 90000000,
+      "bidNtceRegistDt": "2026-05-08 14:56",
+      "bidClseDt": "2026-05-13 23:59",
+      "searchKeyword": "미디어",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00224468",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01510770-000",
@@ -2088,7 +3074,9 @@
       "bidClseDt": "2026-05-08 12:00",
       "searchKeyword": "VMS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510770&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510770&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01510614-000",
@@ -2102,7 +3090,9 @@
       "bidClseDt": "2026-05-18 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510614&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510614&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01510237-000",
@@ -2116,7 +3106,9 @@
       "bidClseDt": "2026-05-08 12:00",
       "searchKeyword": "LED",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510237&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01510237&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01509308-000",
@@ -2130,7 +3122,9 @@
       "bidClseDt": "2026-05-08 14:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01509308&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01509308&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01509317-000",
@@ -2141,10 +3135,12 @@
       "dminsttNm": "경상남도 통영시",
       "assignBudgetAmt": 1114000000,
       "bidNtceRegistDt": "2026-05-07 16:56",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-19 17:00",
       "searchKeyword": "미디어",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01509317&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01509317&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01507208-000",
@@ -2157,8 +3153,26 @@
       "bidNtceRegistDt": "2026-05-07 16:29",
       "bidClseDt": "2026-05-19 10:00",
       "searchKeyword": "미디어",
-      "region": "대전",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507208&bidPbancOrd=000"
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507208&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00223873",
+      "bidNtceNo": "BF-R26BD00223873",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "(주)한국능률협회컨설팅",
+      "dminsttNm": "(주)한국능률협회컨설팅",
+      "assignBudgetAmt": 55000000,
+      "bidNtceRegistDt": "2026-05-07 14:48",
+      "bidClseDt": "2026-05-10 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00223873",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01507799-000",
@@ -2171,8 +3185,26 @@
       "bidNtceRegistDt": "2026-05-07 13:46",
       "bidClseDt": "2026-05-19 10:00",
       "searchKeyword": "미디어",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507799&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00223745",
+      "bidNtceNo": "BF-R26BD00223745",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국언론진흥재단",
+      "dminsttNm": "한국언론진흥재단",
+      "assignBudgetAmt": 100000000,
+      "bidNtceRegistDt": "2026-05-07 13:17",
+      "bidClseDt": "2026-05-10 23:59",
+      "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507799&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00223745",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01507983-000",
@@ -2186,7 +3218,9 @@
       "bidClseDt": "2026-05-14 14:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507983&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507983&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01505212-000",
@@ -2200,7 +3234,9 @@
       "bidClseDt": "2026-05-20 10:00",
       "searchKeyword": "미디어",
       "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505212&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505212&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01507617-000",
@@ -2214,7 +3250,9 @@
       "bidClseDt": "2026-05-20 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507617&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507617&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01507451-000",
@@ -2228,7 +3266,9 @@
       "bidClseDt": "2026-05-07 16:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507451&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01507451&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01505139-000",
@@ -2239,10 +3279,28 @@
       "dminsttNm": "청운대학교",
       "assignBudgetAmt": 104000000,
       "bidNtceRegistDt": "2026-05-07 09:40",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-14 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505139&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505139&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00223397",
+      "bidNtceNo": "BF-R26BD00223397",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "재단법인경기도시장상권진흥원",
+      "dminsttNm": "재단법인경기도시장상권진흥원",
+      "assignBudgetAmt": 77000000,
+      "bidNtceRegistDt": "2026-05-06 17:07",
+      "bidClseDt": "2026-05-11 23:59",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00223397",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01506052-000",
@@ -2256,7 +3314,9 @@
       "bidClseDt": "2026-05-07 11:00",
       "searchKeyword": "ITS",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01506052&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01506052&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01505612-000",
@@ -2270,7 +3330,9 @@
       "bidClseDt": "2026-05-14 10:00",
       "searchKeyword": "ITS",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505612&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01505612&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01504741-000",
@@ -2284,7 +3346,9 @@
       "bidClseDt": "2026-05-12 10:00",
       "searchKeyword": "LED",
       "region": "대구",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01504741&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01504741&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01503982-000",
@@ -2298,21 +3362,25 @@
       "bidClseDt": "2026-05-06 18:00",
       "searchKeyword": "LED",
       "region": "제주",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503982&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503982&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01500949-001",
       "bidNtceNo": "R26BK01500949",
       "bidNtceOrd": "001",
-      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역 ",
+      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역",
       "ntceInsttNm": "한국지능형교통체계협회",
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 27000000,
       "bidNtceRegistDt": "2026-05-06 10:12",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-18 15:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500949&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500949&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01501962-000",
@@ -2326,21 +3394,25 @@
       "bidClseDt": "2026-05-14 10:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01501962&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01501962&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01500949-000",
       "bidNtceNo": "R26BK01500949",
       "bidNtceOrd": "000",
-      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역 ",
+      "bidNtceNm": "ITS인증성능평가센터 단독폴 구조물 수리수선 용역",
       "ntceInsttNm": "한국지능형교통체계협회",
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 27000000,
       "bidNtceRegistDt": "2026-05-06 09:45",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-18 15:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500949&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01500949&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01503765-000",
@@ -2354,7 +3426,41 @@
       "bidClseDt": "2026-05-12 14:00",
       "searchKeyword": "전광판",
       "region": "충청",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503765&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01503765&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00222865",
+      "bidNtceNo": "BF-R26BD00222865",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "경상북도 안동시",
+      "dminsttNm": "경상북도 안동시",
+      "assignBudgetAmt": 285500000,
+      "bidNtceRegistDt": "2026-05-05 14:31",
+      "bidClseDt": "2026-05-10 23:59",
+      "searchKeyword": "ITS",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00222865",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00222652",
+      "bidNtceNo": "BF-R26BD00222652",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국인터넷진흥원",
+      "dminsttNm": "한국인터넷진흥원",
+      "assignBudgetAmt": 80000000,
+      "bidNtceRegistDt": "2026-05-04 14:37",
+      "bidClseDt": "2026-05-11 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00222652",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01499092-000",
@@ -2368,7 +3474,9 @@
       "bidClseDt": "2026-05-08 10:00",
       "searchKeyword": "미디어",
       "region": "충청",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01499092&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01499092&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01495840-000",
@@ -2382,7 +3490,25 @@
       "bidClseDt": "2026-05-11 14:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495840&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495840&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00221899",
+      "bidNtceNo": "BF-R26BD00221899",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청 대전지방조달청",
+      "dminsttNm": "충남테크노파크",
+      "assignBudgetAmt": 331709640,
+      "bidNtceRegistDt": "2026-04-30 13:55",
+      "bidClseDt": "2026-05-05 23:59",
+      "searchKeyword": "디스플레이",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221899",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01496782-000",
@@ -2396,7 +3522,9 @@
       "bidClseDt": "2026-04-30 15:30",
       "searchKeyword": "사이니지",
       "region": "인천",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496782&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496782&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01486685-000",
@@ -2410,7 +3538,9 @@
       "bidClseDt": "2026-05-06 16:00",
       "searchKeyword": "LED",
       "region": "제주",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01486685&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01486685&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01499070-000",
@@ -2424,7 +3554,89 @@
       "bidClseDt": "2026-05-13 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01499070&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01499070&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00221810",
+      "bidNtceNo": "BF-R26BD00221810",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 83314000,
+      "bidNtceRegistDt": "2026-04-30 11:29",
+      "bidClseDt": "2026-05-03 14:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221810",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00221806",
+      "bidNtceNo": "BF-R26BD00221806",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 173833000,
+      "bidNtceRegistDt": "2026-04-30 11:28",
+      "bidClseDt": "2026-05-03 14:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221806",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00221804",
+      "bidNtceNo": "BF-R26BD00221804",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 95370000,
+      "bidNtceRegistDt": "2026-04-30 11:26",
+      "bidClseDt": "2026-05-03 14:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221804",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00221802",
+      "bidNtceNo": "BF-R26BD00221802",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국도로공사",
+      "dminsttNm": "한국도로공사",
+      "assignBudgetAmt": 315436000,
+      "bidNtceRegistDt": "2026-04-30 11:24",
+      "bidClseDt": "2026-05-03 14:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221802",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
+    },
+    {
+      "bidId": "BF-R26BD00221748",
+      "bidNtceNo": "BF-R26BD00221748",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국교육과정평가원",
+      "dminsttNm": "한국교육과정평가원",
+      "assignBudgetAmt": 226000000,
+      "bidNtceRegistDt": "2026-04-30 10:52",
+      "bidClseDt": "2026-05-05 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221748",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01491106-000",
@@ -2438,7 +3650,9 @@
       "bidClseDt": "2026-05-06 15:00",
       "searchKeyword": "LED",
       "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491106&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491106&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01498011-000",
@@ -2452,7 +3666,25 @@
       "bidClseDt": "2026-05-07 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01498011&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01498011&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BF-R26BD00221387",
+      "bidNtceNo": "BF-R26BD00221387",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "한국지능형교통체계협회",
+      "dminsttNm": "한국지능형교통체계협회",
+      "assignBudgetAmt": 27000000,
+      "bidNtceRegistDt": "2026-04-29 16:59",
+      "bidClseDt": "2026-05-04 23:59",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00221387",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01496336-000",
@@ -2466,7 +3698,9 @@
       "bidClseDt": "2026-05-14 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496336&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496336&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01496248-000",
@@ -2480,7 +3714,9 @@
       "bidClseDt": "2026-04-30 15:00",
       "searchKeyword": "미디어",
       "region": "제주",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496248&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496248&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01495265-000",
@@ -2494,7 +3730,9 @@
       "bidClseDt": "2026-05-06 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495265&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495265&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01495216-000",
@@ -2508,7 +3746,9 @@
       "bidClseDt": "2026-05-04 11:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495216&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495216&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01496420-000",
@@ -2519,10 +3759,12 @@
       "dminsttNm": "한국산업기술진흥원",
       "assignBudgetAmt": 75000000,
       "bidNtceRegistDt": "2026-04-29 13:54",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-14 12:00",
       "searchKeyword": "디스플레이",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496420&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496420&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01496223-000",
@@ -2536,7 +3778,9 @@
       "bidClseDt": "2026-04-29 16:00",
       "searchKeyword": "ITS",
       "region": "강원",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496223&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01496223&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01484580-000",
@@ -2550,7 +3794,9 @@
       "bidClseDt": "2026-05-19 10:00",
       "searchKeyword": "전광판",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01484580&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01484580&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01493793-000",
@@ -2564,7 +3810,9 @@
       "bidClseDt": "2026-05-11 10:00",
       "searchKeyword": "미디어",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01493793&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01493793&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01495424-001",
@@ -2578,7 +3826,9 @@
       "bidClseDt": "2026-05-15 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495424&bidPbancOrd=001"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495424&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01495424-000",
@@ -2592,7 +3842,9 @@
       "bidClseDt": "2026-05-15 14:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495424&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01495424&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01491360-000",
@@ -2603,10 +3855,12 @@
       "dminsttNm": "한국지능형교통체계협회",
       "assignBudgetAmt": 80000000,
       "bidNtceRegistDt": "2026-04-29 09:19",
-      "bidClseDt": "",
+      "bidClseDt": "2026-05-11 16:00",
       "searchKeyword": "ITS",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491360&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491360&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01490987-000",
@@ -2620,7 +3874,9 @@
       "bidClseDt": "2026-04-29 10:30",
       "searchKeyword": "전광판",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01490987&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01490987&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01491227-000",
@@ -2634,7 +3890,9 @@
       "bidClseDt": "2026-05-11 10:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491227&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491227&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01494137-000",
@@ -2648,7 +3906,9 @@
       "bidClseDt": "2026-04-30 11:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01494137&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01494137&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01484417-000",
@@ -2662,7 +3922,9 @@
       "bidClseDt": "2026-04-30 11:00",
       "searchKeyword": "LED",
       "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01484417&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01484417&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01491859-000",
@@ -2676,7 +3938,25 @@
       "bidClseDt": "2026-05-06 10:00",
       "searchKeyword": "LED",
       "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491859&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01491859&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
+    },
+    {
+      "bidId": "BF-R26BD00220627",
+      "bidNtceNo": "BF-R26BD00220627",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(사전규격명 없음)",
+      "ntceInsttNm": "조달청 대전지방조달청",
+      "dminsttNm": "국가보훈부",
+      "assignBudgetAmt": 151450000,
+      "bidNtceRegistDt": "2026-04-28 15:24",
+      "bidClseDt": "2026-05-03 23:59",
+      "searchKeyword": "미디어",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?srch=R26BD00220627",
+      "serviceType": "사전규격",
+      "businessType": "물품/용역"
     },
     {
       "bidId": "R26BK01482390-000",
@@ -2690,7 +3970,9 @@
       "bidClseDt": "2026-04-30 10:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01482390&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01482390&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
     },
     {
       "bidId": "R26BK01493024-000",
@@ -2704,7 +3986,9 @@
       "bidClseDt": "2026-04-28 15:00",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01493024&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01493024&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01492312-000",
@@ -2718,7 +4002,9 @@
       "bidClseDt": "2026-06-08 10:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01492312&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01492312&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     },
     {
       "bidId": "R26BK01489344-000",
@@ -2732,7 +4018,9 @@
       "bidClseDt": "2026-06-02 16:00",
       "searchKeyword": "미디어",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01489344&bidPbancOrd=000"
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01489344&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "용역"
     }
   ]
 }
