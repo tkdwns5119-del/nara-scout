@@ -1,11 +1,48 @@
-# DI영업지원 나라장터 3대 조달 데이터 수집
+# DI영업지원 3대 조달 API 참고자료 반영본
 
-이 버전은 기존 입찰공고 수집기에 아래 항목을 추가한 확장본입니다.
+## 반영 내용
+
+업로드된 조달청 OpenAPI 참고자료 기준으로 아래 API 주소와 오퍼레이션명을 반영했습니다.
+
+### 입찰공고정보서비스
 
 ```txt
-4. 사전규격 / 발주계획 엔드포인트 추가
-5. API별 응답 필드 매핑 함수 추가
-6. serviceType 명시
+서비스 ID: BidPublicInfoService
+Base URL: https://apis.data.go.kr/1230000/ad/BidPublicInfoService
+
+물품: getBidPblancListInfoThngPPSSrch
+용역: getBidPblancListInfoServcPPSSrch
+검색 파라미터: bidNtceNm
+```
+
+### 사전규격정보서비스
+
+```txt
+서비스 ID: HrcspSsstndrdInfoService
+Base URL: https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService
+
+물품: getPublicPrcureThngInfoThngPPSSrch
+용역: getPublicPrcureThngInfoServcPPSSrch
+검색 파라미터: prdctClsfcNoNm
+```
+
+### 발주계획현황서비스
+
+```txt
+서비스 ID: OrderPlanSttusService
+Base URL: https://apis.data.go.kr/1230000/ao/OrderPlanSttusService
+
+물품: getOrderPlanSttusListThngPPSSrch
+용역: getOrderPlanSttusListServcPPSSrch
+검색 파라미터: bizNm
+기간 파라미터: orderBgnYm, orderEndYm, inqryBgnDt, inqryEndDt
+```
+
+## GitHub 반영 위치
+
+```txt
+scripts/fetch-nara-bids.mjs
+.github/workflows/fetch-bids.yml
 ```
 
 ## 필수 Secret
@@ -16,8 +53,6 @@ NARA_API_KEY
 
 ## 선택 Secret
 
-아래 Secret은 각 API 서비스가 별도 인증키를 발급하는 경우에만 등록합니다.
-
 ```txt
 NARA_PRESPEC_API_KEY
 NARA_PLAN_API_KEY
@@ -25,33 +60,12 @@ NARA_PLAN_API_KEY
 
 등록하지 않으면 `NARA_API_KEY`를 재사용합니다.
 
-## 활용신청 필요
+## 주의
 
-공공데이터포털에서 아래 서비스 활용신청이 필요합니다.
+공공데이터포털에서 아래 3개 서비스 활용신청이 되어 있어야 합니다.
 
 ```txt
 조달청_나라장터 입찰공고정보서비스
 조달청_나라장터 사전규격정보서비스
 조달청_나라장터 발주계획현황서비스
 ```
-
-## 출력 데이터 구분
-
-`data/bids.json`의 각 항목에 아래 값이 추가됩니다.
-
-```json
-{
-  "serviceType": "공고",
-  "businessType": "물품"
-}
-```
-
-`serviceType` 값은 아래 중 하나입니다.
-
-```txt
-공고
-사전규격
-발주계획
-```
-
-이 값으로 DI UI의 `입찰공고만 / 사전규격만 / 발주계획만` 필터가 작동합니다.
