@@ -1648,7 +1648,7 @@
             const inqryEndDt = formatG2BDate(today).substring(0, 8) + "2359";
             
             // Query a test item from Announcement API
-            const bidTestUrl = `https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoThngPPSSrch01?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&bidNtceNm=${encodeURIComponent('전광판')}&type=json`;
+            const bidTestUrl = `https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&bidNtceNm=${encodeURIComponent('전광판')}&type=json`;
 
             logConsole(`[테스트 요청] 입찰공고망 접속 시도...`, "normal");
 
@@ -1668,7 +1668,7 @@
             }
 
             // Test Prior Specification API (사전규격)
-            const specTestUrl = `https://apis.data.go.kr/1230000/HrcspSsstmAnncService05/getPrprcAnncListPPSSrch01?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&prtcNm=${encodeURIComponent('전광판')}&type=json`;
+            const specTestUrl = `https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoThngPPSSrch?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&prtcNm=${encodeURIComponent('전광판')}&type=json`;
             logConsole(`[테스트 요청] 사전규격망 접속 시도...`, "normal");
             try {
                 const { rawText } = await fetchWithProxyFallback(specTestUrl, mode, { verbose: false, timeoutMs: 12000 });
@@ -1853,22 +1853,22 @@
                 {
                     serviceName: "공고",
                     apiName: "입찰공고(물품)",
-                    url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoThngPPSSrch01"
+                    url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch"
                 },
                 {
                     serviceName: "공고",
                     apiName: "입찰공고(용역)",
-                    url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoServcPPSSrch01"
+                    url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch"
                 },
                 {
                     serviceName: "사전규격",
                     apiName: "사전규격정보(조달)",
-                    url: "https://apis.data.go.kr/1230000/HrcspSsstmAnncService05/getPrprcAnncListPPSSrch01"
+                    url: "https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoThngPPSSrch"
                 },
                 {
                     serviceName: "발주계획",
                     apiName: "발주계획현황조회",
-                    url: "https://apis.data.go.kr/1230000/OrdPlanStatService02/getOrdPlanStatListPPSSrch01"
+                    url: "https://apis.data.go.kr/1230000/ao/OrderPlanSttusService/getOrderPlanSttusListThngPPSSrch"
                 }
             ];
 
@@ -1877,8 +1877,8 @@
                     logConsole(`[라이브 패치] [${api.apiName}] 키워드 "${kw}" 호출 중...`, "normal");
                     
                     let kwParamName = "bidNtceNm"; 
-                    if (api.serviceName === "사전규격") kwParamName = "prtcNm";
-                    if (api.serviceName === "발주계획") kwParamName = "busiNm";
+                    if (api.serviceName === "사전규격") kwParamName = "prdctClsfcNoNm";
+                    if (api.serviceName === "발주계획") kwParamName = "bizNm";
 
                     const targetUrl = `${api.url}?serviceKey=${key}&numOfRows=40&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&${kwParamName}=${encodeURIComponent(kw)}&type=json`;
 
@@ -1899,13 +1899,13 @@
                             logConsole(`✓ ${api.apiName} "${kw}" 연동 완료: ${items.length}건 발견`, "success");
 
                             items.forEach(i => {
-                                let id = i.bidNtceNo || i.bfSpecNo || i.ordPlanNo || `KEY-${Date.now()}`;
-                                let name = i.bidNtceNm || i.prtcNm || i.busiNm || "무제 공고";
-                                let inst = i.ntceInsttNm || i.insttNm || i.ordPlanInsttNm || "자체공고기관";
-                                let dem = i.dminsttNm || i.insttNm || i.ordPlanInsttNm || inst;
-                                let budget = Number(i.assignBudgetAmt) || Number(i.presmptPrce) || Number(i.assignBdgtAmt) || 0;
-                                let rgst = i.bidNtceRegistDt || i.rgstDt || i.ordPlanRegistDt || "-";
-                                let clse = i.bidClseDt || i.rcptEndDt || i.exeYr || "-";
+                                let id = i.bidNtceNo || i.bfSpecRgstNo || i.orderPlanUntyNo || i.orderPlanSno || `KEY-${Date.now()}`;
+                                let name = i.bidNtceNm || i.prdctClsfcNoNm || i.bizNm || "무제 공고";
+                                let inst = i.ntceInsttNm || i.orderInsttNm || i.insttNm || "자체공고기관";
+                                let dem = i.dminsttNm || i.rlDminsttNm || i.orderInsttNm || i.insttNm || inst;
+                                let budget = Number(i.assignBudgetAmt) || Number(i.asignBdgtAmt) || Number(i.presmptPrce) || Number(i.assignBdgtAmt) || Number(i.sumOrderAmt) || 0;
+                                let rgst = i.bidNtceRegistDt || i.bidNtceDt || i.rcptDt || i.rgstDt || i.nticeDt || "-";
+                                let clse = i.bidClseDt || i.opninRgstClseDt || i.orderMnth || i.exeYr || "-";
 
                                 let region = "전국";
                                 const regionsKo = ["서울", "경기", "인천", "부산", "강원", "충청", "충북", "충남", "전라", "전북", "전남", "경상", "경북", "경남", "대전", "대구", "광주", "울산", "세종", "제주"];
