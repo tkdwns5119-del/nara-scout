@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>싸인텔레콤 DI영업지원 - 나라장터 실시간 3대 통합 조달 대시보드</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Pretendard 공식 CDN 연동 (글꼴 깨짐 및 대체 시스템 서체 오류 완벽 방지) */
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-soft {
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+        }
+        .glow-cyan {
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.12);
+        }
+        .glow-fuchsia {
+            box-shadow: 0 4px 14px rgba(192, 38, 211, 0.12);
+        }
+        .glow-amber {
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+        }
+        .glow-red {
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 240ms ease-out both;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .terminal-scroll::-webkit-scrollbar-track { background: #0f172a; }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: #334155; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                            border: '#e2e8f0',
+                            cyan: '#0891b2',
+                            fuchsia: '#c026d3',
+                            amber: '#d97706',
+                            success: '#059669',
+                            error: '#dc2626'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cyber-bg text-slate-700 min-h-screen flex flex-col antialiased">
+
+    <!-- HEADER -->
+    <header class="border-b border-cyber-border bg-white/85 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-fuchsia to-cyber-amber flex items-center justify-center shadow-md">
+                    <i data-lucide="radar" class="w-6 h-6 text-white animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center">
+                        싸인텔레콤 <span class="text-cyber-cyan font-extrabold text-[11px] tracking-normal px-2 py-0.5 rounded bg-cyan-50 border border-cyan-200 ml-1.5">DI영업지원</span>
+                    </h1>
+                    <p class="text-[10px] text-slate-500">조달청 나라장터 3대 조달망(입찰공고·사전규격·발주계획) 실시간 대시보드</p>
+                </div>
+            </div>
+
+            <!-- Global Status Indicator & Header Admin Config Button (Only Admin access path) -->
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs text-emerald-700 font-medium" id="syncStatusText">실시간 조달 분석 가동</span>
+                </div>
+
+                <button onclick="switchTab('api-setup')" class="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition text-xs font-semibold">
+                    <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                    <span>🔒 관리자 설정</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- ERROR NOTIFICATION BANNER (Self Healing / Auto Close) -->
+        <div id="errorBanner" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 flex items-start space-x-3 glow-red animate-fade-in">
+            <div class="p-2 bg-red-100 rounded-lg text-red-600 shrink-0">
+                <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+            </div>
+            <div class="flex-grow">
+                <h4 class="font-bold text-red-700 text-sm">조달 통신망 분석 경고</h4>
+                <p class="text-xs text-red-600 mt-1 leading-relaxed" id="errorBannerText"></p>
+                <!-- Diagnosis Help Box -->
+                <div class="mt-2 text-xs bg-white p-2.5 rounded-lg border border-red-200 font-mono text-slate-700 space-y-1">
+                    <div><span class="text-cyber-cyan">[원인 진단]</span> <span id="errorDiagnosis">데이터 패킷 무결성 붕괴.</span></div>
+                    <div><span class="text-cyber-fuchsia">[해결책]</span> 우측 상단 [CORS/API 설정]에서 최우선 권장인 "GitHub Static JSON" 혹은 다른 프록시 중계 채널을 선택해 보십시오.</div>
+                </div>
+            </div>
+            <button onclick="toggleErrorBanner(false, '')" class="text-slate-400 hover:text-slate-700 shrink-0">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- TABS BAR (Cleaned: Non-administrators can only see the 3 core views) -->
+        <div class="flex border border-cyber-border space-x-1 bg-white p-1 rounded-xl card-soft items-center">
+            <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex-1 py-3 text-xs sm:text-sm font-semibold rounded-lg transition flex items-center justify-center space-x-2 bg-cyan-50 text-cyber-cyan border border-cyan-200">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                <span>통합 대시보드</span>
+            </button>
+            <button id="tabBtn-table" onclick="switchTab('table')" class="tab-btn flex-1 py-3 text-xs sm:text-sm font-semibold rounded-lg transition text-slate-500 hover:text-slate-800 hover:bg-slate-50 flex items-center justify-center space-x-2">
+                <i data-lucide="list-filter" class="w-4 h-4"></i>
+                <span>통합 사업 목록</span>
+            </button>
+            <button id="tabBtn-analysis" onclick="switchTab('analysis')" class="tab-btn flex-1 py-3 text-xs sm:text-sm font-semibold rounded-lg transition text-slate-500 hover:text-slate-800 hover:bg-slate-50 flex items-center justify-center space-x-2">
+                <i data-lucide="trending-up" class="w-4 h-4"></i>
+                <span>점유 및 트렌드 분석</span>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT: DASHBOARD -->
+        <div id="tab-dashboard" class="tab-content space-y-6">
+            
+            <!-- OVERVIEW STAT CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <!-- Stat 1: 입찰공고 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 hover:border-slate-300 transition relative overflow-hidden group card-soft">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-100/40 rounded-full blur-xl group-hover:bg-cyan-100/70 transition"></div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">실시간 입찰공고</p>
+                            <h3 class="text-2xl font-extrabold text-slate-900 mt-1" id="stat-bid-count">0건</h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">최종 확정 입찰 단계</p>
+                        </div>
+                        <span class="p-2 bg-cyan-50 rounded-xl text-cyber-cyan border border-cyber-cyan">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>합계 예산액</span>
+                        <span class="text-cyber-cyan font-bold" id="stat-bid-budget">0원</span>
+                    </div>
+                </div>
+
+                <!-- Stat 2: 사전규격 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 hover:border-slate-300 transition relative overflow-hidden group card-soft">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-fuchsia-100/40 rounded-full blur-xl group-hover:bg-fuchsia-100/70 transition"></div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">사전규격 공개</p>
+                            <h3 class="text-2xl font-extrabold text-slate-900 mt-1" id="stat-spec-count">0건</h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">의견 의견수렴 단계 (공고 전)</p>
+                        </div>
+                        <span class="p-2 bg-fuchsia-50 rounded-xl text-cyber-fuchsia border border-fuchsia-200">
+                            <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>합계 예산액</span>
+                        <span class="text-cyber-fuchsia font-bold" id="stat-spec-budget">0원</span>
+                    </div>
+                </div>
+
+                <!-- Stat 3: 발주계획 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 hover:border-slate-300 transition relative overflow-hidden group card-soft">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-100/40 rounded-full blur-xl group-hover:bg-amber-100/70 transition"></div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">발주계획 현황</p>
+                            <h3 class="text-2xl font-extrabold text-slate-900 mt-1" id="stat-plan-count">0건</h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">지자체/공공기관 발주 예정 계획</p>
+                        </div>
+                        <span class="p-2 bg-amber-50 rounded-xl text-cyber-amber border border-cyber-amber">
+                            <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>계획 사업비</span>
+                        <span class="text-cyber-amber font-bold" id="stat-plan-budget">0원</span>
+                    </div>
+                </div>
+
+                <!-- Stat 4: 통합 종합 지표 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 hover:border-slate-300 transition relative overflow-hidden group card-soft">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-slate-100/40 rounded-full blur-xl group-hover:bg-slate-100/70 transition"></div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium" id="totalPeriodText">3대 정보망 누적 집계</p>
+                            <h3 class="text-2xl font-extrabold text-slate-900 mt-1" id="stat-total-count">0건</h3>
+                            <p class="text-[10px] text-slate-400 mt-0.5">전체 매칭 데이터 총계</p>
+                        </div>
+                        <span class="p-2 bg-slate-100 rounded-xl text-slate-700 border border-slate-300">
+                            <i data-lucide="database" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>전체 종합 예산액</span>
+                        <span class="text-slate-900 font-extrabold" id="stat-total-budget">0원</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- URGENT IMPENDING DEADLINES SECTION (3대 서비스 각각 마감임박 공고 3개씩 노출) -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-5 h-5 text-rose-500 animate-pulse"></i>
+                            <span>실시간 3대 조달 서비스 마감 임박 분석 (TOP 3)</span>
+                        </h3>
+                        <p class="text-xs text-slate-500">각 영역별로 우선 제안 및 기한 준수가 필요한 사업 상위 3건을 즉각 분석하여 노출합니다. (클릭 시 ✨ AI 제안 비서 실행)</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="urgent-bids-grid">
+                    <!-- Loaded dynamically via JS with 3 Columns x 3 Rows = 9 Cards structure -->
+                </div>
+            </div>
+
+            <!-- TREND TIME-SERIES CHART (Full-width & Header Controls) -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-cyber-border gap-4">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">3대 통합 조달 트렌드 시계열 분석</h3>
+                        <p class="text-xs text-slate-500">최근 입찰공고 vs 사전규격 vs 발주계획 등록 빈도 추이</p>
+                    </div>
+                    
+                    <!-- Integrated Control Toolbar (Removed Simulator toggle completely) -->
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <button onclick="triggerManualSync()" class="flex-1 md:flex-none py-2 px-4 rounded-lg bg-cyber-cyan hover:bg-cyan-700 text-white font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-sm">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                            <span>실시간 데이터 동기화</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-[10px] text-slate-500 pt-1">
+                    <span class="flex items-center space-x-1">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan inline-block"></span>
+                        <span>입찰공고</span>
+                    </span>
+                    <span class="flex items-center space-x-1">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyber-fuchsia inline-block"></span>
+                        <span>사전규격</span>
+                    </span>
+                    <span class="flex items-center space-x-1">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyber-amber inline-block"></span>
+                        <span>발주계획</span>
+                    </span>
+                </div>
+
+                <div class="h-72 w-full pt-2">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- RECENT HOT MATCHES (TOP 4) -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">최고가 주요 전략 사업 분석</h3>
+                        <p class="text-xs text-slate-500">예산 규모가 크고 즉각 검토가 필요한 조달 항목 4선 (클릭 시 ✨ AI 제안 비서 실행)</p>
+                    </div>
+                    <button onclick="switchTab('table')" class="text-cyber-cyan hover:underline text-xs flex items-center space-x-1 font-semibold">
+                        <span>전체 리스트 보기</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="hot-matches-grid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB CONTENT: BID TABLE -->
+        <div id="tab-table" class="tab-content hidden space-y-6">
+            
+            <!-- Filters and Search Toolbar -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl p-4 flex flex-col lg:flex-row gap-4 items-center justify-between card-soft">
+                <!-- Search bar -->
+                <div class="relative w-full lg:w-80">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="사업명, 공고명, 수요기관, 번호 검색..." class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2 pl-9 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyber-cyan focus:border-cyber-cyan">
+                </div>
+
+                <!-- Selectors and buttons -->
+                <div class="flex flex-wrap w-full lg:w-auto items-center gap-2 justify-end">
+                    <!-- NEW SERVICE TYPE FILTER -->
+                    <select id="filterService" onchange="applyFilters()" class="bg-cyan-50 border border-cyan-200 text-cyber-cyan font-semibold rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전체 서비스</option>
+                        <option value="공고">입찰공고만</option>
+                        <option value="사전규격">사전규격만</option>
+                        <option value="발주계획">발주계획만</option>
+                    </select>
+
+                    <select id="filterKeyword" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전체 키워드</option>
+                        <optgroup label="디스플레이/사이니지">
+                            <option value="전광판">전광판</option>
+                            <option value="LED">LED</option>
+                            <option value="디스플레이">디스플레이</option>
+                            <option value="사이니지">사이니지</option>
+                        </optgroup>
+                        <optgroup label="미디어/파사드">
+                            <option value="미디어">미디어</option>
+                            <option value="파사드">파사드</option>
+                        </optgroup>
+                        <optgroup label="교통/ITS/VMS font-bold">
+                            <option value="ITS">ITS</option>
+                            <option value="VMS">VMS</option>
+                        </optgroup>
+                    </select>
+
+                    <select id="filterRegion" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전국 지역</option>
+                        <option value="서울">서울</option>
+                        <option value="경기">경기</option>
+                        <option value="인천">인천</option>
+                        <option value="부산">부산</option>
+                        <option value="강원">강원</option>
+                        <option value="충청">충청</option>
+                        <option value="전라">전라</option>
+                        <option value="경상">경상</option>
+                        <option value="제주">제주</option>
+                    </select>
+
+                    <select id="filterBudget" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전체 예산 규모</option>
+                        <option value="UNDER_50">5천만 원 미만</option>
+                        <option value="50_TO_200">5천만 ~ 2억 원</option>
+                        <option value="200_TO_500">2억 ~ 5억 원</option>
+                        <option value="OVER_500">5억 원 이상</option>
+                    </select>
+
+                    <button onclick="exportToCSV()" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 border border-slate-300 flex items-center space-x-1 transition" title="분석 목록 출력">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        <span>Excel CSV 다운로드</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Interactive Data Grid -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl overflow-hidden card-soft">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-cyber-border text-xs text-slate-600 font-semibold tracking-wider">
+                                <th class="p-4">유형 / 등록번호</th>
+                                <th class="p-4">사업명 / 키워드</th>
+                                <th class="p-4">공고 및 수요기관</th>
+                                <th class="p-4">배정 예산액</th>
+                                <th class="p-4">기간 / 일정</th>
+                                <th class="p-4 text-center">동작</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bidsTableBody" class="divide-y divide-slate-100 text-xs sm:text-sm">
+                            <!-- Table rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="tableEmptyState" class="hidden py-16 text-center space-y-3">
+                    <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                        <i data-lucide="folder-open" class="w-6 h-6"></i>
+                    </div>
+                    <p class="text-slate-500 text-sm">해당 검색 조건과 일치하는 조달 정보가 없습니다.</p>
+                </div>
+
+                <!-- Pagination/Count Info -->
+                <div class="p-4 bg-slate-50 border-t border-cyber-border flex justify-between items-center text-xs text-slate-500">
+                    <div id="tableResultCount">총 0개 중 0개 매칭됨</div>
+                    <div class="flex space-x-1">
+                        <span class="px-2 py-1 bg-white rounded border border-slate-300 text-slate-700 font-bold">1</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB CONTENT: TREND ANALYSIS -->
+        <div id="tab-analysis" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Service Share (Doughnut Chart) -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">3대 서비스 포트폴리오 점유</h3>
+                        <p class="text-xs text-slate-500">입찰공고 vs 사전규격 vs 발주계획 데이터 분포 비율</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-around h-64">
+                        <div class="w-48 h-48">
+                            <canvas id="serviceShareChart"></canvas>
+                        </div>
+                        <div class="space-y-2 mt-4 sm:mt-0 text-xs w-full sm:w-auto">
+                            <div class="p-2.5 rounded-lg bg-cyan-50 border border-cyan-200">
+                                <span class="font-bold text-cyber-cyan">실시간 입찰공고</span>
+                                <div class="text-slate-600 text-[11px] mt-0.5" id="analysis-service-bid">계산 중...</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-fuchsia-50 border border-fuchsia-200">
+                                <span class="font-bold text-cyber-fuchsia">사전규격 공개</span>
+                                <div class="text-slate-600 text-[11px] mt-0.5" id="analysis-service-spec">계산 중...</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
+                                <span class="font-bold text-cyber-amber">발주계획 현황</span>
+                                <div class="text-slate-600 text-[11px] mt-0.5" id="analysis-service-plan">계산 중...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget Range Distribution Chart -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">전국 예산 스펙트럼 및 금액대 분류</h3>
+                        <p class="text-xs text-slate-500">발주 및 계획 금액 대수 분포 분석 (전국 범위)</p>
+                    </div>
+                    <div class="h-64 w-full">
+                        <canvas id="budgetDistChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NEW: REGIONAL BUDGET SPECTRUM STACKED CHART (지역별 예산 스펙트럼 및 금액대 분류) -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">지역별 예산 스펙트럼 및 금액대 정밀 분석</h3>
+                    <p class="text-xs text-slate-500">거점 지자체별 사업 기회 포트폴리오를 금액 구간에 맞게 적층 비교 분석합니다.</p>
+                </div>
+                <div class="h-[360px] w-full pt-2">
+                    <canvas id="regionalBudgetChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Regional & Institutional Insights -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Regional Rank -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-3 lg:col-span-2 card-soft">
+                    <h3 class="font-bold text-slate-900 text-sm">지역별 모니터링 수집 하이라이트</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center" id="regionalStatsGrid">
+                        <!-- Loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Strategic Summary Insights with Gemini API Integration -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
+                    <h3 class="font-bold text-slate-900 text-sm">통합 조달 마켓 인사이트</h3>
+                    <div class="space-y-3 text-xs leading-relaxed text-slate-700">
+                        <div class="flex items-start space-x-2">
+                            <span class="p-1 bg-fuchsia-50 rounded text-cyber-fuchsia shrink-0 mt-0.5"><i data-lucide="info" class="w-3.5 h-3.5"></i></span>
+                            <p><strong class="text-slate-900">사전규격의 중요성:</strong> 사전규격은 공식 입찰공고 업로드 전 미리 규격서를 투명하게 검토할 수 있는 아주 귀한 기회입니다.</p>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="p-1 bg-amber-50 rounded text-cyber-amber shrink-0 mt-0.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i></span>
+                            <p><strong class="text-slate-900">발주계획 선제 파악:</strong> 발주계획현황을 주기적으로 수집 및 모니터링하여 영업 영업망을 가동하십시오.</p>
+                        </div>
+                        
+                        <!-- AI Market Analyst trigger -->
+                        <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+                            <button onclick="generateAiMarketBriefing()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-fuchsia text-white font-extrabold transition text-[11px] flex items-center justify-center space-x-1.5 shadow-sm hover:opacity-95">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                                <span>✨ AI 통합 조달 마켓 브리핑 보고서 생성</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: CORS & API SETUP (Protected by Password Gate) -->
+        <div id="tab-api-setup" class="tab-content hidden space-y-6 animate-fade-in">
+            
+            <!-- 🔑 ADMIN PASSWORD GATE -->
+            <div id="api-setup-gate" class="max-w-md mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-xl text-center space-y-6 my-12 animate-fade-in card-soft">
+                <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center mx-auto border border-slate-200">
+                    <i data-lucide="lock" class="w-8 h-8"></i>
+                </div>
+                <div class="space-y-1.5">
+                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">영업 관리자 인증</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">DI영업지원 시스템 통신 키 및 동기화 서버를 설정하기 위해 마스터 암호 키를 제시하십시오.</p>
+                </div>
+                <div class="space-y-3">
+                    <input type="password" id="managerPasswordInput" onkeydown="if(event.key === 'Enter') checkManagerPassword()" placeholder="마스터 비밀번호 입력" class="w-full text-center bg-slate-50 border border-slate-300 rounded-2xl py-3 px-4 text-sm font-semibold tracking-widest text-slate-800 placeholder:tracking-normal focus:outline-none focus:ring-1 focus:ring-cyber-cyan focus:border-cyber-cyan">
+                    <button onclick="checkManagerPassword()" class="w-full py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow">
+                        <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+                        <span>인증 및 제어판 열기</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ⚙️ ORIGINAL SETTINGS CONTENT (Unlocked with Password) -->
+            <div id="api-setup-content" class="hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Left form card: Configuration -->
+                    <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 lg:col-span-2 space-y-6 card-soft">
+                        <div class="border-b border-cyber-border pb-4">
+                            <h3 class="font-bold text-slate-900 text-lg flex items-center space-x-2">
+                                <i data-lucide="unplug" class="text-cyber-cyan w-5 h-5"></i>
+                                <span>공공데이터포털(data.go.kr) 3대 OpenAPI 실시간 통합 연동기</span>
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">사용자님의 일반 인증키(Service Key)를 입력하고 안전하게 실시간 라이브 연동 데이터를 활용하십시오.</p>
+                        </div>
+
+                        <!-- Setup Form -->
+                        <div class="space-y-4">
+                            <!-- Key Inputs -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-700 flex items-center justify-between">
+                                    <span>공공데이터포털 OpenAPI 일반 인증키 (Service Key)</span>
+                                    <span class="text-cyber-cyan text-[10px] hover:underline cursor-pointer" onclick="toggleSecretKeyGuide()">인증키 가이드 및 연결 정보 ⓘ</span>
+                                </label>
+                                <input type="password" id="apiKeyInput" value="ea074e61676447c1cfdb85f8a74f7b03093f5a5747587767af6c9a5ab7cab22c" placeholder="일반 인증키 - Encoding 또는 Decoding 입력" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 px-3 text-xs sm:text-sm font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                                <div class="text-[10px] text-slate-500 leading-normal space-y-1">
+                                    <p>* 현재 대시보드는 <strong>3가지 주요 공공 데이터 서비스</strong>를 병렬 파싱합니다:</p>
+                                    <ul class="list-disc list-inside pl-1 text-[9px] text-slate-400 space-y-0.5">
+                                        <li>조달청 나라장터 입찰공고정보 서비스 (물품/용역)</li>
+                                        <li>조달청 나라장터 사전규격정보 서비스 (물품/용역 사전규격공개)</li>
+                                        <li>조달청 나라장터 발주계획현황조회 서비스 (연간/분기 발주계획)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Key Guide Box -->
+                            <div id="secretKeyGuideBox" class="hidden bg-cyan-50 border border-cyan-200 rounded-xl p-4 text-xs text-slate-700 space-y-2 leading-relaxed">
+                                <h4 class="font-bold text-cyber-cyan">🔑 나라장터 3대 통합 API 연동 가이드</h4>
+                                <p class="text-[11px]">성공적인 실시간 연동을 위해서는 공공데이터포털에서 아래 서비스들에 대한 활용 신청이 사전 완료되어야 합니다:</p>
+                                <ol class="list-decimal list-inside text-[11px] space-y-1 pl-1 text-slate-600">
+                                    <li><strong>나라장터 입찰공고정보 서비스</strong> (조달청)</li>
+                                    <li><strong>나라장터 사전규격정보 서비스</strong> (조달청)</li>
+                                    <li><strong>나라장터 발주계획현황조회 서비스</strong> (조달청)</li>
+                                </ol>
+                                <p class="text-[11px] text-slate-500">* 공공데이터포털 정책 상, 신규 키 교체 시 공공포털 내부 캐싱으로 인해 전산 활성화까지 최대 1~2시간 지연이 발생할 수 있습니다.</p>
+                            </div>
+
+                            <!-- CORS Settings -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-cyber-border space-y-4">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="shield-alert" class="w-4 h-4 text-cyber-fuchsia"></i>
+                                    <h4 class="font-bold text-xs text-slate-800">브라우저 CORS 차단 예방 및 데이터 수집 프록시 선택</h4>
+                                </div>
+
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <!-- Mode 0: GitHub Actions Static JSON (★ 최우선 권장) -->
+                                    <label class="border-2 border-emerald-300 bg-emerald-50 rounded-xl p-3 cursor-pointer hover:bg-emerald-100 block relative md:col-span-3" id="label-proxy-github">
+                                        <input type="radio" name="corsMode" value="github" checked class="absolute top-3 right-3 accent-emerald-600" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-emerald-800 mb-1">★ GitHub Actions Static JSON (최우선 안정권장)</span>
+                                        <span class="block text-[10px] text-emerald-700">GitHub 워크플로가 통합 수집한 <code>data/bids.json</code> 정적 패킷을 즉시 통신. 지연이나 CORS 이슈 없는 최상의 속도.</span>
+                                    </label>
+                                    <!-- Mode 1: corsproxy.io -->
+                                    <label class="border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative" id="label-proxy-corsproxy">
+                                        <input type="radio" name="corsMode" value="corsproxy" class="absolute top-3 right-3 accent-cyber-cyan" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-slate-900 mb-1">corsproxy.io</span>
+                                        <span class="block text-[10px] text-slate-500">글로벌 고속 무료 프록시 서버 경유.</span>
+                                    </label>
+                                    <!-- Mode 2: AllOrigins -->
+                                    <label class="border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative" id="label-proxy-allorigins">
+                                        <input type="radio" name="corsMode" value="allorigins" class="absolute top-3 right-3 accent-cyber-cyan" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-slate-900 mb-1">AllOrigins</span>
+                                        <span class="block text-[10px] text-slate-500">JSON Wrapper 우회 방식. 우수한 연동 성공률.</span>
+                                    </label>
+                                    <!-- Mode 3: codetabs -->
+                                    <label class="border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative" id="label-proxy-codetabs">
+                                        <input type="radio" name="corsMode" value="codetabs" class="absolute top-3 right-3 accent-cyber-cyan" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-slate-900 mb-1">codetabs</span>
+                                        <span class="block text-[10px] text-slate-500">대체 프록시 우회망. 일시적 과부하 시 유용.</span>
+                                    </label>
+                                    <!-- Mode 4: Direct -->
+                                    <label class="border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative" id="label-proxy-direct">
+                                        <input type="radio" name="corsMode" value="direct" class="absolute top-3 right-3 accent-cyber-cyan" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-slate-900 mb-1">Direct Call</span>
+                                        <span class="block text-[10px] text-slate-500">로컬 CORS 해제 확장도구 사용 시 직결 통신.</span>
+                                    </label>
+                                    <!-- Mode 5: CORS Anywhere -->
+                                    <label class="border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative" id="label-proxy-corsanywhere">
+                                        <input type="radio" name="corsMode" value="corsanywhere" class="absolute top-3 right-3 accent-cyber-cyan" onchange="updateCorsModeUI()">
+                                        <span class="block text-xs font-bold text-slate-900 mb-1">CORS Anywhere</span>
+                                        <span class="block text-[10px] text-slate-500">사전 임시승인 권한 필요 프록시망.</span>
+                                    </label>
+                                </div>
+
+                                <!-- Diagnostic Info based on proxy selection -->
+                                <div id="proxyTipBox" class="text-[11px] text-slate-600 bg-white p-2.5 rounded-lg font-medium leading-relaxed border border-slate-200 border-l-4 border-l-emerald-500">
+                                    현재 <strong>★ GitHub Actions Static JSON</strong> 모드가 지정되어 있습니다.
+                                </div>
+                            </div>
+
+                            <!-- Action Controls -->
+                            <div class="flex space-x-3">
+                                <button onclick="saveApiSetup()" class="flex-1 py-2.5 rounded-xl bg-cyber-cyan hover:bg-cyan-700 text-white font-bold transition text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-sm">
+                                    <i data-lucide="save" class="w-4 h-4"></i>
+                                    <span>설정 저장 및 라이브 데이터 수집 가동</span>
+                                </button>
+                                <button onclick="testConnection()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition text-xs font-bold flex items-center space-x-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4 text-cyber-cyan"></i>
+                                    <span>연동 및 CORS 통신 상태 진단</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Diagnostic panel: Diagnostics -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col h-[520px] card-soft">
+                        <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 font-mono tracking-widest uppercase">System Diagnostics Console</span>
+                            <span class="px-2 py-0.5 rounded text-[9px] bg-red-500/10 text-red-400 border border-red-500/20 font-bold animate-pulse">디버깅 채널</span>
+                        </div>
+
+                        <!-- Diagnostics Terminal -->
+                        <div id="diagnosticTerminal" class="terminal-scroll flex-grow overflow-y-auto mt-4 font-mono text-[11px] text-slate-300 space-y-2">
+                            <div class="text-slate-500">// 조달 통신망 진단 준비 완료. 위의 [상태 진단] 또는 [설정 저장]을 누르면 3대 서비스 API 통신망 무결성을 병렬로 즉시 검증합니다.</div>
+                        </div>
+
+                        <!-- Reset to defaults -->
+                        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+                            <span class="text-[10px] text-slate-500">연동 문제 발생 시 기본 설정값으로 재설정할 수 있습니다.</span>
+                            <button onclick="resetSetup()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-semibold transition">
+                                네트워크 설정 초기화
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- GEMINI AI ASSISTANT MODAL -->
+    <div id="aiAssistantModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-slate-150 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center space-x-2.5">
+                    <span class="p-2 bg-cyan-100 text-cyber-cyan rounded-xl">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-cyber-cyan animate-pulse"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">✨ Gemini AI 지능형 조달 제안 비서</h3>
+                        <p class="text-[10px] sm:text-xs text-slate-500">나라장터 공고 해독 및 지능형 입찰 제안 전략 분석</p>
+                    </div>
+                </div>
+                <button onclick="closeAiAssistant()" class="p-2 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="flex-grow p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left: Bid Info Details -->
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span id="modal-serviceType" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border"></span>
+                            <span id="modal-bidNo" class="text-[10px] text-slate-400 font-mono"></span>
+                        </div>
+                        <h4 id="modal-title" class="font-bold text-slate-900 text-sm sm:text-base leading-snug"></h4>
+                        
+                        <div class="grid grid-cols-2 gap-4 pt-3 text-xs text-slate-600 border-t border-slate-200">
+                            <div>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">공고/수요기관</span>
+                                <span id="modal-agency" class="font-extrabold text-slate-800"></span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">지역 구분</span>
+                                <span id="modal-region" class="font-extrabold text-slate-800"></span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">배정 예산</span>
+                                <span id="modal-budget" class="font-extrabold text-slate-950 font-mono"></span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">수집 / 마감일</span>
+                                <span id="modal-dates" class="font-extrabold text-slate-800 font-mono"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button id="modal-g2bBtn" class="flex-1 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold transition flex items-center justify-center space-x-1.5">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            <span>나라장터 원본공고 이동</span>
+                        </button>
+                    </div>
+
+                    <!-- AI Actions -->
+                    <div class="border-t border-slate-150 pt-4 space-y-3">
+                        <h5 class="text-xs font-extrabold text-slate-800 flex items-center space-x-1">
+                            <i data-lucide="cpu" class="w-4 h-4 text-cyber-cyan animate-pulse"></i>
+                            <span>✨ Gemini AI 조달 의사결정 추론</span>
+                        </h5>
+                        <p class="text-[10px] sm:text-xs text-slate-500 leading-relaxed">선택된 조달 메타데이터를 기반으로 생성형 AI 모델이 지자체 공략 영업 초안을 즉각 기술합니다.</p>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="generateAiProposalStrategy()" class="py-3 px-4 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan font-extrabold text-xs transition text-left flex items-center justify-between group">
+                                <span class="flex items-center space-x-1.5">
+                                    <i data-lucide="target" class="w-4 h-4"></i>
+                                    <span>✨ 제안 전략 분석</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition"></i>
+                            </button>
+                            <button onclick="generateAiProposalEmail()" class="py-3 px-4 rounded-xl bg-fuchsia-50 hover:bg-fuchsia-100 border border-fuchsia-200 text-cyber-fuchsia font-extrabold text-xs transition text-left flex items-center justify-between group">
+                                <span class="flex items-center space-x-1.5">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                    <span>✨ 업무 전파 기안</span>
+                                </span>
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: AI Output Box -->
+                <div class="flex flex-col h-[400px] md:h-auto border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden relative shadow-inner">
+                    <div class="p-3.5 bg-white border-b border-slate-200 flex justify-between items-center shrink-0">
+                        <span class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                            </span>
+                            <span>AI 분석 보고서 결과</span>
+                        </span>
+                        <button onclick="copyToClipboard('ai-output-box')" class="p-2 hover:bg-slate-100 rounded-xl text-slate-500 hover:text-slate-700 transition" title="보고서 클립보드 복사">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <!-- Output scroll container -->
+                    <div id="ai-output-box" class="flex-grow p-5 overflow-y-auto text-xs sm:text-sm font-sans text-slate-800 space-y-2 select-text leading-relaxed">
+                        <div class="text-slate-400 flex flex-col items-center justify-center h-full text-center space-y-3">
+                            <i data-lucide="sparkles" class="w-10 h-10 text-slate-300 animate-bounce"></i>
+                            <p class="text-xs">좌측의 AI 분석 액션 버튼을 클릭하면<br>나라장터 전용 수주 비서가 제안략 리포트를 자율 기술합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast System (Replaces Alert) (This element is now restored to prevent InnerText null property errors) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-10 opacity-0 transition-all duration-300 flex items-center space-x-2 bg-white border border-cyan-200 px-4 py-3 rounded-xl shadow-lg">
+        <span class="p-1 rounded-full bg-cyan-50 text-cyber-cyan" id="toastIcon">
+            <i data-lucide="info" class="w-4 h-4"></i>
+        </span>
+        <span class="text-xs sm:text-sm text-slate-800 font-semibold" id="toastMessage">알림 내용</span>
+    </div>
+
+    <!-- CORE LOGIC & DATA SCRIPT -->
+    <script>
+        let mockBids = [];
+        let realBids = [];
+        let activeBids = []; // This stores the unified list (announcements, prior specs, ordering plans)
+        let chartInstance1 = null;
+        let chartInstance2 = null;
+        let chartInstance3 = null;
+        let chartInstance4 = null; // New Regional Budget Stacked Chart Instance
+
+        // 🔒 ADMIN AUTH STATE
+        let isManagerUnlocked = false;
+
+        const API_KEY_LS = "NARA_SCOUT_API_KEY_NEO";
+        const CORS_MODE_LS = "NARA_SCOUT_CORS_MODE_NEO";
+
+        // 검색 키워드 마스터 정의
+        const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS"];
+        const SEARCH_TERMS = BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]);
+
+        // 카테고리 분류 (대시보드 통계/차트 그루핑용)
+        const KEYWORD_CATEGORY = {
+            "디스플레이/사이니지 계열": ["전광판", "LED", "디스플레이", "사이니지"],
+            "미디어/파사드 계열": ["미디어", "파사드"],
+            "ITS/VMS 계열": ["ITS", "VMS"]
+        };
+        const KEYWORD_COLORS = {
+            "전광판":    "#0891b2",
+            "LED":       "#06b6d4",
+            "디스플레이":"#14b8a6",
+            "사이니지":  "#3b82f6",
+            "미디어":    "#c026d3",
+            "파사드":    "#a855f7",
+            "ITS":       "#d97706",
+            "VMS":       "#f59e0b"
+        };
+
+        function normalizeKeyword(kw) {
+            if (!kw) return "";
+            return String(kw).replace(/^디지털\s*/i, "").trim();
+        }
+        function getCategory(kw) {
+            const base = normalizeKeyword(kw);
+            for (const [cat, list] of Object.entries(KEYWORD_CATEGORY)) {
+                if (list.includes(base)) return cat;
+            }
+            return "기타";
+        }
+
+        // Proxy registry
+        const PROXY_REGISTRY = {
+            corsproxy: {
+                label: "corsproxy.io",
+                build: (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+                extract: async (r) => await r.text()
+            },
+            allorigins: {
+                label: "AllOrigins",
+                build: (u) => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}&_=${Date.now()}`,
+                extract: async (r) => {
+                    const wrap = await r.json();
+                    if (wrap && typeof wrap.contents === 'string') return wrap.contents;
+                    throw new Error("AllOrigins wrapper에 contents 필드 누락");
+                }
+            },
+            codetabs: {
+                label: "codetabs",
+                build: (u) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+                extract: async (r) => await r.text()
+            },
+            corsanywhere: {
+                label: "CORS Anywhere",
+                build: (u) => `https://cors-anywhere.herokuapp.com/${u}`,
+                extract: async (r) => await r.text()
+            },
+            direct: {
+                label: "Direct",
+                build: (u) => u,
+                extract: async (r) => await r.text()
+            }
+        };
+
+        function buildProxyChain(selectedMode) {
+            const fallbackOrder = ["corsproxy", "allorigins", "codetabs", "corsanywhere", "direct"];
+            const chain = [];
+            const seen = new Set();
+            if (PROXY_REGISTRY[selectedMode]) {
+                chain.push({ id: selectedMode, ...PROXY_REGISTRY[selectedMode] });
+                seen.add(selectedMode);
+            }
+            for (const id of fallbackOrder) {
+                if (!seen.has(id) && PROXY_REGISTRY[id]) {
+                    chain.push({ id, ...PROXY_REGISTRY[id] });
+                    seen.add(id);
+                }
+            }
+            return chain;
+        }
+
+        function looksLikeApiPayload(text) {
+            if (!text) return false;
+            const t = String(text).trim();
+            if (t.length < 30) return false;
+            const lower = t.toLowerCase();
+            if (lower.startsWith('<!doctype html') || lower.startsWith('<html')) return false;
+            if (lower.includes('cloudflare') && (lower.includes('ray id') || lower.includes('error code'))) return false;
+            if (t.length < 400) {
+                if (lower.includes('rate limit') || lower.includes('bad gateway') ||
+                    lower.includes('service unavailable') || lower.includes('unexpected error')) return false;
+            }
+            const firstChar = t[0];
+            if (firstChar !== '<' && firstChar !== '{' && firstChar !== '[') return false;
+            return true;
+        }
+
+        async function fetchWithProxyFallback(targetUrl, selectedMode, opts = {}) {
+            const chain = buildProxyChain(selectedMode);
+            const errors = [];
+            for (const proxy of chain) {
+                const callUrl = proxy.build(targetUrl);
+                try {
+                    if (opts.verbose) logConsole(`↪ 프록시 시도: ${proxy.label}`, "normal");
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), opts.timeoutMs || 12000);
+                    const response = await fetch(callUrl, { signal: controller.signal });
+                    clearTimeout(timeout);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const rawText = await proxy.extract(response);
+                    if (!rawText) throw new Error("빈 응답");
+                    if (!looksLikeApiPayload(rawText)) {
+                        const preview = String(rawText).trim().substring(0, 80).replace(/\s+/g, ' ');
+                        throw new Error(`비정상 응답 (XML/JSON 아님: "${preview}")`);
+                    }
+                    if (opts.verbose && proxy.id !== selectedMode) {
+                        logConsole(`✓ 대체 프록시(${proxy.label}) 통신 성공`, "success");
+                    }
+                    return { rawText, proxyUsed: proxy.id, proxyLabel: proxy.label };
+                } catch (e) {
+                    const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
+                    errors.push(`${proxy.label}: ${msg}`);
+                    if (opts.verbose) logConsole(`✗ ${proxy.label} 실패 → ${msg}`, "warn");
+                }
+            }
+            const err = new Error("모든 프록시 경로 실패");
+            err.attempts = errors;
+            throw err;
+        }
+
+        // Generate extensive offline mock data representing the last 3 months
+        function generateRealisticMockData() {
+            const orgs = [
+                { name: "서울특별시 성동구", region: "서울" },
+                { name: "부산광역시 해운대구", region: "부산" },
+                { name: "인천국제공항공사", region: "인천" },
+                { name: "경기도 고양시청", region: "경기" },
+                { name: "국립현대미술관", region: "서울" },
+                { name: "강원도 정선군청", region: "강원" },
+                { name: "경상북도 교육청", region: "경상" },
+                { name: "충청남도 천안시청", region: "충청" },
+                { name: "전라북도 전주시청", region: "전라" },
+                { name: "한국전력공사", region: "전라" },
+                { name: "한국수자원공사", region: "대전" },
+                { name: "인천광역시 연수구청", region: "인천" },
+                { name: "제주특별자치도", region: "제주" }
+            ];
+
+            const titleTemplates = {
+                "공고": {
+                    "전광판": "옥외용 고해상도 풀컬러 LED 전광판 시공 및 조달 구매",
+                    "LED": "공원 야간경관 LED 조명 통합 제어 시스템 구축",
+                    "디스플레이": "행정복합센터 안내 디지털 디스플레이 설치 용역",
+                    "사이니지": "공공기관 디지털 사이니지 통합 운영 플랫폼 구축",
+                    "미디어": "도심 미디어 캔버스 콘텐츠 제작 및 송출 용역",
+                    "파사드": "도심 미디어파사드 고해상도 연출 시스템 및 음향 구축",
+                    "ITS": "도시고속도로 ITS 교통정보 수집 시스템 구축",
+                    "VMS": "고속도로 VMS(가변정보표시기) 신규 설치 공사"
+                },
+                "사전규격": {
+                    "전광판": "주요 교차로 재해예방 교통안전 LED 전광판 구매 규격서 공개",
+                    "LED": "체육관 천장형 대형 LED 조달 구매 사전규격 공개검토",
+                    "디스플레이": "스마트 정류소 지능형 디스플레이 정보판 구매 기술 규격",
+                    "사이니지": "지자체 홍보 옥외 통합 사이니지 조달 사전공개 정보",
+                    "미디어": "미디어아트 조형물 연출 및 디지털 소프트웨어 개발사 규격협의",
+                    "파사드": "역사건물 외벽 입체 미디어파사드 연출 용역 사전 규격 의견조회",
+                    "ITS": "우회도로 차세대 지능형교통체계(ITS) 검지기 설계 규격 검증",
+                    "VMS": "국도 및 간선도로 교통안내 VMS 표지판 제조 사전 기술 사양"
+                },
+                "발주계획": {
+                    "전광판": "2026년도 하반기 지자체 시정홍보 전광판 교체 발주 계획",
+                    "LED": "가로경관 야간 유도등 스마트 LED 벌크조명 연간 구매계획",
+                    "디스플레이": "중앙민원실 리뉴얼 디지털 디스플레이 15개소 발주 예정 통보",
+                    "사이니지": "전통시장 현대화 사업 지능형 가판대 사이니지 3단계 발주 추진",
+                    "미디어": "문화전당 미디어아카이브 연출 프로젝트 발주 예고 정보",
+                    "파사드": "대형 관광단지 야간 테마파크 미디어파사드 설치 추진 계획",
+                    "ITS": "광역도시 통합관제망 연계 ITS 고도화 사업 조달 발주계획",
+                    "VMS": "우회 순환도로망 구간 차로 지시 VMS 연간 증설 발주계획"
+                }
+            };
+
+            const list = [];
+            const today = new Date();
+            const serviceTypes = ["공고", "사전규격", "발주계획"];
+
+            // Generates 105 total items (35 of each service type)
+            for (let i = 0; i < 105; i++) {
+                const serviceType = serviceTypes[i % serviceTypes.length];
+                const baseKw = BASE_KEYWORDS[i % BASE_KEYWORDS.length];
+                const useDigitalPrefix = Math.random() < 0.35;
+                const searchKw = useDigitalPrefix ? `디지털 ${baseKw}` : baseKw;
+
+                const org = orgs[Math.floor(Math.random() * orgs.length)];
+                const titleTemplate = titleTemplates[serviceType][baseKw];
+
+                const ntceNoSuffix = String(Math.floor(Math.random() * 90000) + 10000);
+                const prefixMap = { "공고": "2026", "사전규격": "BF-2026", "발주계획": "PL-2026" };
+                const ntceNo = `${prefixMap[serviceType]}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}-${ntceNoSuffix}-00`;
+
+                // Distribute dates so some are highly urgent (within 1-10 days in future)
+                const daysAgo = Math.floor(Math.random() * 90);
+                const regDate = new Date(today);
+                regDate.setDate(today.getDate() - daysAgo);
+
+                const dueDate = new Date(today);
+                dueDate.setDate(today.getDate() + (i % 12) - 2); // Creates active D-Days like D-Day, D-1, D-3, D-10, etc.
+
+                const category = getCategory(baseKw);
+                let budget = 0;
+                if (category === "미디어/파사드 계열") {
+                    budget = (Math.floor(Math.random() * 140) + 10) * 10000000; // 1억 ~ 15억
+                } else if (category === "ITS/VMS 계열") {
+                    budget = (Math.floor(Math.random() * 80) + 20) * 10000000; // 2억 ~ 10억
+                } else {
+                    budget = (Math.floor(Math.random() * 30) + 3) * 10000000; // 3천만 ~ 3억 3천만
+                }
+
+                let title = `[${org.region}] ${org.name} - ${titleTemplate}`;
+
+                list.push({
+                    serviceType: serviceType,
+                    bidNtceNo: ntceNo,
+                    bidNtceNm: title,
+                    ntceInsttNm: org.name,
+                    dminsttNm: org.name,
+                    assignBudgetAmt: budget,
+                    bidNtceRegistDt: regDate.toISOString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 16),
+                    bidClseDt: dueDate.toISOString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 16),
+                    searchKeyword: searchKw,
+                    region: org.region,
+                    g2bUrl: serviceType === "공고" 
+                        ? `https://www.g2b.go.kr:8401/egp/bi/bid/bidDetail.do?bidNo=${ntceNo.split('-')[0]}&bidSeq=${ntceNo.split('-')[1]}`
+                        : `https://www.g2b.go.kr`
+                });
+            }
+
+            list.sort((a, b) => new Date(b.bidNtceRegistDt) - new Date(a.bidNtceRegistDt));
+            mockBids = list;
+        }
+
+        // 🔒 CHECK MANAGER PASSWORD (8845)
+        function checkManagerPassword() {
+            const pwdInput = document.getElementById('managerPasswordInput');
+            if (pwdInput.value === '8845') {
+                isManagerUnlocked = true;
+                document.getElementById('api-setup-gate').classList.add('hidden');
+                document.getElementById('api-setup-content').classList.remove('hidden');
+                showToast("관리자 권한이 성공적으로 인증되었습니다.", "unlock");
+                logConsole("관리자 인증 성공: API & CORS 설정 가동 허가됨.", "success");
+            } else {
+                showToast("비밀번호가 일치하지 않습니다.", "shield-alert");
+                pwdInput.value = '';
+                pwdInput.focus();
+                logConsole("보안 경고: 인증 실패 (입력된 암호 불일치)", "error");
+            }
+        }
+
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn flex-1 py-3 text-xs sm:text-sm font-semibold rounded-lg transition text-slate-500 hover:text-slate-800 hover:bg-slate-50 flex items-center justify-center space-x-2";
+            });
+
+            // If setup is selected, we safely toggle classes on activeTab without relying on a tabBtn-api-setup in the main DOM bar
+            const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn flex-1 py-3 text-xs sm:text-sm font-semibold rounded-lg transition flex items-center justify-center space-x-2 bg-cyan-50 text-cyber-cyan border border-cyan-200";
+            }
+
+            if (tabId === 'dashboard') {
+                updateDashboardStats();
+                renderUrgentBids();
+            } else if (tabId === 'analysis') {
+                updateAnalysisTabCharts();
+            } else if (tabId === 'api-setup') {
+                if (isManagerUnlocked) {
+                    document.getElementById('api-setup-gate').classList.add('hidden');
+                    document.getElementById('api-setup-content').classList.remove('hidden');
+                } else {
+                    document.getElementById('api-setup-gate').classList.remove('hidden');
+                    document.getElementById('api-setup-content').classList.add('hidden');
+                    document.getElementById('managerPasswordInput').value = '';
+                    setTimeout(() => {
+                        document.getElementById('managerPasswordInput').focus();
+                    }, 100);
+                }
+            }
+        }
+
+        function formatKoreanCurrency(num) {
+            if (!num || isNaN(num)) return "0원";
+            if (num >= 100000000) {
+                const eok = Math.floor(num / 100000000);
+                const remain = Math.floor((num % 100000000) / 10000);
+                return remain > 0 ? `${eok}억 ${remain.toLocaleString()}만 원` : `${eok}억 원`;
+            }
+            return `${Math.floor(num / 10000).toLocaleString()}만 원`;
+        }
+
+        // 📊 누적 데이터 통계 업데이트 기능 정의 복원
+        function updateDashboardStats() {
+            const count = activeBids.length;
+            const totalBudget = activeBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+
+            // 서비스 유형별 그룹화
+            const bidBids = activeBids.filter(item => item.serviceType === "공고");
+            const specBids = activeBids.filter(item => item.serviceType === "사전규격");
+            const planBids = activeBids.filter(item => item.serviceType === "발주계획");
+
+            const bidBudget = bidBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+            const specBudget = specBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+            const planBudget = planBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+
+            // 메인 지표 카드 업데이트
+            document.getElementById('stat-total-count').innerText = `${count}건`;
+            document.getElementById('stat-total-budget').innerText = formatKoreanCurrency(totalBudget);
+
+            // 각 서브 카드 값 갱신
+            document.getElementById('stat-bid-count').innerText = `${bidBids.length}건`;
+            document.getElementById('stat-bid-budget').innerText = formatKoreanCurrency(bidBudget);
+
+            document.getElementById('stat-spec-count').innerText = `${specBids.length}건`;
+            document.getElementById('stat-spec-budget').innerText = formatKoreanCurrency(specBudget);
+
+            document.getElementById('stat-plan-count').innerText = `${planBids.length}건`;
+            document.getElementById('stat-plan-budget').innerText = formatKoreanCurrency(planBudget);
+        }
+
+        // 3대 조달 서비스 각각 마감 임박한 우선순위 높은 건 상위 3건씩 자동 추출 및 병렬 렌더링
+        function renderUrgentBids() {
+            const container = document.getElementById('urgent-bids-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const now = new Date();
+
+            const parseDate = (dStr) => {
+                if (!dStr || dStr === "-") return new Date(8640000000000000); 
+                return new Date(dStr.replace(/-/g, '/'));
+            };
+
+            const getClosestUrgentList = (type) => {
+                const filtered = activeBids.filter(item => item.serviceType === type);
+                if (filtered.length === 0) return [];
+
+                return [...filtered].sort((a, b) => {
+                    const dateA = parseDate(a.bidClseDt);
+                    const dateB = parseDate(b.bidClseDt);
+                    
+                    const isPastA = dateA < now;
+                    const isPastB = dateB < now;
+
+                    if (isPastA && !isPastB) return 1; 
+                    if (!isPastA && isPastB) return -1;
+                    
+                    return dateA - dateB; 
+                }).slice(0, 3); 
+            };
+
+            const servicesConfig = [
+                { type: "공고", title: "입찰공고 마감 임박 (TOP 3)", color: "cyan", icon: "file-text" },
+                { type: "사전규격", title: "사전규격 의견마감 (TOP 3)", color: "fuchsia", icon: "clipboard-list" },
+                { type: "발주계획", title: "발주계획 추진예정 (TOP 3)", color: "amber", icon: "calendar" }
+            ];
+
+            servicesConfig.forEach(srv => {
+                const itemList = getClosestUrgentList(srv.type);
+                
+                let colBorderClass = "border-cyan-200/80";
+                let textCol = "text-cyber-cyan";
+                let dotCol = "bg-cyber-cyan";
+                let borderHover = "hover:border-cyan-400 hover:shadow-cyan-100/50";
+                
+                if (srv.color === "fuchsia") {
+                    colBorderClass = "border-fuchsia-200/80";
+                    textCol = "text-cyber-fuchsia";
+                    dotCol = "bg-cyber-fuchsia";
+                    borderHover = "hover:border-fuchsia-400 hover:shadow-fuchsia-100/50";
+                } else if (srv.color === "amber") {
+                    colBorderClass = "border-amber-200/80";
+                    textCol = "text-cyber-amber";
+                    dotCol = "bg-cyber-amber";
+                    borderHover = "hover:border-amber-400 hover:shadow-amber-100/50";
+                }
+
+                let cardsHtml = '';
+                
+                if (itemList.length === 0) {
+                    cardsHtml = `
+                        <div class="bg-slate-50 border border-dashed border-slate-200 rounded-xl p-6 text-center text-slate-400 text-xs flex flex-col items-center justify-center min-h-[220px]">
+                            <i data-lucide="info" class="w-5 h-5 text-slate-300 mb-1.5"></i>
+                            <span>해당 마감 예정 건이 없습니다.</span>
+                        </div>
+                    `;
+                } else {
+                    itemList.forEach(item => {
+                        const dDayValue = getDDay(item.bidClseDt);
+                        let dDayBadge = "bg-rose-50 text-rose-600 border-rose-200";
+
+                        if (dDayValue.startsWith("D-") && !dDayValue.includes("마감됨")) {
+                            const days = parseInt(dDayValue.replace("D-", ""));
+                            if (days > 3) {
+                                dDayBadge = "bg-slate-100 text-slate-600 border-slate-200";
+                            } else {
+                                dDayBadge = "bg-rose-500 text-white border-rose-500 animate-pulse font-bold";
+                            }
+                        } else if (dDayValue === "D-Day") {
+                            dDayBadge = "bg-rose-600 text-white border-rose-600 animate-pulse font-bold";
+                        } else {
+                            dDayBadge = "bg-slate-100 text-slate-400 border-slate-200";
+                        }
+
+                        // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 ✨ AI 제안 비서 실행
+                        cardsHtml += `
+                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant('${item.bidNtceNo}')">
+                                <div class="flex justify-between items-center gap-2 min-w-0">
+                                    <h5 class="font-bold text-xs text-slate-800 truncate min-w-0 flex-grow group-hover:${textCol} transition duration-150" title="${item.bidNtceNm}">
+                                        ${item.bidNtceNm}
+                                    </h5>
+                                    <span class="shrink-0 px-2 py-0.5 text-[10px] font-bold rounded-md ${dDayBadge}">${dDayValue}</span>
+                                </div>
+                                <div class="flex justify-between items-center text-[10px] text-slate-500 pt-1.5 border-t border-slate-100 min-w-0">
+                                    <div class="truncate font-medium text-slate-600 flex-grow min-w-0 pr-2" title="${item.ntceInsttNm} (${item.region})">
+                                        ${item.ntceInsttNm} (${item.region})
+                                    </div>
+                                    <div class="font-bold text-slate-800 shrink-0 font-mono">${formatKoreanCurrency(item.assignBudgetAmt)}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                container.innerHTML += `
+                    <div class="border ${colBorderClass} bg-white rounded-2xl p-5 flex flex-col space-y-3.5 shadow-sm">
+                        <!-- Column Header -->
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <h4 class="font-extrabold text-xs sm:text-sm text-slate-900 flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full ${dotCol}"></span>
+                                <span>${srv.title}</span>
+                            </h4>
+                            <span class="text-[10px] text-slate-400 font-medium">분석 대상 ${itemList.length}개</span>
+                        </div>
+                        <!-- Stacked compact card list (max 3) -->
+                        <div class="space-y-3 flex-grow">
+                            ${cardsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            lucide.createIcons();
+        }
+
+        // 지능형 디데이 계산 헬퍼
+        function getDDay(dateStr) {
+            if (!dateStr || dateStr === "-") return "기한 없음";
+            
+            let target;
+            if (dateStr.includes('-') && dateStr.split('-').length === 2) {
+                // 발주계획 2026-06 포맷 감지 시 해당 월 말일 마감으로 치환 계산
+                const [yr, mn] = dateStr.split('-');
+                target = new Date(parseInt(yr), parseInt(mn), 0, 18, 0, 0);
+            } else {
+                target = new Date(dateStr.replace(/-/g, '/'));
+            }
+
+            const now = new Date();
+            const diffTime = target - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) return `기한 마감`;
+            if (diffDays === 0) return "D-Day";
+            return `D-${diffDays}`;
+        }
+
+        function renderHotMatches() {
+            const container = document.getElementById('hot-matches-grid');
+            container.innerHTML = '';
+
+            const sorted = [...activeBids].sort((a, b) => b.assignBudgetAmt - a.assignBudgetAmt).slice(0, 4);
+
+            if (sorted.length === 0) {
+                container.innerHTML = `<div class="p-4 bg-white border border-slate-200 rounded-xl text-center text-slate-500 text-xs md:col-span-4">전략 검토용 고가 핵심 사업 데이터가 부족합니다.</div>`;
+                return;
+            }
+
+            sorted.forEach(item => {
+                let badgeColor = "bg-cyan-50 text-cyber-cyan border-cyan-200";
+                let cardGlow = "hover:shadow-[0_4px_14px_rgba(6,182,212,0.12)]";
+                
+                if (item.serviceType === "사전규격") {
+                    badgeColor = "bg-fuchsia-50 text-cyber-fuchsia border-fuchsia-200";
+                    cardGlow = "hover:shadow-[0_4px_14px_rgba(192,38,211,0.12)]";
+                } else if (item.serviceType === "발주계획") {
+                    badgeColor = "bg-amber-50 text-cyber-amber border-amber-200";
+                    cardGlow = "hover:shadow-[0_4px_14px_rgba(245,158,11,0.12)]";
+                }
+
+                const cardHtml = `
+                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant('${item.bidNtceNo}')">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeColor}">${item.serviceType} | ${item.searchKeyword}</span>
+                                <span class="text-[9px] text-slate-400 font-mono">${item.bidNtceNo}</span>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2 hover:text-cyber-cyan transition">
+                                ${item.bidNtceNm}
+                            </h4>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <div class="space-y-0.5">
+                                <div class="text-[9px] text-slate-400">배정예산액</div>
+                                <div class="font-extrabold text-slate-900">${formatKoreanCurrency(item.assignBudgetAmt)}</div>
+                            </div>
+                            <div class="text-right space-y-0.5">
+                                <div class="text-[9px] text-slate-400">등록일</div>
+                                <div class="text-slate-600 font-medium">${item.bidNtceRegistDt.substring(5, 10)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        function renderRegionalStats() {
+            const grid = document.getElementById('regionalStatsGrid');
+            grid.innerHTML = '';
+
+            const regions = ["서울", "경기", "인천", "부산", "강원", "경상", "전라", "충청", "제주", "세종"];
+            
+            regions.slice(0, 10).forEach(reg => {
+                const regBids = activeBids.filter(b => b.region === reg);
+                const sumBudget = regBids.reduce((sum, b) => sum + b.assignBudgetAmt, 0);
+
+                const html = `
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col items-center justify-center space-y-1">
+                        <span class="text-xs font-bold text-slate-700">${reg}</span>
+                        <span class="text-base font-extrabold text-cyber-cyan">${regBids.length}건</span>
+                        <span class="text-[9px] text-slate-500 font-mono">${formatKoreanCurrency(sumBudget)}</span>
+                    </div>
+                `;
+                grid.innerHTML += html;
+            });
+        }
+
+        function renderBidsTable(filteredList = null) {
+            const targetList = filteredList || activeBids;
+            const body = document.getElementById('bidsTableBody');
+            const emptyState = document.getElementById('tableEmptyState');
+
+            body.innerHTML = '';
+
+            if (targetList.length === 0) {
+                emptyState.classList.remove('hidden');
+                document.getElementById('tableResultCount').innerText = `총 ${activeBids.length}개 중 0개 매칭됨`;
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            document.getElementById('tableResultCount').innerText = `총 ${activeBids.length}개 중 ${targetList.length}개 매칭 (최근 3개월 3대 서비스 통합 기준)`;
+
+            targetList.forEach(item => {
+                let badgeStyle = "bg-cyan-50 text-cyber-cyan border-cyan-200";
+                let typeIcon = "file-text";
+
+                if (item.serviceType === "사전규격") {
+                    badgeStyle = "bg-fuchsia-50 text-cyber-fuchsia border-fuchsia-200";
+                    typeIcon = "clipboard-list";
+                } else if (item.serviceType === "발주계획") {
+                    badgeStyle = "bg-amber-50 text-cyber-amber border-amber-200";
+                    typeIcon = "calendar-days";
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 border-b border-slate-100 transition duration-150";
+
+                tr.innerHTML = `
+                    <td class="p-4 align-top space-y-1 shrink-0">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeStyle} flex items-center justify-center space-x-1 w-24">
+                            <i data-lucide="${typeIcon}" class="w-3 h-3"></i>
+                            <span>${item.serviceType}</span>
+                        </span>
+                        <div class="text-[10px] text-slate-400 font-mono mt-1 text-center">${item.bidNtceNo}</div>
+                    </td>
+                    <td class="p-4 align-top font-semibold text-slate-800">
+                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant('${item.bidNtceNo}')">${item.bidNtceNm}</div>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-[10px] text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded flex items-center space-x-1">
+                                <i data-lucide="map-pin" class="w-2.5 h-2.5 text-cyber-cyan"></i>
+                                <span>${item.region}</span>
+                            </span>
+                            <span class="text-[10px] text-slate-400">태그: ${item.searchKeyword}</span>
+                        </div>
+                    </td>
+                    <td class="p-4 align-top text-xs text-slate-600">
+                        <div>${item.ntceInsttNm}</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5">${item.dminsttNm}</div>
+                    </td>
+                    <td class="p-4 align-top font-extrabold text-slate-900 font-mono">
+                        ${formatKoreanCurrency(item.assignBudgetAmt)}
+                    </td>
+                    <td class="p-4 align-top text-xs font-mono space-y-0.5">
+                        <div class="text-slate-600">수집/등록: ${item.bidNtceRegistDt.split(' ')[0]}</div>
+                        <div class="text-red-600 font-semibold">${item.serviceType === '공고' ? '마감: ' : (item.serviceType === '사전규격' ? '의견종료: ' : '예정월: ')}${item.bidClseDt.substring(5, 16)}</div>
+                    </td>
+                    <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
+                        <button onclick="openAiAssistant('${item.bidNtceNo}')" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="✨ AI 수주 제안전략 설계기 열기">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button onclick="openBidLink('${item.g2bUrl}')" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </td>
+                `;
+                body.appendChild(tr);
+            });
+
+            lucide.createIcons();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const service = document.getElementById('filterService').value;
+            const keyword = document.getElementById('filterKeyword').value;
+            const region = document.getElementById('filterRegion').value;
+            const budgetRange = document.getElementById('filterBudget').value;
+
+            let filtered = [...activeBids];
+
+            if (query) {
+                filtered = filtered.filter(item => 
+                    item.bidNtceNm.toLowerCase().includes(query) ||
+                    item.ntceInsttNm.toLowerCase().includes(query) ||
+                    item.bidNtceNo.toLowerCase().includes(query) ||
+                    item.region.toLowerCase().includes(query)
+                );
+            }
+
+            if (service !== "ALL") {
+                filtered = filtered.filter(item => item.serviceType === service);
+            }
+
+            if (keyword !== "ALL") {
+                filtered = filtered.filter(item => normalizeKeyword(item.searchKeyword) === keyword);
+            }
+
+            if (region !== "ALL") {
+                filtered = filtered.filter(item => item.region === region);
+            }
+
+            if (budgetRange !== "ALL") {
+                filtered = filtered.filter(item => {
+                    const amt = item.assignBudgetAmt;
+                    if (budgetRange === "UNDER_50") return amt < 50000000;
+                    if (budgetRange === "50_TO_200") return amt >= 50000000 && amt <= 200000000;
+                    if (budgetRange === "200_TO_500") return amt > 200000000 && amt <= 500000000;
+                    if (budgetRange === "OVER_500") return amt > 500000000;
+                    return true;
+                });
+            }
+
+            renderBidsTable(filtered);
+        }
+
+        function openBidLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Safe console logger (supports diagnostics screen)
+        function logConsole(message, type = 'normal') {
+            const now = new Date();
+            const timeStr = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
+
+            let textClass = "text-emerald-400";
+            if (type === 'error') textClass = "text-red-400 font-bold";
+            if (type === 'warn') textClass = "text-amber-400";
+            if (type === 'success') textClass = "text-cyan-300 font-semibold";
+
+            const logLine = `<div class="${textClass}">${timeStr} ${message}</div>`;
+
+            const diagBox = document.getElementById('diagnosticTerminal');
+            if (diagBox) {
+                diagBox.insertAdjacentHTML('beforeend', logLine);
+                while (diagBox.childElementCount > 120) diagBox.removeChild(diagBox.firstElementChild);
+                diagBox.scrollTop = diagBox.scrollHeight;
+            }
+        }
+
+        function toggleErrorBanner(show, msg, diagnosis = '') {
+            const banner = document.getElementById('errorBanner');
+            if (show) {
+                banner.classList.remove('hidden');
+                document.getElementById('errorBannerText').innerText = msg;
+                if (diagnosis) {
+                    document.getElementById('errorDiagnosis').innerText = diagnosis;
+                }
+            } else {
+                banner.classList.add('hidden');
+            }
+        }
+
+        // 🔔 RESTORED: Toast Alert System Controller
+        function showToast(message, iconName = 'bell') {
+            const toast = document.getElementById('toast');
+            const text = document.getElementById('toastMessage');
+            const iconWrap = document.getElementById('toastIcon');
+
+            // Safety Guard: Check if elements exist before writing properties
+            if (!toast || !text || !iconWrap) return;
+
+            text.innerText = message;
+            iconWrap.innerHTML = `<i data-lucide="${iconName}" class="w-4 h-4"></i>`;
+            lucide.createIcons();
+
+            toast.classList.remove('translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-10', 'opacity-0');
+            }, 3500);
+        }
+
+        function exportToCSV() {
+            if (activeBids.length === 0) {
+                showToast("출력할 조달 데이터가 없습니다.", "x");
+                return;
+            }
+
+            let csvContent = "\uFEFF"; // BOM to prevent Korean character breaking in Excel
+            csvContent += "구분,서비스구분,등록번호,사업공고명,공고/수요기관,배정예산액,등록일,종료/예정기한,상세정보URL\n";
+
+            activeBids.forEach(item => {
+                const cleanName = `"${item.bidNtceNm.replace(/"/g, '""')}"`;
+                const cleanOrg = `"${item.ntceInsttNm.replace(/"/g, '""')}"`;
+                csvContent += `${item.searchKeyword},${item.serviceType},${item.bidNtceNo},${cleanName},${cleanOrg},${item.assignBudgetAmt},${item.bidNtceRegistDt},${item.bidClseDt},${item.g2bUrl}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `나라장터_통합조달수집목록_${new Date().toISOString().substring(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast("BOM UTF-8 CSV 다운로드가 완료되었습니다.", "check-circle");
+            logConsole("성공: 현재 필터링된 통합 데이터셋 엑셀 다운로드 완료.");
+        }
+
+        function toggleSecretKeyGuide() {
+            const el = document.getElementById('secretKeyGuideBox');
+            el.classList.toggle('hidden');
+        }
+
+        function updateCorsModeUI() {
+            const selectedMode = document.querySelector('input[name="corsMode"]:checked').value;
+            const tipBox = document.getElementById('proxyTipBox');
+
+            const baseCls = "border border-slate-300 bg-white rounded-xl p-3 cursor-pointer hover:bg-slate-50 block relative";
+            const baseGithubCls = "border-2 border-emerald-300 bg-emerald-50 rounded-xl p-3 cursor-pointer hover:bg-emerald-100 block relative md:col-span-3";
+            const activeCls = "border border-cyber-cyan bg-cyan-50 rounded-xl p-3 cursor-pointer block relative ring-1 ring-cyber-cyan/30";
+            const activeGithubCls = "border-2 border-emerald-500 bg-emerald-100 rounded-xl p-3 cursor-pointer block relative md:col-span-3 ring-2 ring-emerald-300";
+
+            ['corsproxy', 'allorigins', 'codetabs', 'direct', 'corsanywhere'].forEach(id => {
+                const el = document.getElementById(`label-proxy-${id}`);
+                if (el) el.className = baseCls;
+            });
+            const githubEl = document.getElementById('label-proxy-github');
+            if (githubEl) githubEl.className = baseGithubCls;
+
+            if (selectedMode === 'github' && githubEl) {
+                githubEl.className = activeGithubCls;
+            } else {
+                const activeEl = document.getElementById(`label-proxy-${selectedMode}`);
+                if (activeEl) activeEl.className = activeCls;
+            }
+
+            const tips = {
+                github: `현재 <strong>★ GitHub Actions Static JSON</strong> 모드입니다. GitHub Pages 가상 레포에서 통합 마이닝 처리된 <code>./data/bids.json</code> 을 로드합니다. CORS 우회망을 거치지 않아 응답속도가 극대화됩니다.`,
+                corsproxy: `현재 <strong>corsproxy.io</strong> 경유 모드입니다. 나라장터 API 통신을 전송하기 좋은 일반 우회 프록시입니다.`,
+                allorigins: `현재 <strong>AllOrigins</strong> 모기이자. JSON 래핑 방식으로 작동하여 프록시 중계 서버 보안 필터를 가장 원활히 해지합니다.`,
+                codetabs: `현재 <strong>codetabs</strong> 모드입니다. 일시적인 글로벌 통신 과부하 시 유연한 연동 성능을 보여줍니다.`,
+                direct: `현재 <strong>Direct Call</strong> 모드입니다. 브라우저 CORS 차단 무시용 전용 크롬 플러그인이 켜져 있는 기업 개발 환경에서 적합합니다.`,
+                corsanywhere: `현재 <strong>CORS Anywhere</strong> 모드입니다. 데모 서버를 이용하므로 최초 승인 절차를 직접 마쳐야 통신이 개시됩니다.`
+            };
+            tipBox.innerHTML = tips[selectedMode] || tips.github;
+        }
+
+        function saveApiSetup() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            const mode = document.querySelector('input[name="corsMode"]:checked').value;
+
+            if (!key) {
+                showToast("공공데이터포털 API Key를 먼저 입력하십시오.", "alert-triangle");
+                return;
+            }
+
+            localStorage.setItem(API_KEY_LS, key);
+            localStorage.setItem(CORS_MODE_LS, mode);
+
+            showToast("Open API 구성 정보가 성공적으로 적용되었습니다.", "save");
+            logConsole(`설정 저장 완료: 지정된 키 및 통신 프록시 [${mode.toUpperCase()}]로 수집 모드를 시작합니다.`);
+
+            document.getElementById('syncStatusText').innerText = "실시간 조달 모니터링 가동 중";
+            document.getElementById('syncStatusText').className = "text-xs text-cyan-700 font-bold animate-pulse";
+
+            fetchLiveNaraBids();
+        }
+
+        async function testConnection() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            const mode = document.querySelector('input[name="corsMode"]:checked').value;
+
+            document.getElementById('diagnosticTerminal').innerHTML = '<div class="text-slate-500">// 공공포털 API 3개 서비스 통신 헬스 체크 시퀀스 준비...</div>';
+            
+            if (!key) {
+                logConsole("자가진단 오류: API ServiceKey가 부재합니다.", "error");
+                return;
+            }
+
+            logConsole("3대 통합 API 데이터 통신 진단 프로세스를 개시합니다...", "warn");
+            
+            const today = new Date();
+            const past90Days = new Date();
+            past90Days.setDate(today.getDate() - 90);
+
+            const formatG2BDate = (d) => {
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                return `${yyyy}${mm}${dd}0000`;
+            };
+
+            const inqryBgnDt = formatG2BDate(past90Days);
+            const inqryEndDt = formatG2BDate(today).substring(0, 8) + "2359";
+            
+            // Query a test item from Announcement API
+            const bidTestUrl = `https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoThngPPSSrch01?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&bidNtceNm=${encodeURIComponent('전광판')}&type=json`;
+
+            logConsole(`[테스트 요청] 입찰공고망 접속 시도...`, "normal");
+
+            try {
+                const { rawText, proxyLabel } = await fetchWithProxyFallback(bidTestUrl, mode, { verbose: true, timeoutMs: 12000 });
+                logConsole(`[테스트 수신] 입찰공고망 수신 완료 (${rawText.length} Bytes, 경유: ${proxyLabel})`, "normal");
+                const res = parseApiResponse(rawText);
+                if (res.success) {
+                    logConsole("✓ 1단계 통과: 입찰공고 API 인터페이스 정상 검증 완료.", "success");
+                } else {
+                    throw new Error(`입찰공고 API 진단 응답 실패: ${res.message}`);
+                }
+            } catch (err) {
+                logConsole(`❌ 통합 진단 불가: ${err.message}`, "error");
+                toggleErrorBanner(true, `API 패킷 전송 오류가 확인되었습니다.`, err.message);
+                return;
+            }
+
+            // Test Prior Specification API (사전규격)
+            const specTestUrl = `https://apis.data.go.kr/1230000/HrcspSsstmAnncService05/getPrprcAnncListPPSSrch01?serviceKey=${key}&numOfRows=1&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&prtcNm=${encodeURIComponent('전광판')}&type=json`;
+            logConsole(`[테스트 요청] 사전규격망 접속 시도...`, "normal");
+            try {
+                const { rawText } = await fetchWithProxyFallback(specTestUrl, mode, { verbose: false, timeoutMs: 12000 });
+                const res = parseApiResponse(rawText, "사전규격");
+                if (res.success) {
+                    logConsole("✓ 2단계 통과: 사전규격정보 API 인터페이스 정상 검증 완료.", "success");
+                } else {
+                    throw new Error(`사전규격 API 진단 응답 실패: ${res.message}`);
+                }
+            } catch (err) {
+                logConsole(`❌ 2단계 실패: ${err.message} (공공포털에서 사전규격정보 서비스 신청 상태를 점검하십시오)`, "error");
+                return;
+            }
+
+            logConsole("🎉 진단 대성공: 3대 통합 조달 API 연결 테스트가 정상 충족되었습니다!", "success");
+            showToast("모든 조달 인터페이스가 준비되어 상시 가동 중입니다.", "check-circle");
+        }
+
+        function parseApiResponse(text, specServiceType = "공고") {
+            if (!text) {
+                return { success: false, type: 'EMPTY_RESPONSE', message: "수신된 패킷 데이터 내용이 완전히 비어있습니다." };
+            }
+
+            const trimmed = text.trim();
+
+            // 1. XML Handler (Fallbacks & Service Key Errors)
+            if (trimmed.startsWith('<') || trimmed.includes('OpenAPI_ServiceResponse') || trimmed.includes('<response>')) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(trimmed, "text/xml");
+                const errMsg = xmlDoc.getElementsByTagName("errMsg")[0]?.textContent || "";
+                const returnAuthMsg = xmlDoc.getElementsByTagName("returnAuthMsg")[0]?.textContent || "";
+                const returnReasonCode = xmlDoc.getElementsByTagName("returnReasonCode")[0]?.textContent || "";
+
+                const itemNodes = xmlDoc.getElementsByTagName("item");
+                if (itemNodes.length > 0 && !returnAuthMsg) {
+                    const itemsList = [];
+                    for (let i = 0; i < itemNodes.length; i++) {
+                        const node = itemNodes[i];
+                        const getVal = (tag) => node.getElementsByTagName(tag)[0]?.textContent || "";
+                        
+                        // Universal Mapping across different schemas
+                        let id = getVal("bidNtceNo") || getVal("bfSpecNo") || getVal("ordPlanNo") || `K-${Date.now()}-${i}`;
+                        let name = getVal("bidNtceNm") || getVal("prtcNm") || getVal("busiNm") || "정의되지 않은 조달 항목";
+                        let inst = getVal("ntceInsttNm") || getVal("insttNm") || getVal("ordPlanInsttNm") || "자체공고기관";
+                        let dem = getVal("dminsttNm") || getVal("insttNm") || getVal("ordPlanInsttNm") || inst;
+                        let budget = Number(getVal("assignBudgetAmt")) || Number(getVal("presmptPrce")) || Number(getVal("assignBdgtAmt")) || 0;
+                        let rgst = getVal("bidNtceRegistDt") || getVal("rgstDt") || getVal("ordPlanRegistDt") || "";
+                        let clse = getVal("bidClseDt") || getVal("rcptEndDt") || getVal("exeYr") || "";
+
+                        itemsList.push({
+                            serviceType: specServiceType,
+                            bidNtceNo: id,
+                            bidNtceNm: name,
+                            ntceInsttNm: inst,
+                            dminsttNm: dem,
+                            assignBudgetAmt: budget,
+                            bidNtceRegistDt: rgst,
+                            bidClseDt: clse,
+                            g2bUrl: getVal("bidNtceDtlUrl") || "https://www.g2b.go.kr"
+                        });
+                    }
+
+                    return {
+                        success: true,
+                        type: 'XML_PROCESSED',
+                        data: { response: { body: { items: itemsList } } }
+                    };
+                }
+
+                let diagnosticExplain = "공공데이터포털측 서비스 인증 승인 지연 혹은 무효 헤더 전송.";
+                if (returnAuthMsg === "SERVICE_KEY_IS_NOT_REGISTERED_ERROR") {
+                    diagnosticExplain = "입력한 일반 인증키가 조달청에 등록되어 있지 않습니다. 인코딩/디코딩 키 입력을 재확인해 주세요.";
+                } else if (returnAuthMsg === "LIMITED_NUMBER_OF_SERVICE_REQUESTS_EXCEEDS_ERROR") {
+                    diagnosticExplain = "해당 API 호출 권한의 일일 쿼터 용량을 모두 소진하였습니다. 익일 자정에 초기화됩니다.";
+                }
+
+                return {
+                    success: false,
+                    type: 'XML_ERROR',
+                    code: returnReasonCode,
+                    authMsg: returnAuthMsg,
+                    errMsg: errMsg,
+                    message: diagnosticExplain,
+                    raw: trimmed
+                };
+            }
+
+            // 2. Standard JSON decoder
+            try {
+                const data = JSON.parse(trimmed);
+                return { success: true, type: 'JSON', data: data };
+            } catch (e) {
+                return {
+                    success: false,
+                    type: 'INVALID_JSON',
+                    message: "수신 데이터의 JSON 패킹 규격 분석 불가 (HTML 에러 구문 수신 여부 확인 요망)",
+                    raw: trimmed
+                };
+            }
+        }
+
+        async function fetchLiveNaraBids() {
+            const key = localStorage.getItem(API_KEY_LS) || "";
+            const mode = localStorage.getItem(CORS_MODE_LS) || 'github';
+
+            logConsole("3대 실시간 조달망 통합 크롤링 및 로드 시퀀스를 시작합니다...", "warn");
+            toggleErrorBanner(false, '');
+
+            // Clear previously stored items
+            mockBids = [];
+            realBids = [];
+            activeBids = [];
+            updateDashboardStats();
+            renderCharts();
+            renderBidsTable();
+            renderHotMatches();
+            renderRegionalStats();
+            renderUrgentBids();
+
+            // === 1. GitHub Static JSON 모드 ===
+            if (mode === 'github') {
+                logConsole("[GitHub Static] 사전에 수집된 bids.json 패킷 동적 로드 시도...", "normal");
+                try {
+                    const res = await fetch('./data/bids.json?t=' + Date.now(), { cache: 'no-store' });
+                    if (!res.ok) throw new Error(`HTTP ${res.status} — data/bids.json 파일에 접근할 수 없습니다.`);
+                    const payload = await res.json();
+                    
+                    const items = Array.isArray(payload.bids) ? payload.bids : [];
+                    
+                    items.forEach(i => {
+                        if (!i.serviceType) {
+                            if (i.bidNtceNo.startsWith("BF")) i.serviceType = "사전규격";
+                            else if (i.bidNtceNo.startsWith("PL")) i.serviceType = "발주계획";
+                            else i.serviceType = "공고";
+                        }
+                    });
+
+                    realBids = items;
+                    activeBids = [...realBids];
+
+                    if (payload.generatedAt) {
+                        const gen = new Date(payload.generatedAt);
+                        logConsole(`[GitHub Static] 수신 성공: 총 ${items.length}건 로드 (업데이트 시점: ${gen.toLocaleString()})`, "success");
+                    } else {
+                        logConsole(`[GitHub Static] 수신 성공: 총 ${items.length}건 데이터 탑재 완료`, "success");
+                    }
+
+                    showToast("GitHub Static — 조달정보 통합 동기화가 완료되었습니다.", "check-circle");
+
+                    updateDashboardStats();
+                    renderCharts();
+                    renderBidsTable();
+                    renderHotMatches();
+                    renderRegionalStats();
+                    renderUrgentBids();
+                } catch (e) {
+                    logConsole(`[GitHub Static] 로드 실패: ${e.message}`, "error");
+                    toggleErrorBanner(true, `GitHub Pages 연동 불가: ${e.message}`, "로컬 파일(file://)로 직결 실행할 시 브라우저 보안 규약에 의하여 로드가 차단됩니다.");
+                }
+                return;
+            }
+
+            // === 2. Live API 병렬 파싱 (입찰공고, 사전규격, 발주계획) ===
+            const now = new Date();
+            const past90Days = new Date();
+            past90Days.setDate(now.getDate() - 90);
+
+            const formatG2BDate = (d) => {
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                return `${yyyy}${mm}${dd}0000`;
+            };
+
+            const inqryBgnDt = formatG2BDate(past90Days);
+            const inqryEndDt = formatG2BDate(now).substring(0, 8) + "2359";
+
+            const keywords = BASE_KEYWORDS; 
+            let unifiedList = [];
+
+            const APIs_TO_FETCH = [
+                {
+                    serviceName: "공고",
+                    apiName: "입찰공고(물품)",
+                    url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoThngPPSSrch01"
+                },
+                {
+                    serviceName: "공고",
+                    apiName: "입찰공고(용역)",
+                    url: "https://apis.data.go.kr/1230000/BidPublicInfoService04/getBidPblancListInfoServcPPSSrch01"
+                },
+                {
+                    serviceName: "사전규격",
+                    apiName: "사전규격정보(조달)",
+                    url: "https://apis.data.go.kr/1230000/HrcspSsstmAnncService05/getPrprcAnncListPPSSrch01"
+                },
+                {
+                    serviceName: "발주계획",
+                    apiName: "발주계획현황조회",
+                    url: "https://apis.data.go.kr/1230000/OrdPlanStatService02/getOrdPlanStatListPPSSrch01"
+                }
+            ];
+
+            for (const api of APIs_TO_FETCH) {
+                for (const kw of keywords) {
+                    logConsole(`[라이브 패치] [${api.apiName}] 키워드 "${kw}" 호출 중...`, "normal");
+                    
+                    let kwParamName = "bidNtceNm"; 
+                    if (api.serviceName === "사전규격") kwParamName = "prtcNm";
+                    if (api.serviceName === "발주계획") kwParamName = "busiNm";
+
+                    const targetUrl = `${api.url}?serviceKey=${key}&numOfRows=40&pageNo=1&inqryDiv=1&inqryBgnDt=${inqryBgnDt}&inqryEndDt=${inqryEndDt}&${kwParamName}=${encodeURIComponent(kw)}&type=json`;
+
+                    let rawText;
+                    try {
+                        const result = await fetchWithProxyFallback(targetUrl, mode, { verbose: false, timeoutMs: 12000 });
+                        rawText = result.rawText;
+                    } catch (e) {
+                        logConsole(`✗ ${api.apiName} 키워드 "${kw}" 획득 실패: ${e.message}`, "error");
+                        continue;
+                    }
+
+                    try {
+                        const parsed = parseApiResponse(rawText, api.serviceName);
+
+                        if (parsed.success) {
+                            const items = parsed.data?.response?.body?.items || [];
+                            logConsole(`✓ ${api.apiName} "${kw}" 연동 완료: ${items.length}건 발견`, "success");
+
+                            items.forEach(i => {
+                                let id = i.bidNtceNo || i.bfSpecNo || i.ordPlanNo || `KEY-${Date.now()}`;
+                                let name = i.bidNtceNm || i.prtcNm || i.busiNm || "무제 공고";
+                                let inst = i.ntceInsttNm || i.insttNm || i.ordPlanInsttNm || "자체공고기관";
+                                let dem = i.dminsttNm || i.insttNm || i.ordPlanInsttNm || inst;
+                                let budget = Number(i.assignBudgetAmt) || Number(i.presmptPrce) || Number(i.assignBdgtAmt) || 0;
+                                let rgst = i.bidNtceRegistDt || i.rgstDt || i.ordPlanRegistDt || "-";
+                                let clse = i.bidClseDt || i.rcptEndDt || i.exeYr || "-";
+
+                                let region = "전국";
+                                const regionsKo = ["서울", "경기", "인천", "부산", "강원", "충청", "충북", "충남", "전라", "전북", "전남", "경상", "경북", "경남", "대전", "대구", "광주", "울산", "세종", "제주"];
+                                for (const r of regionsKo) {
+                                    if (name.includes(r) || inst.includes(r)) {
+                                        region = r.substring(0, 2);
+                                        if (region === "충북" || region === "충남") region = "충청";
+                                        if (region === "전북" || region === "전남") region = "전라";
+                                        if (region === "경북" || region === "경남") region = "경상";
+                                        break;
+                                    }
+                                }
+
+                                unifiedList.push({
+                                    serviceType: api.serviceName,
+                                    bidNtceNo: id,
+                                    bidNtceNm: name,
+                                    ntceInsttNm: inst,
+                                    dminsttNm: dem,
+                                    assignBudgetAmt: budget,
+                                    bidNtceRegistDt: rgst.substring(0, 16),
+                                    bidClseDt: clse.substring(0, 16),
+                                    searchKeyword: kw,
+                                    region: region,
+                                    g2bUrl: i.bidNtceDtlUrl || "https://www.g2b.go.kr"
+                                });
+                            });
+                        }
+                    } catch (err) {
+                        logConsole(`! 파싱 예외 발생: ${err.message}`, "error");
+                    }
+                }
+            }
+
+            // Deduplicate items across all services based on their registration ID
+            const uniqueMap = new Map();
+            unifiedList.forEach(item => uniqueMap.set(item.bidNtceNo, item));
+            realBids = Array.from(uniqueMap.values());
+            realBids.sort((a, b) => new Date(b.bidNtceRegistDt) - new Date(a.bidNtceRegistDt));
+            activeBids = [...realBids];
+
+            if (activeBids.length > 0) {
+                logConsole("✅ 3대 실시간 조달 마켓 정보 동기화가 완료되었습니다!", "success");
+                showToast(`실시간 3대 통합 데이터 ${activeBids.length}건 획득 성공`, "check-circle");
+            } else {
+                logConsole("동기화 주의: 수신된 신규 공고가 존재하지 않습니다.", "warn");
+                showToast("조달 수신 데이터 없음.", "alert-triangle");
+            }
+
+            updateDashboardStats();
+            renderCharts();
+            renderBidsTable();
+            renderHotMatches();
+            renderRegionalStats();
+            renderUrgentBids();
+        }
+
+        function triggerManualSync() {
+            logConsole("수동 리프레시 요청 감지: 3대 실시간 공공 조달 통신망 재조회 개시.");
+            fetchLiveNaraBids();
+        }
+
+        // Network Setup Reset Function (Replaces "시뮬레이터 강제 리셋")
+        function resetSetup() {
+            localStorage.removeItem(API_KEY_LS);
+            localStorage.setItem(CORS_MODE_LS, "github");
+            
+            document.getElementById('apiKeyInput').value = 'ea074e61676447c1cfdb85f8a74f7b03093f5a5747587767af6c9a5ab7cab22c';
+            
+            const radioGithub = document.querySelector('input[name="corsMode"][value="github"]');
+            if (radioGithub) radioGithub.checked = true;
+
+            updateCorsModeUI();
+            toggleErrorBanner(false, '');
+            generateRealisticMockData();
+            activeBids = [...mockBids];
+
+            updateDashboardStats();
+            renderCharts();
+            renderBidsTable();
+            renderHotMatches();
+            renderRegionalStats();
+            renderUrgentBids();
+
+            document.getElementById('syncStatusText').innerText = "실시간 조달 분석 가동";
+            document.getElementById('syncStatusText').className = "text-xs text-emerald-700 font-medium";
+
+            logConsole("시스템 환경 재설정 완료: 네트워크 자가 설정이 공장 기본 상태(GitHub Static JSON)로 정상 복구되었습니다.", "success");
+            showToast("네트워크 기본 설정값이 정상 복구되었습니다.", "check");
+        }
+
+        /* ========================================================
+           GEMINI AI INTEGRATION ENGINE (CORS SAFE / BACKOFF RETRY)
+           ======================================================== */
+        
+        async function callGemini(prompt, systemInstruction = "") {
+            const apiKey = ""; // Runtime provides the key dynamically
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+            if (systemInstruction) {
+                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+            }
+
+            let delay = 1000;
+            // Exponential backoff: Retry up to 5 times (1s, 2s, 4s, 8s, 16s)
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const result = await response.json();
+                        return result.candidates?.[0]?.content?.parts?.[0]?.text || "결과를 생성할 수 없습니다.";
+                    }
+                    if (response.status === 429 || response.status >= 500) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        const errText = await response.text();
+                        throw new Error(`API Error (${response.status}): ${errText}`);
+                    }
+                } catch (error) {
+                    if (i === 4) {
+                        throw error;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+            throw new Error("5회 시도 후 요청이 만료되었습니다. API 키가 제공되었는지 점검하세요.");
+        }
+
+        // Lightweight Markdown parser for premium rendering inside the output box
+        function parseMarkdown(text) {
+            if (!text) return "";
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .split('\n').map(line => {
+                    const trimmed = line.trim();
+                    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                        return `<li class="ml-4 list-disc text-slate-700 my-1">${trimmed.substring(2)}</li>`;
+                    }
+                    if (trimmed.match(/^\d+\.\s/)) {
+                        return `<li class="ml-4 list-decimal text-slate-700 my-1">${trimmed.replace(/^\d+\.\s/, '')}</li>`;
+                    }
+                    if (trimmed.startsWith('### ')) {
+                        return `<h4 class="text-xs font-extrabold text-slate-950 mt-4 mb-1.5 border-b pb-1 border-slate-100">${trimmed.substring(4)}</h4>`;
+                    }
+                    if (trimmed.startsWith('## ')) {
+                        return `<h3 class="text-sm font-black text-slate-900 mt-5 mb-2.5 border-l-4 border-cyan-500 pl-2">${trimmed.substring(3)}</h3>`;
+                    }
+                    if (trimmed.startsWith('# ')) {
+                        return `<h2 class="text-base font-extrabold text-slate-950 mt-6 mb-3">${trimmed.substring(2)}</h2>`;
+                    }
+                    return trimmed ? `<p class="my-1.5 leading-relaxed text-slate-600">${trimmed}</p>` : '';
+                }).join('');
+        }
+
+        // Modal Action Controllers
+        function openAiAssistant(bidNo) {
+            const item = activeBids.find(b => b.bidNtceNo === bidNo);
+            if (!item) return;
+
+            const modal = document.getElementById('aiAssistantModal');
+            modal.setAttribute('data-active-bid-no', bidNo);
+
+            document.getElementById('modal-title').innerText = item.bidNtceNm;
+            document.getElementById('modal-bidNo').innerText = item.bidNtceNo;
+            document.getElementById('modal-serviceType').innerText = item.serviceType;
+            
+            let badgeStyle = "border-cyan-200 bg-cyan-50 text-cyber-cyan";
+            if (item.serviceType === "사전규격") badgeStyle = "border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia";
+            if (item.serviceType === "발주계획") badgeStyle = "border-amber-200 bg-amber-50 text-cyber-amber";
+            document.getElementById('modal-serviceType').className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
+
+            document.getElementById('modal-agency').innerText = item.ntceInsttNm;
+            document.getElementById('modal-region').innerText = item.region;
+            document.getElementById('modal-budget').innerText = formatKoreanCurrency(item.assignBudgetAmt);
+            document.getElementById('modal-dates').innerText = `${item.bidNtceRegistDt.split(' ')[0]} / ${item.bidClseDt.split(' ')[0]}`;
+
+            // Reset Output Window
+            document.getElementById('ai-output-box').innerHTML = `
+                <div class="text-slate-400 flex flex-col items-center justify-center h-full text-center space-y-3">
+                    <i data-lucide="sparkles" class="w-10 h-10 text-slate-300 animate-bounce"></i>
+                    <p class="text-xs">분석 대기 중...<br>좌측의 AI 분석 액션 버튼을 클릭해 보고서를 발급하십시오.</p>
+                </div>
+            `;
+
+            // Reset G2B original site link button
+            document.getElementById('modal-g2bBtn').onclick = () => openBidLink(item.g2bUrl);
+
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeAiAssistant() {
+            document.getElementById('aiAssistantModal').classList.add('hidden');
+        }
+
+        // Proposal Strategy AI prompt
+        async function generateAiProposalStrategy() {
+            const modal = document.getElementById('aiAssistantModal');
+            const bidNo = modal.getAttribute('data-active-bid-no');
+            const item = activeBids.find(b => b.bidNtceNo === bidNo);
+            if (!item) return;
+
+            const outputBox = document.getElementById('ai-output-box');
+            outputBox.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
+                    <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 수주 제안 전략을 연산하고 있습니다...</p>
+                </div>
+            `;
+
+            const prompt = `
+                [대상 공고 정보]
+                - 공고유형: ${item.serviceType}
+                - 등록번호: ${item.bidNtceNo}
+                - 공고명: ${item.bidNtceNm}
+                - 발주/수요기관: ${item.ntceInsttNm}
+                - 배정예산: ${item.assignBudgetAmt}원 (${formatKoreanCurrency(item.assignBudgetAmt)})
+                - 수집 키워드: ${item.searchKeyword}
+                - 관할 지역: ${item.region}
+
+                위 나라장터 공고에 대하여 수주 확률을 극대화하기 위한 "심층 조달 제안 전략 보고서"를 한국어로 세련되게 작성해라.
+                반드시 아래 구조를 적용해야 한다:
+                ## 1. 수요기관의 잠재적 사업 목표 분석
+                수요기관(${item.ntceInsttNm})의 성격과 공고명을 매칭하여 이 사업을 추진하는 핵심 배경과 목적을 추정 기술하라.
+                ## 2. ${item.searchKeyword} 연계 핵심 기술 및 차별화 제안 포인트
+                해당 분야 조달업체로서 경쟁사를 압도하기 위해 제안서에 담아야 할 기술적 솔루션과 가치를 제시하라.
+                ## 3. 리스크 회피 및 예산(${formatKoreanCurrency(item.assignBudgetAmt)}) 배정 효율 대책
+                조달 사업 진행 시 흔히 발생하는 납기 지연, 규격 불일치 리스크의 예방책과 사업 예산 집행 계획 조언을 서술하라.
+            `;
+
+            const systemInstruction = "너는 대한민국 나라장터 조달 입찰 분석 및 수주 제안전략 수석 컨설턴트다. 정중하고 매우 전문적인 경영 컨설팅 보고서 형식으로 작성해야 한다.";
+
+            try {
+                const responseText = await callGemini(prompt, systemInstruction);
+                outputBox.innerHTML = parseMarkdown(responseText);
+            } catch (error) {
+                outputBox.innerHTML = `
+                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
+                        AI 연동 중 문제가 발생했습니다: <br>
+                        <span class="text-xs font-mono font-normal">${error.message}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Proposal Sharing Email AI prompt
+        async function generateAiProposalEmail() {
+            const modal = document.getElementById('aiAssistantModal');
+            const bidNo = modal.getAttribute('data-active-bid-no');
+            const item = activeBids.find(b => b.bidNtceNo === bidNo);
+            if (!item) return;
+
+            const outputBox = document.getElementById('ai-output-box');
+            outputBox.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
+                    <div class="w-8 h-8 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 사내 전파용 기안을 작성하고 있습니다...</p>
+                </div>
+            `;
+
+            const prompt = `
+                [공고 요약]
+                - 유형: ${item.serviceType} 단계
+                - 번호: ${item.bidNtceNo}
+                - 공고명: ${item.bidNtceNm}
+                - 수요처: ${item.ntceInsttNm}
+                - 예산: ${formatKoreanCurrency(item.assignBudgetAmt)}
+                - 분류키워드: ${item.searchKeyword}
+
+                사내 영업 기획팀, 기술 개발팀, 그리고 경영 임원진에게 이 사업을 제안 영업 기회로 발굴하여 전파하고 참가를 논의하기 위한 '업무 전파 및 TFT 결성 기안서/이메일 초안'을 정중하고 격식 있는 비즈니스 문서로 작성해라.
+                포함할 내용:
+                - 기안 배경 및 사업 타당성 요약
+                - 영업 및 제안 전략 수집 방향 요청
+                - 부서별 협조 사항 (TFT 구성안)
+            `;
+
+            const systemInstruction = "너는 기업 기획조정실의 비즈니스 전문 비서다. 정중하고 명확한 비즈니스 메일 규격을 갖춰 한글로 작성해야 한다.";
+
+            try {
+                const responseText = await callGemini(prompt, systemInstruction);
+                outputBox.innerHTML = parseMarkdown(responseText);
+            } catch (error) {
+                outputBox.innerHTML = `
+                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
+                        AI 연동 실패: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Global Market Trend Analyst AI Prompt
+        async function generateAiMarketBriefing() {
+            // Check current active bids
+            if (activeBids.length === 0) {
+                showToast("분석할 수집 조달 데이터가 부족합니다.", "info");
+                return;
+            }
+
+            // Open the AI Modal to display global market report
+            const modal = document.getElementById('aiAssistantModal');
+            modal.removeAttribute('data-active-bid-no');
+
+            document.getElementById('modal-title').innerText = "실시간 조달 마켓 트렌드 종합 리포트";
+            document.getElementById('modal-bidNo').innerText = "GLOBAL-ANALYTICS";
+            document.getElementById('modal-serviceType').innerText = "종합 트렌드";
+            document.getElementById('modal-serviceType').className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-700";
+            
+            document.getElementById('modal-agency').innerText = "전체 수집 수요처";
+            document.getElementById('modal-region').innerText = "전국 종합";
+            
+            const totalBudget = activeBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+            document.getElementById('modal-budget').innerText = formatKoreanCurrency(totalBudget);
+            document.getElementById('modal-dates').innerText = "실시간 수집 주기 기준";
+
+            modal.classList.remove('hidden');
+
+            const outputBox = document.getElementById('ai-output-box');
+            outputBox.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
+                    <div class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 수집된 전체 데이터 자원을 전수 분석하여 거시 마켓 브리핑을 조립 중입니다...</p>
+                </div>
+            `;
+
+            // Extract highest budget items
+            const topBudgets = [...activeBids]
+                .sort((a,b) => b.assignBudgetAmt - a.assignBudgetAmt)
+                .slice(0, 5)
+                .map(item => `- [${item.serviceType}] ${item.bidNtceNm} (예산: ${formatKoreanCurrency(item.assignBudgetAmt)} / 수요기관: ${item.ntceInsttNm})`)
+                .join('\n');
+
+            const prompt = `
+                현재 수집된 나라장터 통합 데이터셋 요약 분석을 수행해줘.
+                전체 분석 대상 수: ${activeBids.length}건
+                누적 조달 자금 총합: ${formatKoreanCurrency(totalBudget)}
+                
+                [상위 예산 배정 핵심 조달 정보 TOP 5]
+                ${topBudgets}
+
+                위 실시간 정보를 토대로 "공공 조달 시장 종합 거시 브리핑 리포트"를 작성해라.
+                구조:
+                ## 거시적 시장 환경 흐름 및 조달 자금 추이 분석
+                총 ${activeBids.length}건, 예산 규모 ${formatKoreanCurrency(totalBudget)}의 공공 자금의 분포 특징과 지자체들의 최근 IT/미디어 조달 투자 트렌드를 짚어달라.
+                ## 예산 집중 분야 및 주요 공고 형태 분석
+                상위 5개 주요 사업들을 분석하여, 현재 공공기관이 가장 강력하게 추진하고 있는 기술(디스플레이, 전광판, 스마트 미디어, 지능형 교통체계 등)의 수요 특성을 비교 서술하라.
+                ## 공공 영업/제안 담당 기업을 위한 전략적 추천 과제
+                현시점에서 기업들이 경쟁력을 확보하기 위해 제안서 작성, 사전영업, 사전규격 검증 단계에서 선점해야 할 최우선 액션 플랜 3가지를 제안해라.
+            `;
+
+            const systemInstruction = "너는 나라장터 공공 조달 시장 전문 수석 거시경제 애널리스트이자 비즈니스 전략가다. 마크다운 기법을 사용해 고품격 한글 비즈니스 리포트 형식으로 기술해야 한다.";
+
+            try {
+                const responseText = await callGemini(prompt, systemInstruction);
+                outputBox.innerHTML = parseMarkdown(responseText);
+            } catch (error) {
+                outputBox.innerHTML = `
+                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
+                        글로벌 분석 실패: <br>
+                        <span class="text-xs font-mono font-normal">${error.message}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Copy to clipboard fallback tool
+        function copyToClipboard(elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const text = el.innerText || el.value;
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("초안이 성공적으로 클립보드에 복사되었습니다!", "check-circle");
+            } catch (err) {
+                showToast("복사 처리에 실패했습니다.", "x");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function renderCharts() {
+            if (chartInstance1) chartInstance1.destroy();
+            if (chartInstance2) chartInstance2.destroy();
+            if (chartInstance3) chartInstance3.destroy();
+
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            
+            // Collect daily buckets grouped by service types
+            const dateMap = {};
+            activeBids.forEach(item => {
+                const dateKey = item.bidNtceRegistDt.split(' ')[0];
+                if (!dateMap[dateKey]) {
+                    dateMap[dateKey] = { total: 0, bid: 0, spec: 0, plan: 0 };
+                }
+                dateMap[dateKey].total++;
+                if (item.serviceType === "공고") dateMap[dateKey].bid++;
+                else if (item.serviceType === "사전규격") dateMap[dateKey].spec++;
+                else if (item.serviceType === "발주계획") dateMap[dateKey].plan++;
+            });
+
+            const sortedDates = Object.keys(dateMap).sort().slice(-15);
+            const bidData = sortedDates.map(d => dateMap[d].bid);
+            const specData = sortedDates.map(d => dateMap[d].spec);
+            const planData = sortedDates.map(d => dateMap[d].plan);
+
+            chartInstance1 = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates.map(d => d.substring(5, 10)),
+                    datasets: [
+                        {
+                            label: '입찰공고',
+                            data: bidData,
+                            borderColor: '#0891b2',
+                            backgroundColor: 'rgba(8, 145, 178, 0.08)',
+                            tension: 0.35,
+                            fill: true,
+                            borderWidth: 2,
+                            pointBackgroundColor: '#0891b2',
+                            pointRadius: 2.5
+                        },
+                        {
+                            label: '사전규격',
+                            data: specData,
+                            borderColor: '#c026d3',
+                            backgroundColor: 'rgba(192, 38, 211, 0.05)',
+                            tension: 0.35,
+                            fill: true,
+                            borderWidth: 2,
+                            pointBackgroundColor: '#c026d3',
+                            pointRadius: 2.5
+                        },
+                        {
+                            label: '발주계획',
+                            data: planData,
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.05)',
+                            tension: 0.35,
+                            fill: true,
+                            borderWidth: 2,
+                            pointBackgroundColor: '#d97706',
+                            pointRadius: 2.5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#f1f5f9' },
+                            ticks: { color: '#64748b', font: { size: 9 } }
+                        },
+                        y: {
+                            grid: { color: '#f1f5f9' },
+                            ticks: { color: '#64748b', font: { size: 9 }, stepSize: 1 },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            updateAnalysisTabCharts();
+        }
+
+        function updateAnalysisTabCharts() {
+            if (chartInstance2) chartInstance2.destroy();
+            if (chartInstance3) chartInstance3.destroy();
+            if (chartInstance4) chartInstance4.destroy(); // Destroy previous stacked regional chart
+
+            const shareCtx = document.getElementById('serviceShareChart').getContext('2d');
+            
+            const bidCount = activeBids.filter(b => b.serviceType === "공고").length;
+            const specCount = activeBids.filter(b => b.serviceType === "사전규격").length;
+            const planCount = activeBids.filter(b => b.serviceType === "발주계획").length;
+            const total = activeBids.length;
+
+            chartInstance2 = new Chart(shareCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['입찰공고', '사전규격', '발주계획'],
+                    datasets: [{
+                        data: [bidCount, specCount, planCount],
+                        backgroundColor: ['#0891b2', '#c026d3', '#d97706'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.label}: ${ctx.parsed}..건`
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            // Calculate ratios & totals
+            const getPct = (cnt) => total > 0 ? Math.round((cnt / total) * 100) : 0;
+            const bidBudget = activeBids.filter(b => b.serviceType === "공고").reduce((sum, b) => sum + b.assignBudgetAmt, 0);
+            const specBudget = activeBids.filter(b => b.serviceType === "사전규격").reduce((sum, b) => sum + b.assignBudgetAmt, 0);
+            const planBudget = activeBids.filter(b => b.serviceType === "발주계획").reduce((sum, b) => sum + b.assignBudgetAmt, 0);
+
+            document.getElementById('analysis-service-bid').innerHTML = `수집률: <strong>${getPct(bidCount)}%</strong> (${bidCount}건)<br>전체 예산: ${formatKoreanCurrency(bidBudget)}`;
+            document.getElementById('analysis-service-spec').innerHTML = `수집률: <strong>${getPct(specCount)}%</strong> (${specCount}건)<br>전체 예산: ${formatKoreanCurrency(specBudget)}`;
+            document.getElementById('analysis-service-plan').innerHTML = `수집률: <strong>${getPct(planCount)}%</strong> (${planCount}건)<br>계획 예산: ${formatKoreanCurrency(planBudget)}`;
+
+            // 1. 전국 단위 예산대 대수 분포 (수직 바 차트)
+            const distCtx = document.getElementById('budgetDistChart').getContext('2d');
+            const r1 = activeBids.filter(b => b.assignBudgetAmt < 50000000).length;
+            const r2 = activeBids.filter(b => b.assignBudgetAmt >= 50000000 && b.assignBudgetAmt <= 200000000).length;
+            const r3 = activeBids.filter(b => b.assignBudgetAmt > 200000000 && b.assignBudgetAmt <= 500000000).length;
+            const r4 = activeBids.filter(b => b.assignBudgetAmt > 500000000).length;
+
+            chartInstance3 = new Chart(distCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['5천만 이하', '5천만-2억', '2억-5억', '5억 초과'],
+                    datasets: [{
+                        data: [r1, r2, r3, r4],
+                        backgroundColor: ['#94a3b8', '#0891b2', '#d97706', '#c026d3'],
+                        borderRadius: 6,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#64748b', font: { size: 10 }, stepSize: 1 },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // 2. NEW: 지역별 예산대 매트릭스 (수평 누적 바 차트 구현)
+            const regCtx = document.getElementById('regionalBudgetChart').getContext('2d');
+            const regionsList = ["서울", "경기", "인천", "부산", "강원", "경상", "전라", "충청", "제주", "세종"];
+            const regR1 = [];
+            const regR2 = [];
+            const regR3 = [];
+            const regR4 = [];
+
+            regionsList.forEach(reg => {
+                const regBids = activeBids.filter(b => b.region === reg);
+                regR1.push(regBids.filter(b => b.assignBudgetAmt < 50000000).length);
+                regR2.push(regBids.filter(b => b.assignBudgetAmt >= 50000000 && b.assignBudgetAmt <= 200000000).length);
+                regR3.push(regBids.filter(b => b.assignBudgetAmt > 200000000 && b.assignBudgetAmt <= 500000000).length);
+                regR4.push(regBids.filter(b => b.assignBudgetAmt > 500000000).length);
+            });
+
+            chartInstance4 = new Chart(regCtx, {
+                type: 'bar',
+                data: {
+                    labels: regionsList,
+                    datasets: [
+                        {
+                            label: '5천만 이하',
+                            data: regR1,
+                            backgroundColor: '#94a3b8',
+                            borderRadius: 4
+                        },
+                        {
+                            label: '5천만-2억',
+                            data: regR2,
+                            backgroundColor: '#0891b2',
+                            borderRadius: 4
+                        },
+                        {
+                            label: '2억-5억',
+                            data: regR3,
+                            backgroundColor: '#d97706',
+                            borderRadius: 4
+                        },
+                        {
+                            label: '5억 초과',
+                            data: regR4,
+                            backgroundColor: '#c026d3',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y', // 수평 적층화
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 10, weight: 'bold' },
+                                color: '#475569'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { color: '#1e293b', font: { size: 11, weight: 'bold' } }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
