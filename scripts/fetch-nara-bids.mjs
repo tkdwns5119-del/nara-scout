@@ -1,28 +1,31 @@
-// 나라장터(G2B) 입찰공고 수집 스크립트 — GitHub Actions cron 환경에서 실행
+// 나라장터(G2B) 3대 조달 서비스 수집 스크립트 — GitHub Actions cron 환경에서 실행
+// 수집 대상: 입찰공고 + 사전규격 + 발주계획
 // 매 실행 시 최근 30일치 데이터를 15일 단위로 나누어 수집해 data/bids.json 에 덮어쓴다.
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const RAW_API_KEY = process.env.NARA_API_KEY?.trim();
+function normalizeServiceKey(key) {
+    const raw = String(key || '').trim();
+    if (!raw) return '';
+    try {
+        return raw.includes('%') ? decodeURIComponent(raw) : raw;
+    } catch {
+        return raw;
+    }
+}
 
-if (!RAW_API_KEY) {
+const API_KEYS = {
+    BID: normalizeServiceKey(process.env.NARA_API_KEY),
+    PRESPEC: normalizeServiceKey(process.env.NARA_PRESPEC_API_KEY || process.env.NARA_API_KEY),
+    PLAN: normalizeServiceKey(process.env.NARA_PLAN_API_KEY || process.env.NARA_API_KEY)
+};
+
+if (!API_KEYS.BID) {
     console.error('[ERROR] NARA_API_KEY 환경변수가 설정되어 있지 않습니다.');
     console.error('  GitHub: Settings → Secrets and variables → Actions → NARA_API_KEY 등록 필요');
     process.exit(1);
 }
-
-// GitHub Secret에는 Decoding 키 권장.
-// Encoding 키가 들어와도 한 번 디코딩해서 URLSearchParams에 태운다.
-function normalizeServiceKey(key) {
-    try {
-        return key.includes('%') ? decodeURIComponent(key) : key;
-    } catch {
-        return key;
-    }
-}
-
-const API_KEY = normalizeServiceKey(RAW_API_KEY);
 
 const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS"];
 const SEARCH_TERMS = BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]);
@@ -33,16 +36,87 @@ const KEYWORD_CATEGORY = {
     "ITS/VMS 계열": ["ITS", "VMS"]
 };
 
-// 2025년 차세대 나라장터 신규 API 경로 기준.
-// 기존 /BidPublicInfoService04/...01 경로는 계속 HTTP 500이 날 수 있음.
-const ENDPOINTS = [
+// serviceType 값은 di.html의 서비스 필터와 직접 연결된다.
+// 공고 / 사전규격 / 발주계획
+const DATA_SOURCES = [
+    // 1) 입찰공고
     {
-        name: "물품",
-        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch"
+        serviceType: "공고",
+        businessType: "물품",
+        keyType: "BID",
+        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch",
+        dateMode: "datetime",
+        keywordParams: ["bidNtceNm"],
+        mapType: "bid"
     },
     {
-        name: "용역",
-        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch"
+        serviceType: "공고",
+        businessType: "용역",
+        keyType: "BID",
+        url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch",
+        dateMode: "datetime",
+        keywordParams: ["bidNtceNm"],
+        mapType: "bid"
+    },
+
+    // 2) 사전규격
+    // 공공데이터포털에서 "조달청_나라장터 사전규격정보서비스" 활용신청 필요.
+    // 별도 키가 있으면 NARA_PRESPEC_API_KEY를 등록하고, 없으면 NARA_API_KEY를 재사용한다.
+    {
+        serviceType: "사전규격",
+        businessType: "물품/용역",
+        keyType: "PRESPEC",
+        url: process.env.NARA_PRESPEC_ENDPOINT || "https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoServcPPSSrch",
+        dateMode: "datetime",
+        keywordParams: [
+            "bidNtceNm",
+            "prdctClsfcNoNm",
+            "prdctNm",
+            "bsnsNm",
+            "publicPrcureNm",
+            "purchsObjNm"
+        ],
+        mapType: "prespec",
+        localKeywordFilter: true
+    },
+
+    // 3) 발주계획
+    // 공공데이터포털에서 "조달청_나라장터 발주계획현황서비스" 활용신청 필요.
+    // 별도 키가 있으면 NARA_PLAN_API_KEY를 등록하고, 없으면 NARA_API_KEY를 재사용한다.
+    // 발주계획 API의 상세 오퍼레이션명이 계정별 명세에서 다를 경우 아래 환경변수로 덮어쓴다.
+    // NARA_PLAN_THNG_ENDPOINT, NARA_PLAN_SERVC_ENDPOINT
+    {
+        serviceType: "발주계획",
+        businessType: "물품",
+        keyType: "PLAN",
+        url: process.env.NARA_PLAN_THNG_ENDPOINT || "https://apis.data.go.kr/1230000/ao/OrderPlanInfoService/getOrderPlanListInfoThng",
+        dateMode: "ym",
+        keywordParams: [
+            "bizNm",
+            "bsnsNm",
+            "orderPlanNm",
+            "prdctClsfcNoNm",
+            "prdctNm",
+            "purchsObjNm"
+        ],
+        mapType: "plan",
+        localKeywordFilter: true
+    },
+    {
+        serviceType: "발주계획",
+        businessType: "용역",
+        keyType: "PLAN",
+        url: process.env.NARA_PLAN_SERVC_ENDPOINT || "https://apis.data.go.kr/1230000/ao/OrderPlanInfoService/getOrderPlanListInfoServc",
+        dateMode: "ym",
+        keywordParams: [
+            "bizNm",
+            "bsnsNm",
+            "orderPlanNm",
+            "servcNm",
+            "purchsObjNm"
+        ],
+        mapType: "plan",
+        localKeywordFilter: true
     }
 ];
 
@@ -53,6 +127,9 @@ const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 30000;
 const RETRY_COUNT = 3;
+
+// 사전규격/발주계획은 검색 파라미터명이 입찰공고와 다를 수 있으므로
+// 너무 깊은 페이지까지 들어가지 않고 1차 수집 후 로컬 키워드 필터링한다.
 const MAX_PAGES_PER_QUERY = 5;
 
 function sleep(ms) {
@@ -70,6 +147,12 @@ function formatG2BDate(d) {
     return `${yyyy}${mm}${dd}`;
 }
 
+function formatYm(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    return `${yyyy}${mm}`;
+}
+
 function addDays(date, days) {
     const d = new Date(date);
     d.setDate(d.getDate() + days);
@@ -85,8 +168,12 @@ function makeDateRanges(startDate, endDate, chunkDays) {
         const actualEnd = chunkEnd > endDate ? new Date(endDate) : chunkEnd;
 
         ranges.push({
+            startDate: new Date(cur),
+            endDate: new Date(actualEnd),
             bgn: formatG2BDate(cur) + '0000',
-            end: formatG2BDate(actualEnd) + '2359'
+            end: formatG2BDate(actualEnd) + '2359',
+            bgnYm: formatYm(cur),
+            endYm: formatYm(actualEnd)
         });
 
         cur = addDays(actualEnd, 1);
@@ -134,6 +221,8 @@ function extractItems(json) {
     const rawItems =
         json?.response?.body?.items?.item ??
         json?.response?.body?.items ??
+        json?.items?.item ??
+        json?.items ??
         [];
 
     if (!rawItems) return [];
@@ -141,40 +230,124 @@ function extractItems(json) {
 }
 
 function extractTotalCount(json) {
-    return Number(json?.response?.body?.totalCount || 0);
+    return Number(
+        json?.response?.body?.totalCount ??
+        json?.totalCount ??
+        0
+    );
 }
 
 function checkApiHeader(json) {
-    const header = json?.response?.header;
+    const header = json?.response?.header ?? json?.header;
     if (!header) return null;
 
-    const resultCode = String(header.resultCode ?? '');
-    const resultMsg = String(header.resultMsg ?? header.resultMessage ?? '');
+    const resultCode = String(header.resultCode ?? header.resultCd ?? '');
+    const resultMsg = String(header.resultMsg ?? header.resultMessage ?? header.resultMsgKo ?? '');
 
-    if (resultCode && !['00', '0'].includes(resultCode)) {
+    if (resultCode && !['00', '0', 'NORMAL_CODE'].includes(resultCode)) {
         return `API 오류 ${resultCode}: ${resultMsg || '상세 메시지 없음'}`;
     }
 
     return null;
 }
 
-function buildUrl(endpoint, keyword, dateRange, pageNo) {
-    const url = new URL(endpoint.url);
+function pick(obj, keys, fallback = '') {
+    for (const key of keys) {
+        const value = obj?.[key];
+        if (value !== undefined && value !== null && String(value).trim() !== '') {
+            return String(value).trim();
+        }
+    }
+    return fallback;
+}
 
-    url.searchParams.set('serviceKey', API_KEY);
+function pickNumber(obj, keys) {
+    for (const key of keys) {
+        const raw = obj?.[key];
+        if (raw === undefined || raw === null || raw === '') continue;
+
+        const num = Number(String(raw).replace(/[^\d.-]/g, ''));
+        if (!Number.isNaN(num) && num !== 0) return num;
+    }
+
+    return 0;
+}
+
+function normalizeDateText(value) {
+    const s = String(value || '').trim();
+    if (!s) return '';
+
+    // YYYYMMDDHHmm 형태
+    if (/^\d{12}$/.test(s)) {
+        return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)} ${s.slice(8, 10)}:${s.slice(10, 12)}`;
+    }
+
+    // YYYYMMDD 형태
+    if (/^\d{8}$/.test(s)) {
+        return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+    }
+
+    return s.substring(0, 16);
+}
+
+function itemContainsKeyword(item, term) {
+    const base = normalizeKeyword(term).toLowerCase();
+    if (!base) return true;
+
+    const text = [
+        item.bidNtceNm,
+        item.prdctNm,
+        item.bsnsNm,
+        item.bizNm,
+        item.publicPrcureNm,
+        item.purchsObjNm,
+        item.orderPlanNm,
+        item.prcrmntReqNm,
+        item.cntrctNm,
+        item.prdctClsfcNoNm,
+        item.ntceInsttNm,
+        item.dminsttNm,
+        item.rlDminsttNm,
+        item.orderInsttNm
+    ].filter(Boolean).join(' ').toLowerCase();
+
+    return text.includes(base);
+}
+
+function buildUrl(source, keyword, dateRange, pageNo) {
+    const url = new URL(source.url);
+    const apiKey = API_KEYS[source.keyType] || API_KEYS.BID;
+
+    url.searchParams.set('serviceKey', apiKey);
     url.searchParams.set('numOfRows', String(NUM_OF_ROWS));
     url.searchParams.set('pageNo', String(pageNo));
-    url.searchParams.set('inqryDiv', '1');
-    url.searchParams.set('inqryBgnDt', dateRange.bgn);
-    url.searchParams.set('inqryEndDt', dateRange.end);
-    url.searchParams.set('bidNtceNm', keyword);
     url.searchParams.set('type', 'json');
+
+    if (source.dateMode === 'ym') {
+        // 발주계획은 발주년월범위 조건을 쓰는 명세가 많아서 복수 파라미터를 같이 넣는다.
+        url.searchParams.set('inqryBgnDt', dateRange.bgn);
+        url.searchParams.set('inqryEndDt', dateRange.end);
+        url.searchParams.set('orderBgnYm', dateRange.bgnYm);
+        url.searchParams.set('orderEndYm', dateRange.endYm);
+        url.searchParams.set('orderPlanBgnYm', dateRange.bgnYm);
+        url.searchParams.set('orderPlanEndYm', dateRange.endYm);
+        url.searchParams.set('bgnYm', dateRange.bgnYm);
+        url.searchParams.set('endYm', dateRange.endYm);
+    } else {
+        url.searchParams.set('inqryDiv', '1');
+        url.searchParams.set('inqryBgnDt', dateRange.bgn);
+        url.searchParams.set('inqryEndDt', dateRange.end);
+    }
+
+    for (const param of source.keywordParams || []) {
+        url.searchParams.set(param, keyword);
+    }
 
     return url;
 }
 
-async function fetchPage(endpoint, keyword, dateRange, pageNo) {
-    const url = buildUrl(endpoint, keyword, dateRange, pageNo);
+async function fetchPage(source, keyword, dateRange, pageNo) {
+    const url = buildUrl(source, keyword, dateRange, pageNo);
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -216,8 +389,14 @@ async function fetchPage(endpoint, keyword, dateRange, pageNo) {
             };
         }
 
+        let items = extractItems(json);
+
+        if (source.localKeywordFilter) {
+            items = items.filter(item => itemContainsKeyword(item, keyword));
+        }
+
         return {
-            items: extractItems(json),
+            items,
             totalCount: extractTotalCount(json),
             error: null
         };
@@ -226,11 +405,12 @@ async function fetchPage(endpoint, keyword, dateRange, pageNo) {
     }
 }
 
-async function fetchPageWithRetry(endpoint, keyword, dateRange, pageNo) {
+async function fetchPageWithRetry(source, keyword, dateRange, pageNo) {
     for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
         try {
-            const result = await fetchPage(endpoint, keyword, dateRange, pageNo);
+            const result = await fetchPage(source, keyword, dateRange, pageNo);
 
+            // 인증/파라미터 오류는 재시도해도 의미가 적어서 그대로 반환.
             if (result.error) return result;
 
             return result;
@@ -255,13 +435,13 @@ async function fetchPageWithRetry(endpoint, keyword, dateRange, pageNo) {
     };
 }
 
-async function fetchOne(endpoint, keyword, dateRange) {
+async function fetchOne(source, keyword, dateRange) {
     const allItems = [];
     let totalCount = 0;
     let totalPages = 1;
 
     for (let pageNo = 1; pageNo <= totalPages; pageNo++) {
-        const result = await fetchPageWithRetry(endpoint, keyword, dateRange, pageNo);
+        const result = await fetchPageWithRetry(source, keyword, dateRange, pageNo);
 
         if (result.error) {
             return {
@@ -278,7 +458,7 @@ async function fetchOne(endpoint, keyword, dateRange) {
             totalPages = Math.max(1, Math.ceil(totalCount / NUM_OF_ROWS));
 
             if (totalPages > MAX_PAGES_PER_QUERY) {
-                console.log(`    WARN ${endpoint.name} / "${keyword}" — ${totalCount}건, ${totalPages}페이지 중 ${MAX_PAGES_PER_QUERY}페이지만 수집`);
+                console.log(`    WARN ${source.serviceType}/${source.businessType} / "${keyword}" — ${totalCount}건, ${totalPages}페이지 중 ${MAX_PAGES_PER_QUERY}페이지만 수집`);
                 totalPages = MAX_PAGES_PER_QUERY;
             }
         }
@@ -295,45 +475,201 @@ async function fetchOne(endpoint, keyword, dateRange) {
     };
 }
 
-function makeBidRecord(i, term) {
-    const bidNtceNo = String(i.bidNtceNo || '');
-    const bidNtceOrd = String(i.bidNtceOrd || '');
+function buildG2bBidUrl(i, bidNtceNo, bidNtceOrd) {
+    if (i.bidNtceDtlUrl) return i.bidNtceDtlUrl;
+
+    if (bidNtceNo) {
+        return `https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=${encodeURIComponent(bidNtceNo)}&bidPbancOrd=${encodeURIComponent(bidNtceOrd || '000')}`;
+    }
+
+    return '';
+}
+
+function buildG2bPrespecUrl(i, id) {
+    if (i.publicPrcureDtlUrl) return i.publicPrcureDtlUrl;
+    if (i.bfSpecDtlUrl) return i.bfSpecDtlUrl;
+    if (i.specDtlUrl) return i.specDtlUrl;
+
+    return id
+        ? `https://www.g2b.go.kr/link/PRCA001_04/single/?srch=${encodeURIComponent(id)}`
+        : '';
+}
+
+function buildG2bPlanUrl(i, id) {
+    if (i.orderPlanDtlUrl) return i.orderPlanDtlUrl;
+    if (i.detailUrl) return i.detailUrl;
+
+    return id
+        ? `https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=${encodeURIComponent(id)}`
+        : '';
+}
+
+function mapBidRecord(i, source, term) {
+    const bidNtceNo = pick(i, ['bidNtceNo']);
+    const bidNtceOrd = pick(i, ['bidNtceOrd'], '000');
     const seqPart = bidNtceNo.split('-')[1] || '';
-    const bidSeq = bidNtceOrd || seqPart;
+    const bidSeq = bidNtceOrd || seqPart || '000';
 
     const bidId = bidNtceNo
         ? [bidNtceNo, bidSeq].filter(Boolean).join('-')
-        : `gen-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        : `BID-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-    const budget =
-        Number(i.assignBudgetAmt) ||
-        Number(i.asignBdgtAmt) ||
-        Number(i.presmptPrce) ||
-        Number(i.assignBdgtAmt) ||
-        0;
-
-    const regDt = String(i.bidNtceRegistDt || i.bidNtceDt || '').substring(0, 16);
-    const closeDt = String(i.bidClseDt || '').substring(0, 16);
-
-    const bidNoForUrl = bidNtceNo.split('-')[0] || bidNtceNo;
+    const title = pick(i, ['bidNtceNm'], '(공고명 없음)');
+    const ntceInsttNm = pick(i, ['ntceInsttNm', 'ntcgInsttNm'], '자체공고기관');
+    const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'ntceInsttNm'], '자체수요기관');
 
     return {
         bidId,
         bidNtceNo: bidNtceNo || bidId,
-        bidNtceOrd: bidNtceOrd || '',
-        bidNtceNm: i.bidNtceNm || '(공고명 없음)',
-        ntceInsttNm: i.ntceInsttNm || i.ntcgInsttNm || '자체공고기관',
-        dminsttNm: i.dminsttNm || i.ntceInsttNm || '자체수요기관',
-        assignBudgetAmt: budget,
-        bidNtceRegistDt: regDt,
-        bidClseDt: closeDt,
+        bidNtceOrd: bidSeq,
+        bidNtceNm: title,
+        ntceInsttNm,
+        dminsttNm,
+        assignBudgetAmt: pickNumber(i, ['assignBudgetAmt', 'asignBdgtAmt', 'presmptPrce', 'assignBdgtAmt']),
+        bidNtceRegistDt: normalizeDateText(pick(i, ['bidNtceRegistDt', 'bidNtceDt', 'rgstDt'])),
+        bidClseDt: normalizeDateText(pick(i, ['bidClseDt', 'opengDt', 'bidBeginDt'])),
         searchKeyword: term,
-        region: classifyRegion(i.ntceInsttNm || i.dminsttNm || i.bidNtceNm),
-        g2bUrl: i.bidNtceDtlUrl || (
-            bidNoForUrl
-                ? `https://www.g2b.go.kr/ep/invitation/publish/bidInfoDtl.do?bidno=${bidNoForUrl}`
-                : ''
-        )
+        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
+        g2bUrl: buildG2bBidUrl(i, bidNtceNo, bidSeq),
+        serviceType: source.serviceType,
+        businessType: source.businessType
+    };
+}
+
+function mapPrespecRecord(i, source, term) {
+    const id = pick(i, [
+        'bfSpecRgstNo',
+        'bfSpecRegNo',
+        'publicPrcureNo',
+        'prcrmntReqNo',
+        'refNo',
+        'bidNtceNo'
+    ]);
+
+    const title = pick(i, [
+        'bidNtceNm',
+        'prdctNm',
+        'bsnsNm',
+        'bizNm',
+        'publicPrcureNm',
+        'purchsObjNm',
+        'specNm',
+        'prcrmntReqNm'
+    ], '(사전규격명 없음)');
+
+    const ntceInsttNm = pick(i, ['ntceInsttNm', 'ntcgInsttNm', 'orderInsttNm', 'rlDminsttNm'], '자체공개기관');
+    const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'orderInsttNm', 'ntceInsttNm'], '자체수요기관');
+
+    const internalId = id
+        ? `BF-${id}`
+        : `BF-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+    return {
+        bidId: internalId,
+        bidNtceNo: internalId,
+        bidNtceOrd: '',
+        bidNtceNm: title,
+        ntceInsttNm,
+        dminsttNm,
+        assignBudgetAmt: pickNumber(i, [
+            'assignBudgetAmt',
+            'asignBdgtAmt',
+            'asignBdgtAmt',
+            'presmptPrce',
+            'budgetAmt',
+            'prdctUprc',
+            'totPrdprc'
+        ]),
+        bidNtceRegistDt: normalizeDateText(pick(i, [
+            'opengDt',
+            'rlsDt',
+            'rcptDt',
+            'registDt',
+            'rgstDt',
+            'inqryDt'
+        ])),
+        bidClseDt: normalizeDateText(pick(i, [
+            'opninRgstClseDt',
+            'opinRgstClseDt',
+            'opinionRgstClseDt',
+            'clseDt',
+            'dlvrTmlmtDt'
+        ])),
+        searchKeyword: term,
+        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
+        g2bUrl: buildG2bPrespecUrl(i, id),
+        serviceType: source.serviceType,
+        businessType: source.businessType
+    };
+}
+
+function mapPlanRecord(i, source, term) {
+    const id = pick(i, [
+        'orderPlanUntyNo',
+        'orderPlanNo',
+        'orderPlanMngNo',
+        'prcrmntReqNo',
+        'refNo'
+    ]);
+
+    const title = pick(i, [
+        'bizNm',
+        'bsnsNm',
+        'orderPlanNm',
+        'prdctNm',
+        'servcNm',
+        'purchsObjNm',
+        'cntrctNm',
+        'prcrmntReqNm'
+    ], '(발주계획명 없음)');
+
+    const ntceInsttNm = pick(i, ['orderInsttNm', 'ntceInsttNm', 'dminsttNm', 'rlDminsttNm'], '자체발주기관');
+    const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'orderInsttNm', 'ntceInsttNm'], '자체수요기관');
+
+    const internalId = id
+        ? `PL-${id}`
+        : `PL-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+    const orderYm = pick(i, ['orderYm', 'orderPlanYm', 'exctvYm', 'rlsYm']);
+
+    return {
+        bidId: internalId,
+        bidNtceNo: internalId,
+        bidNtceOrd: '',
+        bidNtceNm: title,
+        ntceInsttNm,
+        dminsttNm,
+        assignBudgetAmt: pickNumber(i, [
+            'sumOrderAmt',
+            'orderAmt',
+            'orderBudgetAmt',
+            'assignBudgetAmt',
+            'asignBdgtAmt',
+            'presmptPrce',
+            'totPrdprc',
+            'budgetAmt'
+        ]),
+        bidNtceRegistDt: normalizeDateText(pick(i, ['rgstDt', 'registDt', 'rlsDt', 'inqryDt', 'orderYm', 'orderPlanYm'])),
+        bidClseDt: orderYm ? `${orderYm.slice(0, 4)}-${orderYm.slice(4, 6)}` : '',
+        searchKeyword: term,
+        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
+        g2bUrl: buildG2bPlanUrl(i, id),
+        serviceType: source.serviceType,
+        businessType: source.businessType
+    };
+}
+
+function makeRecord(i, source, term) {
+    if (source.mapType === 'prespec') return mapPrespecRecord(i, source, term);
+    if (source.mapType === 'plan') return mapPlanRecord(i, source, term);
+    return mapBidRecord(i, source, term);
+}
+
+function initStats() {
+    return {
+        "공고": 0,
+        "사전규격": 0,
+        "발주계획": 0
     };
 }
 
@@ -347,9 +683,10 @@ async function main() {
 
     console.log(`[INFO] 수집 범위: ${formatG2BDate(past)}0000 ~ ${formatG2BDate(now)}2359`);
     console.log(`[INFO] 날짜 분할: ${dateRanges.length}개 구간 / ${CHUNK_DAYS}일 단위`);
-    console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 엔드포인트 ${ENDPOINTS.length}개 × 날짜구간 ${dateRanges.length}개 = ${SEARCH_TERMS.length * ENDPOINTS.length * dateRanges.length}개 기본 호출`);
-    console.log(`[INFO] 최대 페이지: 검색어/엔드포인트/날짜구간당 ${MAX_PAGES_PER_QUERY}페이지`);
+    console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 데이터소스 ${DATA_SOURCES.length}개 × 날짜구간 ${dateRanges.length}개 = ${SEARCH_TERMS.length * DATA_SOURCES.length * dateRanges.length}개 기본 호출`);
+    console.log(`[INFO] 최대 페이지: 검색어/데이터소스/날짜구간당 ${MAX_PAGES_PER_QUERY}페이지`);
     console.log(`[INFO] 요청 간격: ${REQUEST_DELAY_MS}ms, 타임아웃: ${REQUEST_TIMEOUT_MS}ms, 재시도: ${RETRY_COUNT}회`);
+    console.log(`[INFO] 키 설정: BID=${API_KEYS.BID ? 'Y' : 'N'}, PRESPEC=${API_KEYS.PRESPEC ? 'Y' : 'N'}, PLAN=${API_KEYS.PLAN ? 'Y' : 'N'}`);
 
     const allBids = [];
     const errors = [];
@@ -358,26 +695,33 @@ async function main() {
     for (const dateRange of dateRanges) {
         console.log(`[INFO] 구간 처리: ${dateRange.bgn} ~ ${dateRange.end}`);
 
-        for (const endpoint of ENDPOINTS) {
+        for (const source of DATA_SOURCES) {
+            if (!API_KEYS[source.keyType]) {
+                const msg = `${source.keyType} 인증키 없음`;
+                errors.push(`[${source.serviceType}/${source.businessType}] ${msg}`);
+                console.log(`  - SKIP ${source.serviceType} / ${source.businessType} — ${msg}`);
+                continue;
+            }
+
             for (const term of SEARCH_TERMS) {
                 try {
-                    const result = await fetchOne(endpoint, term, dateRange);
+                    const result = await fetchOne(source, term, dateRange);
 
                     if (result.error) {
-                        errors.push(`[${endpoint.name}/${term}/${dateRange.bgn}-${dateRange.end}] ${result.error}`);
-                        console.log(`  - FAIL ${endpoint.name} / "${term}" — ${result.error}`);
+                        errors.push(`[${source.serviceType}/${source.businessType}/${term}/${dateRange.bgn}-${dateRange.end}] ${result.error}`);
+                        console.log(`  - FAIL ${source.serviceType} / ${source.businessType} / "${term}" — ${result.error}`);
                     } else {
                         successCount++;
-                        console.log(`  - OK   ${endpoint.name} / "${term}" — ${result.items.length}건 / totalCount ${result.totalCount}`);
+                        console.log(`  - OK   ${source.serviceType} / ${source.businessType} / "${term}" — ${result.items.length}건 / totalCount ${result.totalCount}`);
 
                         for (const i of result.items) {
-                            allBids.push(makeBidRecord(i, term));
+                            allBids.push(makeRecord(i, source, term));
                         }
                     }
                 } catch (e) {
                     const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
-                    errors.push(`[${endpoint.name}/${term}/${dateRange.bgn}-${dateRange.end}] ${msg}`);
-                    console.log(`  - FAIL ${endpoint.name} / "${term}" — ${msg}`);
+                    errors.push(`[${source.serviceType}/${source.businessType}/${term}/${dateRange.bgn}-${dateRange.end}] ${msg}`);
+                    console.log(`  - FAIL ${source.serviceType} / ${source.businessType} / "${term}" — ${msg}`);
                 }
 
                 await sleep(REQUEST_DELAY_MS);
@@ -408,14 +752,19 @@ async function main() {
     );
 
     const categoryStats = {};
-
     for (const cat of Object.keys(KEYWORD_CATEGORY)) {
         categoryStats[cat] = 0;
     }
 
-    for (const b of unique) {
-        const base = normalizeKeyword(b.searchKeyword);
+    const serviceStats = initStats();
 
+    for (const b of unique) {
+        const serviceType = b.serviceType || "공고";
+        if (serviceStats[serviceType] !== undefined) {
+            serviceStats[serviceType]++;
+        }
+
+        const base = normalizeKeyword(b.searchKeyword);
         for (const [cat, list] of Object.entries(KEYWORD_CATEGORY)) {
             if (list.includes(base)) {
                 categoryStats[cat]++;
@@ -437,8 +786,9 @@ async function main() {
         failedCalls: errors.length,
         requestDelayMs: REQUEST_DELAY_MS,
         maxPagesPerQuery: MAX_PAGES_PER_QUERY,
+        serviceStats,
         categoryStats,
-        errors: errors.slice(0, 20),
+        errors: errors.slice(0, 30),
         bids: unique
     };
 
@@ -451,6 +801,7 @@ async function main() {
     console.log('');
     console.log(`[DONE] 총 ${unique.length}건 / 원본 ${allBids.length}건 → ${outPath}`);
     console.log(`[DONE] 성공 호출: ${successCount} / 실패 호출: ${errors.length}`);
+    console.log(`[DONE] 서비스: ${JSON.stringify(serviceStats)}`);
     console.log(`[DONE] 카테고리: ${JSON.stringify(categoryStats)}`);
 
     if (errors.length > 0) {
