@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>싸인텔레콤 DI영업지원 - 나라장터 실시간 3대 통합 조달 대시보드</title>
+    <title>싸인텔레콤 DI영업지원 - 나라장터 실시간 3대 통합 조달 AI 대시보드</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -482,7 +482,7 @@
                     </div>
                 </div>
 
-                <!-- Strategic Summary Insights with Gemini API Integration -->
+                <!-- Strategic Summary Insights with Groq API Integration -->
                 <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
                     <h3 class="font-bold text-slate-900 text-sm">통합 조달 마켓 인사이트</h3>
                     <div class="space-y-3 text-xs leading-relaxed text-slate-700">
@@ -677,7 +677,7 @@
                         <i data-lucide="sparkles" class="w-5 h-5 text-cyber-cyan animate-pulse"></i>
                     </span>
                     <div>
-                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">✨ Gemini AI 지능형 조달 제안 비서</h3>
+                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">✨ Groq AI 지능형 조달 제안 비서</h3>
                         <p class="text-[10px] sm:text-xs text-slate-500">나라장터 공고 해독 및 지능형 입찰 제안 전략 분석</p>
                     </div>
                 </div>
@@ -727,7 +727,7 @@
                     <div class="border-t border-slate-150 pt-4 space-y-3">
                         <h5 class="text-xs font-extrabold text-slate-800 flex items-center space-x-1">
                             <i data-lucide="cpu" class="w-4 h-4 text-cyber-cyan animate-pulse"></i>
-                            <span>✨ Gemini AI 조달 의사결정 추론</span>
+                            <span>✨ Groq AI 조달 의사결정 추론</span>
                         </h5>
                         <p class="text-[10px] sm:text-xs text-slate-500 leading-relaxed">선택된 조달 메타데이터를 기반으로 생성형 AI 모델이 지자체 공략 영업 초안을 즉각 기술합니다.</p>
                         
@@ -2001,9 +2001,9 @@
            GEMINI AI INTEGRATION ENGINE (CORS SAFE / BACKOFF RETRY)
            ======================================================== */
         
-        async function callGemini(prompt, systemInstruction = "") {
+        async function callGroq(prompt, systemInstruction = "") {
             const apiKey = ""; // Runtime provides the key dynamically
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/groq-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }]
@@ -2126,7 +2126,7 @@
             outputBox.innerHTML = `
                 <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
                     <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 수주 제안 전략을 연산하고 있습니다...</p>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 수주 제안 전략을 연산하고 있습니다...</p>
                 </div>
             `;
 
@@ -2153,7 +2153,7 @@
             const systemInstruction = "너는 대한민국 나라장터 조달 입찰 분석 및 수주 제안전략 수석 컨설턴트다. 정중하고 매우 전문적인 경영 컨설팅 보고서 형식으로 작성해야 한다.";
 
             try {
-                const responseText = await callGemini(prompt, systemInstruction);
+                const responseText = await callGroq(prompt, systemInstruction);
                 outputBox.innerHTML = parseMarkdown(responseText);
             } catch (error) {
                 outputBox.innerHTML = `
@@ -2176,7 +2176,7 @@
             outputBox.innerHTML = `
                 <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
                     <div class="w-8 h-8 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 사내 전파용 기안을 작성하고 있습니다...</p>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 사내 전파용 기안을 작성하고 있습니다...</p>
                 </div>
             `;
 
@@ -2199,7 +2199,7 @@
             const systemInstruction = "너는 기업 기획조정실의 비즈니스 전문 비서다. 정중하고 명확한 비즈니스 메일 규격을 갖춰 한글로 작성해야 한다.";
 
             try {
-                const responseText = await callGemini(prompt, systemInstruction);
+                const responseText = await callGroq(prompt, systemInstruction);
                 outputBox.innerHTML = parseMarkdown(responseText);
             } catch (error) {
                 outputBox.innerHTML = `
@@ -2240,7 +2240,7 @@
             outputBox.innerHTML = `
                 <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
                     <div class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Gemini 2.5가 수집된 전체 데이터 자원을 전수 분석하여 거시 마켓 브리핑을 조립 중입니다...</p>
+                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 수집된 전체 데이터 자원을 전수 분석하여 거시 마켓 브리핑을 조립 중입니다...</p>
                 </div>
             `;
 
@@ -2272,7 +2272,7 @@
             const systemInstruction = "너는 나라장터 공공 조달 시장 전문 수석 거시경제 애널리스트이자 비즈니스 전략가다. 마크다운 기법을 사용해 고품격 한글 비즈니스 리포트 형식으로 기술해야 한다.";
 
             try {
-                const responseText = await callGemini(prompt, systemInstruction);
+                const responseText = await callGroq(prompt, systemInstruction);
                 outputBox.innerHTML = parseMarkdown(responseText);
             } catch (error) {
                 outputBox.innerHTML = `
@@ -2558,5 +2558,31 @@
             });
         }
     </script>
+
+<script>
+(function(){
+  // AI 필드가 data/bids.json에 있으면 목록 화면에서 사업명 아래에 간단 표시한다.
+  // 기존 렌더링 로직을 크게 건드리지 않기 위한 후처리 함수.
+  window.renderAiBadgeHtml = function(bid) {
+    if (!bid || !bid.aiSummary) return '';
+    const priority = bid.aiPriority || 'LOW';
+    const colorMap = {
+      HIGH: 'bg-rose-50 text-rose-700 border-rose-200',
+      MEDIUM: 'bg-amber-50 text-amber-700 border-amber-200',
+      LOW: 'bg-slate-50 text-slate-600 border-slate-200',
+      EXCLUDE: 'bg-gray-50 text-gray-500 border-gray-200'
+    };
+    const cls = colorMap[priority] || colorMap.LOW;
+    return `
+      <div class="mt-2 p-2 rounded-lg border ${cls} text-[11px] leading-relaxed">
+        <div class="font-bold">AI ${priority}${bid.aiScore ? ` · ${bid.aiScore}점` : ''}</div>
+        <div>${bid.aiSummary || ''}</div>
+        ${bid.aiAction ? `<div class="mt-1 opacity-90">다음 조치: ${bid.aiAction}</div>` : ''}
+      </div>
+    `;
+  };
+})();
+</script>
+
 </body>
 </html>
