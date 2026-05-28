@@ -1,39 +1,119 @@
 {
-  "generatedAt": "2026-05-28T13:42:12.000Z",
+  "generatedAt": "2026-05-28T15:44:59.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202604280000",
   "rangeEnd": "202605282359",
-  "totalCount": 420,
-  "rawCount": 476,
+  "totalCount": 425,
+  "rawCount": 485,
   "successCalls": 288,
-  "failedCalls": 3,
+  "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
   "aiStats": {
     "provider": "groq",
-    "analyzed": 17,
-    "cached": 0,
-    "skipped": 400,
+    "analyzed": 3,
+    "cached": 17,
+    "skipped": 405,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 199,
-    "사전규격": 122,
-    "발주계획": 99
+    "공고": 202,
+    "사전규격": 123,
+    "발주계획": 100
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 187,
+    "디스플레이/사이니지 계열": 192,
     "미디어/파사드 계열": 166,
     "ITS/VMS 계열": 67
   },
-  "errors": [
-    "[Groq/BID-R26BK01536567-000] Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5483, Requested 579. Please try again in 620ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}} ",
-    "[Groq/BF-R26BD00233070] Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5560, Requested 600. Please try again in 1.6s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}} ",
-    "[Groq/BID-R26BK01545347-000] Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5471, Requested 601. Please try again in 720ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}} "
-  ],
+  "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00233637",
+      "bidNtceNo": "BF-R26BD00233637",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(가칭)검단3고등학교 신축 정보통신공사 관급자재(LED전광판)",
+      "ntceInsttNm": "인천광역시교육청",
+      "dminsttNm": "인천광역시교육청",
+      "assignBudgetAmt": 138392000,
+      "bidNtceRegistDt": "2026-05-28 15:28",
+      "bidClseDt": "2026-06-02 23:59",
+      "searchKeyword": "LED",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00233637&fileType=BFDTL&fileSeq=1",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "refNo": "교육시설과-4464",
+      "linkedBidNtceNoList": ""
+    },
+    {
+      "bidId": "BID-R26BK01544604-001",
+      "bidNtceNo": "R26BK01544604",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "진해아트홀 무대조명 LED 무빙라이트 구입(취소)",
+      "ntceInsttNm": "재단법인창원문화재단",
+      "dminsttNm": "재단법인창원문화재단",
+      "assignBudgetAmt": 90000000,
+      "bidNtceRegistDt": "2026-05-28 15:18",
+      "bidClseDt": "2026-06-08 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01544604&bidPbancOrd=001",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BID-R26BK01549263-000",
+      "bidNtceNo": "R26BK01549263",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(가칭)해양3고등학교 신축 정보통신공사 관급자재(LED전광판)",
+      "ntceInsttNm": "인천광역시교육청",
+      "dminsttNm": "인천광역시교육청",
+      "assignBudgetAmt": 138392000,
+      "bidNtceRegistDt": "2026-05-28 15:06",
+      "bidClseDt": "2026-06-05 14:00",
+      "searchKeyword": "LED",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01549263&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "BID-R26BK01549022-000",
+      "bidNtceNo": "R26BK01549022",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "서울대공원 디지털 전광판 제작 및 설치",
+      "ntceInsttNm": "서울특별시",
+      "dminsttNm": "서울특별시 서울대공원",
+      "assignBudgetAmt": 479842000,
+      "bidNtceRegistDt": "2026-05-28 14:26",
+      "bidClseDt": "2026-06-05 12:00",
+      "searchKeyword": "디지털 전광판",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01549022&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
+    {
+      "bidId": "PL-R26DD20773893",
+      "bidNtceNo": "PL-R26DD20773893",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(가칭)해양3고등학교 신축 정보통신공사 관급자재(LED전광판)",
+      "ntceInsttNm": "인천광역시교육청",
+      "dminsttNm": "인천광역시교육청",
+      "assignBudgetAmt": 138392000,
+      "bidNtceRegistDt": "2026-05-28 14:17",
+      "bidClseDt": "2026-05",
+      "searchKeyword": "LED",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=R26DD20773893",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "orderYear": "2026",
+      "orderMnth": "05"
+    },
     {
       "bidId": "BID-R26BK01547825-001",
       "bidNtceNo": "R26BK01547825",
@@ -80,7 +160,7 @@
       "bidClseDt": "2026-06-01 23:59",
       "searchKeyword": "사이니지",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00233427&fileType=BFDTL&fileSeq=1",
+      "g2bUrl": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00233427&fileType=BFDTL&fileSeq=2",
       "serviceType": "사전규격",
       "businessType": "용역",
       "refNo": "20260526-21-8010070-001",
@@ -127,7 +207,7 @@
         "VMS",
         "교통관리시스템"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:06.326Z"
@@ -211,7 +291,7 @@
         "미디어월",
         "디지털 사이니지"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:01.677Z"
@@ -277,7 +357,7 @@
         "디지털 사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:52:53.522Z"
@@ -299,8 +379,22 @@
       "businessType": "물품",
       "refNo": "6-20260527-2",
       "linkedBidNtceNoList": "",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000"
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "전광판 구매",
+      "aiReason": "전광판 직접 관련 + 예산 또는 실행 가능성 높음",
+      "aiAction": "영업 검토 및 예산 확인",
+      "aiTags": [
+        "전광판",
+        "LED",
+        "미디어월",
+        "사이니지",
+        "ITS/VMS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-28T06:55:36.346Z"
     },
     {
       "bidId": "BID-R26BK01542501-002",
@@ -327,7 +421,7 @@
         "LED",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:52:55.100Z"
@@ -375,7 +469,7 @@
         "회의실",
         "강원특별자치도"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:27.427Z"
@@ -423,7 +517,7 @@
         "VMS",
         "용역"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:07.922Z"
@@ -455,7 +549,7 @@
         "용역",
         "예산"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:03.192Z"
@@ -491,8 +585,20 @@
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545347&bidPbancOrd=000",
       "serviceType": "공고",
       "businessType": "물품",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000"
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 전광판 구매 및 설치",
+      "aiReason": "LED 전광판 직접 관련 + 예산 73,600,000원",
+      "aiAction": "사업부 담당자와 연락하여 예산 및 범위 확인",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "물품"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-28T06:55:37.861Z"
     },
     {
       "bidId": "BID-R26BK01545791-000",
@@ -637,7 +743,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:32.222Z"
@@ -667,7 +773,7 @@
         "조달 구매",
         "부산"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:09.666Z"
@@ -785,7 +891,7 @@
         "용역",
         "문화자원"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:04.701Z"
@@ -868,7 +974,7 @@
         "ITS/VMS",
         "의성군"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:52:57.039Z"
@@ -984,7 +1090,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:52:58.580Z"
@@ -1136,7 +1242,7 @@
         "미디어파사드",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:11.168Z"
@@ -1234,7 +1340,7 @@
         "전광판",
         "AV시스템"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:13.022Z"
@@ -1264,7 +1370,7 @@
         "용역",
         "긴급공모"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:15.158Z"
@@ -2236,8 +2342,20 @@
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536567&bidPbancOrd=000",
       "serviceType": "공고",
       "businessType": "물품",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kspdf571ftrrms38rbsygf0r` service tier `on_demand` on tokens per minute (TPM): Limit 6000"
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 무빙라이트 구입 공모",
+      "aiReason": "LED 전광판/미디어월/디지털 사이니지/미디어파사드/ITS/VMS 사업과 직접 관련되어 있으며 예산 또한 높음",
+      "aiAction": "사업부 담당자와 협의하여 추진 여부 확인",
+      "aiTags": [
+        "LED",
+        "공연장 조명 장비",
+        "LED 무빙라이트"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-28T06:55:34.843Z"
     },
     {
       "bidId": "BF-R26BD00230742",
@@ -2937,7 +3055,7 @@
       "serviceType": "사전규격",
       "businessType": "물품",
       "refNo": "교육시설과-4461",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01549263"
     },
     {
       "bidId": "BID-R26BK01524930-000",
@@ -3245,7 +3363,7 @@
         "미디어월",
         "경찰청"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:00.078Z"
@@ -4153,7 +4271,7 @@
         "용역",
         "LOW"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-28T04:53:20.300Z"
