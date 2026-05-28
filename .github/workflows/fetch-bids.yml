@@ -15,7 +15,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
 
     steps:
       - name: Checkout
@@ -38,18 +38,13 @@ jobs:
 
       - name: Fetch procurement data from data.go.kr
         env:
-          # 필수: 입찰공고
+          # 필수: 공공데이터포털 Decoding 인증키 권장
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
 
-          # 선택: 사전규격 / 발주계획
-          # 별도 키가 없으면 스크립트에서 NARA_API_KEY를 재사용합니다.
+          # 선택: 서비스별로 다른 키를 발급받은 경우만 등록
+          # 미등록 시 NARA_API_KEY를 재사용
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
-
-          # 선택: 발주계획 오퍼레이션명이 다를 경우 GitHub Secret/Variable로 덮어쓰기 가능
-          NARA_PLAN_THNG_ENDPOINT: ${{ vars.NARA_PLAN_THNG_ENDPOINT }}
-          NARA_PLAN_SERVC_ENDPOINT: ${{ vars.NARA_PLAN_SERVC_ENDPOINT }}
-          NARA_PRESPEC_ENDPOINT: ${{ vars.NARA_PRESPEC_ENDPOINT }}
         run: node scripts/fetch-nara-bids.mjs
 
       - name: Commit updated data
