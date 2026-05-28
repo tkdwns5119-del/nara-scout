@@ -15,7 +15,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -36,15 +36,20 @@ jobs:
           fi
           echo "NARA_API_KEY exists"
 
-      - name: Fetch procurement data from data.go.kr
+      - name: Fetch procurement data and AI analysis
         env:
-          # 필수: 공공데이터포털 Decoding 인증키 권장
+          # 필수: 나라장터 API
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
 
-          # 선택: 서비스별로 다른 키를 발급받은 경우만 등록
-          # 미등록 시 NARA_API_KEY를 재사용
+          # 선택: 서비스별 키가 다른 경우만 사용
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
+
+          # 선택: Groq AI 분석
+          # 등록하지 않으면 나라장터 수집만 수행하고 AI 분석은 건너뜁니다.
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
+          AI_ANALYSIS_LIMIT: ${{ vars.AI_ANALYSIS_LIMIT }}
         run: node scripts/fetch-nara-bids.mjs
 
       - name: Commit updated data
