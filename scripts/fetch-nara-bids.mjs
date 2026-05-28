@@ -1,6 +1,11 @@
 // 나라장터(G2B) 3대 조달 서비스 수집 스크립트 — GitHub Actions cron 환경에서 실행
+// 적용 API 참고자료:
+// - 나라장터 입찰공고정보서비스 1.2
+// - 나라장터 사전규격정보서비스 1.0
+// - 나라장터 발주계획현황서비스 1.0
+//
 // 수집 대상: 입찰공고 + 사전규격 + 발주계획
-// 매 실행 시 최근 30일치 데이터를 15일 단위로 나누어 수집해 data/bids.json 에 덮어쓴다.
+// 매 실행 시 최근 30일치 데이터를 15일 단위로 나누어 수집해 data/bids.json에 덮어쓴다.
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -36,17 +41,18 @@ const KEYWORD_CATEGORY = {
     "ITS/VMS 계열": ["ITS", "VMS"]
 };
 
-// serviceType 값은 di.html의 서비스 필터와 직접 연결된다.
-// 공고 / 사전규격 / 발주계획
+// 문서 기준 서비스 URL + 오퍼레이션명 적용.
+// 입찰공고: /1230000/ad/BidPublicInfoService
+// 사전규격: /1230000/ao/HrcspSsstndrdInfoService
+// 발주계획: /1230000/ao/OrderPlanSttusService
 const DATA_SOURCES = [
-    // 1) 입찰공고
     {
         serviceType: "공고",
         businessType: "물품",
         keyType: "BID",
         url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch",
-        dateMode: "datetime",
-        keywordParams: ["bidNtceNm"],
+        keywordParam: "bidNtceNm",
+        dateMode: "datetimeWithDiv",
         mapType: "bid"
     },
     {
@@ -54,51 +60,37 @@ const DATA_SOURCES = [
         businessType: "용역",
         keyType: "BID",
         url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch",
-        dateMode: "datetime",
-        keywordParams: ["bidNtceNm"],
+        keywordParam: "bidNtceNm",
+        dateMode: "datetimeWithDiv",
         mapType: "bid"
     },
-
-    // 2) 사전규격
-    // 공공데이터포털에서 "조달청_나라장터 사전규격정보서비스" 활용신청 필요.
-    // 별도 키가 있으면 NARA_PRESPEC_API_KEY를 등록하고, 없으면 NARA_API_KEY를 재사용한다.
     {
         serviceType: "사전규격",
-        businessType: "물품/용역",
+        businessType: "물품",
         keyType: "PRESPEC",
-        url: process.env.NARA_PRESPEC_ENDPOINT || "https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoServcPPSSrch",
-        dateMode: "datetime",
-        keywordParams: [
-            "bidNtceNm",
-            "prdctClsfcNoNm",
-            "prdctNm",
-            "bsnsNm",
-            "publicPrcureNm",
-            "purchsObjNm"
-        ],
+        url: "https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoThngPPSSrch",
+        keywordParam: "prdctClsfcNoNm",
+        dateMode: "datetimeWithDiv",
         mapType: "prespec",
         localKeywordFilter: true
     },
-
-    // 3) 발주계획
-    // 공공데이터포털에서 "조달청_나라장터 발주계획현황서비스" 활용신청 필요.
-    // 별도 키가 있으면 NARA_PLAN_API_KEY를 등록하고, 없으면 NARA_API_KEY를 재사용한다.
-    // 발주계획 API의 상세 오퍼레이션명이 계정별 명세에서 다를 경우 아래 환경변수로 덮어쓴다.
-    // NARA_PLAN_THNG_ENDPOINT, NARA_PLAN_SERVC_ENDPOINT
+    {
+        serviceType: "사전규격",
+        businessType: "용역",
+        keyType: "PRESPEC",
+        url: "https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService/getPublicPrcureThngInfoServcPPSSrch",
+        keywordParam: "prdctClsfcNoNm",
+        dateMode: "datetimeWithDiv",
+        mapType: "prespec",
+        localKeywordFilter: true
+    },
     {
         serviceType: "발주계획",
         businessType: "물품",
         keyType: "PLAN",
-        url: process.env.NARA_PLAN_THNG_ENDPOINT || "https://apis.data.go.kr/1230000/ao/OrderPlanInfoService/getOrderPlanListInfoThng",
-        dateMode: "ym",
-        keywordParams: [
-            "bizNm",
-            "bsnsNm",
-            "orderPlanNm",
-            "prdctClsfcNoNm",
-            "prdctNm",
-            "purchsObjNm"
-        ],
+        url: "https://apis.data.go.kr/1230000/ao/OrderPlanSttusService/getOrderPlanSttusListThngPPSSrch",
+        keywordParam: "bizNm",
+        dateMode: "planYmAndPostDate",
         mapType: "plan",
         localKeywordFilter: true
     },
@@ -106,15 +98,9 @@ const DATA_SOURCES = [
         serviceType: "발주계획",
         businessType: "용역",
         keyType: "PLAN",
-        url: process.env.NARA_PLAN_SERVC_ENDPOINT || "https://apis.data.go.kr/1230000/ao/OrderPlanInfoService/getOrderPlanListInfoServc",
-        dateMode: "ym",
-        keywordParams: [
-            "bizNm",
-            "bsnsNm",
-            "orderPlanNm",
-            "servcNm",
-            "purchsObjNm"
-        ],
+        url: "https://apis.data.go.kr/1230000/ao/OrderPlanSttusService/getOrderPlanSttusListServcPPSSrch",
+        keywordParam: "bizNm",
+        dateMode: "planYmAndPostDate",
         mapType: "plan",
         localKeywordFilter: true
     }
@@ -127,9 +113,6 @@ const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 30000;
 const RETRY_COUNT = 3;
-
-// 사전규격/발주계획은 검색 파라미터명이 입찰공고와 다를 수 있으므로
-// 너무 깊은 페이지까지 들어가지 않고 1차 수집 후 로컬 키워드 필터링한다.
 const MAX_PAGES_PER_QUERY = 5;
 
 function sleep(ms) {
@@ -197,7 +180,6 @@ function classifyRegion(name) {
     ];
 
     const s = String(name || '');
-
     for (const [needle, label] of map) {
         if (s.includes(needle)) return label;
     }
@@ -213,8 +195,9 @@ function parseXmlError(trimmed) {
     const authMsg = trimmed.match(/<returnAuthMsg>([^<]+)<\/returnAuthMsg>/)?.[1];
     const reasonCode = trimmed.match(/<returnReasonCode>([^<]+)<\/returnReasonCode>/)?.[1];
     const errMsg = trimmed.match(/<errMsg>([^<]+)<\/errMsg>/)?.[1];
+    const resultMsg = trimmed.match(/<resultMsg>([^<]+)<\/resultMsg>/)?.[1];
 
-    return authMsg || errMsg || reasonCode || bodyPreview(trimmed, 300);
+    return authMsg || errMsg || resultMsg || reasonCode || bodyPreview(trimmed, 300);
 }
 
 function extractItems(json) {
@@ -277,14 +260,16 @@ function normalizeDateText(value) {
     const s = String(value || '').trim();
     if (!s) return '';
 
-    // YYYYMMDDHHmm 형태
     if (/^\d{12}$/.test(s)) {
         return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)} ${s.slice(8, 10)}:${s.slice(10, 12)}`;
     }
 
-    // YYYYMMDD 형태
     if (/^\d{8}$/.test(s)) {
         return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+    }
+
+    if (/^\d{6}$/.test(s)) {
+        return `${s.slice(0, 4)}-${s.slice(4, 6)}`;
     }
 
     return s.substring(0, 16);
@@ -296,19 +281,24 @@ function itemContainsKeyword(item, term) {
 
     const text = [
         item.bidNtceNm,
+        item.prdctClsfcNoNm,
+        item.dtilPrdctClsfcNoNm,
+        item.prdctDtlList,
         item.prdctNm,
-        item.bsnsNm,
         item.bizNm,
-        item.publicPrcureNm,
+        item.bsnsNm,
         item.purchsObjNm,
         item.orderPlanNm,
-        item.prcrmntReqNm,
-        item.cntrctNm,
-        item.prdctClsfcNoNm,
+        item.specItemNm1,
+        item.specItemNm2,
+        item.specItemNm3,
+        item.specItemNm4,
+        item.specItemNm5,
+        item.usgCntnts,
+        item.orderInsttNm,
         item.ntceInsttNm,
         item.dminsttNm,
-        item.rlDminsttNm,
-        item.orderInsttNm
+        item.rlDminsttNm
     ].filter(Boolean).join(' ').toLowerCase();
 
     return text.includes(base);
@@ -323,24 +313,21 @@ function buildUrl(source, keyword, dateRange, pageNo) {
     url.searchParams.set('pageNo', String(pageNo));
     url.searchParams.set('type', 'json');
 
-    if (source.dateMode === 'ym') {
-        // 발주계획은 발주년월범위 조건을 쓰는 명세가 많아서 복수 파라미터를 같이 넣는다.
-        url.searchParams.set('inqryBgnDt', dateRange.bgn);
-        url.searchParams.set('inqryEndDt', dateRange.end);
-        url.searchParams.set('orderBgnYm', dateRange.bgnYm);
-        url.searchParams.set('orderEndYm', dateRange.endYm);
-        url.searchParams.set('orderPlanBgnYm', dateRange.bgnYm);
-        url.searchParams.set('orderPlanEndYm', dateRange.endYm);
-        url.searchParams.set('bgnYm', dateRange.bgnYm);
-        url.searchParams.set('endYm', dateRange.endYm);
-    } else {
+    if (source.dateMode === 'datetimeWithDiv') {
         url.searchParams.set('inqryDiv', '1');
         url.searchParams.set('inqryBgnDt', dateRange.bgn);
         url.searchParams.set('inqryEndDt', dateRange.end);
     }
 
-    for (const param of source.keywordParams || []) {
-        url.searchParams.set(param, keyword);
+    if (source.dateMode === 'planYmAndPostDate') {
+        url.searchParams.set('orderBgnYm', dateRange.bgnYm);
+        url.searchParams.set('orderEndYm', dateRange.endYm);
+        url.searchParams.set('inqryBgnDt', dateRange.bgn);
+        url.searchParams.set('inqryEndDt', dateRange.end);
+    }
+
+    if (source.keywordParam) {
+        url.searchParams.set(source.keywordParam, keyword);
     }
 
     return url;
@@ -409,10 +396,7 @@ async function fetchPageWithRetry(source, keyword, dateRange, pageNo) {
     for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
         try {
             const result = await fetchPage(source, keyword, dateRange, pageNo);
-
-            // 인증/파라미터 오류는 재시도해도 의미가 적어서 그대로 반환.
             if (result.error) return result;
-
             return result;
         } catch (e) {
             const isLast = attempt === RETRY_COUNT;
@@ -485,23 +469,20 @@ function buildG2bBidUrl(i, bidNtceNo, bidNtceOrd) {
     return '';
 }
 
-function buildG2bPrespecUrl(i, id) {
-    if (i.publicPrcureDtlUrl) return i.publicPrcureDtlUrl;
-    if (i.bfSpecDtlUrl) return i.bfSpecDtlUrl;
-    if (i.specDtlUrl) return i.specDtlUrl;
-
-    return id
-        ? `https://www.g2b.go.kr/link/PRCA001_04/single/?srch=${encodeURIComponent(id)}`
-        : '';
+function buildPrespecUrl(i, id) {
+    return pick(i, [
+        'specDocFileUrl1',
+        'specDocFileUrl2',
+        'specDocFileUrl3',
+        'specDocFileUrl4',
+        'specDocFileUrl5'
+    ], id ? `https://www.g2b.go.kr/link/PRCA001_04/single/?srch=${encodeURIComponent(id)}` : '');
 }
 
-function buildG2bPlanUrl(i, id) {
+function buildPlanUrl(i, id) {
     if (i.orderPlanDtlUrl) return i.orderPlanDtlUrl;
     if (i.detailUrl) return i.detailUrl;
-
-    return id
-        ? `https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=${encodeURIComponent(id)}`
-        : '';
+    return id ? `https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=${encodeURIComponent(id)}` : '';
 }
 
 function mapBidRecord(i, source, term) {
@@ -511,7 +492,7 @@ function mapBidRecord(i, source, term) {
     const bidSeq = bidNtceOrd || seqPart || '000';
 
     const bidId = bidNtceNo
-        ? [bidNtceNo, bidSeq].filter(Boolean).join('-')
+        ? `BID-${bidNtceNo}-${bidSeq}`
         : `BID-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
     const title = pick(i, ['bidNtceNm'], '(공고명 없음)');
@@ -537,28 +518,21 @@ function mapBidRecord(i, source, term) {
 }
 
 function mapPrespecRecord(i, source, term) {
-    const id = pick(i, [
-        'bfSpecRgstNo',
-        'bfSpecRegNo',
-        'publicPrcureNo',
-        'prcrmntReqNo',
-        'refNo',
-        'bidNtceNo'
-    ]);
+    const bfSpecRgstNo = pick(i, ['bfSpecRgstNo', 'bfSpecRegNo', 'refNo']);
+    const refNo = pick(i, ['refNo']);
+    const id = bfSpecRgstNo || refNo;
 
     const title = pick(i, [
-        'bidNtceNm',
+        'prdctClsfcNoNm',
+        'dtilPrdctClsfcNoNm',
         'prdctNm',
-        'bsnsNm',
-        'bizNm',
-        'publicPrcureNm',
         'purchsObjNm',
-        'specNm',
-        'prcrmntReqNm'
+        'bsnsNm',
+        'bizNm'
     ], '(사전규격명 없음)');
 
-    const ntceInsttNm = pick(i, ['ntceInsttNm', 'ntcgInsttNm', 'orderInsttNm', 'rlDminsttNm'], '자체공개기관');
-    const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'orderInsttNm', 'ntceInsttNm'], '자체수요기관');
+    const ntceInsttNm = pick(i, ['orderInsttNm', 'ntceInsttNm', 'ntcgInsttNm'], '자체공개기관');
+    const dminsttNm = pick(i, ['rlDminsttNm', 'dminsttNm', 'orderInsttNm'], '자체수요기관');
 
     const internalId = id
         ? `BF-${id}`
@@ -571,66 +545,38 @@ function mapPrespecRecord(i, source, term) {
         bidNtceNm: title,
         ntceInsttNm,
         dminsttNm,
-        assignBudgetAmt: pickNumber(i, [
-            'assignBudgetAmt',
-            'asignBdgtAmt',
-            'asignBdgtAmt',
-            'presmptPrce',
-            'budgetAmt',
-            'prdctUprc',
-            'totPrdprc'
-        ]),
-        bidNtceRegistDt: normalizeDateText(pick(i, [
-            'opengDt',
-            'rlsDt',
-            'rcptDt',
-            'registDt',
-            'rgstDt',
-            'inqryDt'
-        ])),
-        bidClseDt: normalizeDateText(pick(i, [
-            'opninRgstClseDt',
-            'opinRgstClseDt',
-            'opinionRgstClseDt',
-            'clseDt',
-            'dlvrTmlmtDt'
-        ])),
+        assignBudgetAmt: pickNumber(i, ['asignBdgtAmt', 'assignBudgetAmt', 'assignBdgtAmt', 'presmptPrce', 'budgetAmt']),
+        bidNtceRegistDt: normalizeDateText(pick(i, ['rcptDt', 'rgstDt', 'chgDt'])),
+        bidClseDt: normalizeDateText(pick(i, ['opninRgstClseDt', 'opinRgstClseDt', 'opinionRgstClseDt', 'dlvrTmlmtDt'])),
         searchKeyword: term,
         region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
-        g2bUrl: buildG2bPrespecUrl(i, id),
+        g2bUrl: buildPrespecUrl(i, id),
         serviceType: source.serviceType,
-        businessType: source.businessType
+        businessType: source.businessType,
+        refNo,
+        linkedBidNtceNoList: pick(i, ['bidNtceNoList'])
     };
 }
 
 function mapPlanRecord(i, source, term) {
-    const id = pick(i, [
-        'orderPlanUntyNo',
-        'orderPlanNo',
-        'orderPlanMngNo',
-        'prcrmntReqNo',
-        'refNo'
-    ]);
+    const orderPlanUntyNo = pick(i, ['orderPlanUntyNo']);
+    const orderYear = pick(i, ['orderYear']);
+    const orderInsttCd = pick(i, ['orderInsttCd']);
+    const orderPlanSno = pick(i, ['orderPlanSno']);
+    const syntheticId = [pick(i, ['bsnsDivCd']), orderYear, orderInsttCd, orderPlanSno].filter(Boolean).join('-');
+    const id = orderPlanUntyNo || syntheticId;
 
-    const title = pick(i, [
-        'bizNm',
-        'bsnsNm',
-        'orderPlanNm',
-        'prdctNm',
-        'servcNm',
-        'purchsObjNm',
-        'cntrctNm',
-        'prcrmntReqNm'
-    ], '(발주계획명 없음)');
+    const title = pick(i, ['bizNm', 'bsnsNm', 'orderPlanNm', 'prdctClsfcNoNm', 'dtilPrdctClsfcNoNm'], '(발주계획명 없음)');
+    const ntceInsttNm = pick(i, ['orderInsttNm', 'totlmngInsttNm'], '자체발주기관');
+    const dminsttNm = pick(i, ['orderInsttNm', 'totlmngInsttNm'], '자체수요기관');
 
-    const ntceInsttNm = pick(i, ['orderInsttNm', 'ntceInsttNm', 'dminsttNm', 'rlDminsttNm'], '자체발주기관');
-    const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'orderInsttNm', 'ntceInsttNm'], '자체수요기관');
+    const orderYm = orderYear && pick(i, ['orderMnth'])
+        ? `${orderYear}${String(pick(i, ['orderMnth'])).padStart(2, '0')}`
+        : pick(i, ['orderYm', 'orderPlanYm']);
 
     const internalId = id
         ? `PL-${id}`
         : `PL-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-
-    const orderYm = pick(i, ['orderYm', 'orderPlanYm', 'exctvYm', 'rlsYm']);
 
     return {
         bidId: internalId,
@@ -641,21 +587,22 @@ function mapPlanRecord(i, source, term) {
         dminsttNm,
         assignBudgetAmt: pickNumber(i, [
             'sumOrderAmt',
-            'orderAmt',
+            'orderContrctAmt',
+            'orderGovsplyMtrcst',
+            'orderEtcAmt',
             'orderBudgetAmt',
             'assignBudgetAmt',
-            'asignBdgtAmt',
-            'presmptPrce',
-            'totPrdprc',
-            'budgetAmt'
+            'asignBdgtAmt'
         ]),
-        bidNtceRegistDt: normalizeDateText(pick(i, ['rgstDt', 'registDt', 'rlsDt', 'inqryDt', 'orderYm', 'orderPlanYm'])),
-        bidClseDt: orderYm ? `${orderYm.slice(0, 4)}-${orderYm.slice(4, 6)}` : '',
+        bidNtceRegistDt: normalizeDateText(pick(i, ['nticeDt', 'rgstDt', 'chgDt', 'orderYm', 'orderPlanYm'])),
+        bidClseDt: normalizeDateText(orderYm),
         searchKeyword: term,
-        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
-        g2bUrl: buildG2bPlanUrl(i, id),
+        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title} ${pick(i, ['cnstwkRgnNm', 'insttLctNm'])}`),
+        g2bUrl: buildPlanUrl(i, id),
         serviceType: source.serviceType,
-        businessType: source.businessType
+        businessType: source.businessType,
+        orderYear,
+        orderMnth: pick(i, ['orderMnth'])
     };
 }
 
@@ -665,7 +612,7 @@ function makeRecord(i, source, term) {
     return mapBidRecord(i, source, term);
 }
 
-function initStats() {
+function initServiceStats() {
     return {
         "공고": 0,
         "사전규격": 0,
@@ -676,7 +623,6 @@ function initStats() {
 async function main() {
     const now = getKstDate();
     const past = getKstDate();
-
     past.setDate(now.getDate() - DAYS_TO_FETCH);
 
     const dateRanges = makeDateRanges(past, now, CHUNK_DAYS);
@@ -686,6 +632,7 @@ async function main() {
     console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 데이터소스 ${DATA_SOURCES.length}개 × 날짜구간 ${dateRanges.length}개 = ${SEARCH_TERMS.length * DATA_SOURCES.length * dateRanges.length}개 기본 호출`);
     console.log(`[INFO] 최대 페이지: 검색어/데이터소스/날짜구간당 ${MAX_PAGES_PER_QUERY}페이지`);
     console.log(`[INFO] 요청 간격: ${REQUEST_DELAY_MS}ms, 타임아웃: ${REQUEST_TIMEOUT_MS}ms, 재시도: ${RETRY_COUNT}회`);
+    console.log(`[INFO] 활성 데이터소스: ${DATA_SOURCES.map(s => `${s.serviceType}/${s.businessType}`).join(', ')}`);
     console.log(`[INFO] 키 설정: BID=${API_KEYS.BID ? 'Y' : 'N'}, PRESPEC=${API_KEYS.PRESPEC ? 'Y' : 'N'}, PLAN=${API_KEYS.PLAN ? 'Y' : 'N'}`);
 
     const allBids = [];
@@ -742,7 +689,7 @@ async function main() {
     const uniqueMap = new Map();
 
     for (const b of allBids) {
-        uniqueMap.set(b.bidId || b.bidNtceNo, b);
+        uniqueMap.set(`${b.serviceType}:${b.bidId || b.bidNtceNo}`, b);
     }
 
     const unique = Array.from(uniqueMap.values());
@@ -756,7 +703,7 @@ async function main() {
         categoryStats[cat] = 0;
     }
 
-    const serviceStats = initStats();
+    const serviceStats = initServiceStats();
 
     for (const b of unique) {
         const serviceType = b.serviceType || "공고";
@@ -788,7 +735,7 @@ async function main() {
         maxPagesPerQuery: MAX_PAGES_PER_QUERY,
         serviceStats,
         categoryStats,
-        errors: errors.slice(0, 30),
+        errors: errors.slice(0, 50),
         bids: unique
     };
 
