@@ -32,6 +32,13 @@ if (!API_KEYS.BID) {
     process.exit(1);
 }
 
+const GROQ_API_KEY = String(process.env.GROQ_API_KEY || '').trim();
+const GROQ_MODEL = String(process.env.GROQ_MODEL || 'llama-3.1-8b-instant').trim();
+const AI_ANALYSIS_LIMIT = Number(process.env.AI_ANALYSIS_LIMIT || 20);
+const GROQ_DELAY_MS = Number(process.env.GROQ_DELAY_MS || 1200);
+const GROQ_REQUEST_TIMEOUT_MS = Number(process.env.GROQ_REQUEST_TIMEOUT_MS || 30000);
+const GROQ_RETRY_COUNT = Number(process.env.GROQ_RETRY_COUNT || 2);
+
 const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS"];
 const SEARCH_TERMS = BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]);
 
@@ -612,6 +619,280 @@ function makeRecord(i, source, term) {
     return mapBidRecord(i, source, term);
 }
 
+
+async function loadExistingAiCache() {
+    const cache = new Map();
+
+    try {
+        const raw = await fs.readFile(path.join('data', 'bids.json'), 'utf-8');
+        const prev = JSON.parse(raw);
+
+        for (const b of prev?.bids || []) {
+            if (!b?.bidId) continue;
+            if (!b.aiSummary && !b.aiPriority) continue;
+
+            cache.set(b.bidId, {
+                aiPriority: b.aiPriority || '',
+                aiScore: b.aiScore ?? null,
+                aiSummary: b.aiSummary || '',
+                aiReason: b.aiReason || '',
+                aiAction: b.aiAction || '',
+                aiTags: Array.isArray(b.aiTags) ? b.aiTags : [],
+                aiStatus: b.aiStatus || 'CACHED',
+                aiProvider: b.aiProvider || 'groq',
+                aiModel: b.aiModel || '',
+                aiGeneratedAt: b.aiGeneratedAt || prev.generatedAt || ''
+            });
+        }
+    } catch {
+        // 최초 실행 또는 파일 없음. 정상 상황.
+    }
+
+    return cache;
+}
+
+function isDirectDiKeyword(text) {
+    const s = String(text || '').toLowerCase();
+
+    return [
+        '전광판',
+        'led',
+        '미디어월',
+        '미디어 아트',
+        '미디어아트',
+        '디스플레이',
+        '사이니지',
+        '파사드',
+        'vms',
+        'its',
+        '스마트 교통',
+        '지능형교통'
+    ].some(k => s.includes(k));
+}
+
+function scoreAiCandidate(b) {
+    const title = `${b.bidNtceNm || ''} ${b.searchKeyword || ''} ${b.serviceType || ''}`;
+    let score = 0;
+
+    if (isDirectDiKeyword(title)) score += 45;
+
+    const budget = Number(b.assignBudgetAmt || 0);
+    if (budget >= 500000000) score += 25;
+    else if (budget >= 200000000) score += 18;
+    else if (budget >= 50000000) score += 12;
+    else if (budget > 0) score += 5;
+
+    if (b.serviceType === '공고') score += 14;
+    if (b.serviceType === '사전규격') score += 11;
+    if (b.serviceType === '발주계획') score += 8;
+
+    const clse = String(b.bidClseDt || '');
+    if (clse) {
+        const datePart = clse.slice(0, 10);
+        const clseDate = new Date(datePart);
+        if (!Number.isNaN(clseDate.getTime())) {
+            const daysLeft = Math.ceil((clseDate.getTime() - Date.now()) / 86400000);
+            if (daysLeft >= 0 && daysLeft <= 7) score += 15;
+            else if (daysLeft > 7 && daysLeft <= 21) score += 8;
+        }
+    }
+
+    return score;
+}
+
+function selectAiTargets(bids, limit) {
+    return [...bids]
+        .map(b => ({ b, score: scoreAiCandidate(b) }))
+        .filter(x => x.score >= 25)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, Math.max(0, limit))
+        .map(x => x.b);
+}
+
+function stripJsonFence(text) {
+    return String(text || '')
+        .trim()
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/```$/i, '')
+        .trim();
+}
+
+function safeAiText(v, max = 180) {
+    return String(v || '').replace(/\s+/g, ' ').trim().slice(0, max);
+}
+
+function buildAiPrompt(bid) {
+    const payload = {
+        serviceType: bid.serviceType,
+        businessType: bid.businessType,
+        title: bid.bidNtceNm,
+        agency: bid.ntceInsttNm,
+        demandAgency: bid.dminsttNm,
+        budgetWon: bid.assignBudgetAmt,
+        registerDate: bid.bidNtceRegistDt,
+        closeDate: bid.bidClseDt,
+        keyword: bid.searchKeyword,
+        region: bid.region
+    };
+
+    return `아래 조달 정보를 보고 LED 전광판, 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업 관점에서 영업 검토 우선순위를 판단하라.
+
+반드시 JSON만 반환하라. 설명 문장이나 마크다운 금지.
+
+반환 형식:
+{
+  "aiPriority": "HIGH | MEDIUM | LOW | EXCLUDE",
+  "aiScore": 0,
+  "aiSummary": "한 줄 요약",
+  "aiReason": "우선순위 판단 근거",
+  "aiAction": "다음 실행 조치",
+  "aiTags": ["태그1", "태그2"]
+}
+
+판단 기준:
+- HIGH: 전광판/LED/미디어월/사이니지/ITS/VMS 직접 관련 + 예산 또는 실행 가능성 높음
+- MEDIUM: 관련성은 있으나 범위 확인 필요
+- LOW: 간접 관련 또는 소액/불명확
+- EXCLUDE: DI사업부와 관련 낮음
+
+조달 정보:
+${JSON.stringify(payload, null, 2)}`;
+}
+
+async function fetchGroqJson(prompt) {
+    const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
+
+    for (let attempt = 1; attempt <= GROQ_RETRY_COUNT; attempt++) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), GROQ_REQUEST_TIMEOUT_MS);
+
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                signal: controller.signal,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GROQ_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: GROQ_MODEL,
+                    messages: [
+                        {
+                            role: 'system',
+                            content: '너는 싸인텔레콤 DI영업지원팀의 조달 공고 검토 비서다. 반드시 유효한 JSON만 반환한다.'
+                        },
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+                    ],
+                    temperature: 0.2,
+                    response_format: { type: 'json_object' }
+                })
+            });
+
+            const text = await res.text();
+
+            if (!res.ok) {
+                throw new Error(`Groq HTTP ${res.status}: ${bodyPreview(text, 500)}`);
+            }
+
+            let raw = '';
+            try {
+                const json = JSON.parse(text);
+                raw = json?.choices?.[0]?.message?.content || '';
+            } catch {
+                raw = text;
+            }
+
+            const parsed = JSON.parse(stripJsonFence(raw));
+
+            return {
+                aiPriority: safeAiText(parsed.aiPriority, 20) || 'LOW',
+                aiScore: Number(parsed.aiScore || 0),
+                aiSummary: safeAiText(parsed.aiSummary, 180),
+                aiReason: safeAiText(parsed.aiReason, 240),
+                aiAction: safeAiText(parsed.aiAction, 240),
+                aiTags: Array.isArray(parsed.aiTags)
+                    ? parsed.aiTags.map(x => safeAiText(x, 30)).filter(Boolean).slice(0, 6)
+                    : [],
+                aiStatus: 'OK',
+                aiProvider: 'groq',
+                aiModel: GROQ_MODEL,
+                aiGeneratedAt: new Date().toISOString()
+            };
+        } catch (e) {
+            const isLast = attempt === GROQ_RETRY_COUNT;
+            const msg = e.name === 'AbortError' ? 'Groq 타임아웃' : e.message;
+
+            if (isLast) throw new Error(msg);
+
+            const waitMs = attempt * 2000;
+            console.log(`    Groq retry ${attempt}/${GROQ_RETRY_COUNT - 1} — ${msg}, ${waitMs}ms 대기`);
+            await sleep(waitMs);
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+
+    throw new Error('Groq 분석 실패');
+}
+
+async function enrichWithGroq(bids, errors) {
+    if (!GROQ_API_KEY) {
+        console.log('[INFO] GROQ_API_KEY 없음: AI 요약/우선순위 분석은 건너뜁니다.');
+        return {
+            provider: 'groq',
+            analyzed: 0,
+            cached: 0,
+            skipped: bids.length,
+            model: null
+        };
+    }
+
+    const cache = await loadExistingAiCache();
+    const targets = selectAiTargets(bids, AI_ANALYSIS_LIMIT);
+    let analyzed = 0;
+    let cached = 0;
+
+    console.log(`[INFO] Groq 분석 대상: ${targets.length}건 / limit ${AI_ANALYSIS_LIMIT} / model ${GROQ_MODEL}`);
+
+    for (const b of targets) {
+        const cachedAi = cache.get(b.bidId);
+        if (cachedAi) {
+            Object.assign(b, cachedAi, {
+                aiStatus: 'CACHED'
+            });
+            cached++;
+            continue;
+        }
+
+        try {
+            const ai = await fetchGroqJson(buildAiPrompt(b));
+            Object.assign(b, ai);
+            analyzed++;
+            console.log(`  - AI ${b.aiPriority} / ${b.bidNtceNm?.slice(0, 40)}`);
+        } catch (e) {
+            const msg = `[Groq/${b.bidId}] ${e.message}`;
+            errors.push(msg);
+            b.aiStatus = 'ERROR';
+            b.aiError = safeAiText(e.message, 200);
+            console.log(`  - AI FAIL ${b.bidNtceNm?.slice(0, 40)} — ${e.message}`);
+        }
+
+        await sleep(GROQ_DELAY_MS);
+    }
+
+    return {
+        provider: 'groq',
+        analyzed,
+        cached,
+        skipped: Math.max(0, bids.length - targets.length),
+        model: GROQ_MODEL
+    };
+}
+
 function initServiceStats() {
     return {
         "공고": 0,
@@ -698,6 +979,8 @@ async function main() {
         String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || ''))
     );
 
+    const aiStats = await enrichWithGroq(unique, errors);
+
     const categoryStats = {};
     for (const cat of Object.keys(KEYWORD_CATEGORY)) {
         categoryStats[cat] = 0;
@@ -733,6 +1016,7 @@ async function main() {
         failedCalls: errors.length,
         requestDelayMs: REQUEST_DELAY_MS,
         maxPagesPerQuery: MAX_PAGES_PER_QUERY,
+        aiStats,
         serviceStats,
         categoryStats,
         errors: errors.slice(0, 50),
@@ -748,6 +1032,7 @@ async function main() {
     console.log('');
     console.log(`[DONE] 총 ${unique.length}건 / 원본 ${allBids.length}건 → ${outPath}`);
     console.log(`[DONE] 성공 호출: ${successCount} / 실패 호출: ${errors.length}`);
+    console.log(`[DONE] AI 분석: ${JSON.stringify(aiStats)}`);
     console.log(`[DONE] 서비스: ${JSON.stringify(serviceStats)}`);
     console.log(`[DONE] 카테고리: ${JSON.stringify(categoryStats)}`);
 
