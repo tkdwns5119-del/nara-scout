@@ -1,35 +1,53 @@
 {
-  "generatedAt": "2026-05-29T07:27:22.000Z",
+  "generatedAt": "2026-05-29T09:04:05.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202604290000",
   "rangeEnd": "202605292359",
-  "totalCount": 415,
-  "rawCount": 477,
+  "totalCount": 416,
+  "rawCount": 478,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
-    "skipped": 395,
+    "analyzed": 2,
+    "cached": 18,
+    "skipped": 396,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
     "공고": 195,
     "사전규격": 122,
-    "발주계획": 98
+    "발주계획": 99
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 185,
+    "디스플레이/사이니지 계열": 186,
     "미디어/파사드 계열": 161,
     "ITS/VMS 계열": 69
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20774771",
+      "bidNtceNo": "PL-R26DD20774771",
+      "bidNtceOrd": "",
+      "bidNtceNm": "데스크탑 컴퓨터, LED 모니터 구매",
+      "ntceInsttNm": "가톨릭대학교 산학협력단",
+      "dminsttNm": "가톨릭대학교 산학협력단",
+      "assignBudgetAmt": 83100000,
+      "bidNtceRegistDt": "2026-05-29 08:35",
+      "bidClseDt": "2026-05",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=R26DD20774771",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "orderYear": "2026",
+      "orderMnth": "05"
+    },
     {
       "bidId": "BF-R26BD00233838",
       "bidNtceNo": "BF-R26BD00233838",
@@ -181,7 +199,22 @@
       "region": "서울",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01549022&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "물품"
+      "businessType": "물품",
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "서울대공원 디지털 전광판 제작 및 설치",
+      "aiReason": "디지털 전광판이 직접 관련된 사업이며 예산도 479842000원으로 높음",
+      "aiAction": "사업부 담당자와 협의하여 사업 참여 가능성을 확인",
+      "aiTags": [
+        "디지털 전광판",
+        "LED",
+        "미디어월",
+        "ITS/VMS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-29T00:13:57.540Z"
     },
     {
       "bidId": "PL-R26DD20773893",
@@ -546,21 +579,7 @@
       "region": "강원",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01546055&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "물품",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "회의실 LED스크린 구축공사(통신) 관급자재(LED스크린_다목적회의실) 구매설치",
-      "aiReason": "LED스크린 구축공사로 인한 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 직접 관련이 있으며 예산 또한 53,400,000원으로 높은 것으로 보임",
-      "aiAction": "사업부 담당자와 연락하여 자세한 정보를 확인하고 사업 참여 가능성을 확인",
-      "aiTags": [
-        "LED스크린",
-        "회의실",
-        "강원특별자치도"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-05-28T04:53:27.427Z"
+      "businessType": "물품"
     },
     {
       "bidId": "PL-R26DD20772270",
@@ -672,21 +691,7 @@
       "region": "전국",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01545347&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "물품",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 전광판 구매 및 설치",
-      "aiReason": "LED 전광판 직접 관련 + 예산 73,600,000원",
-      "aiAction": "사업부 담당자와 연락하여 예산 및 범위 확인",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "물품"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-05-28T06:55:37.861Z"
+      "businessType": "물품"
     },
     {
       "bidId": "BID-R26BK01545791-000",
@@ -718,7 +723,21 @@
       "region": "충청",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536645&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "용역"
+      "businessType": "용역",
+      "aiPriority": "LOW",
+      "aiScore": 20,
+      "aiSummary": "디스플레이혁신공정센터 폐수 위탁처리 용역",
+      "aiReason": "디스플레이와 관련이 있으나, LED 전광판, 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업과 직접 관련이 없는 용역",
+      "aiAction": "조달 정보를 확인하고, 관련 사업부와의 협의 필요",
+      "aiTags": [
+        "디스플레이",
+        "용역",
+        "폐수 위탁처리"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-29T00:13:59.247Z"
     },
     {
       "bidId": "BF-R26BD00232842",
