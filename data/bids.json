@@ -1,35 +1,69 @@
 {
-  "generatedAt": "2026-05-29T18:37:51.000Z",
+  "generatedAt": "2026-05-29T21:42:38.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202604290000",
   "rangeEnd": "202605292359",
-  "totalCount": 431,
-  "rawCount": 495,
+  "totalCount": 433,
+  "rawCount": 497,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
   "aiStats": {
     "provider": "groq",
-    "analyzed": 3,
-    "cached": 17,
-    "skipped": 411,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 413,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 197,
-    "사전규격": 129,
+    "공고": 198,
+    "사전규격": 130,
     "발주계획": 105
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 195,
+    "디스플레이/사이니지 계열": 197,
     "미디어/파사드 계열": 167,
     "ITS/VMS 계열": 69
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00234599",
+      "bidNtceNo": "BF-R26BD00234599",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026년 RISE사업 게임형 드론 교육‧훈련용 2D 디스플레이 기반 시뮬레이션 콘텐츠 개발 시행",
+      "ntceInsttNm": "동양미래대학교 산학협력단",
+      "dminsttNm": "동양미래대학교 산학협력단",
+      "assignBudgetAmt": 100000000,
+      "bidNtceRegistDt": "2026-05-29 19:22",
+      "bidClseDt": "2026-06-03 23:59",
+      "searchKeyword": "디스플레이",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00234599&fileType=BFDTL&fileSeq=1",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "refNo": "산단 제2026-00호",
+      "linkedBidNtceNoList": ""
+    },
+    {
+      "bidId": "BID-R26BK01552614-000",
+      "bidNtceNo": "R26BK01552614",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "김해공항 여객주차장 안내전광판 및 안내간판 구매설치",
+      "ntceInsttNm": "한국공항공사 김해공항",
+      "dminsttNm": "한국공항공사 김해공항",
+      "assignBudgetAmt": 188188000,
+      "bidNtceRegistDt": "2026-05-29 18:53",
+      "bidClseDt": "2026-06-08 10:00",
+      "searchKeyword": "전광판",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01552614&bidPbancOrd=000",
+      "serviceType": "공고",
+      "businessType": "물품"
+    },
     {
       "bidId": "BF-R26BD00234530",
       "bidNtceNo": "BF-R26BD00234530",
@@ -129,7 +163,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-29T09:46:47.119Z"
@@ -161,7 +195,7 @@
         "용역",
         "국가유산"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-29T09:46:48.607Z"
@@ -193,7 +227,7 @@
         "용역",
         "수원화성"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-05-29T09:46:50.181Z"
@@ -2891,7 +2925,7 @@
       "serviceType": "사전규격",
       "businessType": "물품",
       "refNo": "김해운영단-9104",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01552614"
     },
     {
       "bidId": "PL-R26DD20766084",
