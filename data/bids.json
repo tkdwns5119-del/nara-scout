@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-30T08:05:01.000Z",
+  "generatedAt": "2026-05-30T11:12:28.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
@@ -13,8 +13,8 @@
   "maxPagesPerQuery": 5,
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
+    "analyzed": 2,
+    "cached": 18,
     "skipped": 392,
     "model": "llama-3.1-8b-instant"
   },
@@ -408,7 +408,24 @@
       "serviceType": "사전규격",
       "businessType": "물품",
       "refNo": "공고문 참조",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "",
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "여수시 도로 전광판(VMS) 제작설치 사업",
+      "aiReason": "전광판/LED/미디어월/사이니지/ITS/VMS 직접 관련 + 예산 또는 실행 가능성 높음",
+      "aiAction": "사업부 담당자와 연락하여 사업 내용 및 예산 확인",
+      "aiTags": [
+        "VMS",
+        "전광판",
+        "LED",
+        "미디어월",
+        "사이니지",
+        "ITS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-30T02:22:01.045Z"
     },
     {
       "bidId": "PL-R26DD20774445",
@@ -1282,21 +1299,7 @@
       "serviceType": "사전규격",
       "businessType": "용역",
       "refNo": "수성구",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "지역 문화자원 미디어아트 콘텐츠 제작 및 전시 대행",
-      "aiReason": "미디어 관련 키워드가 포함되어 있으나, 용역 사업으로 전광판/LED/미디어월/사이니지/ITS/VMS 직접 관련이 낮음",
-      "aiAction": "사업 범위 확인 및 예산 확인 필요",
-      "aiTags": [
-        "미디어",
-        "용역",
-        "문화자원"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-05-28T04:53:04.701Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01541214-000",
@@ -2743,7 +2746,21 @@
       "region": "부산",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01536567&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "물품"
+      "businessType": "물품",
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 무빙라이트 구입을 위한 공연장 조명 장비 물품 구매",
+      "aiReason": "LED 관련 제품 구매로 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 직접 관련됨. 예산도 372억원으로 높은 실행 가능성을 보임.",
+      "aiAction": "영업 담당자와 접촉하여 사업 관련성 파악 및 예산 확인",
+      "aiTags": [
+        "LED",
+        "무빙라이트",
+        "공연장 조명 장비"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-05-30T02:21:59.292Z"
     },
     {
       "bidId": "BF-R26BD00230742",
@@ -3739,22 +3756,7 @@
       "region": "서울",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01528042&bidPbancOrd=000",
       "serviceType": "공고",
-      "businessType": "물품",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "경찰청 LED전자호루라기 구매",
-      "aiReason": "LED 전광판 및 미디어월과 직접 관련된 사업이며, 예산 또한 높음",
-      "aiAction": "사업부 담당자와 연락하여 자세한 정보 확인",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "미디어월",
-        "경찰청"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-05-28T04:53:00.078Z"
+      "businessType": "물품"
     },
     {
       "bidId": "PL-R26DD20763503",
