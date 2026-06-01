@@ -57,8 +57,19 @@
         }
         .terminal-scroll::-webkit-scrollbar-track { background: #0f172a; }
         .terminal-scroll::-webkit-scrollbar-thumb { background: #334155; }
+    
+        #aiAssistantModal { overscroll-behavior: contain; }
+        #aiAssistantModal .detail-scroll-area {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            scrollbar-gutter: stable;
+            touch-action: pan-y;
+        }
+        #aiAssistantModal .detail-scroll-area * { touch-action: pan-y; }
+        #aiAssistantModal .detail-card { min-height: 0; }
+
     </style>
-    <script>
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -384,7 +395,24 @@
                         <option value="OVER_500">5억 원 이상</option>
                     </select>
 
-                    <button onclick="exportToCSV()" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 border border-slate-300 flex items-center space-x-1 transition" title="분석 목록 출력">
+                    <select id="filterStatus" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전체 검토상태</option>
+                        <option value="미검토">미검토</option>
+                        <option value="관심">관심</option>
+                        <option value="검토중">검토중</option>
+                        <option value="제안가능">제안가능</option>
+                        <option value="제외">제외</option>
+                        <option value="완료">완료</option>
+                    </select>
+
+                    <select id="filterPriority" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                        <option value="ALL">전체 관련도</option>
+                        <option value="HIGH">우선검토</option>
+                        <option value="MEDIUM">검토</option>
+                        <option value="LOW">참고</option>
+                        <option value="EXCLUDE">제외검토</option>
+                    </select>
+<button onclick="exportToCSV()" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 border border-slate-300 flex items-center space-x-1 transition" title="분석 목록 출력">
                         <i data-lucide="download" class="w-3.5 h-3.5"></i>
                         <span>Excel CSV 다운로드</span>
                     </button>
@@ -496,7 +524,7 @@
                     </div>
                 </div>
 
-                <!-- Strategic Summary Insights with Groq API Integration -->
+                <!-- Strategic Summary Insights -->
                 <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 space-y-4 card-soft">
                     <h3 class="font-bold text-slate-900 text-sm">통합 조달 마켓 인사이트</h3>
                     <div class="space-y-3 text-xs leading-relaxed text-slate-700">
@@ -509,11 +537,11 @@
                             <p><strong class="text-slate-900">발주계획 선제 파악:</strong> 발주계획현황을 주기적으로 수집 및 모니터링하여 영업 영업망을 가동하십시오.</p>
                         </div>
                         
-                        <!-- AI Market Analyst trigger -->
+                        <!-- Market summary trigger -->
                         <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
-                            <button onclick="generateAiMarketBriefing()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-fuchsia text-white font-extrabold transition text-[11px] flex items-center justify-center space-x-1.5 shadow-sm hover:opacity-95">
-                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                                <span>✨ AI 통합 조달 마켓 브리핑 보고서 생성</span>
+                            <button onclick="copyMarketBriefing()" class="w-full py-2.5 rounded-xl bg-slate-900 text-white font-extrabold transition text-[11px] flex items-center justify-center space-x-1.5 shadow-sm hover:bg-slate-800">
+                                <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
+                                <span>통합 조달 마켓 요약 복사</span>
                             </button>
                         </div>
                     </div>
@@ -564,7 +592,7 @@
                                     <span>공공데이터포털 OpenAPI 일반 인증키 (Service Key)</span>
                                     <span class="text-cyber-cyan text-[10px] hover:underline cursor-pointer" onclick="toggleSecretKeyGuide()">인증키 가이드 및 연결 정보 ⓘ</span>
                                 </label>
-                                <input type="password" id="apiKeyInput" value="ea074e61676447c1cfdb85f8a74f7b03093f5a5747587767af6c9a5ab7cab22c" placeholder="일반 인증키 - Encoding 또는 Decoding 입력" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 px-3 text-xs sm:text-sm font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
+                                <input type="password" id="apiKeyInput" value="" placeholder="일반 인증키 - Encoding 또는 Decoding 입력" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 px-3 text-xs sm:text-sm font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
                                 <div class="text-[10px] text-slate-500 leading-normal space-y-1">
                                     <p>* 현재 대시보드는 <strong>3가지 주요 공공 데이터 서비스</strong>를 병렬 파싱합니다:</p>
                                     <ul class="list-disc list-inside pl-1 text-[9px] text-slate-400 space-y-0.5">
@@ -683,7 +711,7 @@
 
     <!-- BID DETAIL MODAL -->
     <div id="aiAssistantModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
+        <div class="bg-white rounded-3xl max-w-6xl w-full h-[90vh] max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in detail-card">
             <!-- Modal Header -->
             <div class="p-5 border-b border-slate-150 flex justify-between items-center bg-slate-50">
                 <div class="flex items-center space-x-2.5">
@@ -701,7 +729,7 @@
             </div>
 
             <!-- Modal Body -->
-            <div class="flex-grow p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div class="flex-1 min-h-0 p-6 overflow-y-auto detail-scroll-area grid grid-cols-1 lg:grid-cols-5 gap-6">
                 <!-- Left: Summary -->
                 <div class="lg:col-span-2 space-y-4">
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
@@ -752,10 +780,59 @@
                         </button>
                     </div>
 
+
+                    <div id="modal-workflow-panel" class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                        <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center space-x-2">
+                            <i data-lucide="clipboard-check" class="w-4 h-4 text-cyber-cyan"></i>
+                            <h5 class="font-extrabold text-xs text-slate-800">내부 검토 관리</h5>
+                            <span id="modal-score-badge" class="ml-auto text-[10px] px-2 py-0.5 rounded-full border font-bold"></span>
+                        </div>
+                        <div class="p-4 space-y-3">
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="text-[10px] text-slate-500 font-bold space-y-1">
+                                    <span>검토 상태</span>
+                                    <select id="modal-work-status" onchange="updateCurrentWorkflowField('status', this.value)" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
+                                        <option value="미검토">미검토</option>
+                                        <option value="관심">관심</option>
+                                        <option value="검토중">검토중</option>
+                                        <option value="제안가능">제안가능</option>
+                                        <option value="제외">제외</option>
+                                        <option value="완료">완료</option>
+                                    </select>
+                                </label>
+                                <label class="text-[10px] text-slate-500 font-bold space-y-1">
+                                    <span>담당자</span>
+                                    <input id="modal-owner" oninput="updateCurrentWorkflowField('owner', this.value)" placeholder="미지정" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
+                                </label>
+                            </div>
+
+                            <div>
+                                <div class="text-[10px] text-slate-500 font-bold mb-1">참여 검토 체크리스트</div>
+                                <div id="modal-checklist" class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-700"></div>
+                            </div>
+
+                            <label class="block text-[10px] text-slate-500 font-bold space-y-1">
+                                <span>검토 메모</span>
+                                <textarea id="modal-memo" oninput="updateCurrentWorkflowField('memo', this.value)" rows="3" placeholder="예: 규격서 확인 필요, 설치 장소 확인, 실적 제한 검토" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800 resize-y"></textarea>
+                            </label>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="toggleCurrentFavorite()" id="modal-favorite-btn" class="py-2 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 text-xs font-bold flex items-center justify-center gap-1">
+                                    <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                                    <span>관심 저장</span>
+                                </button>
+                                <button onclick="copyReportSummary()" class="py-2 rounded-lg bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan text-xs font-bold flex items-center justify-center gap-1">
+                                    <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
+                                    <span>보고용 요약 복사</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
                         <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center space-x-2">
                             <i data-lucide="paperclip" class="w-4 h-4 text-slate-500"></i>
-                            <h5 class="font-extrabold text-xs text-slate-800">첨부 / 규격서</h5>
+                            <h5 class="font-extrabold text-xs text-slate-800">첨부 / 규격서</h5><span class="text-[10px] text-slate-400 ml-auto">파일 다운로드는 여기서만 실행</span>
                         </div>
                         <div id="modal-doc-list" class="p-4 text-xs text-slate-600 space-y-2"></div>
                     </div>
@@ -822,6 +899,470 @@
             "ITS":       "#d97706",
             "VMS":       "#f59e0b"
         };
+
+
+        const WORKFLOW_LS = "DI_BID_WORKFLOW_V1";
+        const CHECKLIST_ITEMS = [
+            ["spec", "규격서 확인"],
+            ["qualification", "참가자격 확인"],
+            ["region", "지역제한 확인"],
+            ["site", "설치 장소 확인"],
+            ["scope", "납품/설치 범위"],
+            ["budget", "예산 확인"],
+            ["record", "실적 제한 확인"],
+            ["consortium", "공동수급 여부"],
+            ["maintenance", "하자/유지보수"],
+            ["deadline", "마감일 확인"]
+        ];
+        const EXCLUDE_KEYWORDS = ["LMS", "모니터", "노트북", "TV", "전자칠판", "컴퓨터", "프린터", "소모품", "소프트웨어", "키오스크부품"];
+
+        const GITHUB_SYNC_LS = "DI_GITHUB_WORKFLOW_SYNC_V1";
+        let workflowStoreCache = null;
+        let githubWorkflowSha = null;
+        let githubSaveTimer = null;
+        let githubSyncBusy = false;
+        let githubAutoTokenPrompted = false;
+
+        function detectGitHubDefaults() {
+            const host = location.hostname || "";
+            const pathParts = location.pathname.split('/').filter(Boolean);
+
+            const owner = host.endsWith(".github.io")
+                ? host.replace(".github.io", "")
+                : "";
+
+            const repo = pathParts[0] || "";
+
+            return {
+                owner,
+                repo,
+                branch: "main",
+                path: "data/workflow-state.json",
+                token: ""
+            };
+        }
+
+        function loadGitHubSyncConfig() {
+            try {
+                return {
+                    ...detectGitHubDefaults(),
+                    ...JSON.parse(localStorage.getItem(GITHUB_SYNC_LS) || "{}")
+                };
+            } catch {
+                return detectGitHubDefaults();
+            }
+        }
+
+        function saveGitHubSyncConfig(config) {
+            localStorage.setItem(GITHUB_SYNC_LS, JSON.stringify(config || {}));
+            updateGitHubSyncUi();
+        }
+
+        function getGitHubApiUrl(config) {
+            const owner = encodeURIComponent(config.owner || "");
+            const repo = encodeURIComponent(config.repo || "");
+            const filePath = String(config.path || "data/workflow-state.json").split('/').map(encodeURIComponent).join('/');
+            return `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
+        }
+
+        function encodeBase64Unicode(value) {
+            return btoa(unescape(encodeURIComponent(value)));
+        }
+
+        function decodeBase64Unicode(value) {
+            return decodeURIComponent(escape(atob(String(value || "").replace(/\n/g, ""))));
+        }
+
+        function logGitHubSync(message, type = "normal") {
+            const box = document.getElementById('ghSyncStatusBox');
+            const now = new Date().toLocaleTimeString();
+            const line = `[${now}] ${message}`;
+
+            if (box) box.textContent = line;
+            logConsole(`[GitHub 서버저장] ${message}`, type);
+        }
+
+        function normalizeWorkflowPayload(payload) {
+            if (!payload) return {};
+            if (payload.workflow && typeof payload.workflow === "object") return payload.workflow;
+            if (payload.data && typeof payload.data === "object") return payload.data;
+            if (typeof payload === "object") return payload;
+            return {};
+        }
+
+        function mergeWorkflowStores(localStore = {}, remoteStore = {}) {
+            const merged = { ...(localStore || {}) };
+
+            Object.entries(remoteStore || {}).forEach(([key, remoteValue]) => {
+                const localValue = merged[key];
+
+                if (!localValue) {
+                    merged[key] = remoteValue;
+                    return;
+                }
+
+                const localTime = new Date(localValue.updatedAt || 0).getTime();
+                const remoteTime = new Date(remoteValue.updatedAt || 0).getTime();
+
+                merged[key] = remoteTime > localTime
+                    ? { ...localValue, ...remoteValue }
+                    : { ...remoteValue, ...localValue };
+            });
+
+            return merged;
+        }
+
+        function loadWorkflowStore() {
+            if (workflowStoreCache) return workflowStoreCache;
+
+            try {
+                workflowStoreCache = JSON.parse(localStorage.getItem(WORKFLOW_LS) || "{}");
+            } catch {
+                workflowStoreCache = {};
+            }
+
+            return workflowStoreCache;
+        }
+
+        function saveWorkflowStore(store, options = {}) {
+            workflowStoreCache = store || {};
+            localStorage.setItem(WORKFLOW_LS, JSON.stringify(workflowStoreCache));
+
+            if (!options.skipServer) {
+                scheduleGitHubWorkflowSave();
+            }
+        }
+
+        async function fetchWorkflowFromGitHubApi(config) {
+            if (!config.owner || !config.repo || !config.path || !config.token) return null;
+
+            const url = `${getGitHubApiUrl(config)}?ref=${encodeURIComponent(config.branch || "main")}`;
+            const res = await fetch(url, {
+                headers: {
+                    "Accept": "application/vnd.github+json",
+                    "Authorization": `Bearer ${config.token}`,
+                    "X-GitHub-Api-Version": "2022-11-28"
+                }
+            });
+
+            if (res.status === 404) {
+                githubWorkflowSha = null;
+                return {};
+            }
+
+            if (!res.ok) {
+                throw new Error(`GitHub GET HTTP ${res.status}`);
+            }
+
+            const data = await res.json();
+            githubWorkflowSha = data.sha || null;
+
+            if (!data.content) return {};
+            return normalizeWorkflowPayload(JSON.parse(decodeBase64Unicode(data.content)));
+        }
+
+        async function fetchWorkflowFromPages() {
+            try {
+                const res = await fetch('./data/workflow-state.json?t=' + Date.now(), { cache: 'no-store' });
+                if (!res.ok) return {};
+                const payload = await res.json();
+                return normalizeWorkflowPayload(payload);
+            } catch {
+                return {};
+            }
+        }
+
+        async function initializeWorkflowServerSync() {
+            const localStore = loadWorkflowStore();
+            const config = loadGitHubSyncConfig();
+
+            try {
+                let remoteStore = {};
+
+                if (config.token && config.owner && config.repo) {
+                    remoteStore = await fetchWorkflowFromGitHubApi(config);
+                    logGitHubSync("GitHub API에서 검토 상태를 불러왔습니다.", "success");
+                } else {
+                    remoteStore = await fetchWorkflowFromPages();
+                    if (Object.keys(remoteStore).length > 0) {
+                        logGitHubSync("GitHub Pages의 workflow-state.json을 읽었습니다. 저장하려면 토큰 설정이 필요합니다.", "warn");
+                    }
+                }
+
+                const merged = mergeWorkflowStores(localStore, remoteStore);
+                saveWorkflowStore(merged, { skipServer: true });
+                updateGitHubSyncUi();
+                return merged;
+            } catch (e) {
+                logGitHubSync(`서버 불러오기 실패: ${e.message}`, "warn");
+                updateGitHubSyncUi();
+                return localStore;
+            }
+        }
+
+        function ensureGitHubAutoSaveConfig() {
+            let config = loadGitHubSyncConfig();
+
+            // Owner/Repo/Branch/Path는 GitHub Pages URL에서 자동 추정한다.
+            config = {
+                ...detectGitHubDefaults(),
+                ...config,
+                branch: config.branch || "main",
+                path: config.path || "data/workflow-state.json"
+            };
+
+            if (!config.token && !githubAutoTokenPrompted) {
+                githubAutoTokenPrompted = true;
+
+                const token = window.prompt(
+                    "GitHub 서버 자동저장을 위해 Fine-grained token을 1회 입력하세요.\\n\\n권장 권한: 해당 저장소 Contents Read and write\\n입력한 토큰은 이 브라우저 localStorage에만 저장됩니다."
+                );
+
+                if (token && token.trim()) {
+                    config.token = token.trim();
+                    saveGitHubSyncConfig(config);
+                    showToast("GitHub 서버 자동저장 토큰이 저장되었습니다.", "cloud");
+                }
+            }
+
+            saveGitHubSyncConfig(config);
+            return config;
+        }
+
+        async function saveWorkflowStoreToGitHubNow() {
+            const config = ensureGitHubAutoSaveConfig();
+
+            if (!config.token || !config.owner || !config.repo || !config.path) {
+                logGitHubSync("서버 자동저장 대기: GitHub 토큰이 없어 현재 브라우저에만 저장됩니다.", "warn");
+                return false;
+            }
+
+            if (githubSyncBusy) return false;
+            githubSyncBusy = true;
+
+            try {
+                const store = loadWorkflowStore();
+
+                if (!githubWorkflowSha) {
+                    try {
+                        await fetchWorkflowFromGitHubApi(config);
+                    } catch {
+                        githubWorkflowSha = null;
+                    }
+                }
+
+                const payload = {
+                    version: 1,
+                    app: "DI Procurement Dashboard",
+                    updatedAt: new Date().toISOString(),
+                    workflow: store
+                };
+
+                const body = {
+                    message: `chore(data): update workflow state ${new Date().toISOString()}`,
+                    content: encodeBase64Unicode(JSON.stringify(payload, null, 2)),
+                    branch: config.branch || "main"
+                };
+
+                if (githubWorkflowSha) body.sha = githubWorkflowSha;
+
+                const res = await fetch(getGitHubApiUrl(config), {
+                    method: "PUT",
+                    headers: {
+                        "Accept": "application/vnd.github+json",
+                        "Authorization": `Bearer ${config.token}`,
+                        "Content-Type": "application/json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!res.ok) {
+                    if (res.status === 409) {
+                        const remote = await fetchWorkflowFromGitHubApi(config);
+                        const merged = mergeWorkflowStores(store, remote);
+                        saveWorkflowStore(merged, { skipServer: true });
+                        githubSyncBusy = false;
+                        return await saveWorkflowStoreToGitHubNow();
+                    }
+
+                    const text = await res.text();
+                    throw new Error(`GitHub PUT HTTP ${res.status}: ${text.slice(0, 180)}`);
+                }
+
+                const result = await res.json();
+                githubWorkflowSha = result?.content?.sha || githubWorkflowSha;
+                logGitHubSync("서버 저장 완료: data/workflow-state.json 갱신됨", "success");
+                updateGitHubSyncUi();
+                return true;
+            } catch (e) {
+                logGitHubSync(`서버 저장 실패: ${e.message}`, "error");
+                return false;
+            } finally {
+                githubSyncBusy = false;
+            }
+        }
+
+        function scheduleGitHubWorkflowSave() {
+            clearTimeout(githubSaveTimer);
+            githubSaveTimer = setTimeout(() => {
+                saveWorkflowStoreToGitHubNow();
+            }, 1200);
+        }
+
+        function updateGitHubSyncUi() {
+            const config = loadGitHubSyncConfig();
+            const btnText = document.getElementById('githubSyncBtnText');
+
+            if (btnText) {
+                btnText.textContent = config.token ? "서버 자동저장 ON" : "서버 자동저장";
+            }
+        }
+
+        function openGitHubSyncSettings() {
+            githubAutoTokenPrompted = false;
+            const config = ensureGitHubAutoSaveConfig();
+            updateGitHubSyncUi();
+            if (config.token) showToast("서버 자동저장이 활성화되었습니다.", "cloud");
+        }
+
+        function closeGitHubSyncSettings() {
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function saveGitHubSyncConfigFromModal() {
+            openGitHubSyncSettings();
+        }
+
+        async function manualLoadWorkflowFromGitHub() {
+            const store = await initializeWorkflowServerSync();
+            workflowStoreCache = store;
+            applyFilters();
+            showToast("GitHub 서버 상태를 불러왔습니다.", "download");
+        }
+
+        async function manualSaveWorkflowToGitHub() {
+            const ok = await saveWorkflowStoreToGitHubNow();
+            if (ok) showToast("GitHub 서버에 저장되었습니다.", "upload-cloud");
+        }
+
+
+        function getBidKey(item) {
+            return item?.bidId || item?.bidNtceNo || "";
+        }
+
+        function getBidWorkflow(item) {
+            const store = loadWorkflowStore();
+            const key = getBidKey(item);
+            return {
+                status: "미검토",
+                owner: "",
+                memo: "",
+                favorite: false,
+                checklist: {},
+                ...(store[key] || {})
+            };
+        }
+
+        function setBidWorkflow(item, patch) {
+            const store = loadWorkflowStore();
+            const key = getBidKey(item);
+            if (!key) return;
+
+            store[key] = {
+                ...getBidWorkflow(item),
+                ...patch,
+                updatedAt: new Date().toISOString()
+            };
+            saveWorkflowStore(store);
+        }
+
+        function getStatusBadgeClass(status) {
+            const s = String(status || "미검토");
+            if (s === "관심") return "bg-amber-50 text-amber-700 border-amber-200";
+            if (s === "검토중") return "bg-blue-50 text-blue-700 border-blue-200";
+            if (s === "제안가능") return "bg-emerald-50 text-emerald-700 border-emerald-200";
+            if (s === "제외") return "bg-rose-50 text-rose-700 border-rose-200";
+            if (s === "완료") return "bg-slate-700 text-white border-slate-700";
+            return "bg-gray-50 text-gray-500 border-gray-200";
+        }
+
+        function computeRelevanceScore(item) {
+            const text = `${item.bidNtceNm || ""} ${item.searchKeyword || ""} ${item.detailInfo?.productName || ""}`.toLowerCase();
+            let score = 0;
+
+            if (text.includes("전광판")) score += 35;
+            if (text.includes("led")) score += 25;
+            if (text.includes("미디어월") || text.includes("미디어 월")) score += 30;
+            if (text.includes("사이니지")) score += 25;
+            if (text.includes("디스플레이")) score += 15;
+            if (text.includes("파사드")) score += 25;
+            if (text.includes("vms") || text.includes("its")) score += 20;
+
+            const budget = Number(item.assignBudgetAmt || 0);
+            if (budget >= 500000000) score += 20;
+            else if (budget >= 200000000) score += 15;
+            else if (budget >= 50000000) score += 10;
+
+            if (item.serviceType === "공고") score += 10;
+            if (item.serviceType === "사전규격") score += 8;
+            if (item.serviceType === "발주계획") score += 5;
+
+            const contract = getContractMethodLabel(item);
+            if (contract.includes("수의")) score += 10;
+            if (contract.includes("지명")) score += 8;
+            if (contract.includes("협상")) score += 6;
+
+            const rawTitle = String(item.bidNtceNm || "").toUpperCase();
+            if (EXCLUDE_KEYWORDS.some(k => rawTitle.includes(k.toUpperCase()))) score -= 35;
+
+            return Math.max(0, Math.min(100, score));
+        }
+
+        function getPriorityBucket(item) {
+            const score = computeRelevanceScore(item);
+            if (score >= 70) return "HIGH";
+            if (score >= 45) return "MEDIUM";
+            if (score >= 25) return "LOW";
+            return "EXCLUDE";
+        }
+
+        function getPriorityLabel(bucket) {
+            return { HIGH: "우선검토", MEDIUM: "검토", LOW: "참고", EXCLUDE: "제외검토" }[bucket] || "참고";
+        }
+
+        function getPriorityBadgeClass(bucket) {
+            if (bucket === "HIGH") return "bg-rose-50 text-rose-700 border-rose-200";
+            if (bucket === "MEDIUM") return "bg-amber-50 text-amber-700 border-amber-200";
+            if (bucket === "LOW") return "bg-slate-50 text-slate-600 border-slate-200";
+            return "bg-gray-50 text-gray-400 border-gray-200";
+        }
+
+        function renderScoreBadge(item) {
+            const bucket = getPriorityBucket(item);
+            const score = computeRelevanceScore(item);
+            return `<span class="px-1.5 py-0.5 rounded border text-[10px] font-bold ${getPriorityBadgeClass(bucket)}">${getPriorityLabel(bucket)} ${score}</span>`;
+        }
+
+        function renderStatusBadge(item) {
+            const wf = getBidWorkflow(item);
+            const star = wf.favorite ? "★ " : "";
+            return `<span class="px-1.5 py-0.5 rounded border text-[10px] font-bold ${getStatusBadgeClass(wf.status)}">${star}${wf.status}</span>`;
+        }
+
+        function getDeadlineBadgeHtml(item) {
+            const label = getDDay(item.bidClseDt);
+            let cls = "bg-slate-100 text-slate-500 border-slate-200";
+            if (label === "D-Day") cls = "bg-rose-600 text-white border-rose-600 animate-pulse";
+            else if (label.startsWith("D-")) {
+                const days = parseInt(label.replace("D-", ""));
+                if (days <= 3) cls = "bg-rose-50 text-rose-700 border-rose-200";
+                else if (days <= 7) cls = "bg-amber-50 text-amber-700 border-amber-200";
+                else cls = "bg-emerald-50 text-emerald-700 border-emerald-200";
+            }
+            return `<span class="inline-flex px-1.5 py-0.5 rounded border text-[10px] font-extrabold ${cls}">${label}</span>`;
+        }
+
 
         function normalizeKeyword(kw) {
             if (!kw) return "";
@@ -1451,7 +1992,9 @@
                     </td>
                     <td class="p-4 align-top font-semibold text-slate-800">
                         <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant('${item.bidNtceNo}')">${item.bidNtceNm}</div>
-                        <div class="flex items-center space-x-2 mt-1">
+                        <div class="flex flex-wrap items-center gap-1.5 mt-1">
+                            ${renderStatusBadge(item)}
+                            ${renderScoreBadge(item)}
                             <span class="text-[10px] text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded flex items-center space-x-1">
                                 <i data-lucide="map-pin" class="w-2.5 h-2.5 text-cyber-cyan"></i>
                                 <span>${item.region}</span>
@@ -1469,9 +2012,10 @@
                     <td class="p-4 align-top text-xs font-mono space-y-0.5">
                         <div class="text-slate-600">수집/등록: ${item.bidNtceRegistDt.split(' ')[0]}</div>
                         <div class="text-red-600 font-semibold">${item.serviceType === '공고' ? '마감: ' : (item.serviceType === '사전규격' ? '의견종료: ' : '예정월: ')}${item.bidClseDt.substring(5, 16)}</div>
+                        <div>${getDeadlineBadgeHtml(item)}</div>
                     </td>
                     <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
-                        <button onclick="openAiAssistant('${item.bidNtceNo}')" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="✨ AI 수주 제안전략 설계기 열기">
+                        <button onclick="openAiAssistant('${item.bidNtceNo}')" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
                             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
                         </button>
                         <button onclick="openBidLink('${item.g2bUrl}')" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
@@ -1492,6 +2036,8 @@
             const keyword = document.getElementById('filterKeyword').value;
             const region = document.getElementById('filterRegion').value;
             const budgetRange = document.getElementById('filterBudget').value;
+            const statusFilter = document.getElementById('filterStatus')?.value || "ALL";
+            const priorityFilter = document.getElementById('filterPriority')?.value || "ALL";
 
             let filtered = [...activeBids];
 
@@ -1501,7 +2047,9 @@
                     item.ntceInsttNm.toLowerCase().includes(query) ||
                     item.bidNtceNo.toLowerCase().includes(query) ||
                     item.region.toLowerCase().includes(query) ||
-                    getContractMethodLabel(item).toLowerCase().includes(query)
+                    getContractMethodLabel(item).toLowerCase().includes(query) ||
+                    getBidWorkflow(item).status.toLowerCase().includes(query) ||
+                    getBidWorkflow(item).memo.toLowerCase().includes(query)
                 );
             }
 
@@ -1531,6 +2079,14 @@
                     if (budgetRange === "OVER_500") return amt > 500000000;
                     return true;
                 });
+            }
+
+            if (statusFilter !== "ALL") {
+                filtered = filtered.filter(item => getBidWorkflow(item).status === statusFilter);
+            }
+
+            if (priorityFilter !== "ALL") {
+                filtered = filtered.filter(item => getPriorityBucket(item) === priorityFilter);
             }
 
             renderBidsTable(filtered);
@@ -2036,7 +2592,7 @@
             localStorage.removeItem(API_KEY_LS);
             localStorage.setItem(CORS_MODE_LS, "github");
             
-            document.getElementById('apiKeyInput').value = 'ea074e61676447c1cfdb85f8a74f7b03093f5a5747587767af6c9a5ab7cab22c';
+            document.getElementById('apiKeyInput').value = '';
             
             const radioGithub = document.querySelector('input[name="corsMode"][value="github"]');
             if (radioGithub) radioGithub.checked = true;
@@ -2060,233 +2616,47 @@
             showToast("네트워크 기본 설정값이 정상 복구되었습니다.", "check");
         }
 
-        /* ========================================================
-           GEMINI AI INTEGRATION ENGINE (CORS SAFE / BACKOFF RETRY)
-           ======================================================== */
-        
-        async function callGroq(prompt, systemInstruction = "") {
-            const apiKey = ""; // Runtime provides the key dynamically
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/groq-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }]
+
+
+        function copyMarketBriefing() {
+            const count = activeBids.length;
+            const totalBudget = activeBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
+            const serviceCounts = {
+                공고: activeBids.filter(item => item.serviceType === "공고").length,
+                사전규격: activeBids.filter(item => item.serviceType === "사전규격").length,
+                발주계획: activeBids.filter(item => item.serviceType === "발주계획").length
             };
-            if (systemInstruction) {
-                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-            }
 
-            let delay = 1000;
-            // Exponential backoff: Retry up to 5 times (1s, 2s, 4s, 8s, 16s)
-            for (let i = 0; i < 5; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(payload)
-                    });
-                    if (response.ok) {
-                        const result = await response.json();
-                        return result.candidates?.[0]?.content?.parts?.[0]?.text || "결과를 생성할 수 없습니다.";
-                    }
-                    if (response.status === 429 || response.status >= 500) {
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        delay *= 2;
-                    } else {
-                        const errText = await response.text();
-                        throw new Error(`API Error (${response.status}): ${errText}`);
-                    }
-                } catch (error) {
-                    if (i === 4) {
-                        throw error;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    delay *= 2;
-                }
-            }
-            throw new Error("5회 시도 후 요청이 만료되었습니다. API 키가 제공되었는지 점검하세요.");
-        }
+            const highList = [...activeBids]
+                .sort((a, b) => computeRelevanceScore(b) - computeRelevanceScore(a))
+                .slice(0, 5)
+                .map((item, idx) => `${idx + 1}. ${item.bidNtceNm} / ${formatKoreanCurrency(item.assignBudgetAmt)} / ${getPriorityLabel(getPriorityBucket(item))} ${computeRelevanceScore(item)}점`)
+                .join('\n');
 
-        // Lightweight Markdown parser for premium rendering inside the output box
-        function parseMarkdown(text) {
-            if (!text) return "";
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .split('\n').map(line => {
-                    const trimmed = line.trim();
-                    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-                        return `<li class="ml-4 list-disc text-slate-700 my-1">${trimmed.substring(2)}</li>`;
-                    }
-                    if (trimmed.match(/^\d+\.\s/)) {
-                        return `<li class="ml-4 list-decimal text-slate-700 my-1">${trimmed.replace(/^\d+\.\s/, '')}</li>`;
-                    }
-                    if (trimmed.startsWith('### ')) {
-                        return `<h4 class="text-xs font-extrabold text-slate-950 mt-4 mb-1.5 border-b pb-1 border-slate-100">${trimmed.substring(4)}</h4>`;
-                    }
-                    if (trimmed.startsWith('## ')) {
-                        return `<h3 class="text-sm font-black text-slate-900 mt-5 mb-2.5 border-l-4 border-cyan-500 pl-2">${trimmed.substring(3)}</h3>`;
-                    }
-                    if (trimmed.startsWith('# ')) {
-                        return `<h2 class="text-base font-extrabold text-slate-950 mt-6 mb-3">${trimmed.substring(2)}</h2>`;
-                    }
-                    return trimmed ? `<p class="my-1.5 leading-relaxed text-slate-600">${trimmed}</p>` : '';
-                }).join('');
-        }
+            const urgentList = [...activeBids]
+                .filter(item => String(getDDay(item.bidClseDt)).startsWith("D-") || getDDay(item.bidClseDt) === "D-Day")
+                .slice(0, 5)
+                .map((item, idx) => `${idx + 1}. ${item.bidNtceNm} / ${getDDay(item.bidClseDt)} / ${formatKoreanCurrency(item.assignBudgetAmt)}`)
+                .join('\n') || '-';
 
-        // Detail Modal Controllers
-        function escapeHtml(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        function makeDetailRow(label, value, wide = false) {
-            const v = value === undefined || value === null || value === '' ? '-' : value;
-            return `
-                <div class="${wide ? 'sm:col-span-2' : ''} rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
-                    <div class="text-[10px] text-slate-400 mb-1">${escapeHtml(label)}</div>
-                    <div class="font-bold text-slate-800 leading-snug break-words">${escapeHtml(v)}</div>
-                </div>
-            `;
-        }
-
-        function renderModalDocs(item) {
-            const docs = Array.isArray(item.documentUrls) ? item.documentUrls : [];
-            const box = document.getElementById('modal-doc-list');
-
-            if (!docs.length) {
-                box.innerHTML = `<div class="text-slate-400 text-xs">등록된 첨부/규격서 URL이 없습니다. 나라장터 원문에서 추가 확인이 필요합니다.</div>`;
-                return;
-            }
-
-            box.innerHTML = docs.map((doc, idx) => `
-                <a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener" class="flex items-center justify-between gap-2 p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                    <span class="font-semibold truncate">${escapeHtml(doc.label || `첨부파일 ${idx + 1}`)}</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5 shrink-0 text-slate-400"></i>
-                </a>
-            `).join('');
-        }
-
-        function renderDetailGrid(item) {
-            const d = item.detailInfo || {};
-            const rows = [
-                ['서비스 구분', `${item.serviceType || '-'} / ${item.businessType || '-'}`],
-                ['공고번호', item.bidNtceNo],
-                ['공고차수', item.bidNtceOrd || '-'],
-                ['계약방법 원문', d.contractMethodRaw || item.contractMethodRaw || '-'],
-                ['입찰방식', d.bidMethod || '-'],
-                ['낙찰/선정 방식', d.awardMethod || '-'],
-                ['공고종류', d.noticeKind || '-'],
-                ['참가/지역 제한', d.restrictionRegion || '-'],
-                ['입찰개시일시', d.bidBeginDt || '-'],
-                ['입찰마감일시', d.bidClseDt || item.bidClseDt || '-'],
-                ['개찰일시', d.openDt || '-'],
-                ['참가등록/협정/PQ 마감', d.registerDeadline || '-'],
-                ['의견등록마감', d.opinionCloseDt || '-'],
-                ['납품기한', d.deliveryLimitDt || '-'],
-                ['담당부서', d.department || '-'],
-                ['담당자', d.officerName || '-'],
-                ['연락처', d.officerTel || '-'],
-                ['이메일', d.officerEmail || '-'],
-                ['참조번호', d.referenceNo || '-'],
-                ['관련 입찰공고번호', d.linkedBidNoList || '-'],
-                ['품명/분류명', d.productName || '-'],
-                ['물품상세/규격', d.productDetails || '-', true],
-                ['용도', d.purpose || '-'],
-                ['수량/단위', [d.quantity, d.unit].filter(Boolean).join(' ') || '-'],
-                ['발주년도/월', [d.orderYear, d.orderMonth].filter(Boolean).join(' / ') || '-'],
-                ['원문 사업구분', d.rawBusinessDivision || '-']
-            ];
-
-            document.getElementById('modal-detail-grid').innerHTML = rows
-                .map(([label, value, wide]) => makeDetailRow(label, value, wide))
-                .join('');
-        }
-
-        function renderReviewNote(item) {
-            const contract = getContractMethodLabel(item);
-            const budget = formatKoreanCurrency(item.assignBudgetAmt);
-            const note = [
-                `계약방법은 ${contract || '미확인'} 기준으로 확인됩니다.`,
-                `예산은 ${budget}이며, ${item.serviceType} 단계의 ${item.searchKeyword || '관련'} 키워드로 수집되었습니다.`,
-                `상세 검토 시 첨부 규격서, 참가자격, 납품 범위, 설치 장소, 하자/유지보수 조건을 우선 확인하십시오.`
-            ].join(' ');
-
-            document.getElementById('modal-review-note').innerText = note;
-        }
-
-        function openAiAssistant(bidNo) {
-            const item = activeBids.find(b => b.bidNtceNo === bidNo || b.bidId === bidNo);
-            if (!item) return;
-
-            const modal = document.getElementById('aiAssistantModal');
-            modal.setAttribute('data-active-bid-no', item.bidNtceNo);
-
-            document.getElementById('modal-title').innerText = item.bidNtceNm || '-';
-            document.getElementById('modal-bidNo').innerText = item.bidNtceNo || '-';
-            document.getElementById('modal-serviceType').innerText = item.serviceType || '-';
-
-            let badgeStyle = "border-cyan-200 bg-cyan-50 text-cyber-cyan";
-            if (item.serviceType === "사전규격") badgeStyle = "border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia";
-            if (item.serviceType === "발주계획") badgeStyle = "border-amber-200 bg-amber-50 text-cyber-amber";
-            document.getElementById('modal-serviceType').className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
-
-            document.getElementById('modal-agency').innerText = item.ntceInsttNm || '-';
-            document.getElementById('modal-demandAgency').innerText = item.dminsttNm || item.ntceInsttNm || '-';
-            document.getElementById('modal-region').innerText = item.region || '-';
-            document.getElementById('modal-budget').innerText = formatKoreanCurrency(item.assignBudgetAmt);
-            document.getElementById('modal-dates').innerText = `${String(item.bidNtceRegistDt || '-').split(' ')[0]} / ${String(item.bidClseDt || '-').split(' ')[0]}`;
-
-            document.getElementById('modal-contractBadges').innerHTML = renderContractMethodBadges(item);
-
-            renderDetailGrid(item);
-            renderModalDocs(item);
-            renderReviewNote(item);
-
-            document.getElementById('modal-g2bBtn').onclick = () => openBidLink(item.g2bUrl);
-
-            modal.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function closeAiAssistant() {
-            document.getElementById('aiAssistantModal').classList.add('hidden');
-        }
-
-        function copyCurrentBidDetails() {
-            const modal = document.getElementById('aiAssistantModal');
-            const bidNo = modal.getAttribute('data-active-bid-no');
-            const item = activeBids.find(b => b.bidNtceNo === bidNo);
-            if (!item) return;
-
-            const d = item.detailInfo || {};
             const lines = [
-                `[공고 상세 정보]`,
-                `공고명: ${item.bidNtceNm || '-'}`,
-                `유형: ${item.serviceType || '-'} / ${item.businessType || '-'}`,
-                `등록번호: ${item.bidNtceNo || '-'}`,
-                `계약방법: ${getContractMethodLabel(item)}`,
-                `공고기관: ${item.ntceInsttNm || '-'}`,
-                `수요기관: ${item.dminsttNm || '-'}`,
-                `지역: ${item.region || '-'}`,
-                `예산: ${formatKoreanCurrency(item.assignBudgetAmt)}`,
-                `수집/마감: ${item.bidNtceRegistDt || '-'} / ${item.bidClseDt || '-'}`,
-                `입찰방식: ${d.bidMethod || '-'}`,
-                `낙찰/선정 방식: ${d.awardMethod || '-'}`,
-                `참가/지역 제한: ${d.restrictionRegion || '-'}`,
-                `담당자/연락처: ${[d.officerName, d.officerTel].filter(Boolean).join(' / ') || '-'}`,
-                `원문: ${item.g2bUrl || '-'}`
+                '[DI영업지원 통합 조달 마켓 요약]',
+                `생성일: ${new Date().toLocaleString()}`,
+                `전체 수집 건수: ${count}건`,
+                `총 예산 규모: ${formatKoreanCurrency(totalBudget)}`,
+                `서비스별: 공고 ${serviceCounts.공고}건 / 사전규격 ${serviceCounts.사전규격}건 / 발주계획 ${serviceCounts.발주계획}건`,
+                '',
+                '[우선 검토 TOP 5]',
+                highList || '-',
+                '',
+                '[마감 임박]',
+                urgentList,
+                '',
+                '검토 기준: 전광판, LED, 미디어월, 사이니지, 미디어파사드, ITS/VMS 관련도와 예산 규모 기준'
             ];
 
             navigator.clipboard.writeText(lines.join('\n')).then(() => {
-                showToast('공고 상세 정보가 클립보드에 복사되었습니다.', 'copy');
+                showToast('통합 조달 마켓 요약이 복사되었습니다.', 'clipboard-copy');
             }).catch(() => {
                 alert(lines.join('\n'));
             });
