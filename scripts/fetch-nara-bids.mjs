@@ -477,20 +477,40 @@ function buildG2bBidUrl(i, bidNtceNo, bidNtceOrd) {
 }
 
 function buildPrespecUrl(i, id) {
-    return pick(i, [
-        'specDocFileUrl1',
-        'specDocFileUrl2',
-        'specDocFileUrl3',
-        'specDocFileUrl4',
-        'specDocFileUrl5'
-    ], id ? `https://www.g2b.go.kr/link/PRCA001_04/single/?srch=${encodeURIComponent(id)}` : '');
+    // 원문 이동 버튼은 파일 다운로드 URL이 아니라 나라장터 화면으로 이동해야 한다.
+    // specDocFileUrl 계열은 documentUrls에만 보관한다.
+    const directPage = pick(i, [
+        'publicPrcureDtlUrl',
+        'bfSpecDtlUrl',
+        'preSpecDtlUrl',
+        'specDtlUrl',
+        'detailUrl'
+    ]);
+
+    if (directPage && !/File|file|download|Down|down|atch|specDoc/i.test(directPage)) {
+        return directPage;
+    }
+
+    const query = id || pick(i, ['refNo', 'bfSpecRgstNo', 'bfSpecRegNo', 'prdctClsfcNoNm', 'purchsObjNm']);
+    return query
+        ? `https://www.g2b.go.kr/search.do?category=TGONG&kwd=${encodeURIComponent(query)}`
+        : 'https://www.g2b.go.kr/';
 }
 
+
 function buildPlanUrl(i, id) {
-    if (i.orderPlanDtlUrl) return i.orderPlanDtlUrl;
-    if (i.detailUrl) return i.detailUrl;
-    return id ? `https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=${encodeURIComponent(id)}` : '';
+    const directPage = pick(i, ['orderPlanDtlUrl', 'orderPlanDetailUrl', 'detailUrl']);
+
+    if (directPage && !/File|file|download|Down|down|atch|specDoc/i.test(directPage)) {
+        return directPage;
+    }
+
+    const query = id || pick(i, ['orderPlanUntyNo', 'bizNm', 'bsnsNm', 'orderPlanNm']);
+    return query
+        ? `https://www.g2b.go.kr/search.do?category=TPLAN&kwd=${encodeURIComponent(query)}`
+        : 'https://www.g2b.go.kr/';
 }
+
 
 
 
@@ -573,6 +593,19 @@ function inferContractMethod(i, source, title = '') {
 }
 
 
+function collectOriginalPageCandidates(i) {
+    return [
+        i.bidNtceDtlUrl,
+        i.publicPrcureDtlUrl,
+        i.bfSpecDtlUrl,
+        i.preSpecDtlUrl,
+        i.specDtlUrl,
+        i.orderPlanDtlUrl,
+        i.orderPlanDetailUrl,
+        i.detailUrl
+    ].filter(Boolean).filter(u => !/File|file|download|Down|down|atch|specDoc/i.test(String(u)));
+}
+
 function collectDocumentUrls(i) {
     const docs = [];
 
@@ -601,6 +634,7 @@ function buildDetailInfo(i, source) {
     return {
         serviceType: source?.serviceType || '',
         businessType: source?.businessType || '',
+        originalPageUrl: collectOriginalPageCandidates(i)[0] || '',
         contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'cntrctMthd', 'bidMethdNm', 'sucsfbidMthdNm', 'prcrmntMethd']),
         bidMethod: pick(i, ['bidMethdNm']),
         awardMethod: pick(i, ['sucsfbidMthdNm', 'sucsfbidMthd']),
