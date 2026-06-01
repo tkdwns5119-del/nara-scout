@@ -244,7 +244,7 @@
                             <i data-lucide="clock" class="w-5 h-5 text-rose-500 animate-pulse"></i>
                             <span>실시간 3대 조달 서비스 마감 임박 분석 (TOP 3)</span>
                         </h3>
-                        <p class="text-xs text-slate-500">각 영역별로 우선 제안 및 기한 준수가 필요한 사업 상위 3건을 즉각 분석하여 노출합니다. (클릭 시 ✨ AI 제안 비서 실행)</p>
+                        <p class="text-xs text-slate-500">각 영역별로 우선 제안 및 기한 준수가 필요한 사업 상위 3건을 즉각 분석하여 노출합니다. (클릭 시 상세 정보 실행)</p>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="urgent-bids-grid">
@@ -294,7 +294,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="font-bold text-slate-900 text-base">최고가 주요 전략 사업 분석</h3>
-                        <p class="text-xs text-slate-500">예산 규모가 크고 즉각 검토가 필요한 조달 항목 4선 (클릭 시 ✨ AI 제안 비서 실행)</p>
+                        <p class="text-xs text-slate-500">예산 규모가 크고 즉각 검토가 필요한 조달 항목 4선 (클릭 시 상세 정보 실행)</p>
                     </div>
                     <button onclick="switchTab('table')" class="text-cyber-cyan hover:underline text-xs flex items-center space-x-1 font-semibold">
                         <span>전체 리스트 보기</span>
@@ -681,112 +681,105 @@
 
     </main>
 
-    <!-- GEMINI AI ASSISTANT MODAL -->
+    <!-- BID DETAIL MODAL -->
     <div id="aiAssistantModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
+        <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
             <!-- Modal Header -->
             <div class="p-5 border-b border-slate-150 flex justify-between items-center bg-slate-50">
                 <div class="flex items-center space-x-2.5">
                     <span class="p-2 bg-cyan-100 text-cyber-cyan rounded-xl">
-                        <i data-lucide="sparkles" class="w-5 h-5 text-cyber-cyan animate-pulse"></i>
+                        <i data-lucide="file-text" class="w-5 h-5 text-cyber-cyan"></i>
                     </span>
                     <div>
-                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">✨ Groq AI 지능형 조달 제안 비서</h3>
-                        <p class="text-[10px] sm:text-xs text-slate-500">나라장터 공고 해독 및 지능형 입찰 제안 전략 분석</p>
+                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">공고 상세 정보</h3>
+                        <p class="text-[10px] sm:text-xs text-slate-500">나라장터 수집 데이터를 기준으로 계약조건, 일정, 기관, 첨부 정보를 확인합니다.</p>
                     </div>
                 </div>
                 <button onclick="closeAiAssistant()" class="p-2 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
+
             <!-- Modal Body -->
-            <div class="flex-grow p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Left: Bid Info Details -->
-                <div class="space-y-4">
+            <div class="flex-grow p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <!-- Left: Summary -->
+                <div class="lg:col-span-2 space-y-4">
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center gap-3">
                             <span id="modal-serviceType" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border"></span>
-                            <span id="modal-bidNo" class="text-[10px] text-slate-400 font-mono"></span>
+                            <span id="modal-bidNo" class="text-[10px] text-slate-400 font-mono text-right break-all"></span>
                         </div>
+
                         <h4 id="modal-title" class="font-bold text-slate-900 text-sm sm:text-base leading-snug"></h4>
-                        
+
+                        <div>
+                            <span class="text-slate-400 block text-[10px] mb-1">계약방법</span>
+                            <div id="modal-contractBadges" class="flex flex-wrap gap-1.5"></div>
+                        </div>
+
                         <div class="grid grid-cols-2 gap-4 pt-3 text-xs text-slate-600 border-t border-slate-200">
                             <div>
-                                <span class="text-slate-400 block text-[10px] mb-0.5">공고/수요기관</span>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">공고기관</span>
                                 <span id="modal-agency" class="font-extrabold text-slate-800"></span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] mb-0.5">수요기관</span>
+                                <span id="modal-demandAgency" class="font-extrabold text-slate-800"></span>
                             </div>
                             <div>
                                 <span class="text-slate-400 block text-[10px] mb-0.5">지역 구분</span>
                                 <span id="modal-region" class="font-extrabold text-slate-800"></span>
                             </div>
                             <div>
-                                <span class="text-slate-400 block text-[10px] mb-0.5">계약방법</span>
-                                <span id="modal-contractMethod" class="font-extrabold text-slate-800"></span>
-                            </div>
-                            <div>
                                 <span class="text-slate-400 block text-[10px] mb-0.5">배정 예산</span>
                                 <span id="modal-budget" class="font-extrabold text-slate-950 font-mono"></span>
                             </div>
-                            <div>
+                            <div class="col-span-2">
                                 <span class="text-slate-400 block text-[10px] mb-0.5">수집 / 마감일</span>
                                 <span id="modal-dates" class="font-extrabold text-slate-800 font-mono"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex gap-2">
-                        <button id="modal-g2bBtn" class="flex-1 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold transition flex items-center justify-center space-x-1.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <button id="modal-g2bBtn" class="py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold transition flex items-center justify-center space-x-1.5">
                             <i data-lucide="external-link" class="w-4 h-4"></i>
-                            <span>나라장터 원본공고 이동</span>
+                            <span>나라장터 원문 이동</span>
+                        </button>
+                        <button onclick="copyCurrentBidDetails()" class="py-3 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan text-xs font-bold transition flex items-center justify-center space-x-1.5">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                            <span>상세정보 복사</span>
                         </button>
                     </div>
 
-                    <!-- AI Actions -->
-                    <div class="border-t border-slate-150 pt-4 space-y-3">
-                        <h5 class="text-xs font-extrabold text-slate-800 flex items-center space-x-1">
-                            <i data-lucide="cpu" class="w-4 h-4 text-cyber-cyan animate-pulse"></i>
-                            <span>✨ Groq AI 조달 의사결정 추론</span>
-                        </h5>
-                        <p class="text-[10px] sm:text-xs text-slate-500 leading-relaxed">선택된 조달 메타데이터를 기반으로 생성형 AI 모델이 지자체 공략 영업 초안을 즉각 기술합니다.</p>
-                        
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="generateAiProposalStrategy()" class="py-3 px-4 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan font-extrabold text-xs transition text-left flex items-center justify-between group">
-                                <span class="flex items-center space-x-1.5">
-                                    <i data-lucide="target" class="w-4 h-4"></i>
-                                    <span>✨ 제안 전략 분석</span>
-                                </span>
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition"></i>
-                            </button>
-                            <button onclick="generateAiProposalEmail()" class="py-3 px-4 rounded-xl bg-fuchsia-50 hover:bg-fuchsia-100 border border-fuchsia-200 text-cyber-fuchsia font-extrabold text-xs transition text-left flex items-center justify-between group">
-                                <span class="flex items-center space-x-1.5">
-                                    <i data-lucide="mail" class="w-4 h-4"></i>
-                                    <span>✨ 업무 전파 기안</span>
-                                </span>
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-60 group-hover:translate-x-0.5 transition"></i>
-                            </button>
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                        <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center space-x-2">
+                            <i data-lucide="paperclip" class="w-4 h-4 text-slate-500"></i>
+                            <h5 class="font-extrabold text-xs text-slate-800">첨부 / 규격서</h5>
                         </div>
+                        <div id="modal-doc-list" class="p-4 text-xs text-slate-600 space-y-2"></div>
                     </div>
                 </div>
 
-                <!-- Right: AI Output Box -->
-                <div class="flex flex-col h-[400px] md:h-auto border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden relative shadow-inner">
-                    <div class="p-3.5 bg-white border-b border-slate-200 flex justify-between items-center shrink-0">
-                        <span class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                            </span>
-                            <span>AI 분석 보고서 결과</span>
-                        </span>
-                        <button onclick="copyToClipboard('ai-output-box')" class="p-2 hover:bg-slate-100 rounded-xl text-slate-500 hover:text-slate-700 transition" title="보고서 클립보드 복사">
-                            <i data-lucide="copy" class="w-4 h-4"></i>
-                        </button>
+                <!-- Right: Detail Grid -->
+                <div class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <div class="px-5 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
+                            <h5 class="font-extrabold text-sm text-slate-900">공고 상세 항목</h5>
+                        </div>
+                        <span class="text-[10px] text-slate-400">API 수집 원문 주요 필드</span>
                     </div>
-                    <!-- Output scroll container -->
-                    <div id="ai-output-box" class="flex-grow p-5 overflow-y-auto text-xs sm:text-sm font-sans text-slate-800 space-y-2 select-text leading-relaxed">
-                        <div class="text-slate-400 flex flex-col items-center justify-center h-full text-center space-y-3">
-                            <i data-lucide="sparkles" class="w-10 h-10 text-slate-300 animate-bounce"></i>
-                            <p class="text-xs">좌측의 AI 분석 액션 버튼을 클릭하면<br>나라장터 전용 수주 비서가 제안략 리포트를 자율 기술합니다.</p>
+
+                    <div id="modal-detail-grid" class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"></div>
+
+                    <div class="px-5 pb-5">
+                        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i data-lucide="notebook-text" class="w-4 h-4 text-slate-500"></i>
+                                <span class="font-extrabold text-xs text-slate-800">검토 메모</span>
+                            </div>
+                            <div id="modal-review-note" class="text-xs text-slate-600 leading-relaxed"></div>
                         </div>
                     </div>
                 </div>
@@ -794,15 +787,6 @@
         </div>
     </div>
 
-    <!-- Custom Toast System (Replaces Alert) (This element is now restored to prevent InnerText null property errors) -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-10 opacity-0 transition-all duration-300 flex items-center space-x-2 bg-white border border-cyan-200 px-4 py-3 rounded-xl shadow-lg">
-        <span class="p-1 rounded-full bg-cyan-50 text-cyber-cyan" id="toastIcon">
-            <i data-lucide="info" class="w-4 h-4"></i>
-        </span>
-        <span class="text-xs sm:text-sm text-slate-800 font-semibold" id="toastMessage">알림 내용</span>
-    </div>
-
-    <!-- CORE LOGIC & DATA SCRIPT -->
     <script>
         let mockBids = [];
         let realBids = [];
@@ -1237,7 +1221,7 @@
                             dDayBadge = "bg-slate-100 text-slate-400 border-slate-200";
                         }
 
-                        // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 ✨ AI 제안 비서 실행
+                        // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 상세 정보 실행
                         cardsHtml += `
                             <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant('${item.bidNtceNo}')">
                                 <div class="flex justify-between items-center gap-2 min-w-0">
@@ -2153,39 +2137,119 @@
                 }).join('');
         }
 
-        // Modal Action Controllers
+        // Detail Modal Controllers
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function makeDetailRow(label, value, wide = false) {
+            const v = value === undefined || value === null || value === '' ? '-' : value;
+            return `
+                <div class="${wide ? 'sm:col-span-2' : ''} rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
+                    <div class="text-[10px] text-slate-400 mb-1">${escapeHtml(label)}</div>
+                    <div class="font-bold text-slate-800 leading-snug break-words">${escapeHtml(v)}</div>
+                </div>
+            `;
+        }
+
+        function renderModalDocs(item) {
+            const docs = Array.isArray(item.documentUrls) ? item.documentUrls : [];
+            const box = document.getElementById('modal-doc-list');
+
+            if (!docs.length) {
+                box.innerHTML = `<div class="text-slate-400 text-xs">등록된 첨부/규격서 URL이 없습니다. 나라장터 원문에서 추가 확인이 필요합니다.</div>`;
+                return;
+            }
+
+            box.innerHTML = docs.map((doc, idx) => `
+                <a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener" class="flex items-center justify-between gap-2 p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+                    <span class="font-semibold truncate">${escapeHtml(doc.label || `첨부파일 ${idx + 1}`)}</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 shrink-0 text-slate-400"></i>
+                </a>
+            `).join('');
+        }
+
+        function renderDetailGrid(item) {
+            const d = item.detailInfo || {};
+            const rows = [
+                ['서비스 구분', `${item.serviceType || '-'} / ${item.businessType || '-'}`],
+                ['공고번호', item.bidNtceNo],
+                ['공고차수', item.bidNtceOrd || '-'],
+                ['계약방법 원문', d.contractMethodRaw || item.contractMethodRaw || '-'],
+                ['입찰방식', d.bidMethod || '-'],
+                ['낙찰/선정 방식', d.awardMethod || '-'],
+                ['공고종류', d.noticeKind || '-'],
+                ['참가/지역 제한', d.restrictionRegion || '-'],
+                ['입찰개시일시', d.bidBeginDt || '-'],
+                ['입찰마감일시', d.bidClseDt || item.bidClseDt || '-'],
+                ['개찰일시', d.openDt || '-'],
+                ['참가등록/협정/PQ 마감', d.registerDeadline || '-'],
+                ['의견등록마감', d.opinionCloseDt || '-'],
+                ['납품기한', d.deliveryLimitDt || '-'],
+                ['담당부서', d.department || '-'],
+                ['담당자', d.officerName || '-'],
+                ['연락처', d.officerTel || '-'],
+                ['이메일', d.officerEmail || '-'],
+                ['참조번호', d.referenceNo || '-'],
+                ['관련 입찰공고번호', d.linkedBidNoList || '-'],
+                ['품명/분류명', d.productName || '-'],
+                ['물품상세/규격', d.productDetails || '-', true],
+                ['용도', d.purpose || '-'],
+                ['수량/단위', [d.quantity, d.unit].filter(Boolean).join(' ') || '-'],
+                ['발주년도/월', [d.orderYear, d.orderMonth].filter(Boolean).join(' / ') || '-'],
+                ['원문 사업구분', d.rawBusinessDivision || '-']
+            ];
+
+            document.getElementById('modal-detail-grid').innerHTML = rows
+                .map(([label, value, wide]) => makeDetailRow(label, value, wide))
+                .join('');
+        }
+
+        function renderReviewNote(item) {
+            const contract = getContractMethodLabel(item);
+            const budget = formatKoreanCurrency(item.assignBudgetAmt);
+            const note = [
+                `계약방법은 ${contract || '미확인'} 기준으로 확인됩니다.`,
+                `예산은 ${budget}이며, ${item.serviceType} 단계의 ${item.searchKeyword || '관련'} 키워드로 수집되었습니다.`,
+                `상세 검토 시 첨부 규격서, 참가자격, 납품 범위, 설치 장소, 하자/유지보수 조건을 우선 확인하십시오.`
+            ].join(' ');
+
+            document.getElementById('modal-review-note').innerText = note;
+        }
+
         function openAiAssistant(bidNo) {
-            const item = activeBids.find(b => b.bidNtceNo === bidNo);
+            const item = activeBids.find(b => b.bidNtceNo === bidNo || b.bidId === bidNo);
             if (!item) return;
 
             const modal = document.getElementById('aiAssistantModal');
-            modal.setAttribute('data-active-bid-no', bidNo);
+            modal.setAttribute('data-active-bid-no', item.bidNtceNo);
 
-            document.getElementById('modal-title').innerText = item.bidNtceNm;
-            document.getElementById('modal-bidNo').innerText = item.bidNtceNo;
-            document.getElementById('modal-serviceType').innerText = item.serviceType;
-            
+            document.getElementById('modal-title').innerText = item.bidNtceNm || '-';
+            document.getElementById('modal-bidNo').innerText = item.bidNtceNo || '-';
+            document.getElementById('modal-serviceType').innerText = item.serviceType || '-';
+
             let badgeStyle = "border-cyan-200 bg-cyan-50 text-cyber-cyan";
             if (item.serviceType === "사전규격") badgeStyle = "border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia";
             if (item.serviceType === "발주계획") badgeStyle = "border-amber-200 bg-amber-50 text-cyber-amber";
             document.getElementById('modal-serviceType').className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
 
-            document.getElementById('modal-agency').innerText = item.ntceInsttNm;
-            document.getElementById('modal-region').innerText = item.region;
-            const modalContractEl = document.getElementById('modal-contractMethod');
-            if (modalContractEl) modalContractEl.innerText = getContractMethodLabel(item);
+            document.getElementById('modal-agency').innerText = item.ntceInsttNm || '-';
+            document.getElementById('modal-demandAgency').innerText = item.dminsttNm || item.ntceInsttNm || '-';
+            document.getElementById('modal-region').innerText = item.region || '-';
             document.getElementById('modal-budget').innerText = formatKoreanCurrency(item.assignBudgetAmt);
-            document.getElementById('modal-dates').innerText = `${item.bidNtceRegistDt.split(' ')[0]} / ${item.bidClseDt.split(' ')[0]}`;
+            document.getElementById('modal-dates').innerText = `${String(item.bidNtceRegistDt || '-').split(' ')[0]} / ${String(item.bidClseDt || '-').split(' ')[0]}`;
 
-            // Reset Output Window
-            document.getElementById('ai-output-box').innerHTML = `
-                <div class="text-slate-400 flex flex-col items-center justify-center h-full text-center space-y-3">
-                    <i data-lucide="sparkles" class="w-10 h-10 text-slate-300 animate-bounce"></i>
-                    <p class="text-xs">분석 대기 중...<br>좌측의 AI 분석 액션 버튼을 클릭해 보고서를 발급하십시오.</p>
-                </div>
-            `;
+            document.getElementById('modal-contractBadges').innerHTML = renderContractMethodBadges(item);
 
-            // Reset G2B original site link button
+            renderDetailGrid(item);
+            renderModalDocs(item);
+            renderReviewNote(item);
+
             document.getElementById('modal-g2bBtn').onclick = () => openBidLink(item.g2bUrl);
 
             modal.classList.remove('hidden');
@@ -2196,191 +2260,36 @@
             document.getElementById('aiAssistantModal').classList.add('hidden');
         }
 
-        // Proposal Strategy AI prompt
-        async function generateAiProposalStrategy() {
+        function copyCurrentBidDetails() {
             const modal = document.getElementById('aiAssistantModal');
             const bidNo = modal.getAttribute('data-active-bid-no');
             const item = activeBids.find(b => b.bidNtceNo === bidNo);
             if (!item) return;
 
-            const outputBox = document.getElementById('ai-output-box');
-            outputBox.innerHTML = `
-                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
-                    <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 수주 제안 전략을 연산하고 있습니다...</p>
-                </div>
-            `;
+            const d = item.detailInfo || {};
+            const lines = [
+                `[공고 상세 정보]`,
+                `공고명: ${item.bidNtceNm || '-'}`,
+                `유형: ${item.serviceType || '-'} / ${item.businessType || '-'}`,
+                `등록번호: ${item.bidNtceNo || '-'}`,
+                `계약방법: ${getContractMethodLabel(item)}`,
+                `공고기관: ${item.ntceInsttNm || '-'}`,
+                `수요기관: ${item.dminsttNm || '-'}`,
+                `지역: ${item.region || '-'}`,
+                `예산: ${formatKoreanCurrency(item.assignBudgetAmt)}`,
+                `수집/마감: ${item.bidNtceRegistDt || '-'} / ${item.bidClseDt || '-'}`,
+                `입찰방식: ${d.bidMethod || '-'}`,
+                `낙찰/선정 방식: ${d.awardMethod || '-'}`,
+                `참가/지역 제한: ${d.restrictionRegion || '-'}`,
+                `담당자/연락처: ${[d.officerName, d.officerTel].filter(Boolean).join(' / ') || '-'}`,
+                `원문: ${item.g2bUrl || '-'}`
+            ];
 
-            const prompt = `
-                [대상 공고 정보]
-                - 공고유형: ${item.serviceType}
-                - 등록번호: ${item.bidNtceNo}
-                - 공고명: ${item.bidNtceNm}
-                - 발주/수요기관: ${item.ntceInsttNm}
-                - 배정예산: ${item.assignBudgetAmt}원 (${formatKoreanCurrency(item.assignBudgetAmt)})
-                - 수집 키워드: ${item.searchKeyword}
-                - 관할 지역: ${item.region}
-
-                위 나라장터 공고에 대하여 수주 확률을 극대화하기 위한 "심층 조달 제안 전략 보고서"를 한국어로 세련되게 작성해라.
-                반드시 아래 구조를 적용해야 한다:
-                ## 1. 수요기관의 잠재적 사업 목표 분석
-                수요기관(${item.ntceInsttNm})의 성격과 공고명을 매칭하여 이 사업을 추진하는 핵심 배경과 목적을 추정 기술하라.
-                ## 2. ${item.searchKeyword} 연계 핵심 기술 및 차별화 제안 포인트
-                해당 분야 조달업체로서 경쟁사를 압도하기 위해 제안서에 담아야 할 기술적 솔루션과 가치를 제시하라.
-                ## 3. 리스크 회피 및 예산(${formatKoreanCurrency(item.assignBudgetAmt)}) 배정 효율 대책
-                조달 사업 진행 시 흔히 발생하는 납기 지연, 규격 불일치 리스크의 예방책과 사업 예산 집행 계획 조언을 서술하라.
-            `;
-
-            const systemInstruction = "너는 대한민국 나라장터 조달 입찰 분석 및 수주 제안전략 수석 컨설턴트다. 정중하고 매우 전문적인 경영 컨설팅 보고서 형식으로 작성해야 한다.";
-
-            try {
-                const responseText = await callGroq(prompt, systemInstruction);
-                outputBox.innerHTML = parseMarkdown(responseText);
-            } catch (error) {
-                outputBox.innerHTML = `
-                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
-                        AI 연동 중 문제가 발생했습니다: <br>
-                        <span class="text-xs font-mono font-normal">${error.message}</span>
-                    </div>
-                `;
-            }
-        }
-
-        // Proposal Sharing Email AI prompt
-        async function generateAiProposalEmail() {
-            const modal = document.getElementById('aiAssistantModal');
-            const bidNo = modal.getAttribute('data-active-bid-no');
-            const item = activeBids.find(b => b.bidNtceNo === bidNo);
-            if (!item) return;
-
-            const outputBox = document.getElementById('ai-output-box');
-            outputBox.innerHTML = `
-                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
-                    <div class="w-8 h-8 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 사내 전파용 기안을 작성하고 있습니다...</p>
-                </div>
-            `;
-
-            const prompt = `
-                [공고 요약]
-                - 유형: ${item.serviceType} 단계
-                - 번호: ${item.bidNtceNo}
-                - 공고명: ${item.bidNtceNm}
-                - 수요처: ${item.ntceInsttNm}
-                - 예산: ${formatKoreanCurrency(item.assignBudgetAmt)}
-                - 분류키워드: ${item.searchKeyword}
-
-                사내 영업 기획팀, 기술 개발팀, 그리고 경영 임원진에게 이 사업을 제안 영업 기회로 발굴하여 전파하고 참가를 논의하기 위한 '업무 전파 및 TFT 결성 기안서/이메일 초안'을 정중하고 격식 있는 비즈니스 문서로 작성해라.
-                포함할 내용:
-                - 기안 배경 및 사업 타당성 요약
-                - 영업 및 제안 전략 수집 방향 요청
-                - 부서별 협조 사항 (TFT 구성안)
-            `;
-
-            const systemInstruction = "너는 기업 기획조정실의 비즈니스 전문 비서다. 정중하고 명확한 비즈니스 메일 규격을 갖춰 한글로 작성해야 한다.";
-
-            try {
-                const responseText = await callGroq(prompt, systemInstruction);
-                outputBox.innerHTML = parseMarkdown(responseText);
-            } catch (error) {
-                outputBox.innerHTML = `
-                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
-                        AI 연동 실패: ${error.message}
-                    </div>
-                `;
-            }
-        }
-
-        // Global Market Trend Analyst AI Prompt
-        async function generateAiMarketBriefing() {
-            // Check current active bids
-            if (activeBids.length === 0) {
-                showToast("분석할 수집 조달 데이터가 부족합니다.", "info");
-                return;
-            }
-
-            // Open the AI Modal to display global market report
-            const modal = document.getElementById('aiAssistantModal');
-            modal.removeAttribute('data-active-bid-no');
-
-            document.getElementById('modal-title').innerText = "실시간 조달 마켓 트렌드 종합 리포트";
-            document.getElementById('modal-bidNo').innerText = "GLOBAL-ANALYTICS";
-            document.getElementById('modal-serviceType').innerText = "종합 트렌드";
-            document.getElementById('modal-serviceType').className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold border border-emerald-200 bg-emerald-50 text-emerald-700";
-            
-            document.getElementById('modal-agency').innerText = "전체 수집 수요처";
-            document.getElementById('modal-region').innerText = "전국 종합";
-            
-            const totalBudget = activeBids.reduce((sum, item) => sum + (Number(item.assignBudgetAmt) || 0), 0);
-            document.getElementById('modal-budget').innerText = formatKoreanCurrency(totalBudget);
-            document.getElementById('modal-dates').innerText = "실시간 수집 주기 기준";
-
-            modal.classList.remove('hidden');
-
-            const outputBox = document.getElementById('ai-output-box');
-            outputBox.innerHTML = `
-                <div class="flex flex-col items-center justify-center h-full space-y-3 py-12">
-                    <div class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-slate-500 font-semibold animate-pulse">Groq 2.5가 수집된 전체 데이터 자원을 전수 분석하여 거시 마켓 브리핑을 조립 중입니다...</p>
-                </div>
-            `;
-
-            // Extract highest budget items
-            const topBudgets = [...activeBids]
-                .sort((a,b) => b.assignBudgetAmt - a.assignBudgetAmt)
-                .slice(0, 5)
-                .map(item => `- [${item.serviceType}] ${item.bidNtceNm} (예산: ${formatKoreanCurrency(item.assignBudgetAmt)} / 수요기관: ${item.ntceInsttNm})`)
-                .join('\n');
-
-            const prompt = `
-                현재 수집된 나라장터 통합 데이터셋 요약 분석을 수행해줘.
-                전체 분석 대상 수: ${activeBids.length}건
-                누적 조달 자금 총합: ${formatKoreanCurrency(totalBudget)}
-                
-                [상위 예산 배정 핵심 조달 정보 TOP 5]
-                ${topBudgets}
-
-                위 실시간 정보를 토대로 "공공 조달 시장 종합 거시 브리핑 리포트"를 작성해라.
-                구조:
-                ## 거시적 시장 환경 흐름 및 조달 자금 추이 분석
-                총 ${activeBids.length}건, 예산 규모 ${formatKoreanCurrency(totalBudget)}의 공공 자금의 분포 특징과 지자체들의 최근 IT/미디어 조달 투자 트렌드를 짚어달라.
-                ## 예산 집중 분야 및 주요 공고 형태 분석
-                상위 5개 주요 사업들을 분석하여, 현재 공공기관이 가장 강력하게 추진하고 있는 기술(디스플레이, 전광판, 스마트 미디어, 지능형 교통체계 등)의 수요 특성을 비교 서술하라.
-                ## 공공 영업/제안 담당 기업을 위한 전략적 추천 과제
-                현시점에서 기업들이 경쟁력을 확보하기 위해 제안서 작성, 사전영업, 사전규격 검증 단계에서 선점해야 할 최우선 액션 플랜 3가지를 제안해라.
-            `;
-
-            const systemInstruction = "너는 나라장터 공공 조달 시장 전문 수석 거시경제 애널리스트이자 비즈니스 전략가다. 마크다운 기법을 사용해 고품격 한글 비즈니스 리포트 형식으로 기술해야 한다.";
-
-            try {
-                const responseText = await callGroq(prompt, systemInstruction);
-                outputBox.innerHTML = parseMarkdown(responseText);
-            } catch (error) {
-                outputBox.innerHTML = `
-                    <div class="text-rose-500 p-4 font-bold border border-rose-200 bg-rose-50 rounded-xl">
-                        글로벌 분석 실패: <br>
-                        <span class="text-xs font-mono font-normal">${error.message}</span>
-                    </div>
-                `;
-            }
-        }
-
-        // Copy to clipboard fallback tool
-        function copyToClipboard(elementId) {
-            const el = document.getElementById(elementId);
-            if (!el) return;
-            const text = el.innerText || el.value;
-            const textarea = document.createElement("textarea");
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                showToast("초안이 성공적으로 클립보드에 복사되었습니다!", "check-circle");
-            } catch (err) {
-                showToast("복사 처리에 실패했습니다.", "x");
-            }
-            document.body.removeChild(textarea);
+            navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                showToast('공고 상세 정보가 클립보드에 복사되었습니다.', 'copy');
+            }).catch(() => {
+                alert(lines.join('\n'));
+            });
         }
 
         function renderCharts() {
@@ -2639,31 +2548,6 @@
             });
         }
     </script>
-
-<script>
-(function(){
-  // AI 필드가 data/bids.json에 있으면 목록 화면에서 사업명 아래에 간단 표시한다.
-  // 기존 렌더링 로직을 크게 건드리지 않기 위한 후처리 함수.
-  window.renderAiBadgeHtml = function(bid) {
-    if (!bid || !bid.aiSummary) return '';
-    const priority = bid.aiPriority || 'LOW';
-    const colorMap = {
-      HIGH: 'bg-rose-50 text-rose-700 border-rose-200',
-      MEDIUM: 'bg-amber-50 text-amber-700 border-amber-200',
-      LOW: 'bg-slate-50 text-slate-600 border-slate-200',
-      EXCLUDE: 'bg-gray-50 text-gray-500 border-gray-200'
-    };
-    const cls = colorMap[priority] || colorMap.LOW;
-    return `
-      <div class="mt-2 p-2 rounded-lg border ${cls} text-[11px] leading-relaxed">
-        <div class="font-bold">AI ${priority}${bid.aiScore ? ` · ${bid.aiScore}점` : ''}</div>
-        <div>${bid.aiSummary || ''}</div>
-        ${bid.aiAction ? `<div class="mt-1 opacity-90">다음 조치: ${bid.aiAction}</div>` : ''}
-      </div>
-    `;
-  };
-})();
-</script>
 
 </body>
 </html>
