@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-01T11:22:24.000Z",
+  "generatedAt": "2026-06-01T13:14:46.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202605020000",
   "rangeEnd": "202606012359",
-  "totalCount": 386,
-  "rawCount": 446,
-  "successCalls": 192,
+  "totalCount": 389,
+  "rawCount": 450,
+  "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -15,21 +15,242 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 386,
+    "skipped": 389,
     "model": null
   },
   "serviceStats": {
-    "공고": 179,
+    "공고": 182,
     "사전규격": 115,
     "발주계획": 92
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 167,
-    "미디어/파사드 계열": 158,
-    "ITS/VMS 계열": 61
+    "디스플레이/사이니지 계열": 168,
+    "미디어/파사드 계열": 159,
+    "ITS/VMS 계열": 62
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01553590-000",
+      "bidNtceNo": "R26BK01553590",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "연암공과대학교 [항공드론사업단] 스마트항공기술센터 AI + 항공기술 모니터링 시스템 구축 건 (사이니지 설치)",
+      "ntceInsttNm": "연암공과대학교산학협력단",
+      "dminsttNm": "연암공과대학교산학협력단",
+      "assignBudgetAmt": 196000000,
+      "bidNtceRegistDt": "2026-06-01 11:13",
+      "bidClseDt": "2026-06-12 10:00",
+      "searchKeyword": "사이니지",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553590&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553590&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553590&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553590&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553590&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-01 18:00",
+        "bidClseDt": "2026-06-12 10:00",
+        "openDt": "2026-06-12 11:00",
+        "registerDeadline": "2026-06-11 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "최영난",
+        "officerTel": "***********",
+        "officerEmail": "",
+        "referenceNo": "연암공과대학교산학협력단 용역공고 제26-0601호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01553286-000",
+      "bidNtceNo": "R26BK01553286",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "미디어 내 담배 마케팅 모니터링",
+      "ntceInsttNm": "한국건강증진개발원",
+      "dminsttNm": "한국건강증진개발원",
+      "assignBudgetAmt": 95000000,
+      "bidNtceRegistDt": "2026-06-01 10:02",
+      "bidClseDt": "2026-06-12 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553286&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553286&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553286&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553286&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553286&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-10 10:00",
+        "bidClseDt": "2026-06-12 10:00",
+        "openDt": "2026-06-12 11:00",
+        "registerDeadline": "2026-06-11 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "황준하",
+        "officerTel": "02-3781-3518",
+        "officerEmail": "",
+        "referenceNo": "금연정책홍보부-310",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01553250-000",
+      "bidNtceNo": "R26BK01553250",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 여수시 도로전광판(VMS) 제작설치",
+      "ntceInsttNm": "전라남도 여수시",
+      "dminsttNm": "전라남도 여수시",
+      "assignBudgetAmt": 244277000,
+      "bidNtceRegistDt": "2026-06-01 09:44",
+      "bidClseDt": "2026-06-08 12:00",
+      "searchKeyword": "VMS",
+      "region": "전라",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553250&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553250&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553250&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553250&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553250&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01553250&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01553250&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격 고시금액 미만",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-02 09:00",
+        "bidClseDt": "2026-06-08 12:00",
+        "openDt": "2026-06-08 14:00",
+        "registerDeadline": "2026-06-07 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김재연",
+        "officerTel": "061-659-3183",
+        "officerEmail": "dsjy2002@korea.kr",
+        "referenceNo": "여수시재무관공고 제2026-532호",
+        "linkedBidNoList": "",
+        "productName": "교통정보전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BF-R26BD00234599",
       "bidNtceNo": "BF-R26BD00234599",
@@ -15153,7 +15374,7 @@
         "restrictionRegion": "",
         "bidBeginDt": "2026-05-15 15:00",
         "bidClseDt": "2026-06-01 11:00",
-        "openDt": "2026-06-16 11:00",
+        "openDt": "2026-06-01 12:13",
         "registerDeadline": "2026-05-29 18:00",
         "opinionCloseDt": "",
         "deliveryLimitDt": "",
