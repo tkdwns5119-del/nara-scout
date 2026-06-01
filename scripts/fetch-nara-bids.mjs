@@ -572,6 +572,66 @@ function inferContractMethod(i, source, title = '') {
     return extractContractMethods(i, source, title).join(' / ');
 }
 
+
+function collectDocumentUrls(i) {
+    const docs = [];
+
+    function add(label, url) {
+        const u = String(url || '').trim();
+        if (!u) return;
+        if (docs.some(d => d.url === u)) return;
+        docs.push({ label, url: u });
+    }
+
+    for (let idx = 1; idx <= 10; idx++) {
+        add(`공고규격서 ${idx}`, i[`ntceSpecDocUrl${idx}`]);
+        add(`공고첨부파일 ${idx}`, i[`ntceSpecFileUrl${idx}`]);
+        add(`규격문서 ${idx}`, i[`specDocFileUrl${idx}`]);
+        add(`첨부파일 ${idx}`, i[`atchFileUrl${idx}`]);
+    }
+
+    add('상세 URL', i.bidNtceDtlUrl);
+    add('발주계획 상세 URL', i.orderPlanDtlUrl);
+    add('상세 URL', i.detailUrl);
+
+    return docs.slice(0, 12);
+}
+
+function buildDetailInfo(i, source) {
+    return {
+        serviceType: source?.serviceType || '',
+        businessType: source?.businessType || '',
+        contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'cntrctMthd', 'bidMethdNm', 'sucsfbidMthdNm', 'prcrmntMethd']),
+        bidMethod: pick(i, ['bidMethdNm']),
+        awardMethod: pick(i, ['sucsfbidMthdNm', 'sucsfbidMthd']),
+        contractType: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'cntrctMthd']),
+        noticeKind: pick(i, ['ntceKindNm', 'bidNtceKindNm']),
+        restrictionRegion: pick(i, ['prtcptLmtRgnNm', 'prtcptPsblRgnNm', 'rgnLmtNm']),
+        bidBeginDt: normalizeDateText(pick(i, ['bidBeginDt'])),
+        bidClseDt: normalizeDateText(pick(i, ['bidClseDt'])),
+        openDt: normalizeDateText(pick(i, ['opengDt'])),
+        registerDeadline: normalizeDateText(pick(i, ['bidQlfctRgstDt', 'cmmnSpldmdAgrmntClseDt', 'pqApplDocRcptDt', 'arsltApplDocRcptDt'])),
+        opinionCloseDt: normalizeDateText(pick(i, ['opninRgstClseDt', 'opinRgstClseDt', 'opinionRgstClseDt'])),
+        deliveryLimitDt: normalizeDateText(pick(i, ['dlvrTmlmtDt'])),
+        orderYear: pick(i, ['orderYear']),
+        orderMonth: pick(i, ['orderMnth', 'orderYm', 'orderPlanYm']),
+        department: pick(i, ['deptNm']),
+        officerName: pick(i, ['ntceInsttOfclNm', 'ofclNm', 'exctvNm']),
+        officerTel: pick(i, ['ntceInsttOfclTelNo', 'ofclTelNo', 'telNo']),
+        officerEmail: pick(i, ['ntceInsttOfclEmailAdrs']),
+        referenceNo: pick(i, ['refNo']),
+        linkedBidNoList: pick(i, ['bidNtceNoList']),
+        productName: pick(i, ['prdctClsfcNoNm', 'dtilPrdctClsfcNoNm']),
+        productDetails: pick(i, ['prdctDtlList']),
+        purpose: pick(i, ['usgCntnts']),
+        quantity: pick(i, ['qtyCntnts']),
+        unit: pick(i, ['unit']),
+        orderAmount: pickNumber(i, ['sumOrderAmt', 'orderContrctAmt', 'orderGovsplyMtrcst', 'orderEtcAmt']),
+        rawBusinessDivision: pick(i, ['bsnsDivNm', 'bsnsTyNm'])
+    };
+}
+
+
 function mapBidRecord(i, source, term) {
     const bidNtceNo = pick(i, ['bidNtceNo']);
     const bidNtceOrd = pick(i, ['bidNtceOrd'], '000');
@@ -605,7 +665,9 @@ function mapBidRecord(i, source, term) {
         contractMethods,
         contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'bidMethdNm', 'sucsfbidMthdNm']),
         serviceType: source.serviceType,
-        businessType: source.businessType
+        businessType: source.businessType,
+        documentUrls: collectDocumentUrls(i),
+        detailInfo: buildDetailInfo(i, source)
     };
 }
 
@@ -650,6 +712,8 @@ function mapPrespecRecord(i, source, term) {
         contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'bidMethdNm', 'sucsfbidMthdNm']),
         serviceType: source.serviceType,
         businessType: source.businessType,
+        documentUrls: collectDocumentUrls(i),
+        detailInfo: buildDetailInfo(i, source),
         refNo,
         linkedBidNtceNoList: pick(i, ['bidNtceNoList'])
     };
@@ -703,6 +767,8 @@ function mapPlanRecord(i, source, term) {
         contractMethodRaw: pick(i, ['cntrctMthdNm', 'cntrctCnclsMthdNm', 'prcrmntMethd', 'cntrctMthd']),
         serviceType: source.serviceType,
         businessType: source.businessType,
+        documentUrls: collectDocumentUrls(i),
+        detailInfo: buildDetailInfo(i, source),
         orderYear,
         orderMnth: pick(i, ['orderMnth'])
     };
