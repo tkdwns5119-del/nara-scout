@@ -492,6 +492,86 @@ function buildPlanUrl(i, id) {
     return id ? `https://www.g2b.go.kr/link/PRCA001_04/single/?orderPlanUntyNo=${encodeURIComponent(id)}` : '';
 }
 
+
+
+function addUniqueMethod(list, value) {
+    const s = String(value || '').replace(/\s+/g, ' ').trim();
+    if (!s) return;
+    if (!list.includes(s)) list.push(s);
+}
+
+function extractContractMethods(i, source, title = '') {
+    const methods = [];
+    const raw = [
+        pick(i, ['cntrctCnclsMthdNm']),
+        pick(i, ['cntrctMthdNm']),
+        pick(i, ['cntrctMthd']),
+        pick(i, ['cntrctTyNm']),
+        pick(i, ['bidMethdNm']),
+        pick(i, ['sucsfbidMthdNm']),
+        pick(i, ['prcrmntMethd']),
+        pick(i, ['prcrmntMethdNm']),
+        pick(i, ['bidNtceKindNm']),
+        pick(i, ['ntceKindNm']),
+        pick(i, ['prtcptLmtRgnNm']),
+        pick(i, ['prtcptPsblRgnNm']),
+        pick(i, ['rgnLmtNm']),
+        pick(i, ['jntcontrctDutyRgnNm1']),
+        pick(i, ['jntcontrctDutyRgnNm2']),
+        pick(i, ['jntcontrctDutyRgnNm3']),
+        title,
+        pick(i, ['bidNtceNm', 'bizNm', 'bsnsNm', 'prdctClsfcNoNm'])
+    ].filter(Boolean).join(' ').replace(/\s+/g, ' ');
+
+    if (
+        raw.includes('지역제한') ||
+        raw.includes('지역 제한') ||
+        raw.includes('참가제한지역') ||
+        raw.includes('지역의무') ||
+        pick(i, ['prtcptLmtRgnNm', 'prtcptPsblRgnNm', 'rgnLmtNm'])
+    ) addUniqueMethod(methods, '지역제한');
+
+    if (raw.includes('수의')) addUniqueMethod(methods, '수의계약');
+
+    if (raw.includes('지명경쟁') && (raw.includes('조합추천') || raw.includes('전자조합'))) {
+        addUniqueMethod(methods, '지명경쟁(전자조합추천)');
+    } else if (raw.includes('지명경쟁')) {
+        addUniqueMethod(methods, '지명경쟁');
+    }
+
+    if (raw.includes('제한경쟁') || raw.includes('제한(총액') || raw.includes('제한입찰')) addUniqueMethod(methods, '제한경쟁');
+    if (raw.includes('일반경쟁') || raw.includes('일반(총액') || raw.includes('일반입찰')) addUniqueMethod(methods, '일반경쟁');
+    if (raw.includes('협상')) addUniqueMethod(methods, '협상계약');
+    if (raw.includes('적격심사')) addUniqueMethod(methods, '적격심사');
+    if (raw.includes('규격가격')) addUniqueMethod(methods, '규격가격동시');
+    if (raw.includes('다수공급자') || raw.includes('MAS')) addUniqueMethod(methods, '다수공급자');
+    if (raw.includes('제3자단가')) addUniqueMethod(methods, '제3자단가');
+
+    if (methods.length === 0) {
+        const direct = pick(i, [
+            'cntrctCnclsMthdNm',
+            'cntrctMthdNm',
+            'cntrctMthd',
+            'bidMethdNm',
+            'sucsfbidMthdNm',
+            'prcrmntMethd',
+            'prcrmntMethdNm'
+        ]);
+
+        if (direct) addUniqueMethod(methods, direct.length > 28 ? `${direct.slice(0, 28)}…` : direct);
+    }
+
+    if (methods.length === 0 && source?.serviceType === '사전규격') addUniqueMethod(methods, '사전규격');
+    if (methods.length === 0 && source?.serviceType === '발주계획') addUniqueMethod(methods, '발주계획');
+    if (methods.length === 0) addUniqueMethod(methods, '계약방법 미확인');
+
+    return methods;
+}
+
+function inferContractMethod(i, source, title = '') {
+    return extractContractMethods(i, source, title).join(' / ');
+}
+
 function mapBidRecord(i, source, term) {
     const bidNtceNo = pick(i, ['bidNtceNo']);
     const bidNtceOrd = pick(i, ['bidNtceOrd'], '000');
@@ -505,6 +585,8 @@ function mapBidRecord(i, source, term) {
     const title = pick(i, ['bidNtceNm'], '(공고명 없음)');
     const ntceInsttNm = pick(i, ['ntceInsttNm', 'ntcgInsttNm'], '자체공고기관');
     const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'ntceInsttNm'], '자체수요기관');
+    const contractMethods = extractContractMethods(i, source, title);
+    const contractMethod = contractMethods.join(' / ');
 
     return {
         bidId,
@@ -519,6 +601,9 @@ function mapBidRecord(i, source, term) {
         searchKeyword: term,
         region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
         g2bUrl: buildG2bBidUrl(i, bidNtceNo, bidSeq),
+        contractMethod,
+        contractMethods,
+        contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'bidMethdNm', 'sucsfbidMthdNm']),
         serviceType: source.serviceType,
         businessType: source.businessType
     };
@@ -540,6 +625,8 @@ function mapPrespecRecord(i, source, term) {
 
     const ntceInsttNm = pick(i, ['orderInsttNm', 'ntceInsttNm', 'ntcgInsttNm'], '자체공개기관');
     const dminsttNm = pick(i, ['rlDminsttNm', 'dminsttNm', 'orderInsttNm'], '자체수요기관');
+    const contractMethods = extractContractMethods(i, source, title);
+    const contractMethod = contractMethods.join(' / ');
 
     const internalId = id
         ? `BF-${id}`
@@ -558,6 +645,9 @@ function mapPrespecRecord(i, source, term) {
         searchKeyword: term,
         region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
         g2bUrl: buildPrespecUrl(i, id),
+        contractMethod,
+        contractMethods,
+        contractMethodRaw: pick(i, ['cntrctCnclsMthdNm', 'cntrctMthdNm', 'bidMethdNm', 'sucsfbidMthdNm']),
         serviceType: source.serviceType,
         businessType: source.businessType,
         refNo,
@@ -576,6 +666,8 @@ function mapPlanRecord(i, source, term) {
     const title = pick(i, ['bizNm', 'bsnsNm', 'orderPlanNm', 'prdctClsfcNoNm', 'dtilPrdctClsfcNoNm'], '(발주계획명 없음)');
     const ntceInsttNm = pick(i, ['orderInsttNm', 'totlmngInsttNm'], '자체발주기관');
     const dminsttNm = pick(i, ['orderInsttNm', 'totlmngInsttNm'], '자체수요기관');
+    const contractMethods = extractContractMethods(i, source, title);
+    const contractMethod = contractMethods.join(' / ');
 
     const orderYm = orderYear && pick(i, ['orderMnth'])
         ? `${orderYear}${String(pick(i, ['orderMnth'])).padStart(2, '0')}`
@@ -606,6 +698,9 @@ function mapPlanRecord(i, source, term) {
         searchKeyword: term,
         region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title} ${pick(i, ['cnstwkRgnNm', 'insttLctNm'])}`),
         g2bUrl: buildPlanUrl(i, id),
+        contractMethod,
+        contractMethods,
+        contractMethodRaw: pick(i, ['cntrctMthdNm', 'cntrctCnclsMthdNm', 'prcrmntMethd', 'cntrctMthd']),
         serviceType: source.serviceType,
         businessType: source.businessType,
         orderYear,
@@ -727,6 +822,7 @@ function buildAiPrompt(bid) {
         serviceType: bid.serviceType,
         businessType: bid.businessType,
         title: bid.bidNtceNm,
+        contractMethod: bid.contractMethod,
         agency: bid.ntceInsttNm,
         demandAgency: bid.dminsttNm,
         budgetWon: bid.assignBudgetAmt,
