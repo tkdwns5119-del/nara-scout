@@ -36,7 +36,7 @@ jobs:
           fi
           echo "NARA_API_KEY exists"
 
-      - name: Fetch procurement data and AI analysis
+      - name: Fetch procurement data
         env:
           # 필수: 나라장터 API
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
@@ -45,11 +45,7 @@ jobs:
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
 
-          # 선택: Groq AI 분석
-          # 등록하지 않으면 나라장터 수집만 수행하고 AI 분석은 건너뜁니다.
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
-          AI_ANALYSIS_LIMIT: ${{ vars.AI_ANALYSIS_LIMIT }}
+          # AI 분석 비활성화: 공고 상세 정보 중심 운영
         run: node scripts/fetch-nara-bids.mjs
 
       - name: Commit updated data
