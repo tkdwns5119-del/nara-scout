@@ -88,6 +88,42 @@
                 }
             }
         }
+        // INITIAL BOOTSTRAP: 접속 시 자동으로 GitHub Static data/bids.json 로드
+        async function bootDashboard() {
+            if (window.__DI_DASHBOARD_BOOTED__) return;
+            window.__DI_DASHBOARD_BOOTED__ = true;
+
+            try {
+                if (!localStorage.getItem(CORS_MODE_LS)) {
+                    localStorage.setItem(CORS_MODE_LS, "github");
+                }
+
+                const githubRadio = document.querySelector('input[name="corsMode"][value="github"]');
+                if (githubRadio) githubRadio.checked = true;
+
+                if (typeof updateCorsModeUI === "function") updateCorsModeUI();
+
+                const syncText = document.getElementById('syncStatusText');
+                if (syncText) {
+                    syncText.innerText = "GitHub Static JSON 자동 로드 중";
+                    syncText.className = "text-xs text-cyan-700 font-bold animate-pulse";
+                }
+
+                await fetchLiveNaraBids();
+            } catch (e) {
+                console.error(e);
+                if (typeof toggleErrorBanner === "function") {
+                    toggleErrorBanner(true, `초기 데이터 로딩 실패: ${e.message}`, "GitHub Pages에서 실행 중인지, data/bids.json 파일이 존재하는지 확인하십시오.");
+                }
+            }
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", bootDashboard, { once: true });
+        } else {
+            setTimeout(bootDashboard, 0);
+        }
+
     </script>
 </head>
 <body class="bg-cyber-bg text-slate-700 min-h-screen flex flex-col antialiased">
@@ -1765,7 +1801,7 @@
 
                         // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 상세 정보 실행
                         cardsHtml += `
-                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">
+                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
                                 <div class="flex justify-between items-center gap-2 min-w-0">
                                     <h5 class="font-bold text-xs text-slate-800 truncate min-w-0 flex-grow group-hover:${textCol} transition duration-150" title="${item.bidNtceNm}">
                                         ${item.bidNtceNm}
@@ -1851,7 +1887,7 @@
                 }
 
                 const cardHtml = `
-                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">
+                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeColor}">${item.serviceType} | ${item.searchKeyword}</span>
@@ -1995,7 +2031,7 @@
                         <div class="text-[10px] text-slate-400 font-mono mt-1 text-center">${item.bidNtceNo}</div>
                     </td>
                     <td class="p-4 align-top font-semibold text-slate-800">
-                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">${item.bidNtceNm}</div>
+                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">${item.bidNtceNm}</div>
                         <div class="flex flex-wrap items-center gap-1.5 mt-1">
                             ${renderStatusBadge(item)}
                             ${renderScoreBadge(item)}
@@ -2019,7 +2055,7 @@
                         <div>${getDeadlineBadgeHtml(item)}</div>
                     </td>
                     <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
-                        <button onclick="openAiAssistant(item.bidId || item.bidNtceNo)" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
+                        <button onclick="openAiAssistant(decodeURIComponent('${detailKey}'))" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
                             <i data-lucide="file-search" class="w-3.5 h-3.5"></i>
                         </button>
                         <button onclick="openBidLink(decodeURIComponent('${originalUrl}'))" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
@@ -2792,7 +2828,7 @@
                     renderUrgentBids();
                 } catch (e) {
                     logConsole(`[GitHub Static] 로드 실패: ${e.message}`, "error");
-                    toggleErrorBanner(true, `GitHub Pages 연동 불가: ${e.message}`, "로컬 파일(file://)로 직결 실행할 시 브라우저 보안 규약에 의하여 로드가 차단됩니다.");
+                    toggleErrorBanner(true, `GitHub Static JSON 로드 실패: ${e.message}`, "GitHub Pages 주소에서 실행하고 있는지, main 브랜치에 data/bids.json 파일이 존재하는지 확인하십시오.");
                 }
                 return;
             }
@@ -2938,31 +2974,24 @@
         function resetSetup() {
             localStorage.removeItem(API_KEY_LS);
             localStorage.setItem(CORS_MODE_LS, "github");
-            
-            document.getElementById('apiKeyInput').value = '';
-            
+
+            const apiInput = document.getElementById('apiKeyInput');
+            if (apiInput) apiInput.value = '';
+
             const radioGithub = document.querySelector('input[name="corsMode"][value="github"]');
             if (radioGithub) radioGithub.checked = true;
 
             updateCorsModeUI();
             toggleErrorBanner(false, '');
-            generateRealisticMockData();
-            activeBids = [...mockBids];
 
-            updateDashboardStats();
-            renderCharts();
-            renderBidsTable();
-            renderHotMatches();
-            renderRegionalStats();
-            renderUrgentBids();
+            document.getElementById('syncStatusText').innerText = "GitHub Static JSON 재로드 중";
+            document.getElementById('syncStatusText').className = "text-xs text-cyan-700 font-bold animate-pulse";
 
-            document.getElementById('syncStatusText').innerText = "실시간 조달 분석 가동";
-            document.getElementById('syncStatusText').className = "text-xs text-emerald-700 font-medium";
+            logConsole("초기화: mock 데이터가 아닌 GitHub Static JSON(data/bids.json)을 다시 로드합니다.", "warn");
+            showToast("GitHub Static JSON을 다시 로드합니다.", "refresh-cw");
 
-            logConsole("시스템 환경 재설정 완료: 네트워크 자가 설정이 공장 기본 상태(GitHub Static JSON)로 정상 복구되었습니다.", "success");
-            showToast("네트워크 기본 설정값이 정상 복구되었습니다.", "check");
+            fetchLiveNaraBids();
         }
-
 
 
         function copyMarketBriefing() {
