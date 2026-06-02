@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>싸인텔레콤 DI영업지원</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    #loadMessage {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      color: #475569;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="loadMessage">DI영업지원 대시보드 로딩 중...</div>
+  <iframe id="dashboardFrame" src="./di.html" title="DI영업지원 대시보드"></iframe>
+
+  <script>
+    const frame = document.getElementById('dashboardFrame');
+    const message = document.getElementById('loadMessage');
+
+    frame.addEventListener('load', () => {
+      message.style.display = 'none';
+
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        const script = doc.createElement('script');
+        script.src = './firebase-workflow-adapter.js?t=' + Date.now();
+        script.defer = true;
+        doc.body.appendChild(script);
+      } catch (error) {
+        console.error('Firebase adapter injection failed:', error);
+      }
+    });
+  </script>
+</body>
+</html>
