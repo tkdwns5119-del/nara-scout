@@ -1764,7 +1764,7 @@
 
                         // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 상세 정보 실행
                         cardsHtml += `
-                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant('${item.bidNtceNo}')">
+                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
                                 <div class="flex justify-between items-center gap-2 min-w-0">
                                     <h5 class="font-bold text-xs text-slate-800 truncate min-w-0 flex-grow group-hover:${textCol} transition duration-150" title="${item.bidNtceNm}">
                                         ${item.bidNtceNm}
@@ -1849,7 +1849,7 @@
                 }
 
                 const cardHtml = `
-                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant('${item.bidNtceNo}')">
+                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeColor}">${item.serviceType} | ${item.searchKeyword}</span>
@@ -1974,6 +1974,8 @@
                     typeIcon = "calendar-days";
                 }
 
+                const detailKey = encodeURIComponent(item.bidId || item.bidNtceNo || '');
+                const originalUrl = encodeURIComponent(getSafeOriginalUrl ? getSafeOriginalUrl(item) : (item.g2bUrl || ''));
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 border-b border-slate-100 transition duration-150";
 
@@ -1991,7 +1993,7 @@
                         <div class="text-[10px] text-slate-400 font-mono mt-1 text-center">${item.bidNtceNo}</div>
                     </td>
                     <td class="p-4 align-top font-semibold text-slate-800">
-                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant('${item.bidNtceNo}')">${item.bidNtceNm}</div>
+                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">${item.bidNtceNm}</div>
                         <div class="flex flex-wrap items-center gap-1.5 mt-1">
                             ${renderStatusBadge(item)}
                             ${renderScoreBadge(item)}
@@ -2015,10 +2017,10 @@
                         <div>${getDeadlineBadgeHtml(item)}</div>
                     </td>
                     <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
-                        <button onclick="openAiAssistant('${item.bidNtceNo}')" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <button onclick="openAiAssistant(decodeURIComponent('${detailKey}'))" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
+                            <i data-lucide="file-search" class="w-3.5 h-3.5"></i>
                         </button>
-                        <button onclick="openBidLink('${item.g2bUrl}')" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
+                        <button onclick="openBidLink(decodeURIComponent('${originalUrl}'))" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
                             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </button>
                     </td>
@@ -2092,8 +2094,351 @@
             renderBidsTable(filtered);
         }
 
+
+        // Detail Modal Controllers - restored and hardened
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function isFileDownloadUrl(url) {
+            return /File|file|download|Down|down|atch|specDoc/i.test(String(url || ''));
+        }
+
+        function getSafeOriginalUrl(item) {
+            if (!item) return 'https://www.g2b.go.kr/';
+            const d = item.detailInfo || {};
+            const candidates = [item.g2bUrl, d.originalPageUrl, d.detailUrl].filter(Boolean);
+            const pageUrl = candidates.find(u => !isFileDownloadUrl(u));
+
+            if (pageUrl) return pageUrl;
+
+            const keyword = item.bidNtceNo || item.bidId || item.bidNtceNm || '';
+            if (item.serviceType === '사전규격') {
+                return `https://www.g2b.go.kr/search.do?category=TGONG&kwd=${encodeURIComponent(keyword)}`;
+            }
+            if (item.serviceType === '발주계획') {
+                return `https://www.g2b.go.kr/search.do?category=TPLAN&kwd=${encodeURIComponent(keyword)}`;
+            }
+            return item.g2bUrl || 'https://www.g2b.go.kr/';
+        }
+
+        function makeDetailRow(label, value, wide = false) {
+            const v = value === undefined || value === null || value === '' ? '-' : value;
+            return `
+                <div class="${wide ? 'sm:col-span-2' : ''} rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
+                    <div class="text-[10px] text-slate-400 mb-1">${escapeHtml(label)}</div>
+                    <div class="font-bold text-slate-800 leading-snug break-words">${escapeHtml(v)}</div>
+                </div>
+            `;
+        }
+
+        function findBidByKey(bidKey) {
+            const key = String(bidKey || '');
+            return activeBids.find(b =>
+                String(b.bidId || '') === key ||
+                String(b.bidNtceNo || '') === key
+            ) || activeBids.find(b =>
+                String(b.bidNtceNo || '').includes(key) ||
+                String(b.bidId || '').includes(key)
+            );
+        }
+
+        function renderModalDocs(item) {
+            const box = document.getElementById('modal-doc-list');
+            if (!box) return;
+
+            const docs = Array.isArray(item?.documentUrls) ? item.documentUrls : [];
+
+            if (!docs.length) {
+                box.innerHTML = `<div class="text-slate-400 text-xs">등록된 첨부/규격서 URL이 없습니다. 나라장터 원문에서 추가 확인이 필요합니다.</div>`;
+                return;
+            }
+
+            box.innerHTML = docs.map((doc, idx) => `
+                <a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener" class="flex items-center justify-between gap-2 p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+                    <span class="font-semibold truncate">${escapeHtml(doc.label || `첨부파일 ${idx + 1}`)}</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 shrink-0 text-slate-400"></i>
+                </a>
+            `).join('');
+        }
+
+        function renderDetailGrid(item) {
+            const grid = document.getElementById('modal-detail-grid');
+            if (!grid) return;
+
+            const d = item.detailInfo || {};
+            const rows = [
+                ['서비스 구분', `${item.serviceType || '-'} / ${item.businessType || '-'}`],
+                ['공고번호', item.bidNtceNo],
+                ['공고차수', item.bidNtceOrd || '-'],
+                ['계약방법 원문', d.contractMethodRaw || item.contractMethodRaw || getContractMethodLabel(item) || '-'],
+                ['입찰방식', d.bidMethod || '-'],
+                ['낙찰/선정 방식', d.awardMethod || '-'],
+                ['공고종류', d.noticeKind || '-'],
+                ['참가/지역 제한', d.restrictionRegion || '-'],
+                ['입찰개시일시', d.bidBeginDt || '-'],
+                ['입찰마감일시', d.bidClseDt || item.bidClseDt || '-'],
+                ['개찰일시', d.openDt || '-'],
+                ['참가등록/협정/PQ 마감', d.registerDeadline || '-'],
+                ['의견등록마감', d.opinionCloseDt || '-'],
+                ['납품기한', d.deliveryLimitDt || '-'],
+                ['담당부서', d.department || '-'],
+                ['담당자', d.officerName || '-'],
+                ['연락처', d.officerTel || '-'],
+                ['이메일', d.officerEmail || '-'],
+                ['참조번호', d.referenceNo || '-'],
+                ['관련 입찰공고번호', d.linkedBidNoList || '-'],
+                ['품명/분류명', d.productName || '-'],
+                ['물품상세/규격', d.productDetails || '-', true],
+                ['용도', d.purpose || '-'],
+                ['수량/단위', [d.quantity, d.unit].filter(Boolean).join(' ') || '-'],
+                ['발주년도/월', [d.orderYear, d.orderMonth].filter(Boolean).join(' / ') || '-'],
+                ['원문 사업구분', d.rawBusinessDivision || '-']
+            ];
+
+            grid.innerHTML = rows.map(([label, value, wide]) => makeDetailRow(label, value, wide)).join('');
+        }
+
+        function renderReviewNote(item) {
+            const el = document.getElementById('modal-review-note');
+            if (!el) return;
+
+            const contract = getContractMethodLabel(item);
+            const budget = formatKoreanCurrency(item.assignBudgetAmt);
+            const priority = `${getPriorityLabel(getPriorityBucket(item))} ${computeRelevanceScore(item)}점`;
+            const status = getBidWorkflow(item).status;
+
+            el.innerText = [
+                `계약방법은 ${contract || '미확인'} 기준입니다.`,
+                `예산은 ${budget}이며, ${item.serviceType} 단계의 ${item.searchKeyword || '관련'} 키워드로 수집되었습니다.`,
+                `관련도는 ${priority}, 내부 검토상태는 ${status}입니다.`,
+                `상세 검토 시 첨부 규격서, 참가자격, 납품 범위, 설치 장소, 하자/유지보수 조건을 우선 확인하십시오.`
+            ].join(' ');
+        }
+
+        function getActiveModalItem() {
+            const modal = document.getElementById('aiAssistantModal');
+            const key = modal?.getAttribute('data-active-bid-key') || modal?.getAttribute('data-active-bid-no');
+            return findBidByKey(key);
+        }
+
+        function renderWorkflowPanel(item) {
+            const wf = getBidWorkflow(item);
+            const statusEl = document.getElementById('modal-work-status');
+            const ownerEl = document.getElementById('modal-owner');
+            const memoEl = document.getElementById('modal-memo');
+            const favoriteBtn = document.getElementById('modal-favorite-btn');
+
+            if (statusEl) statusEl.value = wf.status || "미검토";
+            if (ownerEl) ownerEl.value = wf.owner || "";
+            if (memoEl) memoEl.value = wf.memo || "";
+
+            const bucket = getPriorityBucket(item);
+            const score = computeRelevanceScore(item);
+            const scoreEl = document.getElementById('modal-score-badge');
+            if (scoreEl) {
+                scoreEl.className = `ml-auto text-[10px] px-2 py-0.5 rounded-full border font-bold ${getPriorityBadgeClass(bucket)}`;
+                scoreEl.innerText = `${getPriorityLabel(bucket)} ${score}점`;
+            }
+
+            const checklist = document.getElementById('modal-checklist');
+            if (checklist) {
+                checklist.innerHTML = CHECKLIST_ITEMS.map(([key, label]) => `
+                    <label class="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 cursor-pointer hover:bg-white">
+                        <input type="checkbox" ${wf.checklist?.[key] ? 'checked' : ''} onchange="toggleWorkflowChecklist('${key}', this.checked)" class="rounded border-slate-300 text-cyber-cyan">
+                        <span>${label}</span>
+                    </label>
+                `).join('');
+            }
+
+            if (favoriteBtn) {
+                favoriteBtn.className = wf.favorite
+                    ? "py-2 rounded-lg bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-800 text-xs font-bold flex items-center justify-center gap-1"
+                    : "py-2 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 text-xs font-bold flex items-center justify-center gap-1";
+                const span = favoriteBtn.querySelector('span');
+                if (span) span.innerText = wf.favorite ? "관심 해제" : "관심 저장";
+            }
+        }
+
+        function updateCurrentWorkflowField(field, value) {
+            const item = getActiveModalItem();
+            if (!item) return;
+
+            setBidWorkflow(item, { [field]: value });
+            renderWorkflowPanel(item);
+            renderReviewNote(item);
+            applyFilters();
+        }
+
+        function toggleWorkflowChecklist(key, checked) {
+            const item = getActiveModalItem();
+            if (!item) return;
+
+            const wf = getBidWorkflow(item);
+            setBidWorkflow(item, {
+                checklist: {
+                    ...(wf.checklist || {}),
+                    [key]: checked
+                }
+            });
+            renderWorkflowPanel(item);
+            applyFilters();
+        }
+
+        function toggleCurrentFavorite() {
+            const item = getActiveModalItem();
+            if (!item) return;
+
+            const wf = getBidWorkflow(item);
+            const nextFavorite = !wf.favorite;
+            setBidWorkflow(item, {
+                favorite: nextFavorite,
+                status: nextFavorite && wf.status === "미검토" ? "관심" : wf.status
+            });
+            renderWorkflowPanel(item);
+            applyFilters();
+        }
+
+        function openAiAssistant(bidKey) {
+            const item = findBidByKey(bidKey);
+            if (!item) {
+                showToast("공고 상세 정보를 찾을 수 없습니다.", "alert-triangle");
+                return;
+            }
+
+            const modal = document.getElementById('aiAssistantModal');
+            modal.setAttribute('data-active-bid-key', item.bidId || item.bidNtceNo || '');
+            modal.setAttribute('data-active-bid-no', item.bidNtceNo || '');
+
+            document.getElementById('modal-title').innerText = item.bidNtceNm || '-';
+            document.getElementById('modal-bidNo').innerText = item.bidNtceNo || '-';
+
+            const serviceEl = document.getElementById('modal-serviceType');
+            if (serviceEl) {
+                serviceEl.innerText = item.serviceType || '-';
+                let badgeStyle = "border-cyan-200 bg-cyan-50 text-cyber-cyan";
+                if (item.serviceType === "사전규격") badgeStyle = "border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia";
+                if (item.serviceType === "발주계획") badgeStyle = "border-amber-200 bg-amber-50 text-cyber-amber";
+                serviceEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
+            }
+
+            document.getElementById('modal-agency').innerText = item.ntceInsttNm || '-';
+            document.getElementById('modal-demandAgency').innerText = item.dminsttNm || item.ntceInsttNm || '-';
+            document.getElementById('modal-region').innerText = item.region || '-';
+            document.getElementById('modal-budget').innerText = formatKoreanCurrency(item.assignBudgetAmt);
+            document.getElementById('modal-dates').innerText = `${String(item.bidNtceRegistDt || '-').split(' ')[0]} / ${String(item.bidClseDt || '-').split(' ')[0]}`;
+
+            const contractBox = document.getElementById('modal-contractBadges');
+            if (contractBox) contractBox.innerHTML = renderContractMethodBadges(item);
+
+            renderDetailGrid(item);
+            renderModalDocs(item);
+            renderReviewNote(item);
+            renderWorkflowPanel(item);
+
+            const g2bBtn = document.getElementById('modal-g2bBtn');
+            if (g2bBtn) g2bBtn.onclick = () => openBidLink(getSafeOriginalUrl(item));
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            setTimeout(() => {
+                const scrollArea = modal.querySelector('.detail-scroll-area');
+                if (scrollArea) scrollArea.scrollTop = 0;
+            }, 0);
+
+            lucide.createIcons();
+        }
+
+        function closeAiAssistant() {
+            document.getElementById('aiAssistantModal')?.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function copyCurrentBidDetails() {
+            const item = getActiveModalItem();
+            if (!item) return;
+
+            const d = item.detailInfo || {};
+            const lines = [
+                `[공고 상세 정보]`,
+                `공고명: ${item.bidNtceNm || '-'}`,
+                `유형: ${item.serviceType || '-'} / ${item.businessType || '-'}`,
+                `등록번호: ${item.bidNtceNo || '-'}`,
+                `계약방법: ${getContractMethodLabel(item)}`,
+                `공고기관: ${item.ntceInsttNm || '-'}`,
+                `수요기관: ${item.dminsttNm || '-'}`,
+                `지역: ${item.region || '-'}`,
+                `예산: ${formatKoreanCurrency(item.assignBudgetAmt)}`,
+                `수집/마감: ${item.bidNtceRegistDt || '-'} / ${item.bidClseDt || '-'}`,
+                `입찰방식: ${d.bidMethod || '-'}`,
+                `낙찰/선정 방식: ${d.awardMethod || '-'}`,
+                `참가/지역 제한: ${d.restrictionRegion || '-'}`,
+                `담당자/연락처: ${[d.officerName, d.officerTel].filter(Boolean).join(' / ') || '-'}`,
+                `원문: ${getSafeOriginalUrl(item)}`
+            ];
+
+            navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                showToast('공고 상세 정보가 클립보드에 복사되었습니다.', 'copy');
+            }).catch(() => {
+                alert(lines.join('\n'));
+            });
+        }
+
+        function copyReportSummary() {
+            const item = getActiveModalItem();
+            if (!item) return;
+
+            const wf = getBidWorkflow(item);
+            const checked = CHECKLIST_ITEMS
+                .filter(([key]) => wf.checklist?.[key])
+                .map(([, label]) => label)
+                .join(', ') || '-';
+
+            const lines = [
+                '[나라장터 검토 공고]',
+                `공고명: ${item.bidNtceNm || '-'}`,
+                `유형: ${item.serviceType || '-'} / ${item.businessType || '-'}`,
+                `계약방법: ${getContractMethodLabel(item)}`,
+                `기관: ${item.ntceInsttNm || '-'}`,
+                `수요기관: ${item.dminsttNm || '-'}`,
+                `지역: ${item.region || '-'}`,
+                `예산: ${formatKoreanCurrency(item.assignBudgetAmt)}`,
+                `마감/예정: ${item.bidClseDt || '-'}`,
+                `관련도: ${getPriorityLabel(getPriorityBucket(item))} ${computeRelevanceScore(item)}점`,
+                `검토상태: ${wf.status || '미검토'}`,
+                `담당자: ${wf.owner || '미지정'}`,
+                `체크완료: ${checked}`,
+                `검토메모: ${wf.memo || '-'}`,
+                `원문링크: ${getSafeOriginalUrl(item)}`
+            ];
+
+            navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                showToast('보고용 요약이 클립보드에 복사되었습니다.', 'clipboard-copy');
+            }).catch(() => {
+                alert(lines.join('\n'));
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeAiAssistant();
+        });
+
+        document.getElementById('aiAssistantModal')?.addEventListener('click', (event) => {
+            if (event.target?.id === 'aiAssistantModal') closeAiAssistant();
+        });
+
         function openBidLink(url) {
-            window.open(url, '_blank');
+            const target = String(url || '').trim();
+            if (!target) {
+                showToast("열 수 있는 링크가 없습니다.", "alert-triangle");
+                return;
+            }
+            window.open(target, '_blank', 'noopener,noreferrer');
         }
 
         // Safe console logger (supports diagnostics screen)
