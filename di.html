@@ -1746,6 +1746,7 @@
                     `;
                 } else {
                     itemList.forEach(item => {
+                        const detailKey = encodeURIComponent(item.bidId || item.bidNtceNo || '');
                         const dDayValue = getDDay(item.bidClseDt);
                         let dDayBadge = "bg-rose-50 text-rose-600 border-rose-200";
 
@@ -1764,7 +1765,7 @@
 
                         // Flex min-w-0 및 truncate min-w-0 지정을 통해 말줄임표(...) 및 기한 글씨 겹침 해결 -> 클릭시 상세 정보 실행
                         cardsHtml += `
-                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
+                            <div class="bg-white border border-slate-150 rounded-xl p-3.5 ${borderHover} transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between space-y-2 group" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">
                                 <div class="flex justify-between items-center gap-2 min-w-0">
                                     <h5 class="font-bold text-xs text-slate-800 truncate min-w-0 flex-grow group-hover:${textCol} transition duration-150" title="${item.bidNtceNm}">
                                         ${item.bidNtceNm}
@@ -1837,6 +1838,7 @@
             }
 
             sorted.forEach(item => {
+                const detailKey = encodeURIComponent(item.bidId || item.bidNtceNo || '');
                 let badgeColor = "bg-cyan-50 text-cyber-cyan border-cyan-200";
                 let cardGlow = "hover:shadow-[0_4px_14px_rgba(6,182,212,0.12)]";
                 
@@ -1849,7 +1851,7 @@
                 }
 
                 const cardHtml = `
-                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">
+                    <div class="bg-cyber-card border border-cyber-border rounded-xl p-4 hover:border-slate-300 transition card-soft ${cardGlow} flex flex-col justify-between space-y-3 cursor-pointer" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badgeColor}">${item.serviceType} | ${item.searchKeyword}</span>
@@ -1975,7 +1977,7 @@
                 }
 
                 const detailKey = encodeURIComponent(item.bidId || item.bidNtceNo || '');
-                const originalUrl = encodeURIComponent(getSafeOriginalUrl ? getSafeOriginalUrl(item) : (item.g2bUrl || ''));
+                const originalUrl = encodeURIComponent(typeof getSafeOriginalUrl === 'function' ? getSafeOriginalUrl(item) : (item.g2bUrl || ''));
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 border-b border-slate-100 transition duration-150";
 
@@ -1993,7 +1995,7 @@
                         <div class="text-[10px] text-slate-400 font-mono mt-1 text-center">${item.bidNtceNo}</div>
                     </td>
                     <td class="p-4 align-top font-semibold text-slate-800">
-                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant(decodeURIComponent('${detailKey}'))">${item.bidNtceNm}</div>
+                        <div class="hover:text-cyber-cyan cursor-pointer leading-snug" onclick="openAiAssistant(item.bidId || item.bidNtceNo)">${item.bidNtceNm}</div>
                         <div class="flex flex-wrap items-center gap-1.5 mt-1">
                             ${renderStatusBadge(item)}
                             ${renderScoreBadge(item)}
@@ -2017,7 +2019,7 @@
                         <div>${getDeadlineBadgeHtml(item)}</div>
                     </td>
                     <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
-                        <button onclick="openAiAssistant(decodeURIComponent('${detailKey}'))" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
+                        <button onclick="openAiAssistant(item.bidId || item.bidNtceNo)" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
                             <i data-lucide="file-search" class="w-3.5 h-3.5"></i>
                         </button>
                         <button onclick="openBidLink(decodeURIComponent('${originalUrl}'))" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
