@@ -1,3 +1,10 @@
 {
-  "endpoint": "https://nara-scout.pages.dev"
+  "provider": "firebase",
+  "path": "workflow",
+  "firebaseConfig": {
+    "apiKey": "PASTE_FIREBASE_API_KEY",
+    "authDomain": "PASTE_PROJECT_ID.firebaseapp.com",
+    "databaseURL": "https://PASTE_PROJECT_ID-default-rtdb.firebaseio.com",
+    "projectId": "PASTE_PROJECT_ID"
+  }
 }
