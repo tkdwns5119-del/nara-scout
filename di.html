@@ -97,6 +97,94 @@
             }
         }
 
+    
+        /* Readability upgrade: larger UI fonts */
+        html {
+            font-size: 17px;
+        }
+
+        body {
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .text-\[10px\] {
+            font-size: 12px !important;
+            line-height: 1.45 !important;
+        }
+
+        .text-\[11px\] {
+            font-size: 13px !important;
+            line-height: 1.45 !important;
+        }
+
+        .text-xs {
+            font-size: 13.5px !important;
+            line-height: 1.5 !important;
+        }
+
+        .text-sm {
+            font-size: 15px !important;
+            line-height: 1.55 !important;
+        }
+
+        .text-base {
+            font-size: 17px !important;
+            line-height: 1.6 !important;
+        }
+
+        table th {
+            font-size: 14px !important;
+            line-height: 1.45 !important;
+        }
+
+        table td {
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+        }
+
+        button,
+        select,
+        input,
+        textarea {
+            font-size: 14px !important;
+        }
+
+        .font-mono {
+            letter-spacing: -0.01em;
+        }
+
+        @media (min-width: 1280px) {
+            html {
+                font-size: 18px;
+            }
+
+            table th,
+            table td {
+                font-size: 14.5px !important;
+            }
+
+            .text-xs {
+                font-size: 14px !important;
+            }
+
+            .text-sm {
+                font-size: 15.5px !important;
+            }
+        }
+
+    
+        /* Spacing balance for larger fonts */
+        .readable-dashboard table th,
+        .readable-dashboard table td {
+            padding-top: 0.95rem !important;
+            padding-bottom: 0.95rem !important;
+        }
+
+        .readable-dashboard .truncate {
+            min-width: 0;
+        }
+
     </style>
 <script>
         tailwind.config = {
@@ -981,70 +1069,15 @@
         ];
         const EXCLUDE_KEYWORDS = ["LMS", "모니터", "노트북", "TV", "전자칠판", "컴퓨터", "프린터", "소모품", "소프트웨어", "키오스크부품"];
 
-        const GITHUB_SYNC_LS = "DI_GITHUB_WORKFLOW_SYNC_V1";
+        const WORKFLOW_SERVER_CONFIG_PATH = "./data/workflow-config.json";
         let workflowStoreCache = null;
-        let githubWorkflowSha = null;
-        let githubSaveTimer = null;
-        let githubSyncBusy = false;
-        let githubAutoTokenPrompted = false;
+        let workflowSaveTimer = null;
+        let workflowServerUrl = "";
+        let workflowServerReady = false;
+        let workflowSyncBusy = false;
 
-        function detectGitHubDefaults() {
-            const host = location.hostname || "";
-            const pathParts = location.pathname.split('/').filter(Boolean);
-
-            const owner = host.endsWith(".github.io")
-                ? host.replace(".github.io", "")
-                : "";
-
-            const repo = pathParts[0] || "";
-
-            return {
-                owner,
-                repo,
-                branch: "main",
-                path: "data/workflow-state.json",
-                token: ""
-            };
-        }
-
-        function loadGitHubSyncConfig() {
-            try {
-                return {
-                    ...detectGitHubDefaults(),
-                    ...JSON.parse(localStorage.getItem(GITHUB_SYNC_LS) || "{}")
-                };
-            } catch {
-                return detectGitHubDefaults();
-            }
-        }
-
-        function saveGitHubSyncConfig(config) {
-            localStorage.setItem(GITHUB_SYNC_LS, JSON.stringify(config || {}));
-            updateGitHubSyncUi();
-        }
-
-        function getGitHubApiUrl(config) {
-            const owner = encodeURIComponent(config.owner || "");
-            const repo = encodeURIComponent(config.repo || "");
-            const filePath = String(config.path || "data/workflow-state.json").split('/').map(encodeURIComponent).join('/');
-            return `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-        }
-
-        function encodeBase64Unicode(value) {
-            return btoa(unescape(encodeURIComponent(value)));
-        }
-
-        function decodeBase64Unicode(value) {
-            return decodeURIComponent(escape(atob(String(value || "").replace(/\n/g, ""))));
-        }
-
-        function logGitHubSync(message, type = "normal") {
-            const box = document.getElementById('ghSyncStatusBox');
-            const now = new Date().toLocaleTimeString();
-            const line = `[${now}] ${message}`;
-
-            if (box) box.textContent = line;
-            logConsole(`[GitHub 서버저장] ${message}`, type);
+        function getBidKey(item) {
+            return item?.bidId || item?.bidNtceNo || "";
         }
 
         function normalizeWorkflowPayload(payload) {
@@ -1077,6 +1110,34 @@
             return merged;
         }
 
+        async function loadWorkflowServerConfig() {
+            try {
+                const res = await fetch(`${WORKFLOW_SERVER_CONFIG_PATH}?t=${Date.now()}`, { cache: "no-store" });
+                if (!res.ok) {
+                    workflowServerUrl = "";
+                    workflowServerReady = false;
+                    return "";
+                }
+
+                const cfg = await res.json();
+                workflowServerUrl = String(cfg.endpoint || "").trim().replace(/\/$/, "");
+                workflowServerReady = Boolean(workflowServerUrl);
+
+                if (workflowServerReady) {
+                    logConsole("공유 저장 서버 연결 준비 완료", "success");
+                } else {
+                    logConsole("공유 저장 서버 endpoint가 비어 있어 이 브라우저에만 저장됩니다.", "warn");
+                }
+
+                return workflowServerUrl;
+            } catch (e) {
+                workflowServerUrl = "";
+                workflowServerReady = false;
+                logConsole(`공유 저장 설정 로드 실패: ${e.message}`, "warn");
+                return "";
+            }
+        }
+
         function loadWorkflowStore() {
             if (workflowStoreCache) return workflowStoreCache;
 
@@ -1094,226 +1155,8 @@
             localStorage.setItem(WORKFLOW_LS, JSON.stringify(workflowStoreCache));
 
             if (!options.skipServer) {
-                scheduleGitHubWorkflowSave();
+                scheduleWorkflowServerSave();
             }
-        }
-
-        async function fetchWorkflowFromGitHubApi(config) {
-            if (!config.owner || !config.repo || !config.path || !config.token) return null;
-
-            const url = `${getGitHubApiUrl(config)}?ref=${encodeURIComponent(config.branch || "main")}`;
-            const res = await fetch(url, {
-                headers: {
-                    "Accept": "application/vnd.github+json",
-                    "Authorization": `Bearer ${config.token}`,
-                    "X-GitHub-Api-Version": "2022-11-28"
-                }
-            });
-
-            if (res.status === 404) {
-                githubWorkflowSha = null;
-                return {};
-            }
-
-            if (!res.ok) {
-                throw new Error(`GitHub GET HTTP ${res.status}`);
-            }
-
-            const data = await res.json();
-            githubWorkflowSha = data.sha || null;
-
-            if (!data.content) return {};
-            return normalizeWorkflowPayload(JSON.parse(decodeBase64Unicode(data.content)));
-        }
-
-        async function fetchWorkflowFromPages() {
-            try {
-                const res = await fetch('./data/workflow-state.json?t=' + Date.now(), { cache: 'no-store' });
-                if (!res.ok) return {};
-                const payload = await res.json();
-                return normalizeWorkflowPayload(payload);
-            } catch {
-                return {};
-            }
-        }
-
-        async function initializeWorkflowServerSync() {
-            const localStore = loadWorkflowStore();
-            const config = loadGitHubSyncConfig();
-
-            try {
-                let remoteStore = {};
-
-                if (config.token && config.owner && config.repo) {
-                    remoteStore = await fetchWorkflowFromGitHubApi(config);
-                    logGitHubSync("GitHub API에서 검토 상태를 불러왔습니다.", "success");
-                } else {
-                    remoteStore = await fetchWorkflowFromPages();
-                    if (Object.keys(remoteStore).length > 0) {
-                        logGitHubSync("GitHub Pages의 workflow-state.json을 읽었습니다. 저장하려면 토큰 설정이 필요합니다.", "warn");
-                    }
-                }
-
-                const merged = mergeWorkflowStores(localStore, remoteStore);
-                saveWorkflowStore(merged, { skipServer: true });
-                updateGitHubSyncUi();
-                return merged;
-            } catch (e) {
-                logGitHubSync(`서버 불러오기 실패: ${e.message}`, "warn");
-                updateGitHubSyncUi();
-                return localStore;
-            }
-        }
-
-        function ensureGitHubAutoSaveConfig() {
-            let config = loadGitHubSyncConfig();
-
-            // Owner/Repo/Branch/Path는 GitHub Pages URL에서 자동 추정한다.
-            config = {
-                ...detectGitHubDefaults(),
-                ...config,
-                branch: config.branch || "main",
-                path: config.path || "data/workflow-state.json"
-            };
-
-            if (!config.token && !githubAutoTokenPrompted) {
-                githubAutoTokenPrompted = true;
-
-                const token = window.prompt(
-                    "GitHub 서버 자동저장을 위해 Fine-grained token을 1회 입력하세요.\\n\\n권장 권한: 해당 저장소 Contents Read and write\\n입력한 토큰은 이 브라우저 localStorage에만 저장됩니다."
-                );
-
-                if (token && token.trim()) {
-                    config.token = token.trim();
-                    saveGitHubSyncConfig(config);
-                    showToast("GitHub 서버 자동저장 토큰이 저장되었습니다.", "cloud");
-                }
-            }
-
-            saveGitHubSyncConfig(config);
-            return config;
-        }
-
-        async function saveWorkflowStoreToGitHubNow() {
-            const config = ensureGitHubAutoSaveConfig();
-
-            if (!config.token || !config.owner || !config.repo || !config.path) {
-                logGitHubSync("서버 자동저장 대기: GitHub 토큰이 없어 현재 브라우저에만 저장됩니다.", "warn");
-                return false;
-            }
-
-            if (githubSyncBusy) return false;
-            githubSyncBusy = true;
-
-            try {
-                const store = loadWorkflowStore();
-
-                if (!githubWorkflowSha) {
-                    try {
-                        await fetchWorkflowFromGitHubApi(config);
-                    } catch {
-                        githubWorkflowSha = null;
-                    }
-                }
-
-                const payload = {
-                    version: 1,
-                    app: "DI Procurement Dashboard",
-                    updatedAt: new Date().toISOString(),
-                    workflow: store
-                };
-
-                const body = {
-                    message: `chore(data): update workflow state ${new Date().toISOString()}`,
-                    content: encodeBase64Unicode(JSON.stringify(payload, null, 2)),
-                    branch: config.branch || "main"
-                };
-
-                if (githubWorkflowSha) body.sha = githubWorkflowSha;
-
-                const res = await fetch(getGitHubApiUrl(config), {
-                    method: "PUT",
-                    headers: {
-                        "Accept": "application/vnd.github+json",
-                        "Authorization": `Bearer ${config.token}`,
-                        "Content-Type": "application/json",
-                        "X-GitHub-Api-Version": "2022-11-28"
-                    },
-                    body: JSON.stringify(body)
-                });
-
-                if (!res.ok) {
-                    if (res.status === 409) {
-                        const remote = await fetchWorkflowFromGitHubApi(config);
-                        const merged = mergeWorkflowStores(store, remote);
-                        saveWorkflowStore(merged, { skipServer: true });
-                        githubSyncBusy = false;
-                        return await saveWorkflowStoreToGitHubNow();
-                    }
-
-                    const text = await res.text();
-                    throw new Error(`GitHub PUT HTTP ${res.status}: ${text.slice(0, 180)}`);
-                }
-
-                const result = await res.json();
-                githubWorkflowSha = result?.content?.sha || githubWorkflowSha;
-                logGitHubSync("서버 저장 완료: data/workflow-state.json 갱신됨", "success");
-                updateGitHubSyncUi();
-                return true;
-            } catch (e) {
-                logGitHubSync(`서버 저장 실패: ${e.message}`, "error");
-                return false;
-            } finally {
-                githubSyncBusy = false;
-            }
-        }
-
-        function scheduleGitHubWorkflowSave() {
-            clearTimeout(githubSaveTimer);
-            githubSaveTimer = setTimeout(() => {
-                saveWorkflowStoreToGitHubNow();
-            }, 1200);
-        }
-
-        function updateGitHubSyncUi() {
-            const config = loadGitHubSyncConfig();
-            const btnText = document.getElementById('githubSyncBtnText');
-
-            if (btnText) {
-                btnText.textContent = config.token ? "서버 자동저장 ON" : "서버 자동저장";
-            }
-        }
-
-        function openGitHubSyncSettings() {
-            githubAutoTokenPrompted = false;
-            const config = ensureGitHubAutoSaveConfig();
-            updateGitHubSyncUi();
-            if (config.token) showToast("서버 자동저장이 활성화되었습니다.", "cloud");
-        }
-
-        function closeGitHubSyncSettings() {
-            document.body.classList.remove('overflow-hidden');
-        }
-
-        function saveGitHubSyncConfigFromModal() {
-            openGitHubSyncSettings();
-        }
-
-        async function manualLoadWorkflowFromGitHub() {
-            const store = await initializeWorkflowServerSync();
-            workflowStoreCache = store;
-            applyFilters();
-            showToast("GitHub 서버 상태를 불러왔습니다.", "download");
-        }
-
-        async function manualSaveWorkflowToGitHub() {
-            const ok = await saveWorkflowStoreToGitHubNow();
-            if (ok) showToast("GitHub 서버에 저장되었습니다.", "upload-cloud");
-        }
-
-
-        function getBidKey(item) {
-            return item?.bidId || item?.bidNtceNo || "";
         }
 
         function getBidWorkflow(item) {
@@ -1339,7 +1182,126 @@
                 ...patch,
                 updatedAt: new Date().toISOString()
             };
+
             saveWorkflowStore(store);
+        }
+
+        async function fetchWorkflowFromSharedServer() {
+            if (!workflowServerReady || !workflowServerUrl) return {};
+
+            const res = await fetch(`${workflowServerUrl}/workflow?t=${Date.now()}`, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+            if (!res.ok) {
+                throw new Error(`공유 저장 서버 GET HTTP ${res.status}`);
+            }
+
+            const payload = await res.json();
+            return normalizeWorkflowPayload(payload);
+        }
+
+        async function fetchWorkflowFromPagesFallback() {
+            try {
+                const res = await fetch('./data/workflow-state.json?t=' + Date.now(), { cache: 'no-store' });
+                if (!res.ok) return {};
+                const payload = await res.json();
+                return normalizeWorkflowPayload(payload);
+            } catch {
+                return {};
+            }
+        }
+
+        async function initializeWorkflowServerSync() {
+            const localStore = loadWorkflowStore();
+
+            try {
+                await loadWorkflowServerConfig();
+
+                let remoteStore = {};
+                if (workflowServerReady) {
+                    remoteStore = await fetchWorkflowFromSharedServer();
+                    logConsole("공유 저장 서버에서 검토 상태를 불러왔습니다.", "success");
+                } else {
+                    remoteStore = await fetchWorkflowFromPagesFallback();
+                    if (Object.keys(remoteStore).length > 0) {
+                        logConsole("GitHub Pages의 workflow-state.json을 읽었습니다.", "warn");
+                    }
+                }
+
+                const merged = mergeWorkflowStores(localStore, remoteStore);
+                saveWorkflowStore(merged, { skipServer: true });
+                return merged;
+            } catch (e) {
+                logConsole(`공유 상태 불러오기 실패: ${e.message}`, "warn");
+                return localStore;
+            }
+        }
+
+        async function saveWorkflowStoreToGitHubNow() {
+            // 함수명은 기존 호출 호환을 위해 유지. 실제 저장은 Cloudflare Worker 등 공유 저장 서버로 수행.
+            if (!workflowServerReady || !workflowServerUrl) {
+                logConsole("공유 저장 서버 미설정: 현재 브라우저에만 저장되었습니다.", "warn");
+                return false;
+            }
+
+            if (workflowSyncBusy) return false;
+            workflowSyncBusy = true;
+
+            try {
+                const payload = {
+                    version: 1,
+                    app: "DI Procurement Dashboard",
+                    updatedAt: new Date().toISOString(),
+                    workflow: loadWorkflowStore()
+                };
+
+                const res = await fetch(`${workflowServerUrl}/workflow`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`공유 저장 서버 POST HTTP ${res.status}: ${text.slice(0, 160)}`);
+                }
+
+                logConsole("공유 저장 서버에 자동 저장 완료", "success");
+                return true;
+            } catch (e) {
+                logConsole(`공유 저장 실패: ${e.message}`, "error");
+                return false;
+            } finally {
+                workflowSyncBusy = false;
+            }
+        }
+
+        function scheduleWorkflowServerSave() {
+            clearTimeout(workflowSaveTimer);
+            workflowSaveTimer = setTimeout(() => {
+                saveWorkflowStoreToGitHubNow();
+            }, 1000);
+        }
+
+        // 기존 함수명 호환
+        function scheduleGitHubWorkflowSave() {
+            scheduleWorkflowServerSave();
+        }
+
+        async function manualLoadWorkflowFromGitHub() {
+            const store = await initializeWorkflowServerSync();
+            workflowStoreCache = store;
+            applyFilters();
+            showToast("공유 저장 상태를 불러왔습니다.", "download");
+        }
+
+        async function manualSaveWorkflowToGitHub() {
+            const ok = await saveWorkflowStoreToGitHubNow();
+            if (ok) showToast("공유 저장 서버에 저장되었습니다.", "upload-cloud");
         }
 
         function getStatusBadgeClass(status) {
