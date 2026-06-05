@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-05T16:00:00.000Z",
+  "generatedAt": "2026-06-05T19:51:11.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202605060000",
   "rangeEnd": "202606052359",
-  "totalCount": 478,
-  "rawCount": 557,
+  "totalCount": 480,
+  "rawCount": 560,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,153 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 478,
+    "skipped": 480,
     "model": null
   },
   "serviceStats": {
-    "공고": 228,
+    "공고": 229,
     "사전규격": 128,
-    "발주계획": 122
+    "발주계획": 123
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 215,
+    "디스플레이/사이니지 계열": 217,
     "미디어/파사드 계열": 199,
     "ITS/VMS 계열": 64
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20782348",
+      "bidNtceNo": "PL-R26DD20782348",
+      "bidNtceOrd": "",
+      "bidNtceNm": "김포공항 계류장관제 CCTV 모니터링 디스플레이 구매",
+      "ntceInsttNm": "한국공항공사 김포공항",
+      "dminsttNm": "한국공항공사 김포공항",
+      "assignBudgetAmt": 7650000,
+      "bidNtceRegistDt": "2026-06-05 18:06",
+      "bidClseDt": "2026-06",
+      "searchKeyword": "디스플레이",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20782348",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "06",
+        "department": "계류장관제운영부",
+        "officerName": "최우석",
+        "officerTel": "02-2660-4333",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "모니터링",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 7650000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "06"
+    },
+    {
+      "bidId": "BID-R26BK01563614-000",
+      "bidNtceNo": "R26BK01563614",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(가칭)검단3고등학교 신축 정보통신공사 관급자재(LED전광판)",
+      "ntceInsttNm": "인천광역시교육청",
+      "dminsttNm": "인천광역시교육청",
+      "assignBudgetAmt": 138392000,
+      "bidNtceRegistDt": "2026-06-05 16:46",
+      "bidClseDt": "2026-06-15 14:00",
+      "searchKeyword": "LED",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01563614&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01563614&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01563614&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01563614&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01563614&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01563614&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01563614&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격 고시금액 미만",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-08 10:00",
+        "bidClseDt": "2026-06-15 14:00",
+        "openDt": "2026-06-15 15:00",
+        "registerDeadline": "2026-06-14 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "염지은",
+        "officerTel": "032-420-6598",
+        "officerEmail": "missje@ice.go.kr",
+        "referenceNo": "인천광역시교육청 공고 제2026-255호",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01562748-000",
       "bidNtceNo": "R26BK01562748",
@@ -142,7 +274,7 @@
         "officerTel": "032-423-3303",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01563614000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "(가칭)검단3고 신축 정보통신공사 관급자재(LED전광판)",
@@ -7684,7 +7816,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "교육시설과-4464",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01563614",
         "productName": "(가칭)검단3고등학교 신축 정보통신공사 관급자재(LED전광판)",
         "productDetails": "[1^5512190301^안내전광판]",
         "purpose": "",
@@ -7694,7 +7826,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "교육시설과-4464",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01563614"
     },
     {
       "bidId": "BID-R26BK01544604-001",
