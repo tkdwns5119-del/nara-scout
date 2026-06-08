@@ -501,12 +501,9 @@
                         <option value="수의">수의계약</option>
                         <option value="지역">지역제한</option>
                         <option value="지명">지명경쟁</option>
-                        <option value="조합추천">지명경쟁(조합추천)</option>
                         <option value="제한">제한경쟁</option>
-                        <option value="일반">일반경쟁</option>
                         <option value="협상">협상계약</option>
                         <option value="적격">적격심사</option>
-                        <option value="미확인">계약방법 미확인</option>
                     </select>
 
                     <select id="filterKeyword" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
@@ -546,24 +543,6 @@
                         <option value="50_TO_200">5천만 ~ 2억 원</option>
                         <option value="200_TO_500">2억 ~ 5억 원</option>
                         <option value="OVER_500">5억 원 이상</option>
-                    </select>
-
-                    <select id="filterStatus" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
-                        <option value="ALL">전체 검토상태</option>
-                        <option value="미검토">미검토</option>
-                        <option value="관심">관심</option>
-                        <option value="검토중">검토중</option>
-                        <option value="제안가능">제안가능</option>
-                        <option value="제외">제외</option>
-                        <option value="완료">완료</option>
-                    </select>
-
-                    <select id="filterPriority" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
-                        <option value="ALL">전체 관련도</option>
-                        <option value="HIGH">우선검토</option>
-                        <option value="MEDIUM">검토</option>
-                        <option value="LOW">참고</option>
-                        <option value="EXCLUDE">제외검토</option>
                     </select>
 <button onclick="exportToCSV()" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 border border-slate-300 flex items-center space-x-1 transition" title="분석 목록 출력">
                         <i data-lucide="download" class="w-3.5 h-3.5"></i>
@@ -933,54 +912,6 @@
                         </button>
                     </div>
 
-
-                    <div id="modal-workflow-panel" class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                        <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center space-x-2">
-                            <i data-lucide="clipboard-check" class="w-4 h-4 text-cyber-cyan"></i>
-                            <h5 class="font-extrabold text-xs text-slate-800">내부 검토 관리</h5>
-                            <span id="modal-score-badge" class="ml-auto text-[10px] px-2 py-0.5 rounded-full border font-bold"></span>
-                        </div>
-                        <div class="p-4 space-y-3">
-                            <div class="grid grid-cols-2 gap-2">
-                                <label class="text-[10px] text-slate-500 font-bold space-y-1">
-                                    <span>검토 상태</span>
-                                    <select id="modal-work-status" onchange="updateCurrentWorkflowField('status', this.value)" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
-                                        <option value="미검토">미검토</option>
-                                        <option value="관심">관심</option>
-                                        <option value="검토중">검토중</option>
-                                        <option value="제안가능">제안가능</option>
-                                        <option value="제외">제외</option>
-                                        <option value="완료">완료</option>
-                                    </select>
-                                </label>
-                                <label class="text-[10px] text-slate-500 font-bold space-y-1">
-                                    <span>담당자</span>
-                                    <input id="modal-owner" oninput="updateCurrentWorkflowField('owner', this.value)" placeholder="미지정" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800">
-                                </label>
-                            </div>
-
-                            <div>
-                                <div class="text-[10px] text-slate-500 font-bold mb-1">참여 검토 체크리스트</div>
-                                <div id="modal-checklist" class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-700"></div>
-                            </div>
-
-                            <label class="block text-[10px] text-slate-500 font-bold space-y-1">
-                                <span>검토 메모</span>
-                                <textarea id="modal-memo" oninput="updateCurrentWorkflowField('memo', this.value)" rows="3" placeholder="예: 규격서 확인 필요, 설치 장소 확인, 실적 제한 검토" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2 py-2 text-xs text-slate-800 resize-y"></textarea>
-                            </label>
-
-                            <div class="grid grid-cols-2 gap-2">
-                                <button onclick="toggleCurrentFavorite()" id="modal-favorite-btn" class="py-2 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 text-xs font-bold flex items-center justify-center gap-1">
-                                    <i data-lucide="star" class="w-3.5 h-3.5"></i>
-                                    <span>관심 저장</span>
-                                </button>
-                                <button onclick="copyReportSummary()" class="py-2 rounded-lg bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan text-xs font-bold flex items-center justify-center gap-1">
-                                    <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
-                                    <span>보고용 요약 복사</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
                         <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center space-x-2">
@@ -2240,12 +2171,10 @@
             const contract = getContractMethodLabel(item);
             const budget = formatKoreanCurrency(item.assignBudgetAmt);
             const priority = `${getPriorityLabel(getPriorityBucket(item))} ${computeRelevanceScore(item)}점`;
-            const status = getBidWorkflow(item).status;
-
             el.innerText = [
                 `계약방법은 ${contract || '미확인'} 기준입니다.`,
                 `예산은 ${budget}이며, ${item.serviceType} 단계의 ${item.searchKeyword || '관련'} 키워드로 수집되었습니다.`,
-                `관련도는 ${priority}, 내부 검토상태는 ${status}입니다.`,
+                `관련도는 ${priority}입니다.`,
                 `상세 검토 시 첨부 규격서, 참가자격, 납품 범위, 설치 장소, 하자/유지보수 조건을 우선 확인하십시오.`
             ].join(' ');
         }
