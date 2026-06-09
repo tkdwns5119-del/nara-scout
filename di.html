@@ -498,12 +498,12 @@
 
                     <select id="filterContract" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
                         <option value="ALL">전체 계약방법</option>
-                        <option value="수의">수의계약</option>
-                        <option value="지역">지역제한</option>
-                        <option value="지명">지명경쟁</option>
-                        <option value="제한">제한경쟁</option>
-                        <option value="협상">협상계약</option>
-                        <option value="적격">적격심사</option>
+                        <option value="PRIVATE">수의계약</option>
+                        <option value="REGION_LIMITED">지역제한</option>
+                        <option value="NOMINATED">지명경쟁</option>
+                        <option value="LIMITED">제한경쟁</option>
+                        <option value="NEGOTIATION">협상계약</option>
+                        <option value="QUALIFICATION">적격심사</option>
                     </select>
 
                     <select id="filterKeyword" onchange="applyFilters()" class="bg-slate-50 border border-slate-300 rounded-xl py-2 px-3 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyber-cyan">
@@ -1882,7 +1882,34 @@
         }
 
 
+        function getContractMethodFilterKeys(item) {
+            const raw = getContractMethods(item)
+                .join(' ')
+                .toLowerCase()
+                .replace(/\s+/g, '');
+
+            const keys = new Set();
+
+            // 드롭다운에서 삭제한 항목은 필터 매칭에서도 제외합니다.
+            // - 지역경쟁(조합)
+            // - 일반경쟁
+            // - 계약방법 미확인
+            if (!raw || raw.includes('계약방법미확인') || raw.includes('일반경쟁') || raw.includes('지역경쟁')) {
+                return [];
+            }
+
+            if (raw.includes('수의')) keys.add('PRIVATE');
+            if (raw.includes('지역제한') || raw.includes('지역제한경쟁')) keys.add('REGION_LIMITED');
+            if (raw.includes('지명')) keys.add('NOMINATED');
+            if ((raw.includes('제한경쟁') || raw.includes('제한입찰')) && !raw.includes('지역제한')) keys.add('LIMITED');
+            if (raw.includes('협상')) keys.add('NEGOTIATION');
+            if (raw.includes('적격')) keys.add('QUALIFICATION');
+
+            return [...keys];
+        }
+
         function normalizeContractMethodForFilter(item) {
+            // 기존 호출 호환용: 새 계약방법 필터는 getContractMethodFilterKeys()를 사용합니다.
             return getContractMethods(item)
                 .join(' ')
                 .toLowerCase()
@@ -1985,7 +2012,7 @@
                         <div>${getDeadlineBadgeHtml(item)}</div>
                     </td>
                     <td class="p-4 align-top text-center flex items-center justify-center space-x-1.5">
-                        <button onclick="openAiAssistant(decodeURIComponent('${detailKey}'))" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기 / 내부 검토">
+                        <button onclick="openAiAssistant(decodeURIComponent('${detailKey}'))" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="공고 상세보기">
                             <i data-lucide="file-search" class="w-3.5 h-3.5"></i>
                         </button>
                         <button onclick="openBidLink(decodeURIComponent('${originalUrl}'))" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
@@ -2006,8 +2033,6 @@
             const keyword = document.getElementById('filterKeyword').value;
             const region = document.getElementById('filterRegion').value;
             const budgetRange = document.getElementById('filterBudget').value;
-            const statusFilter = document.getElementById('filterStatus')?.value || "ALL";
-            const priorityFilter = document.getElementById('filterPriority')?.value || "ALL";
 
             let filtered = [...activeBids];
 
@@ -2017,9 +2042,7 @@
                     item.ntceInsttNm.toLowerCase().includes(query) ||
                     item.bidNtceNo.toLowerCase().includes(query) ||
                     item.region.toLowerCase().includes(query) ||
-                    getContractMethodLabel(item).toLowerCase().includes(query) ||
-                    getBidWorkflow(item).status.toLowerCase().includes(query) ||
-                    getBidWorkflow(item).memo.toLowerCase().includes(query)
+                    getContractMethodLabel(item).toLowerCase().includes(query)
                 );
             }
 
@@ -2028,8 +2051,7 @@
             }
 
             if (contractMethod !== "ALL") {
-                const target = String(contractMethod).toLowerCase().replace(/\s+/g, '');
-                filtered = filtered.filter(item => normalizeContractMethodForFilter(item).includes(target));
+                filtered = filtered.filter(item => getContractMethodFilterKeys(item).includes(contractMethod));
             }
 
             if (keyword !== "ALL") {
@@ -2049,14 +2071,6 @@
                     if (budgetRange === "OVER_500") return amt > 500000000;
                     return true;
                 });
-            }
-
-            if (statusFilter !== "ALL") {
-                filtered = filtered.filter(item => getBidWorkflow(item).status === statusFilter);
-            }
-
-            if (priorityFilter !== "ALL") {
-                filtered = filtered.filter(item => getPriorityBucket(item) === priorityFilter);
             }
 
             renderBidsTable(filtered);
