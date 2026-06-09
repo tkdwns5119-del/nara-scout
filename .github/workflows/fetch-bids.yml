@@ -38,17 +38,12 @@ jobs:
 
       - name: Fetch procurement data
         env:
-          # 필수: 나라장터 API
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
-
-          # 선택: 서비스별 키가 다른 경우만 사용
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
-
-          # AI 분석 비활성화: 공고 상세 정보 중심 운영
         run: node scripts/fetch-nara-bids.mjs
 
-       - name: Commit updated data
+      - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
