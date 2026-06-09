@@ -48,7 +48,7 @@ jobs:
           # AI 분석 비활성화: 공고 상세 정보 중심 운영
         run: node scripts/fetch-nara-bids.mjs
 
-      - name: Commit updated data
+       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -57,5 +57,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(data): sync procurement data $(date -u +'%Y-%m-%dT%H:%MZ')"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
