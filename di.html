@@ -1881,6 +1881,14 @@
             return getContractMethods(item).join(' / ');
         }
 
+
+        function normalizeContractMethodForFilter(item) {
+            return getContractMethods(item)
+                .join(' ')
+                .toLowerCase()
+                .replace(/\s+/g, '');
+        }
+
         function renderContractMethodBadges(item) {
             const methods = getContractMethods(item);
 
