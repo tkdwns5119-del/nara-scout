@@ -40,17 +40,58 @@
     const frame = document.getElementById('dashboardFrame');
     const message = document.getElementById('loadMessage');
 
+    function injectScript(doc, src) {
+      const script = doc.createElement('script');
+      script.src = src + '?t=' + Date.now();
+      script.defer = true;
+      doc.body.appendChild(script);
+    }
+
+    function injectFullWidthFix(doc) {
+      const style = doc.createElement('style');
+      style.id = 'di-full-width-fix';
+      style.textContent = `
+        header > div.max-w-7xl,
+        main.max-w-7xl,
+        main.flex-grow.max-w-7xl {
+          width: 100% !important;
+          max-width: none !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+
+        header > div.max-w-7xl {
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+
+        main.max-w-7xl,
+        main.flex-grow.max-w-7xl {
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+
+        @media (min-width: 1024px) {
+          header > div.max-w-7xl,
+          main.max-w-7xl,
+          main.flex-grow.max-w-7xl {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
+        }
+      `;
+      doc.head.appendChild(style);
+    }
+
     frame.addEventListener('load', () => {
       message.style.display = 'none';
 
       try {
         const doc = frame.contentDocument || frame.contentWindow.document;
-        const script = doc.createElement('script');
-        script.src = './firebase-workflow-adapter.js?t=' + Date.now();
-        script.defer = true;
-        doc.body.appendChild(script);
+        injectFullWidthFix(doc);
+        injectScript(doc, './firebase-workflow-adapter.js');
       } catch (error) {
-        console.error('Firebase adapter injection failed:', error);
+        console.error('Dashboard injection failed:', error);
       }
     });
   </script>
