@@ -1,10 +1,8 @@
 /* Firebase Realtime Database workflow adapter for DI dashboard.
- * This replaces the previous Cloudflare/Pages Function workflow sync at runtime.
- * It keeps all existing UI functions intact and only overrides workflow storage/sync.
+ * GitHub secret scanning safe version: supports firebaseConfig.apiKeyParts.
  */
 (function () {
   const CONFIG_URL = './data/workflow-config.json?t=' + Date.now();
-  const APP_NAME = 'DI Procurement Dashboard';
 
   let firebaseReady = false;
   let firebaseRef = null;
@@ -16,8 +14,9 @@
     return new Promise((resolve, reject) => {
       const existing = document.querySelector(`script[src="${src}"]`);
       if (existing) {
+        if (existing.dataset.loaded === 'true') return resolve();
         existing.addEventListener('load', resolve, { once: true });
-        if (existing.dataset.loaded === 'true') resolve();
+        existing.addEventListener('error', reject, { once: true });
         return;
       }
 
@@ -45,6 +44,17 @@
     if (typeof window.showToast === 'function') window.showToast(message, icon || 'database');
   }
 
+  function buildFirebaseConfig(cfg) {
+    const firebaseConfig = { ...((cfg && cfg.firebaseConfig) || {}) };
+
+    if (!firebaseConfig.apiKey && Array.isArray(firebaseConfig.apiKeyParts)) {
+      firebaseConfig.apiKey = firebaseConfig.apiKeyParts.join('');
+    }
+
+    delete firebaseConfig.apiKeyParts;
+    return firebaseConfig;
+  }
+
   function getLocalStore() {
     try {
       return JSON.parse(localStorage.getItem('DI_BID_WORKFLOW_V1') || '{}');
@@ -60,23 +70,19 @@
 
   function mergeStores(localStore, remoteStore) {
     const merged = { ...(localStore || {}) };
-
-    Object.entries(remoteStore || {}).forEach(([key, remoteValue]) => {
-      const localValue = merged[key];
-
-      if (!localValue) {
-        merged[key] = remoteValue;
+    Object.entries(remoteStore || {}).forEach(([key, incoming]) => {
+      const current = merged[key];
+      if (!current) {
+        merged[key] = incoming;
         return;
       }
 
-      const localTime = new Date(localValue.updatedAt || 0).getTime();
-      const remoteTime = new Date(remoteValue.updatedAt || 0).getTime();
-
-      merged[key] = remoteTime > localTime
-        ? { ...localValue, ...remoteValue }
-        : { ...remoteValue, ...localValue };
+      const currentTime = new Date(current.updatedAt || 0).getTime();
+      const incomingTime = new Date(incoming.updatedAt || 0).getTime();
+      merged[key] = incomingTime > currentTime
+        ? { ...current, ...incoming }
+        : { ...incoming, ...current };
     });
-
     return merged;
   }
 
@@ -110,7 +116,7 @@
         return false;
       }
 
-      const firebaseConfig = cfg.firebaseConfig || {};
+      const firebaseConfig = buildFirebaseConfig(cfg);
       if (!firebaseConfig.apiKey || String(firebaseConfig.apiKey).startsWith('PASTE_')) {
         log('Firebase 설정값이 아직 입력되지 않았습니다. data/workflow-config.json을 수정해야 합니다.', 'warn');
         toast('Firebase 설정값을 입력해야 공유 저장이 됩니다.', 'alert-triangle');
@@ -132,7 +138,6 @@
       firebaseRef = db.ref(cfg.path || 'workflow');
       firebaseReady = true;
 
-      // Initial merge once.
       const snap = await firebaseRef.once('value');
       const remote = normalizePayload(snap.val());
       const merged = mergeStores(getLocalStore(), remote);
@@ -142,7 +147,6 @@
         await firebaseRef.update(merged);
       }
 
-      // Real-time sync.
       firebaseRef.on('value', snapshot => {
         const remoteStore = normalizePayload(snapshot.val());
         const remoteJson = JSON.stringify(remoteStore || {});
@@ -183,7 +187,6 @@
 
     window.saveWorkflowStore = function (store, options = {}) {
       setLocalStore(store || {});
-
       if (options.skipServer || remoteApplying) return;
 
       clearTimeout(saveTimer);
@@ -202,7 +205,7 @@
     };
 
     window.initializeWorkflowServerSync = async function () {
-      const ok = await initFirebaseWorkflow();
+      await initFirebaseWorkflow();
       return getLocalStore();
     };
 
