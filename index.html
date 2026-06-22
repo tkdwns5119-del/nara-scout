@@ -47,6 +47,12 @@
       doc.body.appendChild(script);
     }
 
+    function injectInlineScript(doc, code) {
+      const script = doc.createElement('script');
+      script.textContent = code;
+      doc.body.appendChild(script);
+    }
+
     function injectFullWidthFix(doc) {
       const style = doc.createElement('style');
       style.id = 'di-full-width-fix';
@@ -83,12 +89,90 @@
       doc.head.appendChild(style);
     }
 
+    function injectImportantIssueFirebaseFix(doc) {
+      injectInlineScript(doc, `
+        (function () {
+          async function fixedInitializeImportantIssueSharedStore() {
+            try {
+              const res = await fetch('./data/workflow-config.json?t=' + Date.now(), { cache: 'no-store' });
+              if (!res.ok) {
+                updateImportantSharedStatus('공유 저장 설정 파일을 읽지 못했습니다. 현재 브라우저에만 저장됩니다.', 'warn');
+                return false;
+              }
+
+              const cfg = await res.json();
+              if (cfg.provider !== 'firebase') {
+                updateImportantSharedStatus('Firebase 설정이 없어 현재 브라우저에만 저장됩니다.', 'warn');
+                return false;
+              }
+
+              const firebaseConfig = { ...((cfg && cfg.firebaseConfig) || {}) };
+              if (!firebaseConfig.apiKey && Array.isArray(firebaseConfig.apiKeyParts)) {
+                firebaseConfig.apiKey = firebaseConfig.apiKeyParts.join('');
+              }
+              delete firebaseConfig.apiKeyParts;
+
+              if (!firebaseConfig.apiKey || String(firebaseConfig.apiKey).startsWith('PASTE_')) {
+                updateImportantSharedStatus('Firebase 설정값이 아직 입력되지 않아 현재 브라우저에만 저장됩니다.', 'warn');
+                return false;
+              }
+
+              await loadExternalScriptOnce('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
+              await loadExternalScriptOnce('https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js');
+
+              const appName = 'di-important-issue-store';
+              let app;
+              try {
+                app = firebase.app(appName);
+              } catch {
+                app = firebase.initializeApp(firebaseConfig, appName);
+              }
+
+              const db = firebase.database(app);
+              importantIssueFirebaseRef = db.ref(cfg.issuePath || 'importantIssues');
+              importantIssueSharedReady = true;
+
+              const snapshot = await importantIssueFirebaseRef.once('value');
+              const remoteStore = snapshot.val() || {};
+              importantIssueStore = mergeImportantIssueStores(importantIssueStore, remoteStore);
+              saveImportantIssueStore({ skipShared: true });
+
+              importantIssueFirebaseRef.on('value', snap => {
+                const remote = snap.val() || {};
+                importantIssueRemoteApplying = true;
+                importantIssueStore = mergeImportantIssueStores(importantIssueStore, remote);
+                saveImportantIssueStore({ skipShared: true });
+                importantIssueRemoteApplying = false;
+
+                renderBidsTable();
+                renderImportantIssueBids();
+                updateImportantSharedStatus('Firebase 공유 저장 동기화 완료', 'success');
+              });
+
+              await importantIssueFirebaseRef.update(importantIssueStore || {});
+              updateImportantSharedStatus('Firebase 공유 저장 연결 완료 — 다른 사용자와 체크/이슈 상태가 공유됩니다.', 'success');
+              return true;
+            } catch (error) {
+              importantIssueSharedReady = false;
+              updateImportantSharedStatus('Firebase 공유 저장 연결 실패: ' + error.message, 'error');
+              return false;
+            }
+          }
+
+          window.initializeImportantIssueSharedStore = fixedInitializeImportantIssueSharedStore;
+          try { initializeImportantIssueSharedStore = fixedInitializeImportantIssueSharedStore; } catch (error) {}
+          setTimeout(fixedInitializeImportantIssueSharedStore, 800);
+        })();
+      `);
+    }
+
     frame.addEventListener('load', () => {
       message.style.display = 'none';
 
       try {
         const doc = frame.contentDocument || frame.contentWindow.document;
         injectFullWidthFix(doc);
+        injectImportantIssueFirebaseFix(doc);
         injectScript(doc, './firebase-workflow-adapter.js');
       } catch (error) {
         console.error('Dashboard injection failed:', error);
