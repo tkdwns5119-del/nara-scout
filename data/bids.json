@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-24T12:23:54.000Z",
+  "generatedAt": "2026-06-24T16:38:12.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202605250000",
   "rangeEnd": "202606242359",
-  "totalCount": 401,
-  "rawCount": 461,
+  "totalCount": 406,
+  "rawCount": 466,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,348 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 401,
+    "skipped": 406,
     "model": null
   },
   "serviceStats": {
-    "공고": 219,
+    "공고": 222,
     "사전규격": 78,
-    "발주계획": 104
+    "발주계획": 106
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 201,
+    "디스플레이/사이니지 계열": 206,
     "미디어/파사드 계열": 159,
     "ITS/VMS 계열": 41
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20802075",
+      "bidNtceNo": "PL-R26DD20802075",
+      "bidNtceOrd": "",
+      "bidNtceNm": "도봉초 전기공사 관급자재(LED평판매입등 외1종)구매",
+      "ntceInsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "dminsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "assignBudgetAmt": 68638000,
+      "bidNtceRegistDt": "2026-06-24 16:35",
+      "bidClseDt": "2026-06",
+      "searchKeyword": "LED",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20802075",
+      "contractMethod": "지명경쟁",
+      "contractMethods": [
+        "지명경쟁"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "지명경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "06",
+        "department": "경상북도교육청 경상북도구미교육지원청",
+        "officerName": "김혜미",
+        "officerTel": "054-440-2234",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "금속제창",
+        "productDetails": "",
+        "purpose": "관급자재",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 68638000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "06"
+    },
+    {
+      "bidId": "BID-R26BK01600907-000",
+      "bidNtceNo": "R26BK01600907",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "[가상입찰] 도봉초 전기공사 관급(LED평판매입등 외1종)구매",
+      "ntceInsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "dminsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "assignBudgetAmt": 100000,
+      "bidNtceRegistDt": "2026-06-24 16:34",
+      "bidClseDt": "2026-06-30 10:00",
+      "searchKeyword": "LED",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600907&bidPbancOrd=000",
+      "contractMethod": "지명경쟁",
+      "contractMethods": [
+        "지명경쟁"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600907&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600907&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600907&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600907&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600907&bidPbancOrd=000",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
+        "contractType": "지명경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-25 10:00",
+        "bidClseDt": "2026-06-30 10:00",
+        "openDt": "2026-06-30 11:00",
+        "registerDeadline": "2026-06-29 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김혜미",
+        "officerTel": "054-440-2234",
+        "officerEmail": "the1504@gbe.kr",
+        "referenceNo": "경상북도구미교육지원청 공고 제2026-199호",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20802037",
+      "bidNtceNo": "PL-R26DD20802037",
+      "bidNtceOrd": "",
+      "bidNtceNm": "도봉초 전기공사 관급자재(LED평판매입등 외1종)구매",
+      "ntceInsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "dminsttNm": "경상북도교육청 경상북도구미교육지원청",
+      "assignBudgetAmt": 66624000,
+      "bidNtceRegistDt": "2026-06-24 16:21",
+      "bidClseDt": "2026-06",
+      "searchKeyword": "LED",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20802037",
+      "contractMethod": "지명경쟁",
+      "contractMethods": [
+        "지명경쟁"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "지명경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "06",
+        "department": "경상북도교육청 경상북도구미교육지원청",
+        "officerName": "김혜미",
+        "officerTel": "054-440-2234",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01600907000",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "관급자재",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 66624000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "06"
+    },
+    {
+      "bidId": "BID-R26BK01600673-000",
+      "bidNtceNo": "R26BK01600673",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "마이크로LED 대면적 접합 장비",
+      "ntceInsttNm": "조달청 광주지방조달청",
+      "dminsttNm": "한국광기술원",
+      "assignBudgetAmt": 1208870000,
+      "bidNtceRegistDt": "2026-06-24 16:09",
+      "bidClseDt": "2026-07-07 10:00",
+      "searchKeyword": "LED",
+      "region": "광주",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600673&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 규격가격동시",
+      "contractMethods": [
+        "일반경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600673&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600673&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01600673&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600673&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01600673&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "일반경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-03 10:00",
+        "bidClseDt": "2026-07-07 10:00",
+        "openDt": "2026-07-07 11:00",
+        "registerDeadline": "2026-07-06 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "박채원",
+        "officerTel": "070-4056-8282",
+        "officerEmail": "chacha24@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "웨이퍼다이본딩기",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01589535-000",
+      "bidNtceNo": "R26BK01589535",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "국지도 32호선 문의터널 도로안내전광판 제작 설치 사업",
+      "ntceInsttNm": "조달청 충북지방조달청",
+      "dminsttNm": "충청북도 도로관리사업소",
+      "assignBudgetAmt": 175240000,
+      "bidNtceRegistDt": "2026-06-24 15:23",
+      "bidClseDt": "2026-07-02 10:00",
+      "searchKeyword": "전광판",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01589535&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01589535&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01589535&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01589535&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01589535&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01589535&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만인 중소기업자간 경쟁물품",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-30 10:00",
+        "bidClseDt": "2026-07-02 10:00",
+        "openDt": "2026-07-02 11:00",
+        "registerDeadline": "2026-07-01 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "송화원",
+        "officerTel": "070-4056-8572",
+        "officerEmail": "486tpo@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "교통정보전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BF-R26BD00244543",
       "bidNtceNo": "BF-R26BD00244543",
@@ -17018,7 +17345,7 @@
         "officerTel": "070-4056-8282",
         "officerEmail": "",
         "referenceNo": "PUR21202604210001",
-        "linkedBidNoList": "R26BK01560621",
+        "linkedBidNoList": "R26BK01560621,R26BK01600673",
         "productName": "마이크로LED 대면적 접합 장비",
         "productDetails": "[1^2321117801^웨이퍼다이본딩기]",
         "purpose": "",
@@ -17028,7 +17355,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "PUR21202604210001",
-      "linkedBidNtceNoList": "R26BK01560621"
+      "linkedBidNtceNoList": "R26BK01560621,R26BK01600673"
     },
     {
       "bidId": "BID-R26BK01558773-000",
