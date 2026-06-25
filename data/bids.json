@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-25T09:10:03.000Z",
+  "generatedAt": "2026-06-25T14:03:40.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202605260000",
   "rangeEnd": "202606252359",
-  "totalCount": 409,
-  "rawCount": 469,
+  "totalCount": 414,
+  "rawCount": 475,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,352 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 409,
+    "skipped": 414,
     "model": null
   },
   "serviceStats": {
-    "공고": 223,
-    "사전규격": 78,
-    "발주계획": 108
+    "공고": 226,
+    "사전규격": 79,
+    "발주계획": 109
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 207,
-    "미디어/파사드 계열": 161,
+    "디스플레이/사이니지 계열": 210,
+    "미디어/파사드 계열": 163,
     "ITS/VMS 계열": 41
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01594265-001",
+      "bidNtceNo": "R26BK01594265",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "Live Meta-Cube용 실내용 LED (임차)",
+      "ntceInsttNm": "주식회사 산마루네트웍스",
+      "dminsttNm": "주식회사 산마루네트웍스",
+      "assignBudgetAmt": 109648000,
+      "bidNtceRegistDt": "2026-06-25 10:47",
+      "bidClseDt": "2026-07-01 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=001",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=001&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=001&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=001&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=001",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
+        "contractType": "제한경쟁",
+        "noticeKind": "변경공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-25 11:00",
+        "bidClseDt": "2026-07-01 10:00",
+        "openDt": "2026-07-01 11:00",
+        "registerDeadline": "2026-07-01 10:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "유승민",
+        "officerTel": "***********",
+        "officerEmail": "seungminyr@smrnw.net",
+        "referenceNo": "2026-002",
+        "linkedBidNoList": "",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01601733-000",
+      "bidNtceNo": "R26BK01601733",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "강원1인미디어센터 및 미디어교육 운영 용역",
+      "ntceInsttNm": "(재)강릉과학산업진흥원",
+      "dminsttNm": "(재)강릉과학산업진흥원",
+      "assignBudgetAmt": 83000000,
+      "bidNtceRegistDt": "2026-06-25 10:32",
+      "bidClseDt": "2026-07-09 17:00",
+      "searchKeyword": "미디어",
+      "region": "강원",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01601733&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01601733&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01601733&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01601733&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01601733&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-07 10:00",
+        "bidClseDt": "2026-07-09 17:00",
+        "openDt": "2026-07-15 10:00",
+        "registerDeadline": "2026-07-08 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "원현석",
+        "officerTel": "033-650-3335",
+        "officerEmail": "",
+        "referenceNo": "강릉정보문화진흥센터-2085",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20802611",
+      "bidNtceNo": "PL-R26DD20802611",
+      "bidNtceOrd": "",
+      "bidNtceNm": "대구교육낙동강수련원 강당 LED 디스플레이 구매 설치",
+      "ntceInsttNm": "대구광역시교육청 대구교육낙동강수련원",
+      "dminsttNm": "대구광역시교육청 대구교육낙동강수련원",
+      "assignBudgetAmt": 150000000,
+      "bidNtceRegistDt": "2026-06-25 09:49",
+      "bidClseDt": "2026-06",
+      "searchKeyword": "LED",
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20802611",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "06",
+        "department": "총무부",
+        "officerName": "김희정",
+        "officerTel": "053-231-2963",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "전광판",
+        "productDetails": "",
+        "purpose": "강당  LED 전광판",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 150000000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "06"
+    },
+    {
+      "bidId": "BF-R26BD00244912",
+      "bidNtceNo": "BF-R26BD00244912",
+      "bidNtceOrd": "",
+      "bidNtceNm": "[긴급] 용인삼성생명블루밍스농구단 소셜미디어 운영",
+      "ntceInsttNm": "한국여자농구연맹",
+      "dminsttNm": "한국여자농구연맹",
+      "assignBudgetAmt": 72600000,
+      "bidNtceRegistDt": "2026-06-25 09:24",
+      "bidClseDt": "2026-06-28 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00244912",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00244912&fileType=BFDTL&fileSeq=2"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00244912&fileType=BFDTL&fileSeq=3"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-06-28 23:59",
+        "deliveryLimitDt": "2027-04-30 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김희나",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "2026-20",
+        "linkedBidNoList": "",
+        "productName": "[긴급] 용인삼성생명블루밍스농구단 소셜미디어 운영",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "일반용역"
+      },
+      "refNo": "2026-20",
+      "linkedBidNtceNoList": ""
+    },
+    {
+      "bidId": "BID-R26BK01594265-000",
+      "bidNtceNo": "R26BK01594265",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "Live Meta-Cube용 실내용 LED (임차)",
+      "ntceInsttNm": "주식회사 산마루네트웍스",
+      "dminsttNm": "주식회사 산마루네트웍스",
+      "assignBudgetAmt": 109648000,
+      "bidNtceRegistDt": "2026-06-25 09:19",
+      "bidClseDt": "2026-07-01 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=000",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01594265&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01594265&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-06-25 10:00",
+        "bidClseDt": "2026-07-01 10:00",
+        "openDt": "2026-07-01 11:00",
+        "registerDeadline": "2026-07-01 10:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "유승민",
+        "officerTel": "***********",
+        "officerEmail": "seungminyr@smrnw.net",
+        "referenceNo": "2026-002",
+        "linkedBidNoList": "",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "PL-R26DD20802540",
       "bidNtceNo": "PL-R26DD20802540",
@@ -2501,7 +2832,7 @@
         "officerTel": "02-416-0365",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01594265001",
         "productName": "영상정보디스플레이장치",
         "productDetails": "",
         "purpose": "Live Meta-Cube LED 디스플레이 (임차)",
@@ -2842,7 +3173,7 @@
         "officerTel": "***********",
         "officerEmail": "",
         "referenceNo": "2026-002",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01594265",
         "productName": "Live Meta-Cube용 실내용 LED (임차)",
         "productDetails": "[1^4511189301^영상정보디스플레이장치]",
         "purpose": "",
@@ -2852,7 +3183,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "2026-002",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01594265"
     },
     {
       "bidId": "BID-R26BK01593128-000",
@@ -4964,7 +5295,7 @@
         "officerTel": "033-650-3335",
         "officerEmail": "",
         "referenceNo": "강릉정보문화진흥센터-2085",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01601733",
         "productName": "강원1인미디어센터 및 미디어교육 운영 용역",
         "productDetails": "",
         "purpose": "",
@@ -4974,7 +5305,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "강릉정보문화진흥센터-2085",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01601733"
     },
     {
       "bidId": "PL-R26DD20794777",
@@ -5020,7 +5351,7 @@
         "officerTel": "033-650-3387",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01601733000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
