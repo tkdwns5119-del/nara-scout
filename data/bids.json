@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-26T16:50:01.000Z",
+  "generatedAt": "2026-06-26T19:49:21.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202605270000",
   "rangeEnd": "202606262359",
-  "totalCount": 401,
-  "rawCount": 463,
+  "totalCount": 402,
+  "rawCount": 464,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,92 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 401,
+    "skipped": 402,
     "model": null
   },
   "serviceStats": {
-    "공고": 221,
+    "공고": 222,
     "사전규격": 77,
     "발주계획": 103
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 212,
-    "미디어/파사드 계열": 150,
+    "미디어/파사드 계열": 151,
     "ITS/VMS 계열": 39
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01604308-001",
+      "bidNtceNo": "R26BK01604308",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "경성대학교 미디어콘텐츠학과 실습실 컴퓨터, 모니터 구매",
+      "ntceInsttNm": "경성대학교",
+      "dminsttNm": "경성대학교",
+      "assignBudgetAmt": 71775000,
+      "bidNtceRegistDt": "2026-06-26 17:09",
+      "bidClseDt": "2026-07-07 11:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01604308&bidPbancOrd=001",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01604308&bidPbancOrd=001&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01604308&bidPbancOrd=001&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01604308&bidPbancOrd=001&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01604308&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01604308&bidPbancOrd=001",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "최저가낙찰제-최저가낙찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "변경공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-01 11:00",
+        "bidClseDt": "2026-07-07 11:00",
+        "openDt": "2026-07-07 14:00",
+        "registerDeadline": "2026-07-07 11:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "심영수",
+        "officerTel": "051-663-4132",
+        "officerEmail": "sys1229@ks.ac.kr",
+        "referenceNo": "총무팀 제26-9호",
+        "linkedBidNoList": "",
+        "productName": "데스크톱컴퓨터",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "PL-R26DD20804586",
       "bidNtceNo": "PL-R26DD20804586",
