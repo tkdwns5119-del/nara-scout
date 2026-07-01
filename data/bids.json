@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-01T17:10:37.000Z",
+  "generatedAt": "2026-07-01T21:03:01.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606010000",
   "rangeEnd": "202607012359",
-  "totalCount": 390,
-  "rawCount": 451,
+  "totalCount": 393,
+  "rawCount": 454,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,228 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 390,
+    "skipped": 393,
     "model": null
   },
   "serviceStats": {
-    "공고": 224,
+    "공고": 226,
     "사전규격": 67,
-    "발주계획": 99
+    "발주계획": 100
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 207,
-    "미디어/파사드 계열": 148,
+    "디스플레이/사이니지 계열": 209,
+    "미디어/파사드 계열": 149,
     "ITS/VMS 계열": 35
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01612265-000",
+      "bidNtceNo": "R26BK01612265",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "Live Meta-Cube용 실내용 LED (임차)",
+      "ntceInsttNm": "주식회사 산마루네트웍스",
+      "dminsttNm": "주식회사 산마루네트웍스",
+      "assignBudgetAmt": 124607080,
+      "bidNtceRegistDt": "2026-07-01 17:48",
+      "bidClseDt": "2026-07-07 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612265&bidPbancOrd=000",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612265&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612265&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612265&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612265&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612265&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-01 19:00",
+        "bidClseDt": "2026-07-07 10:00",
+        "openDt": "2026-07-07 11:00",
+        "registerDeadline": "2026-07-07 10:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "유승민",
+        "officerTel": "***********",
+        "officerEmail": "seungminyr@smrnw.net",
+        "referenceNo": "2026-002",
+        "linkedBidNoList": "",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01612271-000",
+      "bidNtceNo": "R26BK01612271",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026 청주 국가유산 미디어아트 콘텐츠 구축 및 운영 용역",
+      "ntceInsttNm": "재단법인 청주시문화산업진흥재단",
+      "dminsttNm": "재단법인 청주시문화산업진흥재단",
+      "assignBudgetAmt": 1166000000,
+      "bidNtceRegistDt": "2026-07-01 17:45",
+      "bidClseDt": "2026-07-14 17:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612271&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612271&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612271&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612271&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612271&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01612271&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612271&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01612271&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정(SW사업)",
+        "contractType": "제한경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-10 10:00",
+        "bidClseDt": "2026-07-14 17:00",
+        "openDt": "2026-07-14 18:00",
+        "registerDeadline": "2026-07-13 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김수호",
+        "officerTel": "043-219-1007",
+        "officerEmail": "",
+        "referenceNo": "2026-0240",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20808751",
+      "bidNtceNo": "PL-R26DD20808751",
+      "bidNtceOrd": "",
+      "bidNtceNm": "Live Meta-Cube용 실내용 LED (임차)",
+      "ntceInsttNm": "주식회사 산마루네트웍스",
+      "dminsttNm": "주식회사 산마루네트웍스",
+      "assignBudgetAmt": 109648000,
+      "bidNtceRegistDt": "2026-07-01 17:43",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20808751",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "제한경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "운영관리본부",
+        "officerName": "유승민",
+        "officerTel": "02-416-0365",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01612265000",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "Live Meta-Cube LED 디스플레이 (임차)",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 109648000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
     {
       "bidId": "BID-R26BK01610213-000",
       "bidNtceNo": "R26BK01610213",
@@ -7327,7 +7534,7 @@
         "officerTel": "***********",
         "officerEmail": "",
         "referenceNo": "2026-002",
-        "linkedBidNoList": "R26BK01594265",
+        "linkedBidNoList": "R26BK01612265,R26BK01594265",
         "productName": "Live Meta-Cube용 실내용 LED (임차)",
         "productDetails": "[1^4511189301^영상정보디스플레이장치]",
         "purpose": "",
@@ -7337,7 +7544,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "2026-002",
-      "linkedBidNtceNoList": "R26BK01594265"
+      "linkedBidNtceNoList": "R26BK01612265,R26BK01594265"
     },
     {
       "bidId": "BID-R26BK01593128-000",
