@@ -2186,6 +2186,10 @@
                         let budget = Number(getVal("assignBudgetAmt")) || Number(getVal("presmptPrce")) || Number(getVal("assignBdgtAmt")) || 0;
                         let rgst = getVal("bidNtceRegistDt") || getVal("rgstDt") || getVal("ordPlanRegistDt") || "";
                         let clse = getVal("bidClseDt") || getVal("rcptEndDt") || getVal("exeYr") || "";
+                        let contactName = getVal("ntceInsttOfclNm") || getVal("bidNtceChargerNm") || getVal("bidNtceChgrNm") || getVal("ofclNm") || getVal("chargerNm") || "";
+                        let contactTel = getVal("ntceInsttOfclTelNo") || getVal("bidNtceChargerTelNo") || getVal("bidNtceChgrTelNo") || getVal("ofclTelNo") || getVal("chargerTelNo") || "";
+                        let contactEmail = getVal("ntceInsttOfclEmailAdres") || getVal("ntceInsttOfclEmailAddr") || getVal("bidNtceChargerEmailAdres") || getVal("ofclEmailAdres") || "";
+                        let contactDept = getVal("ntceInsttOfclDeptNm") || getVal("bidNtceChargerDeptNm") || getVal("ofclDeptNm") || "";
 
                         itemsList.push({
                             serviceType: specServiceType,
@@ -2196,6 +2200,10 @@
                             assignBudgetAmt: budget,
                             bidNtceRegistDt: rgst,
                             bidClseDt: clse,
+                            ntceInsttOfclNm: contactName,
+                            ntceInsttOfclTelNo: contactTel,
+                            ntceInsttOfclEmailAdres: contactEmail,
+                            ntceInsttOfclDeptNm: contactDept,
                             g2bUrl: getVal("bidNtceDtlUrl") || "https://www.g2b.go.kr"
                         });
                     }
@@ -2567,6 +2575,93 @@
             `;
         }
 
+        function pickContactField(item, keys) {
+            for (const key of keys) {
+                const value = item?.[key];
+                if (value !== undefined && value !== null && String(value).trim() !== '') return String(value).trim();
+            }
+
+            const detailInfo = item?.detailInfo || item?.detail || item?.raw || {};
+            if (detailInfo && typeof detailInfo === 'object') {
+                for (const key of keys) {
+                    const value = detailInfo?.[key];
+                    if (value !== undefined && value !== null && String(value).trim() !== '') return String(value).trim();
+                }
+            }
+
+            return '';
+        }
+
+        function getContactName(item) {
+            return pickContactField(item, [
+                'ntceInsttOfclNm',
+                'bidNtceChargerNm',
+                'bidNtceChgrNm',
+                'ntceInsttChargerNm',
+                'dminsttOfclNm',
+                'dminsttChargerNm',
+                'prcrmntReqstdocRcptChargerNm',
+                'ofclNm',
+                'chargerNm',
+                'contactName',
+                'managerName',
+                '담당자명',
+                '담당자'
+            ]);
+        }
+
+        function getContactTel(item) {
+            return pickContactField(item, [
+                'ntceInsttOfclTelNo',
+                'bidNtceChargerTelNo',
+                'bidNtceChgrTelNo',
+                'ntceInsttChargerTelNo',
+                'dminsttOfclTelNo',
+                'dminsttChargerTelNo',
+                'prcrmntReqstdocRcptChargerTelNo',
+                'ofclTelNo',
+                'chargerTelNo',
+                'telNo',
+                'contactTel',
+                'managerTel',
+                'phone',
+                'telephone',
+                '담당자전화번호',
+                '전화번호'
+            ]);
+        }
+
+        function getContactEmail(item) {
+            return pickContactField(item, [
+                'ntceInsttOfclEmailAdres',
+                'ntceInsttOfclEmailAddr',
+                'bidNtceChargerEmailAdres',
+                'bidNtceChgrEmailAdres',
+                'dminsttOfclEmailAdres',
+                'ofclEmailAdres',
+                'chargerEmail',
+                'contactEmail',
+                'managerEmail',
+                'email',
+                '담당자이메일'
+            ]);
+        }
+
+        function getContactDept(item) {
+            return pickContactField(item, [
+                'ntceInsttOfclDeptNm',
+                'bidNtceChargerDeptNm',
+                'bidNtceChgrDeptNm',
+                'dminsttOfclDeptNm',
+                'ofclDeptNm',
+                'chargerDeptNm',
+                'contactDept',
+                'managerDept',
+                'deptNm',
+                '담당부서'
+            ]);
+        }
+
         function openBidDetail(bidNo) {
             const item = activeBids.find(b => b.bidNtceNo === bidNo);
             if (!item) return;
@@ -2590,6 +2685,10 @@
             const dday = getDdayLabel(item.bidClseDt);
             const opportunity = getOpportunityLevel(item);
             const stageDescription = getStageDescription(serviceType);
+            const contactName = getContactName(item) || '담당자명 미확인';
+            const contactTel = getContactTel(item) || '전화번호 미확인';
+            const contactEmail = getContactEmail(item) || '';
+            const contactDept = getContactDept(item) || '';
 
             const summary = [
                 '[사업 검토 요약]',
@@ -2597,6 +2696,10 @@
                 `- 유형/번호: ${serviceType} / ${item.bidNtceNo || '-'}`,
                 `- 진행단계: ${stageDescription}`,
                 `- 계약방법: ${contract}`,
+                `- 담당자: ${contactName}`,
+                `- 담당자 전화번호: ${contactTel}`,
+                contactDept ? `- 담당부서: ${contactDept}` : null,
+                contactEmail ? `- 담당자 이메일: ${contactEmail}` : null,
                 `- 공고기관: ${item.ntceInsttNm || '-'}`,
                 `- 수요기관: ${item.dminsttNm || '-'}`,
                 `- 지역: ${item.region || '-'}`,
@@ -2605,7 +2708,7 @@
                 `- ${closeLabel}: ${formatBidDate(item.bidClseDt)} / ${dday}`,
                 `- 검토상태: ${reviewStatus}`,
                 `- 검토우선도: ${opportunity}`
-            ].join('\n');
+            ].filter(Boolean).join('\n');
 
             document.getElementById('modal-serviceType').innerText = serviceType;
             document.getElementById('modal-serviceType').className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
@@ -2617,12 +2720,18 @@
             document.getElementById('modal-basic-grid').innerHTML =
                 detailCard('공고기관', item.ntceInsttNm) +
                 detailCard('수요기관', item.dminsttNm) +
+                detailCard('담당자', contactName, contactDept) +
+                detailCard('담당자 전화번호', contactTel, contactEmail) +
                 detailCard('지역', item.region) +
                 detailCard('배정 예산', budget, budgetBand) +
                 detailCard('마감 상태', dday, closeLabel);
 
             document.getElementById('modal-detail-list').innerHTML =
                 detailCard('계약방법', contract) +
+                detailCard('담당자명', contactName) +
+                detailCard('담당자 전화번호', contactTel) +
+                detailCard('담당부서', contactDept || '-') +
+                detailCard('담당자 이메일', contactEmail || '-') +
                 detailCard('수집 키워드', item.searchKeyword) +
                 detailCard('공고 번호', item.bidNtceNo) +
                 detailCard('업무 단계', stageDescription) +
@@ -2653,6 +2762,10 @@
                 <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
                     <div class="text-[10px] font-bold text-slate-500 mb-1">확인 방향</div>
                     <div>${serviceType === '사전규격' ? '규격 단계에서 제안 가능한 항목과 제한 조건을 먼저 확인하는 것이 유리합니다.' : '입찰 조건, 납품 범위, 현장 설치 조건을 우선 확인해야 합니다.'}</div>
+                </div>
+                <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+                    <div class="text-[10px] font-bold text-slate-500 mb-1">담당자 확인</div>
+                    <div>${contactName === '담당자명 미확인' && contactTel === '전화번호 미확인' ? '수집 데이터에 담당자 정보가 없으면 원문 공고에서 담당자 항목을 확인해야 합니다.' : `담당자 ${contactName}, 연락처 ${contactTel} 기준으로 원문 공고와 일치 여부를 확인하세요.`}</div>
                 </div>
                 <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
                     <div class="text-[10px] font-bold text-slate-500 mb-1">주의사항</div>
