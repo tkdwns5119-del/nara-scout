@@ -19,7 +19,17 @@
       try {
         const res = await fetch(SOURCE_HTML, { cache: 'no-store' });
         if (!res.ok) throw new Error('대시보드 원본 로딩 실패: HTTP ' + res.status);
-        const html = await res.text();
+        let html = await res.text();
+
+        html = html.replace(
+          'const firebaseConfig = cfg.firebaseConfig || {};',
+          `const firebaseConfig = { ...(cfg.firebaseConfig || {}) };
+                if (!firebaseConfig.apiKey && Array.isArray(firebaseConfig.apiKeyParts)) {
+                    firebaseConfig.apiKey = firebaseConfig.apiKeyParts.join('');
+                }
+                delete firebaseConfig.apiKeyParts;`
+        );
+
         document.open();
         document.write(html.replace('</body>', '<script src="./detail-contact-patch.js?t=' + Date.now() + '"><\\/script></body>'));
         document.close();
