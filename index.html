@@ -166,6 +166,45 @@
       `);
     }
 
+    function injectPlainDetailViewFix(doc) {
+      injectInlineScript(doc, `
+        (function () {
+          function applyPlainDetailView() {
+            var modal = document.getElementById('aiAssistantModal');
+            if (!modal) return;
+            var title = modal.querySelector('h3');
+            if (title) title.textContent = '사업 기본 상세정보';
+            var subtitle = title && title.parentElement ? title.parentElement.querySelector('p') : null;
+            if (subtitle) subtitle.textContent = '나라장터 수집 데이터 기준 핵심 정보 정리';
+            var icon = modal.querySelector('[data-lucide="sparkles"]');
+            if (icon) icon.setAttribute('data-lucide', 'file-search');
+            var bodyGrid = modal.querySelector('.flex-grow.p-6.overflow-y-auto.grid');
+            if (bodyGrid) bodyGrid.className = 'flex-grow p-6 overflow-y-auto grid grid-cols-1 gap-6';
+            var actionTitle = Array.from(modal.querySelectorAll('h5')).find(function (el) { return el.textContent.indexOf('Groq') > -1 || el.textContent.indexOf('조달 의사결정') > -1; });
+            if (actionTitle) {
+              var actionBox = actionTitle.closest('.border-t');
+              if (actionBox) actionBox.remove();
+            }
+            var outputBox = document.getElementById('ai-output-box');
+            if (outputBox) {
+              var rightPanel = outputBox.closest('.flex.flex-col');
+              if (rightPanel) rightPanel.remove();
+            }
+            document.querySelectorAll('button[title*="AI"], button[title*="제안전략"]').forEach(function (btn) { btn.title = '사업 상세정보 보기'; });
+            if (window.lucide) lucide.createIcons();
+          }
+          var oldOpen = window.openAiAssistant;
+          window.openAiAssistant = function (bidNo) {
+            if (typeof oldOpen === 'function') oldOpen(bidNo);
+            setTimeout(applyPlainDetailView, 0);
+          };
+          try { openAiAssistant = window.openAiAssistant; } catch (error) {}
+          setTimeout(applyPlainDetailView, 200);
+          setTimeout(applyPlainDetailView, 1000);
+        })();
+      `);
+    }
+
     frame.addEventListener('load', () => {
       message.style.display = 'none';
 
@@ -173,6 +212,7 @@
         const doc = frame.contentDocument || frame.contentWindow.document;
         injectFullWidthFix(doc);
         injectImportantIssueFirebaseFix(doc);
+        injectPlainDetailViewFix(doc);
         injectScript(doc, './firebase-workflow-adapter.js');
       } catch (error) {
         console.error('Dashboard injection failed:', error);
