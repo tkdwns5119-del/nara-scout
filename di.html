@@ -765,27 +765,91 @@
 
     <!-- BID DETAIL MODAL -->
     <div id="aiAssistantModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
+        <div class="bg-white rounded-3xl max-w-7xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 animate-fade-in">
             <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
                 <div class="flex items-center space-x-2.5">
-                    <span class="p-2 bg-cyan-100 text-cyber-cyan rounded-xl"><i data-lucide="file-search" class="w-5 h-5 text-cyber-cyan"></i></span>
-                    <div><h3 class="font-extrabold text-slate-900 text-sm sm:text-base">사업 기본 상세정보</h3><p class="text-[10px] sm:text-xs text-slate-500">나라장터 수집 데이터 기준 핵심 정보 정리</p></div>
+                    <span class="p-2 bg-cyan-100 text-cyber-cyan rounded-xl">
+                        <i data-lucide="file-search" class="w-5 h-5 text-cyber-cyan"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-sm sm:text-base">사업 기본 상세정보</h3>
+                        <p class="text-[10px] sm:text-xs text-slate-500">나라장터 수집 데이터 기준 상세 검토 화면</p>
+                    </div>
                 </div>
-                <button onclick="closeAiAssistant()" class="p-2 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button onclick="closeAiAssistant()" class="p-2 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </div>
-            <div class="flex-grow p-6 overflow-y-auto space-y-5">
+
+            <div class="flex-grow p-5 sm:p-6 overflow-y-auto space-y-5">
                 <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-                    <div class="flex justify-between items-center gap-3"><span id="modal-serviceType" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border"></span><span id="modal-bidNo" class="text-[10px] text-slate-400 font-mono"></span></div>
-                    <h4 id="modal-title" class="font-extrabold text-slate-900 text-base sm:text-lg leading-snug"></h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="modal-basic-grid"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span id="modal-serviceType" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border"></span>
+                            <span id="modal-reviewStatus" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border bg-emerald-50 text-emerald-700 border-emerald-200"></span>
+                            <span id="modal-opportunityLevel" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border bg-slate-50 text-slate-700 border-slate-200"></span>
+                        </div>
+                        <span id="modal-bidNo" class="text-[10px] text-slate-400 font-mono"></span>
+                    </div>
+                    <h4 id="modal-title" class="font-extrabold text-slate-900 text-base sm:text-xl leading-snug"></h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="modal-basic-grid"></div>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden"><div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900">상세 항목</div><div id="modal-detail-list" class="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3"></div></div>
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden"><div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900">검토용 요약</div><div id="modal-summary-box" class="p-4 text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line"></div></div>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <button id="modal-g2bBtn" class="flex-1 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold transition flex items-center justify-center space-x-1.5"><i data-lucide="external-link" class="w-4 h-4"></i><span>나라장터 원본공고 이동</span></button>
-                    <button id="modal-copySummaryBtn" class="flex-1 py-3 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan text-xs font-bold transition flex items-center justify-center space-x-1.5"><i data-lucide="copy" class="w-4 h-4"></i><span>검토 요약 복사</span></button>
+
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                    <div class="xl:col-span-2 space-y-4">
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900 flex items-center gap-2">
+                                <i data-lucide="list-checks" class="w-4 h-4 text-cyber-cyan"></i>
+                                <span>상세 항목</span>
+                            </div>
+                            <div id="modal-detail-list" class="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900 flex items-center gap-2">
+                                <i data-lucide="calendar-clock" class="w-4 h-4 text-cyber-cyan"></i>
+                                <span>일정 / 단계</span>
+                            </div>
+                            <div id="modal-timeline-list" class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900 flex items-center gap-2">
+                                <i data-lucide="clipboard-check" class="w-4 h-4 text-cyber-cyan"></i>
+                                <span>실무 검토 체크포인트</span>
+                            </div>
+                            <div id="modal-checkpoint-list" class="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900 flex items-center gap-2">
+                                <i data-lucide="target" class="w-4 h-4 text-cyber-cyan"></i>
+                                <span>영업 검토 포인트</span>
+                            </div>
+                            <div id="modal-review-box" class="p-4 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2"></div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                            <div class="p-4 border-b border-slate-100 bg-slate-50 font-bold text-sm text-slate-900 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-4 h-4 text-cyber-cyan"></i>
+                                <span>검토용 요약</span>
+                            </div>
+                            <div id="modal-summary-box" class="p-4 text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <button id="modal-g2bBtn" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-bold transition flex items-center justify-center space-x-1.5">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                <span>나라장터 원본공고 이동</span>
+                            </button>
+                            <button id="modal-copySummaryBtn" class="w-full py-3 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 text-cyber-cyan text-xs font-bold transition flex items-center justify-center space-x-1.5">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                                <span>검토 요약 복사</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1745,7 +1809,7 @@
                             <i data-lucide="flag" class="w-3.5 h-3.5"></i>
                         </button>
                         <button onclick="openAiAssistant('${item.bidNtceNo}')" class="p-2 bg-cyan-50 hover:bg-cyan-100 text-cyber-cyan rounded-lg border border-cyan-200 transition" title="상세보기">
-                            <i data-lucide="file-search" class="w-3.5 h-3.5"></i><span class="text-[10px] font-bold">상세</span></button>
+                            <i data-lucide="file-search" class="w-3.5 h-3.5"></i></button>
                         <button onclick="openBidLink('${item.g2bUrl}')" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg border border-slate-300 transition" title="나라장터 원본 열기">
                             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </button>
@@ -2408,12 +2472,14 @@
         
         // /AI generation functions removed.
 
-        function detailCard(label, value) {
+        function detailCard(label, value, sub = '') {
             const safeValue = value === undefined || value === null || value === '' ? '-' : String(value);
+            const subText = sub ? `<div class="text-[10px] text-slate-400 mt-1 leading-snug">${sub}</div>` : '';
             return `
                 <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
                     <div class="text-[10px] text-slate-400 font-semibold mb-1">${label}</div>
                     <div class="text-xs sm:text-sm font-bold text-slate-800 break-words">${safeValue}</div>
+                    ${subText}
                 </div>
             `;
         }
@@ -2429,6 +2495,78 @@
             return '미검토';
         }
 
+        function parseBidDate(value) {
+            if (!value) return null;
+            const raw = String(value).trim();
+            const normalized = raw
+                .replace(/[.]/g, '-')
+                .replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')
+                .replace(/(\d{2}):(\d{2}).*$/, '$1:$2');
+            const match = normalized.match(/(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{2}):(\d{2}))?/);
+            if (!match) return null;
+            const [, y, m, d, hh = '00', mm = '00'] = match;
+            const date = new Date(Number(y), Number(m) - 1, Number(d), Number(hh), Number(mm));
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        function formatBidDate(value) {
+            const date = parseBidDate(value);
+            if (!date) return value || '-';
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const mi = String(date.getMinutes()).padStart(2, '0');
+            const hasTime = hh !== '00' || mi !== '00';
+            return `${yyyy}-${mm}-${dd}${hasTime ? ` ${hh}:${mi}` : ''}`;
+        }
+
+        function getDdayLabel(value) {
+            const date = parseBidDate(value);
+            if (!date) return '일정 미확인';
+            const today = new Date();
+            const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const diff = Math.ceil((end - start) / 86400000);
+            if (diff > 0) return `D-${diff}`;
+            if (diff === 0) return 'D-DAY';
+            return `마감 ${Math.abs(diff)}일 경과`;
+        }
+
+        function getBudgetBand(amount) {
+            const n = Number(amount) || 0;
+            if (n >= 500000000) return '5억 이상 / 대형';
+            if (n >= 200000000) return '2억~5억 / 중대형';
+            if (n >= 50000000) return '5천만~2억 / 일반';
+            if (n > 0) return '5천만 이하 / 소형';
+            return '예산 미확인';
+        }
+
+        function getOpportunityLevel(item) {
+            const amount = Number(item.assignBudgetAmt) || 0;
+            const method = typeof getContractMethodLabel === 'function' ? getContractMethodLabel(item) : String(item.contractMethod || '');
+            if (item.serviceType === '사전규격') return '사전검토 우선';
+            if (amount >= 200000000) return '중점 검토';
+            if (method.includes('수의')) return '빠른 확인';
+            if (amount >= 50000000) return '일반 검토';
+            return '선별 검토';
+        }
+
+        function getStageDescription(serviceType) {
+            if (serviceType === '사전규격') return '공고 전 규격 검토 단계';
+            if (serviceType === '발주계획') return '향후 발주 예정 단계';
+            return '입찰공고 진행 단계';
+        }
+
+        function checkpointItem(text, icon = 'check-circle') {
+            return `
+                <div class="flex items-start gap-2 bg-slate-50 border border-slate-200 rounded-xl p-2.5">
+                    <i data-lucide="${icon}" class="w-3.5 h-3.5 text-cyber-cyan mt-0.5 shrink-0"></i>
+                    <span>${text}</span>
+                </div>
+            `;
+        }
+
         function openBidDetail(bidNo) {
             const item = activeBids.find(b => b.bidNtceNo === bidNo);
             if (!item) return;
@@ -2440,35 +2578,95 @@
             let badgeStyle = 'border-cyan-200 bg-cyan-50 text-cyber-cyan';
             if (serviceType === '사전규격') badgeStyle = 'border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia';
             if (serviceType === '발주계획') badgeStyle = 'border-amber-200 bg-amber-50 text-cyber-amber';
-            const contract = typeof getContractMethodLabel === 'function' ? getContractMethodLabel(item) : (item.contractMethod || item.contractMethodRaw || item.cntrctMthdNm || '계약방법 미확인');
+
+            const contract = typeof getContractMethodLabel === 'function'
+                ? getContractMethodLabel(item)
+                : (item.contractMethod || item.contractMethodRaw || item.cntrctMthdNm || '계약방법 미확인');
+
             const budget = formatKoreanCurrency(item.assignBudgetAmt || 0);
+            const budgetBand = getBudgetBand(item.assignBudgetAmt);
             const closeLabel = serviceType === '공고' ? '마감일' : (serviceType === '사전규격' ? '의견종료' : '예정월');
             const reviewStatus = getReviewStatusLabel(item);
+            const dday = getDdayLabel(item.bidClseDt);
+            const opportunity = getOpportunityLevel(item);
+            const stageDescription = getStageDescription(serviceType);
+
             const summary = [
                 '[사업 검토 요약]',
                 `- 사업명: ${item.bidNtceNm || '-'}`,
                 `- 유형/번호: ${serviceType} / ${item.bidNtceNo || '-'}`,
+                `- 진행단계: ${stageDescription}`,
                 `- 계약방법: ${contract}`,
                 `- 공고기관: ${item.ntceInsttNm || '-'}`,
                 `- 수요기관: ${item.dminsttNm || '-'}`,
                 `- 지역: ${item.region || '-'}`,
-                `- 예산: ${budget}`,
-                `- 등록일: ${item.bidNtceRegistDt || '-'}`,
-                `- ${closeLabel}: ${item.bidClseDt || '-'}`,
-                `- 검토상태: ${reviewStatus}`
+                `- 예산: ${budget} (${budgetBand})`,
+                `- 등록일: ${formatBidDate(item.bidNtceRegistDt)}`,
+                `- ${closeLabel}: ${formatBidDate(item.bidClseDt)} / ${dday}`,
+                `- 검토상태: ${reviewStatus}`,
+                `- 검토우선도: ${opportunity}`
             ].join('\n');
+
             document.getElementById('modal-serviceType').innerText = serviceType;
             document.getElementById('modal-serviceType').className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyle}`;
+            document.getElementById('modal-reviewStatus').innerText = reviewStatus;
+            document.getElementById('modal-opportunityLevel').innerText = opportunity;
             document.getElementById('modal-bidNo').innerText = item.bidNtceNo || '-';
             document.getElementById('modal-title').innerText = item.bidNtceNm || '-';
-            document.getElementById('modal-basic-grid').innerHTML = detailCard('공고기관', item.ntceInsttNm) + detailCard('수요기관', item.dminsttNm) + detailCard('지역', item.region) + detailCard('배정 예산', budget);
-            document.getElementById('modal-detail-list').innerHTML = detailCard('계약방법', contract) + detailCard('키워드', item.searchKeyword) + detailCard('등록일', item.bidNtceRegistDt) + detailCard(closeLabel, item.bidClseDt) + detailCard('검토상태', reviewStatus) + detailCard('원본 URL', item.g2bUrl || 'https://www.g2b.go.kr');
+
+            document.getElementById('modal-basic-grid').innerHTML =
+                detailCard('공고기관', item.ntceInsttNm) +
+                detailCard('수요기관', item.dminsttNm) +
+                detailCard('지역', item.region) +
+                detailCard('배정 예산', budget, budgetBand) +
+                detailCard('마감 상태', dday, closeLabel);
+
+            document.getElementById('modal-detail-list').innerHTML =
+                detailCard('계약방법', contract) +
+                detailCard('수집 키워드', item.searchKeyword) +
+                detailCard('공고 번호', item.bidNtceNo) +
+                detailCard('업무 단계', stageDescription) +
+                detailCard('검토상태', reviewStatus) +
+                detailCard('검토우선도', opportunity) +
+                detailCard('예산 구간', budgetBand) +
+                detailCard('원본 URL', item.g2bUrl || 'https://www.g2b.go.kr') +
+                detailCard('공고명 원문', item.bidNtceNm);
+
+            document.getElementById('modal-timeline-list').innerHTML =
+                detailCard('등록일', formatBidDate(item.bidNtceRegistDt)) +
+                detailCard(closeLabel, formatBidDate(item.bidClseDt), dday) +
+                detailCard('현재 단계', stageDescription);
+
+            document.getElementById('modal-checkpoint-list').innerHTML =
+                checkpointItem('공고문·규격서·과업지시서 원문 확인') +
+                checkpointItem('LED 전광판 규격, 픽셀피치, 표출면 크기 확인') +
+                checkpointItem('제어기, 통신 방식, 전원/분전함 범위 확인') +
+                checkpointItem('현장 실측, 구조물 보강, 마감 범위 확인') +
+                checkpointItem('참가자격, 지역제한, 실적 조건 확인') +
+                checkpointItem('납기, 설치 가능 기간, 하자/유지보수 조건 확인');
+
+            document.getElementById('modal-review-box').innerHTML = `
+                <div class="rounded-xl bg-cyan-50 border border-cyan-200 p-3">
+                    <div class="text-[10px] font-bold text-cyber-cyan mb-1">1차 판단</div>
+                    <div class="font-semibold text-slate-800">${opportunity}</div>
+                </div>
+                <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+                    <div class="text-[10px] font-bold text-slate-500 mb-1">확인 방향</div>
+                    <div>${serviceType === '사전규격' ? '규격 단계에서 제안 가능한 항목과 제한 조건을 먼저 확인하는 것이 유리합니다.' : '입찰 조건, 납품 범위, 현장 설치 조건을 우선 확인해야 합니다.'}</div>
+                </div>
+                <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+                    <div class="text-[10px] font-bold text-slate-500 mb-1">주의사항</div>
+                    <div>현재 화면은 수집 메타데이터 기준 요약입니다. 최종 판단은 나라장터 원문 공고와 첨부 규격서를 기준으로 확인해야 합니다.</div>
+                </div>
+            `;
+
             document.getElementById('modal-summary-box').innerText = summary;
             document.getElementById('modal-g2bBtn').onclick = () => openBidLink(item.g2bUrl || 'https://www.g2b.go.kr');
             document.getElementById('modal-copySummaryBtn').onclick = () => {
                 navigator.clipboard.writeText(summary);
                 showToast('검토 요약을 복사했습니다.', 'copy');
             };
+
             modal.classList.remove('hidden');
             lucide.createIcons();
         }
