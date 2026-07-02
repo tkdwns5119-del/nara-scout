@@ -30,8 +30,12 @@
                 delete firebaseConfig.apiKeyParts;`
         );
 
+        const patchStamp = Date.now();
+        const patchScripts = '<script src="./detail-contact-patch.js?t=' + patchStamp + '"><\\/script>'
+          + '<script src="./ui-polish-patch.js?t=' + patchStamp + '"><\\/script>';
+
         document.open();
-        document.write(html.replace('</body>', '<script src="./detail-contact-patch.js?t=' + Date.now() + '"><\\/script></body>'));
+        document.write(html.replace('</body>', patchScripts + '</body>'));
         document.close();
       } catch (error) {
         document.body.innerHTML = '<div class="loading"><strong>대시보드 로딩 실패</strong><div>' + error.message + '</div></div>';
