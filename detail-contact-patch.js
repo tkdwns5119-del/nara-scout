@@ -9,10 +9,19 @@
     for (const k of keys) { const val = d?.[k]; if (val != null && String(val).trim()) return String(val).trim(); }
     return '';
   };
-  const nameOf = i => pick(i, ['ntceInsttOfclNm','bidNtceChargerNm','bidNtceChgrNm','ofclNm','chargerNm','contactName','managerName','officerName','담당자명','담당자']);
-  const telOf = i => pick(i, ['ntceInsttOfclTelNo','bidNtceChargerTelNo','bidNtceChgrTelNo','ofclTelNo','chargerTelNo','telNo','contactTel','managerTel','officerTel','phone','telephone','담당자전화번호','전화번호']);
-  const emailOf = i => pick(i, ['ntceInsttOfclEmailAdres','ntceInsttOfclEmailAdrs','ntceInsttOfclEmailAddr','bidNtceChargerEmailAdres','ofclEmailAdres','officerEmail','contactEmail','managerEmail','email']);
-  const deptOf = i => pick(i, ['ntceInsttOfclDeptNm','bidNtceChargerDeptNm','ofclDeptNm','chargerDeptNm','deptNm','department','contactDept','managerDept','officerDept']);
+  const originalContact = (fn, item) => {
+    try {
+      const f = window?.[fn];
+      const value = typeof f === 'function' ? f(item) : '';
+      return value != null && String(value).trim() ? String(value).trim() : '';
+    } catch {
+      return '';
+    }
+  };
+  const nameOf = i => originalContact('getContactName', i) || pick(i, ['ntceInsttOfclNm','bidNtceChargerNm','bidNtceChgrNm','ntceInsttChargerNm','dminsttOfclNm','dminsttChargerNm','prcrmntReqstdocRcptChargerNm','ofclNm','chargerNm','contactName','managerName','officerName','담당자명','담당자']);
+  const telOf = i => originalContact('getContactTel', i) || pick(i, ['ntceInsttOfclTelNo','bidNtceChargerTelNo','bidNtceChgrTelNo','ntceInsttChargerTelNo','dminsttOfclTelNo','dminsttChargerTelNo','prcrmntReqstdocRcptChargerTelNo','ofclTelNo','chargerTelNo','telNo','contactTel','managerTel','officerTel','phone','telephone','담당자전화번호','전화번호']);
+  const emailOf = i => originalContact('getContactEmail', i) || pick(i, ['ntceInsttOfclEmailAdres','ntceInsttOfclEmailAdrs','ntceInsttOfclEmailAddr','bidNtceChargerEmailAdres','bidNtceChgrEmailAdres','dminsttOfclEmailAdres','ofclEmailAdres','chargerEmail','officerEmail','contactEmail','managerEmail','email','담당자이메일']);
+  const deptOf = i => originalContact('getContactDept', i) || pick(i, ['ntceInsttOfclDeptNm','bidNtceChargerDeptNm','bidNtceChgrDeptNm','dminsttOfclDeptNm','ofclDeptNm','chargerDeptNm','deptNm','department','contactDept','managerDept','officerDept','담당부서']);
   const money = x => { try { return formatKoreanCurrency(Number(x) || 0); } catch { return (Number(x) || 0).toLocaleString('ko-KR') + '원'; } };
   const card = (l, val, sub = '') => `<div class="bg-slate-50 border border-slate-200 rounded-xl p-3"><div class="text-[10px] text-slate-400 font-semibold mb-1">${l}</div><div class="text-xs sm:text-sm font-bold text-slate-800 break-words">${v(val)}</div>${sub ? `<div class="text-[10px] text-slate-400 mt-1">${sub}</div>` : ''}</div>`;
   const method = i => { try { return getContractMethodLabel(i); } catch { return i.contractMethod || i.contractMethodRaw || '계약방법 미확인'; } };
