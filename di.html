@@ -30,6 +30,30 @@
                 delete firebaseConfig.apiKeyParts;`
         );
 
+        html = html.replace(
+          `const remoteStore = snapshot.val() || {};
+                importantIssueStore = mergeImportantIssueStores(importantIssueStore, remoteStore);
+                saveImportantIssueStore({ skipShared: true });`,
+          `const remoteStore = snapshot.val();
+                importantIssueStore = remoteStore && typeof remoteStore === 'object' ? remoteStore : {};
+                saveImportantIssueStore({ skipShared: true });`
+        );
+
+        html = html.replace(
+          `const remote = snap.val() || {};
+                    importantIssueRemoteApplying = true;
+                    importantIssueStore = mergeImportantIssueStores(importantIssueStore, remote);`,
+          `const remote = snap.val();
+                    importantIssueRemoteApplying = true;
+                    importantIssueStore = remote && typeof remote === 'object' ? remote : {};`
+        );
+
+        html = html.replace(
+          `                await importantIssueFirebaseRef.update(importantIssueStore || {});
+                updateImportantSharedStatus('Firebase 공유 저장 연결 완료 — 다른 사용자와 체크/이슈 상태가 공유됩니다.', 'success');`,
+          `                updateImportantSharedStatus('Firebase 공유 저장 연결 완료 — 다른 사용자와 체크/이슈 상태가 공유됩니다.', 'success');`
+        );
+
         const patchStamp = Date.now();
         const patchScripts = '<script src="./detail-contact-patch.js?t=' + patchStamp + '"><\\/script>'
           + '<script src="./ui-polish-patch.js?t=' + patchStamp + '"><\\/script>';
