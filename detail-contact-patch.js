@@ -72,8 +72,8 @@
 
   const show = no => {
     const i = (window.activeBids || activeBids || []).find(x => x.bidNtceNo === no);
-    if (!i) return;
-    const m = shell(); if (!m) return;
+    if (!i) return false;
+    const m = shell(); if (!m) return false;
     const t = i.serviceType || '-', nm = nameOf(i) || '담당자명 미확인', tel = telOf(i) || '전화번호 미확인', em = emailOf(i), dp = deptOf(i), b = money(i.assignBudgetAmt), bd = band(i.assignBudgetAmt), st = status(i), lv = level(i), cl = t === '공고' ? '마감일' : t === '사전규격' ? '의견종료' : '예정월';
     const summary = ['[사업 검토 요약]','- 사업명: ' + v(i.bidNtceNm),'- 유형/번호: ' + t + ' / ' + v(i.bidNtceNo),'- 담당자: ' + nm,'- 담당자 전화번호: ' + tel, dp ? '- 담당부서: ' + dp : null, em ? '- 담당자 이메일: ' + em : null, '- 계약방법: ' + method(i), '- 공고기관: ' + v(i.ntceInsttNm), '- 수요기관: ' + v(i.dminsttNm), '- 지역: ' + v(i.region), '- 예산: ' + b + ' (' + bd + ')', '- ' + cl + ': ' + v(i.bidClseDt) + ' / ' + dday(i.bidClseDt), '- 검토상태: ' + st, '- 검토우선도: ' + lv].filter(Boolean).join('\n');
     document.getElementById('d-type').innerText = t; document.getElementById('d-type').className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold border ' + (t === '사전규격' ? 'border-fuchsia-200 bg-fuchsia-50 text-cyber-fuchsia' : t === '발주계획' ? 'border-amber-200 bg-amber-50 text-cyber-amber' : 'border-cyan-200 bg-cyan-50 text-cyber-cyan');
@@ -82,15 +82,38 @@
     document.getElementById('d-detail').innerHTML = card('사업 유형', t) + card('공고 번호', i.bidNtceNo) + card('계약방법', method(i)) + card('공고기관', i.ntceInsttNm) + card('수요기관', i.dminsttNm) + card('지역', i.region) + card('담당자명', nm, dp) + card('담당자 전화번호', tel, em) + card('담당부서', dp || '-') + card('담당자 이메일', em || '-') + card('예산 구간', bd, b) + card('마감/예정', i.bidClseDt, cl + ' / ' + dday(i.bidClseDt)) + card('검토 상태', st) + card('검토 우선도', lv) + card('수집 키워드', i.searchKeyword) + card('원본 URL', i.g2bUrl || 'https://www.g2b.go.kr');
     document.getElementById('d-summary').innerText = summary; document.getElementById('d-link').onclick = () => openBidLink(i.g2bUrl || 'https://www.g2b.go.kr'); document.getElementById('d-copy').onclick = () => { navigator.clipboard.writeText(summary); try { showToast('검토 요약을 복사했습니다.', 'copy'); } catch {} };
     m.classList.remove('hidden'); if (window.lucide) lucide.createIcons();
+    return true;
   };
 
-  const deco = () => { document.querySelectorAll('button[onclick*="openAiAssistant"]').forEach(b => { b.title = '상세보기'; b.innerHTML = '<i data-lucide="file-search" class="w-3.5 h-3.5"></i>'; }); if (window.lucide) lucide.createIcons(); };
+  const originalOpenBidDetail = window.openBidDetail || (typeof openBidDetail === 'function' && openBidDetail);
+  const originalOpenAiAssistant = window.openAiAssistant || (typeof openAiAssistant === 'function' && openAiAssistant);
+  const openPatchedDetail = (bidNo) => {
+    if (show(bidNo)) return true;
+    const fallback = originalOpenBidDetail || originalOpenAiAssistant;
+    if (typeof fallback === 'function' && fallback !== openPatchedDetail) {
+      fallback(bidNo);
+      return true;
+    }
+    return false;
+  };
+  const deco = () => { document.querySelectorAll('button[onclick*="openAiAssistant"],button[onclick*="openBidDetail"]').forEach(b => { b.title = '상세보기'; b.innerHTML = '<i data-lucide="file-search" class="w-3.5 h-3.5"></i>'; }); if (window.lucide) lucide.createIcons(); };
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest('[onclick*="openAiAssistant"],[onclick*="openBidDetail"]');
+    if (!trigger) return;
+    const onclick = trigger.getAttribute('onclick') || '';
+    const match = onclick.match(/open(?:AiAssistant|BidDetail)\('([^']+)'\)/);
+    if (!match) return;
+    if (show(match[1])) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
   window.openBidDetailPatched = show;
   window.openAiAssistantPatched = show;
-  window.openBidDetail = show;
-  window.openAiAssistant = show;
-  try { openBidDetail = show; } catch {}
-  try { openAiAssistant = show; } catch {}
+  window.openBidDetail = openPatchedDetail;
+  window.openAiAssistant = openPatchedDetail;
+  try { openBidDetail = openPatchedDetail; } catch {}
+  try { openAiAssistant = openPatchedDetail; } catch {}
   const old = window.renderBidsTable || (typeof renderBidsTable === 'function' && renderBidsTable); if (typeof old === 'function' && !old.__patchedDetail) { const p = x => { old(x); setTimeout(deco, 0); }; p.__patchedDetail = true; window.renderBidsTable = p; try { renderBidsTable = p; } catch {} }
   setTimeout(deco, 200); setInterval(deco, 2000); setTimeout(fixImportantFirebase, 800);
 })();
