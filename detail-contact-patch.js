@@ -38,11 +38,18 @@
       const ref = firebase.database(app).ref(cfg.issuePath || 'importantIssues');
       window.importantIssueFirebaseRef = ref;
       window.importantIssueSharedReady = true;
+      const applyRemoteStore = remote => {
+        const nextStore = remote && typeof remote === 'object' ? remote : {};
+        window.importantIssueStore = nextStore;
+        try { importantIssueStore = nextStore; } catch {}
+        if (typeof saveImportantIssueStore === 'function') saveImportantIssueStore({ skipShared: true });
+        try { if (typeof updateImportantIssueSummary === 'function') updateImportantIssueSummary(); } catch {}
+        try { renderBidsTable(); } catch {}
+        try { renderImportantIssueBids(); } catch {}
+      };
       const snap = await ref.once('value');
-      if (typeof mergeImportantIssueStores === 'function') window.importantIssueStore = mergeImportantIssueStores(window.importantIssueStore || importantIssueStore || {}, snap.val() || {});
-      if (typeof saveImportantIssueStore === 'function') saveImportantIssueStore({ skipShared: true });
-      ref.on('value', s => { try { window.importantIssueStore = mergeImportantIssueStores(window.importantIssueStore || importantIssueStore || {}, s.val() || {}); saveImportantIssueStore({ skipShared: true }); renderBidsTable(); renderImportantIssueBids(); updateImportantSharedStatus('Firebase 공유 저장 동기화 완료', 'success'); } catch {} });
-      await ref.update(window.importantIssueStore || importantIssueStore || {});
+      applyRemoteStore(snap.val());
+      ref.on('value', s => { try { applyRemoteStore(s.val()); updateImportantSharedStatus('Firebase 공유 저장 동기화 완료', 'success'); } catch {} });
       updateImportantSharedStatus('Firebase 공유 저장 연결 완료 — 다른 사용자와 체크/이슈 상태가 공유됩니다.', 'success');
     } catch (e) { try { updateImportantSharedStatus('Firebase 공유 저장 연결 실패: ' + e.message, 'error'); } catch {} }
   }
