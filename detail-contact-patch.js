@@ -85,7 +85,12 @@
   };
 
   const deco = () => { document.querySelectorAll('button[onclick*="openAiAssistant"]').forEach(b => { b.title = '상세보기'; b.innerHTML = '<i data-lucide="file-search" class="w-3.5 h-3.5"></i>'; }); if (window.lucide) lucide.createIcons(); };
-  window.openBidDetail = show; window.openAiAssistant = show; try { openAiAssistant = show; } catch {}
+  window.openBidDetailPatched = show;
+  window.openAiAssistantPatched = show;
+  window.openBidDetail = show;
+  window.openAiAssistant = show;
+  try { openBidDetail = show; } catch {}
+  try { openAiAssistant = show; } catch {}
   const old = window.renderBidsTable || (typeof renderBidsTable === 'function' && renderBidsTable); if (typeof old === 'function' && !old.__patchedDetail) { const p = x => { old(x); setTimeout(deco, 0); }; p.__patchedDetail = true; window.renderBidsTable = p; try { renderBidsTable = p; } catch {} }
   setTimeout(deco, 200); setInterval(deco, 2000); setTimeout(fixImportantFirebase, 800);
 })();
