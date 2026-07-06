@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-06T16:19:07.000Z",
+  "generatedAt": "2026-07-06T21:03:01.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606060000",
   "rangeEnd": "202607062359",
-  "totalCount": 354,
-  "rawCount": 403,
+  "totalCount": 356,
+  "rawCount": 405,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,149 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 354,
+    "skipped": 356,
     "model": null
   },
   "serviceStats": {
-    "공고": 194,
+    "공고": 195,
     "사전규격": 65,
-    "발주계획": 95
+    "발주계획": 96
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 187,
     "미디어/파사드 계열": 129,
-    "ITS/VMS 계열": 38
+    "ITS/VMS 계열": 40
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01619499-000",
+      "bidNtceNo": "R26BK01619499",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "안동시 지능형교통체계(ITS) 유지관리 용역(협상)(재공고)",
+      "ntceInsttNm": "경상북도 안동시",
+      "dminsttNm": "경상북도 안동시",
+      "assignBudgetAmt": 285000000,
+      "bidNtceRegistDt": "2026-07-06 20:54",
+      "bidClseDt": "2026-07-20 15:00",
+      "searchKeyword": "ITS",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01619499&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01619499&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01619499&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01619499&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01619499&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01619499&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-07-20 15:00",
+        "registerDeadline": "2026-07-17 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "금보경",
+        "officerTel": "054-840-6136",
+        "officerEmail": "",
+        "referenceNo": "안동시 공고 제2026-1637호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20812718",
+      "bidNtceNo": "PL-R26DD20812718",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026년 안동시 지능형교통체계(ITS) 유지관리 용역",
+      "ntceInsttNm": "경상북도 안동시",
+      "dminsttNm": "경상북도 안동시",
+      "assignBudgetAmt": 285000000,
+      "bidNtceRegistDt": "2026-07-06 20:37",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "ITS",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20812718",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "회계과",
+        "officerName": "금보경",
+        "officerTel": "054-840-6136",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01619499000",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 285000000,
+        "rawBusinessDivision": "용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
     {
       "bidId": "BID-R26BK01618069-000",
       "bidNtceNo": "R26BK01618069",
@@ -182,10 +310,6 @@
         {
           "label": "규격문서 3",
           "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00248762&fileType=BFDTL&fileSeq=3"
-        },
-        {
-          "label": "규격문서 4",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00248762&fileType=BFDTL&fileSeq=4"
         }
       ],
       "detailInfo": {
@@ -13617,7 +13741,7 @@
         "officerTel": "055-751-5565",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01618069000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "국방기술품질원 본원 정책관 로비 홍보전시용 LED전광판 구매설치",
