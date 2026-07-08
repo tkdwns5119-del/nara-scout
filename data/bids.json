@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-08T07:58:46.000Z",
+  "generatedAt": "2026-07-08T09:05:17.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606080000",
   "rangeEnd": "202607082359",
-  "totalCount": 369,
-  "rawCount": 419,
+  "totalCount": 370,
+  "rawCount": 420,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,97 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 369,
+    "skipped": 370,
     "model": null
   },
   "serviceStats": {
-    "공고": 203,
+    "공고": 204,
     "사전규격": 68,
     "발주계획": 98
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 194,
     "미디어/파사드 계열": 133,
-    "ITS/VMS 계열": 42
+    "ITS/VMS 계열": 43
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01621964-000",
+      "bidNtceNo": "R26BK01621964",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "HyperWorks 25 Unit S/W 유지보수 용역",
+      "ntceInsttNm": "국방과학연구소",
+      "dminsttNm": "국방과학연구소",
+      "assignBudgetAmt": 38900000,
+      "bidNtceRegistDt": "2026-07-08 08:45",
+      "bidClseDt": "2026-07-14 10:00",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01621964&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01621964&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01621964&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01621964&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01621964&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01621964&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01621964&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-소프트웨어용역(중소기업자간 경쟁제품 대상) 적격심사 추정가격 5억원 미만",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-09 10:00",
+        "bidClseDt": "2026-07-14 10:00",
+        "openDt": "2026-07-14 11:00",
+        "registerDeadline": "2026-07-13 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "남가영",
+        "officerTel": "042-821-3829",
+        "officerEmail": "",
+        "referenceNo": "TB260416UD",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01621692-000",
       "bidNtceNo": "R26BK01621692",
