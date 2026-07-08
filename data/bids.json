@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-08T17:05:29.000Z",
+  "generatedAt": "2026-07-08T19:14:17.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606080000",
   "rangeEnd": "202607082359",
-  "totalCount": 379,
-  "rawCount": 431,
+  "totalCount": 381,
+  "rawCount": 434,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -15,21 +15,146 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 0,
-    "skipped": 379,
+    "skipped": 381,
     "model": null
   },
   "serviceStats": {
-    "공고": 210,
-    "사전규격": 70,
+    "공고": 211,
+    "사전규격": 71,
     "발주계획": 99
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 201,
-    "미디어/파사드 계열": 135,
-    "ITS/VMS 계열": 43
+    "미디어/파사드 계열": 136,
+    "ITS/VMS 계열": 44
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01624056-000",
+      "bidNtceNo": "R26BK01624056",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(수의시담) 2026년 지능형교통체계(ITS) 보강 및 확장사업(긴급, 협상에 의한 계약)",
+      "ntceInsttNm": "울산광역시",
+      "dminsttNm": "울산광역시",
+      "assignBudgetAmt": 703100000,
+      "bidNtceRegistDt": "2026-07-08 18:45",
+      "bidClseDt": "2026-07-10 12:00",
+      "searchKeyword": "ITS",
+      "region": "울산",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624056&bidPbancOrd=000",
+      "contractMethod": "수의계약 / 협상계약",
+      "contractMethods": [
+        "수의계약",
+        "협상계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01624056&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624056&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624056&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-10 10:00",
+        "bidClseDt": "2026-07-10 12:00",
+        "openDt": "2026-07-10 13:00",
+        "registerDeadline": "2026-07-09 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김수은",
+        "officerTel": "052-229-2565",
+        "officerEmail": "",
+        "referenceNo": "회계과-",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BF-R26BD00250034",
+      "bidNtceNo": "BF-R26BD00250034",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안동댐 미디어파사드 제조구매설치",
+      "ntceInsttNm": "한국수자원공사",
+      "dminsttNm": "한국수자원공사",
+      "assignBudgetAmt": 328680000,
+      "bidNtceRegistDt": "2026-07-08 17:26",
+      "bidClseDt": "2026-07-13 09:00",
+      "searchKeyword": "파사드",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00250034",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00250034&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-07-13 09:00",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "S1202601751",
+        "linkedBidNoList": "",
+        "productName": "안동댐 미디어파사드 제조구매설치",
+        "productDetails": "[1^^물품]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "S1202601751",
+      "linkedBidNtceNoList": ""
+    },
     {
       "bidId": "BF-R26BD00249983",
       "bidNtceNo": "BF-R26BD00249983",
