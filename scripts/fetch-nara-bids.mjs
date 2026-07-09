@@ -121,6 +121,7 @@ const PAGE_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 30000;
 const RETRY_COUNT = 3;
 const MAX_PAGES_PER_QUERY = 5;
+const UPDATE_SCHEDULE_KST = ['08:00', '14:00', '17:00'];
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -1212,6 +1213,12 @@ async function main() {
         failedCalls: errors.length,
         requestDelayMs: REQUEST_DELAY_MS,
         maxPagesPerQuery: MAX_PAGES_PER_QUERY,
+        updateSchedule: {
+            timezone: 'Asia/Seoul',
+            times: UPDATE_SCHEDULE_KST,
+            source: 'GitHub Actions',
+            note: 'GitHub Actions schedules use UTC and may start a few minutes late depending on platform load.'
+        },
         aiStats,
         serviceStats,
         categoryStats,

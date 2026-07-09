@@ -2,7 +2,11 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    - cron: '0 */1 * * *'
+    # GitHub Actions cron uses UTC.
+    # 23:00 UTC = 08:00 KST, 05:00 UTC = 14:00 KST, 08:00 UTC = 17:00 KST.
+    - cron: '0 23 * * *'
+    - cron: '0 5 * * *'
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 permissions:
@@ -10,7 +14,7 @@ permissions:
 
 concurrency:
   group: sync-nara-bids
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   fetch:
@@ -41,6 +45,9 @@ jobs:
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
+          AI_ANALYSIS_LIMIT: ${{ vars.AI_ANALYSIS_LIMIT }}
         run: node scripts/fetch-nara-bids.mjs
 
       - name: Commit updated data

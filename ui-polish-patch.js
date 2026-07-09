@@ -179,6 +179,20 @@
       border-radius: var(--di-radius) !important;
     }
 
+    .di-sync-meta {
+      margin-top: 4px;
+      font-size: 10px;
+      line-height: 1.35;
+      color: #667085;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .di-sync-meta {
+        white-space: normal;
+      }
+    }
+
     #aiAssistantModal > div {
       border-radius: var(--di-radius) !important;
       box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22) !important;
@@ -228,6 +242,95 @@
       showToast(message, icon);
     } catch {
       console.log(message);
+    }
+  };
+
+  const DEFAULT_UPDATE_TIMES_KST = ["08:00", "14:00", "17:00"];
+
+  const formatKstDateTime = (value) => {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+
+    return new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(date);
+  };
+
+  const getNextUpdateText = (times = DEFAULT_UPDATE_TIMES_KST) => {
+    const now = new Date();
+    const kstParts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).formatToParts(now).reduce((acc, part) => {
+      if (part.type !== "literal") acc[part.type] = part.value;
+      return acc;
+    }, {});
+
+    const todayMinutes = Number(kstParts.hour) * 60 + Number(kstParts.minute);
+    const parsedTimes = (times && times.length ? times : DEFAULT_UPDATE_TIMES_KST)
+      .map((time) => {
+        const [hour, minute] = String(time).split(":").map(Number);
+        return { text: String(time), minutes: hour * 60 + minute };
+      })
+      .filter((item) => Number.isFinite(item.minutes))
+      .sort((a, b) => a.minutes - b.minutes);
+
+    const next = parsedTimes.find((item) => item.minutes > todayMinutes) || parsedTimes[0];
+    return next ? next.text : "";
+  };
+
+  const ensureSyncMetaElement = () => {
+    const sync = document.getElementById("syncStatusText");
+    if (!sync) return null;
+
+    let meta = document.getElementById("diSyncMeta");
+    if (!meta) {
+      meta = document.createElement("div");
+      meta.id = "diSyncMeta";
+      meta.className = "di-sync-meta";
+      sync.parentElement?.insertAdjacentElement("afterend", meta);
+    }
+
+    return meta;
+  };
+
+  const updateSyncMeta = (payload) => {
+    const sync = document.getElementById("syncStatusText");
+    const meta = ensureSyncMetaElement();
+    if (!sync || !meta || !payload) return;
+
+    const times = payload.updateSchedule?.times || DEFAULT_UPDATE_TIMES_KST;
+    const generated = formatKstDateTime(payload.generatedAt);
+    const next = getNextUpdateText(times);
+    const total = Number(payload.totalCount || 0).toLocaleString("ko-KR");
+
+    sync.textContent = generated
+      ? `\ucd5c\uc885 \uc5c5\ub370\uc774\ud2b8 ${generated} KST`
+      : "\uc870\ub2ec \ub370\uc774\ud130 \ub3d9\uae30\ud654";
+    sync.className = "text-xs text-emerald-700 font-bold";
+
+    meta.textContent = `\uc218\uc9d1 ${total}\uac74 / \uc608\uc815 ${times.join(", ")} KST${next ? ` / \ub2e4\uc74c ${next}` : ""}`;
+  };
+
+  const refreshSyncMeta = async () => {
+    try {
+      const res = await fetch("./data/bids.json?t=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      updateSyncMeta(await res.json());
+    } catch (error) {
+      const meta = ensureSyncMetaElement();
+      if (meta) meta.textContent = `\uac31\uc2e0 \uc0c1\ud0dc \ud655\uc778 \uc2e4\ud328: ${error.message}`;
     }
   };
 
@@ -330,7 +433,7 @@
 
   const polishText = () => {
     const sync = document.getElementById("syncStatusText");
-    if (sync) sync.textContent = "조달 데이터 동기화";
+    if (sync && !document.getElementById("diSyncMeta")) sync.textContent = "\uc870\ub2ec \ub370\uc774\ud130 \ub3d9\uae30\ud654";
 
     document.querySelectorAll("button").forEach((button) => {
       button.classList.add("di-control");
@@ -349,5 +452,7 @@
   }
 
   setTimeout(polishText, 300);
+  setTimeout(refreshSyncMeta, 900);
   setTimeout(refreshImportantViews, 600);
+  setInterval(refreshSyncMeta, 5 * 60 * 1000);
 })();
