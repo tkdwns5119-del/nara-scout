@@ -393,6 +393,11 @@
       text-overflow: ellipsis;
     }
 
+    .published-date {
+      color: #475569;
+      font-weight: 700;
+    }
+
     .badge-row {
       display: flex;
       flex-wrap: wrap;
@@ -1487,6 +1492,7 @@
               <div class="title-cell">
                 <div class="title-main">${safe(item.bidNtceNm)}</div>
                 <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${safe(item.region)}</div>
+                <div class="title-sub published-date">\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
                 <div class="badge-row">
                   ${r.checked ? `<span class="badge green">체크</span>` : ""}
                   ${r.issue ? `<span class="badge red">이슈</span>` : ""}
@@ -1535,6 +1541,7 @@
         <div class="field-grid">
           ${field("\uC218\uC694\uAE30\uAD00", item.dminsttNm)}
           ${field("\uACF5\uACE0\uAE30\uAD00", item.ntceInsttNm)}
+          ${field(item.serviceType === "\uACF5\uACE0" ? "\uACF5\uACE0 \uAC8C\uC2DC\uC77C" : "\uB4F1\uB85D\uC77C", item.bidNtceRegistDt)}
           ${field("\uC608\uC0B0", money(item.assignBudgetAmt))}
           ${field("\uB9C8\uAC10/\uC608\uC815", `${safe(item.bidClseDt)} / ${d.text}${d.sub ? ` (${d.sub})` : ""}`)}
           ${field("\uB2F4\uB2F9\uC790", c.name)}
@@ -1578,6 +1585,7 @@
         `[DI \uC870\uB2EC \uAC80\uD1A0] ${safe(item.bidNtceNm)}`,
         `\uC720\uD615: ${typeLabel(item)} / \uBC88\uD638: ${safe(item.bidNtceNo)}`,
         `\uAE30\uAD00: ${safe(item.dminsttNm || item.ntceInsttNm)}`,
+        `\uAC8C\uC2DC/\uB4F1\uB85D: ${safe(item.bidNtceRegistDt)}`,
         `\uC608\uC0B0: ${money(item.assignBudgetAmt)}`,
         `\uB9C8\uAC10: ${safe(item.bidClseDt)} (${deadline.text}${deadline.sub ? ` / ${deadline.sub}` : ""})`,
         ...reviewLines,
