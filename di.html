@@ -385,6 +385,32 @@
       -webkit-box-orient: vertical;
     }
 
+    .business-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .business-title-row .title-main { min-width: 0; }
+
+    .contract-prefix {
+      flex: 0 0 auto;
+      max-width: 126px;
+      min-height: 20px;
+      padding: 0 6px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      background: #f3f6fa;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .title-sub {
       color: var(--muted);
       font-size: 11px;
@@ -1187,6 +1213,12 @@
 
     const typeLabel = (item) => safe(item.serviceType, "공고");
 
+    const contractLabel = (item) => {
+      const raw = safe(item.contractMethod || item.contractMethodRaw, "");
+      if (!raw || raw === item.serviceType) return "\uACC4\uC57D \uBBF8\uC815";
+      return raw.replace(/\s*\/\s*/g, " \u00B7 ");
+    };
+
     const contact = (item) => {
       const detail = item.detailInfo || {};
       return {
@@ -1464,6 +1496,7 @@
             <div class="badge-row">
               <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
               <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "orange" : "gray"}">${d.text}</span>
+              <span class="badge gray">${contractLabel(item)}</span>
             </div>
             <div class="title-main">${safe(item.bidNtceNm)}</div>
             <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${money(item.assignBudgetAmt)}</div>
@@ -1490,7 +1523,10 @@
           <tr class="${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
             <td>
               <div class="title-cell">
-                <div class="title-main">${safe(item.bidNtceNm)}</div>
+                <div class="business-title-row">
+                  <span class="contract-prefix" title="${contractLabel(item)}">${contractLabel(item)}</span>
+                  <div class="title-main">${safe(item.bidNtceNm)}</div>
+                </div>
                 <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${safe(item.region)}</div>
                 <div class="title-sub published-date">\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
                 <div class="badge-row">
