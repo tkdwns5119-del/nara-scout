@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-13T17:21:07.000Z",
+  "generatedAt": "2026-07-13T20:13:58.000Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606130000",
   "rangeEnd": "202607132359",
-  "totalCount": 323,
-  "rawCount": 372,
+  "totalCount": 326,
+  "rawCount": 376,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,218 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 5,
-    "cached": 15,
-    "skipped": 303,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 306,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 174,
+    "공고": 176,
     "사전규격": 65,
-    "발주계획": 84
+    "발주계획": 85
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 175,
-    "미디어/파사드 계열": 108,
-    "ITS/VMS 계열": 40
+    "미디어/파사드 계열": 109,
+    "ITS/VMS 계열": 42
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01629271-000",
+      "bidNtceNo": "R26BK01629271",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 지능형교통체계(ITS) 시설물 부품 구매",
+      "ntceInsttNm": "경기도 화성시",
+      "dminsttNm": "경기도 화성시",
+      "assignBudgetAmt": 77690000,
+      "bidNtceRegistDt": "2026-07-13 17:58",
+      "bidClseDt": "2026-07-21 10:00",
+      "searchKeyword": "ITS",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01629271&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01629271&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01629271&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01629271&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01629271&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01629271&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01629271&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자입찰",
+        "awardMethod": "소액수의견적-소액수의견적(2인 이상 견적 제출)",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-14 10:00",
+        "bidClseDt": "2026-07-21 10:00",
+        "openDt": "2026-07-21 11:00",
+        "registerDeadline": "2026-07-20 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김유리",
+        "officerTel": "031-5189-6708",
+        "officerEmail": "yul2@korea.kr",
+        "referenceNo": "교통정책과-8142",
+        "linkedBidNoList": "",
+        "productName": "교통관제시스템",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20819029",
+      "bidNtceNo": "PL-R26DD20819029",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026년 지능형교통체계(ITS) 시설물 부품 구매",
+      "ntceInsttNm": "경기도 화성시",
+      "dminsttNm": "경기도 화성시",
+      "assignBudgetAmt": 77690000,
+      "bidNtceRegistDt": "2026-07-13 17:45",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "ITS",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20819029",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "교통정책과",
+        "officerName": "이민영",
+        "officerTel": "031-5189-3996",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01629271000",
+        "productName": "교통관제시스템",
+        "productDetails": "",
+        "purpose": "2026년 지능형교통체계(ITS) 시설물 부품",
+        "quantity": "",
+        "unit": "식",
+        "orderAmount": 77690000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
+    {
+      "bidId": "BID-R26BK01630694-000",
+      "bidNtceNo": "R26BK01630694",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "디지털미디어 전환 AI 뉴스 데스크 연계, 신문제작시스템 고도화 구축",
+      "ntceInsttNm": "(주)동양미디어",
+      "dminsttNm": "(주)동양미디어",
+      "assignBudgetAmt": 49500000,
+      "bidNtceRegistDt": "2026-07-13 17:43",
+      "bidClseDt": "2026-07-27 10:00",
+      "searchKeyword": "디지털 미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01630694&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01630694&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01630694&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01630694&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정(SW사업)",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-14 10:00",
+        "bidClseDt": "2026-07-27 10:00",
+        "openDt": "2026-07-27 11:00",
+        "registerDeadline": "2026-07-24 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "신선호",
+        "officerTel": "043-218-3223",
+        "officerEmail": "",
+        "referenceNo": "2026-DY-01",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "PL-R26DD20818969",
       "bidNtceNo": "PL-R26DD20818969",
@@ -84,7 +279,7 @@
         "officerTel": "043-218-3443",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01630694000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -181,7 +376,7 @@
         "VMS",
         "용역"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-13T08:36:40.289Z"
@@ -329,7 +524,7 @@
         "임차용역",
         "수원화성"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-13T08:36:37.183Z"
@@ -801,7 +996,7 @@
         "미디어파사드",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-13T08:36:34.042Z"
@@ -1188,7 +1383,7 @@
         "전광판",
         "프로농구단"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-13T08:36:38.649Z"
@@ -4906,7 +5101,7 @@
         "유지관리",
         "협상"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-13T08:36:35.533Z"
