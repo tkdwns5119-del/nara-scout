@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-15T07:19:18.000Z",
+  "generatedAt": "2026-07-15T10:14:04.419Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606150000",
   "rangeEnd": "202607152359",
-  "totalCount": 348,
-  "rawCount": 401,
+  "totalCount": 349,
+  "rawCount": 402,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,95 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 7,
-    "cached": 13,
-    "skipped": 328,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 329,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 192,
+    "공고": 193,
     "사전규격": 68,
     "발주계획": 88
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 188,
+    "디스플레이/사이니지 계열": 189,
     "미디어/파사드 계열": 115,
     "ITS/VMS 계열": 45
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01614785-000",
+      "bidNtceNo": "R26BK01614785",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "해양경찰청 LED 전자 호루라기 구매",
+      "ntceInsttNm": "조달청 인천지방조달청",
+      "dminsttNm": "해양경찰청",
+      "assignBudgetAmt": 131717160,
+      "bidNtceRegistDt": "2026-07-15 17:55",
+      "bidClseDt": "2026-08-07 12:00",
+      "searchKeyword": "LED",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01614785&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 규격가격동시",
+      "contractMethods": [
+        "제한경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01614785&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01614785&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01614785&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01614785&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01614785&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-05 12:00",
+        "bidClseDt": "2026-08-07 12:00",
+        "openDt": "2026-08-07 13:00",
+        "registerDeadline": "2026-08-06 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김은미",
+        "officerTel": "070-4056-7863",
+        "officerEmail": "emkim@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "전자호루라기",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01635507-000",
       "bidNtceNo": "R26BK01635507",
@@ -376,7 +448,7 @@
         "PCB",
         "용역"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:32:01.787Z"
@@ -466,7 +538,7 @@
         "조명기구 교체공사",
         "조달청"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:31:55.764Z"
@@ -748,7 +820,7 @@
         "물품",
         "공고"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:32:03.276Z"
@@ -1241,7 +1313,7 @@
         "전광판",
         "물품"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:32:04.730Z"
@@ -1255,7 +1327,7 @@
       "dminsttNm": "한국생산기술연구원",
       "assignBudgetAmt": 25000000,
       "bidNtceRegistDt": "2026-07-14 14:23",
-      "bidClseDt": "2026-07-15 15:00",
+      "bidClseDt": "2026-07-15 18:00",
       "searchKeyword": "LED",
       "region": "전국",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01632394&bidPbancOrd=000",
@@ -1287,8 +1359,8 @@
         "noticeKind": "재공고",
         "restrictionRegion": "",
         "bidBeginDt": "2026-07-15 09:00",
-        "bidClseDt": "2026-07-15 15:00",
-        "openDt": "2026-07-15 16:00",
+        "bidClseDt": "2026-07-15 18:00",
+        "openDt": "2026-07-15 19:00",
         "registerDeadline": "2026-07-15 15:00",
         "opinionCloseDt": "",
         "deliveryLimitDt": "",
@@ -1735,7 +1807,7 @@
         "수소버스",
         "세종도시교통공사"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:31:57.294Z"
@@ -5445,7 +5517,7 @@
         "전광판",
         "교육용 기자재"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:31:58.825Z"
@@ -6758,7 +6830,7 @@
         "용역",
         "입찰"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-15T07:32:00.288Z"
@@ -19064,7 +19136,7 @@
         "officerTel": "070-4056-7863",
         "officerEmail": "",
         "referenceNo": "장비관리과-3306",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01614785",
         "productName": "해양경찰청 LED 전자 호루라기 구매",
         "productDetails": "[1^4617160203^전자호루라기]",
         "purpose": "",
@@ -19074,7 +19146,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "장비관리과-3306",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01614785"
     },
     {
       "bidId": "BID-R26BK01586444-000",
