@@ -1201,7 +1201,7 @@ async function main() {
     }
 
     const output = {
-        generatedAt: now.toISOString(),
+        generatedAt: new Date().toISOString(),
         timezone: 'Asia/Seoul',
         rangeDays: DAYS_TO_FETCH,
         chunkDays: CHUNK_DAYS,

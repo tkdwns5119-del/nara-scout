@@ -220,6 +220,68 @@
       white-space: nowrap;
     }
 
+    .priority-head-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .mode-switch {
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, auto));
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #f3f6fa;
+    }
+
+    .mode-button {
+      min-height: 30px;
+      padding: 0 9px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .mode-button:hover { border-color: transparent; }
+
+    .mode-button.active {
+      border-color: transparent;
+      background: #fff;
+      color: var(--blue);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    }
+
+    .mode-button svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .mode-count {
+      min-width: 20px;
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .mode-button.active .mode-count {
+      background: #d9f1f5;
+      color: var(--blue);
+    }
+
     .priority-list {
       display: grid;
       grid-template-columns: repeat(5, minmax(170px, 1fr));
@@ -422,6 +484,21 @@
     .published-date {
       color: #475569;
       font-weight: 700;
+    }
+
+    .today-marker {
+      display: inline-flex;
+      align-items: center;
+      min-height: 18px;
+      margin-right: 5px;
+      padding: 0 5px;
+      border: 1px solid #a8ddc2;
+      border-radius: 4px;
+      background: #e8f7ef;
+      color: var(--green);
+      font-size: 9px;
+      font-weight: 900;
+      vertical-align: 1px;
     }
 
     .badge-row {
@@ -770,6 +847,9 @@
       .top-actions { justify-content: flex-start; }
       .layout { padding: 10px; }
       .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .panel-head { align-items: flex-start; flex-direction: column; }
+      .priority-head-actions { width: 100%; justify-content: space-between; }
+      .mode-switch { flex: 1 1 auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .toolbar { grid-template-columns: 1fr; }
       .filters {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -929,9 +1009,9 @@
             <div class="metric-sub">오늘 우선 확인</div>
           </div>
           <div class="metric">
-            <div class="metric-label"><i data-lucide="sparkles"></i><span>신규 24시간</span></div>
+            <div class="metric-label"><i data-lucide="calendar-plus"></i><span>오늘 등록</span></div>
             <div class="metric-value" id="mNew">0</div>
-            <div class="metric-sub">최근 등록/수정</div>
+            <div class="metric-sub">당일 게시 기준</div>
           </div>
           <div class="metric">
             <div class="metric-label"><i data-lucide="wallet-cards"></i><span>2억 이상</span></div>
@@ -947,8 +1027,18 @@
 
         <section class="panel">
           <div class="panel-head">
-            <div class="panel-title"><i data-lucide="badge-alert"></i><span>오늘 볼 사업</span></div>
-            <div class="meta"><span id="priorityMeta">상위 5건</span></div>
+            <div class="panel-title"><i data-lucide="calendar-clock"></i><span id="priorityTitle">오늘 업데이트</span></div>
+            <div class="priority-head-actions">
+              <div class="mode-switch" role="tablist" aria-label="우선 확인 보기">
+                <button class="mode-button active" type="button" data-priority-mode="today" role="tab" aria-selected="true">
+                  <i data-lucide="calendar-plus"></i><span>오늘 업데이트</span><span class="mode-count" id="todayCount">0</span>
+                </button>
+                <button class="mode-button" type="button" data-priority-mode="urgent" role="tab" aria-selected="false">
+                  <i data-lucide="badge-alert"></i><span>마감 우선</span>
+                </button>
+              </div>
+              <div class="meta"><span id="priorityMeta">최신순</span></div>
+            </div>
           </div>
           <div class="priority-list" id="priorityList"></div>
         </section>
@@ -1085,6 +1175,7 @@
         budget: "ALL"
       },
       query: "",
+      priorityMode: "today",
       sideTab: "detail",
       review: JSON.parse(localStorage.getItem(REVIEW_KEY) || "{}")
     };
@@ -1281,6 +1372,28 @@
       return Date.now() - date.getTime() <= 86400000;
     };
 
+    const kstDayKey = () => {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(new Date());
+      const get = (type) => parts.find((part) => part.type === type)?.value || "";
+      return `${get("year")}-${get("month")}-${get("day")}`;
+    };
+
+    const isToday = (item) => safe(item.bidNtceRegistDt, "").slice(0, 10) === kstDayKey();
+
+    const postedNewest = (a, b) => safe(b.bidNtceRegistDt, "").localeCompare(safe(a.bidNtceRegistDt, ""));
+
+    const todayFirst = (a, b) => {
+      const todayRank = Number(isToday(b)) - Number(isToday(a));
+      if (todayRank) return todayRank;
+      if (isToday(a) && isToday(b)) return postedNewest(a, b);
+      return score(b) - score(a) || safe(a.bidClseDt).localeCompare(safe(b.bidClseDt));
+    };
+
     const isUnchecked = (item) => {
       const r = reviewState(item);
       return !r.checked && !r.issue && !r.done;
@@ -1325,7 +1438,7 @@
         });
       }
 
-      return list.sort((a, b) => score(b) - score(a) || safe(a.bidClseDt).localeCompare(safe(b.bidClseDt)));
+      return list.sort(todayFirst);
     };
 
     const scheduleReviewSync = () => {
@@ -1477,32 +1590,51 @@
       const plan = state.bids.filter((item) => item.serviceType === "발주계획").length;
 
       $("mUrgent").textContent = urgent.length.toLocaleString("ko-KR");
-      $("mNew").textContent = state.bids.filter(isNew).length.toLocaleString("ko-KR");
+      $("mNew").textContent = state.bids.filter(isToday).length.toLocaleString("ko-KR");
       $("mLarge").textContent = state.bids.filter((item) => number(item.assignBudgetAmt) >= 200000000).length.toLocaleString("ko-KR");
       $("mTotal").textContent = state.bids.length.toLocaleString("ko-KR");
       $("mService").textContent = `공고 ${bid} / 사전 ${spec} / 계획 ${plan}`;
     };
 
     const renderPriority = () => {
-      const top = uniqueBy(
+      const todayAll = state.bids.filter(isToday).sort(postedNewest);
+      const todayItems = uniqueBy(
+        todayAll,
+        (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
+      );
+      const urgentItems = uniqueBy(
         [...state.bids].sort((a, b) => score(b) - score(a)),
         (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
-      ).slice(0, 5);
-      $("priorityMeta").textContent = `${top.length}건`;
+      );
+      const source = state.priorityMode === "today" ? todayItems : urgentItems;
+      const top = source.slice(0, 5);
+      $("priorityTitle").textContent = state.priorityMode === "today" ? "오늘 업데이트" : "마감 우선 사업";
+      $("todayCount").textContent = todayAll.length.toLocaleString("ko-KR");
+      $("priorityMeta").textContent = state.priorityMode === "today"
+        ? `${todayAll.length.toLocaleString("ko-KR")}건 · ${todayItems.length.toLocaleString("ko-KR")}개 사업`
+        : `상위 ${top.length}건`;
+      document.querySelectorAll("[data-priority-mode]").forEach((button) => {
+        const active = button.dataset.priorityMode === state.priorityMode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", String(active));
+      });
       $("priorityList").innerHTML = top.map((item) => {
         const d = dday(item.bidClseDt);
+        const postedTime = safe(item.bidNtceRegistDt, "").slice(11, 16);
         return `
           <button class="priority-card ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
             <div class="badge-row">
               <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
-              <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "orange" : "gray"}">${d.text}</span>
+              ${state.priorityMode === "today"
+                ? `<span class="badge green">오늘 ${postedTime} 게시</span>`
+                : `<span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "orange" : "gray"}">${d.text}</span>`}
               <span class="badge gray">${contractLabel(item)}</span>
             </div>
             <div class="title-main">${safe(item.bidNtceNm)}</div>
             <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${money(item.assignBudgetAmt)}</div>
           </button>
         `;
-      }).join("") || `<div class="empty">우선 확인 사업이 없습니다.</div>`;
+      }).join("") || `<div class="empty">${state.priorityMode === "today" ? "오늘 등록된 사업이 없습니다." : "우선 확인 사업이 없습니다."}</div>`;
     };
 
     const renderRows = () => {
@@ -1513,7 +1645,8 @@
       if (!state.filtered.length) state.selectedId = "";
       const resultMeta = $("resultMeta");
       if (resultMeta) {
-        resultMeta.textContent = `${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
+        const todayVisible = state.filtered.filter(isToday).length;
+        resultMeta.textContent = `오늘 ${todayVisible.toLocaleString("ko-KR")}건 먼저 · ${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
       }
       $("bidRows").innerHTML = state.filtered.map((item) => {
         const c = contact(item);
@@ -1528,7 +1661,7 @@
                   <div class="title-main">${safe(item.bidNtceNm)}</div>
                 </div>
                 <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${safe(item.region)}</div>
-                <div class="title-sub published-date">\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
+                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">오늘</span>` : ""}\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
                 <div class="badge-row">
                   ${r.checked ? `<span class="badge green">체크</span>` : ""}
                   ${r.issue ? `<span class="badge red">이슈</span>` : ""}
@@ -1650,11 +1783,19 @@
       const times = payload.updateSchedule?.times || ["08:00", "14:00", "17:00"];
       $("lastUpdated").textContent = payload.generatedAt ? `최종 업데이트 ${formatKst(payload.generatedAt)} KST` : "업데이트 시각 미확인";
       $("nextUpdate").textContent = `예정 ${times.join(", ")} KST`;
-      state.selectedId = state.bids.sort((a, b) => score(b) - score(a))[0]?.bidNtceNo || "";
+      state.selectedId = [...state.bids].sort(todayFirst)[0]?.bidNtceNo || "";
       render();
     };
 
     document.addEventListener("click", (event) => {
+      const priorityMode = event.target.closest("[data-priority-mode]")?.dataset.priorityMode;
+      if (priorityMode) {
+        state.priorityMode = priorityMode;
+        renderPriority();
+        createIcons();
+        return;
+      }
+
       const sideTab = event.target.closest("[data-side-tab]")?.dataset.sideTab;
       if (sideTab) {
         state.sideTab = sideTab;

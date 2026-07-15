@@ -1,4 +1,4 @@
-name: Validate dashboard patches
+name: Validate dashboard
 
 on:
   workflow_dispatch:
@@ -6,8 +6,6 @@ on:
     paths:
       - '.github/workflows/apply-detail-contact-patch.yml'
       - 'di.html'
-      - 'detail-contact-patch.js'
-      - 'ui-polish-patch.js'
 
 permissions:
   contents: read
@@ -24,19 +22,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Validate patch files
-        shell: bash
+      - name: Validate dashboard
         run: |
-          set -euo pipefail
-
           test -f di.html
-          test -f detail-contact-patch.js
-          test -f ui-polish-patch.js
-
-          node --check detail-contact-patch.js
-          node --check ui-polish-patch.js
-
-          grep -q "detail-contact-patch.js" di.html
-          grep -q "ui-polish-patch.js" di.html
-
-          echo "Dashboard patch files are valid and loaded from di.html."
+          node -e "const fs=require('fs'); const html=fs.readFileSync('di.html','utf8'); const scripts=[...html.matchAll(/<script>([\\s\\S]*?)<\\/script>/g)]; if(!scripts.length) throw new Error('inline script not found'); new Function(scripts.at(-1)[1]); console.log('Dashboard inline JavaScript is valid.');"
