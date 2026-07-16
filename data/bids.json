@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-16T07:41:29.179Z",
+  "generatedAt": "2026-07-16T10:22:00.478Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606160000",
   "rangeEnd": "202607162359",
-  "totalCount": 344,
-  "rawCount": 403,
+  "totalCount": 348,
+  "rawCount": 407,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,426 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 9,
-    "cached": 11,
-    "skipped": 324,
+    "analyzed": 1,
+    "cached": 19,
+    "skipped": 328,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 184,
-    "사전규격": 71,
-    "발주계획": 89
+    "공고": 186,
+    "사전규격": 72,
+    "발주계획": 90
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 186,
-    "미디어/파사드 계열": 114,
-    "ITS/VMS 계열": 44
+    "디스플레이/사이니지 계열": 188,
+    "미디어/파사드 계열": 115,
+    "ITS/VMS 계열": 45
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01638145-000",
+      "bidNtceNo": "R26BK01638145",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026 세계유산축전 안동 홍보 마케팅 행사장 디스플레이 대행 용역(협상)(재공고)",
+      "ntceInsttNm": "경상북도 안동시",
+      "dminsttNm": "경상북도 안동시",
+      "assignBudgetAmt": 320000000,
+      "bidNtceRegistDt": "2026-07-16 18:30",
+      "bidClseDt": "2026-08-03 14:00",
+      "searchKeyword": "디스플레이",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638145&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01638145&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01638145&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01638145&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01638145&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638145&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638145&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-08-03 14:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "금보경",
+        "officerTel": "054-840-6136",
+        "officerEmail": "",
+        "referenceNo": "2026 세계유산축전 안동 홍보마케팅 행사장 디스플레이 대행 용역(재공고)",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20822950",
+      "bidNtceNo": "PL-R26DD20822950",
+      "bidNtceOrd": "",
+      "bidNtceNm": "「2026 세계유산축전 안동」 홍보마케팅 행사장 디스플레이 대행 용역",
+      "ntceInsttNm": "경상북도 안동시",
+      "dminsttNm": "경상북도 안동시",
+      "assignBudgetAmt": 320000000,
+      "bidNtceRegistDt": "2026-07-16 18:24",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "디스플레이",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20822950",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "회계과",
+        "officerName": "금보경",
+        "officerTel": "054-840-6136",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01638145000",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 320000000,
+        "rawBusinessDivision": "용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
+    {
+      "bidId": "BF-R26BD00253460",
+      "bidNtceNo": "BF-R26BD00253460",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026 애기봉평화생태공원 열린관광지 미디어아트 전시콘텐츠 조성 용역",
+      "ntceInsttNm": "경기도 김포시",
+      "dminsttNm": "경기도 김포시",
+      "assignBudgetAmt": 250000000,
+      "bidNtceRegistDt": "2026-07-16 17:59",
+      "bidClseDt": "2026-07-21 23:59",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00253460",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00253460&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00253460&fileType=BFDTL&fileSeq=2"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-07-21 23:59",
+        "deliveryLimitDt": "2026-12-30 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김민지",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "관광진흥과-12747",
+        "linkedBidNoList": "",
+        "productName": "2026 애기봉평화생태공원 열린관광지 미디어아트 전시콘텐츠 조성 용역",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "일반용역"
+      },
+      "refNo": "관광진흥과-12747",
+      "linkedBidNtceNoList": "",
+      "aiPriority": "MEDIUM",
+      "aiScore": 60,
+      "aiSummary": "미디어아트 전시콘텐츠 조성 용역",
+      "aiReason": "미디어 관련 용역으로, LED 전광판, 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업과 간접적으로 관련이 있습니다.",
+      "aiAction": "사업부 담당자와 협의하여 범위 확인 필요",
+      "aiTags": [
+        "미디어아트",
+        "전시콘텐츠",
+        "LED",
+        "미디어월",
+        "디지털 사이니지",
+        "미디어파사드"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-16T10:21:59.276Z"
+    },
+    {
+      "bidId": "BID-R26BK01636211-000",
+      "bidNtceNo": "R26BK01636211",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026 강릉 ITS 세계총회 대회의장 건립공사 관급(가구류)",
+      "ntceInsttNm": "강원특별자치도 강릉시",
+      "dminsttNm": "강원특별자치도 강릉시",
+      "assignBudgetAmt": 176016500,
+      "bidNtceRegistDt": "2026-07-16 17:54",
+      "bidClseDt": "2026-07-24 10:00",
+      "searchKeyword": "ITS",
+      "region": "강원",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01636211&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01636211&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01636211&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01636211&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01636211&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01636211&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만인 물품의 평가기준(물품제조)",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-17 10:00",
+        "bidClseDt": "2026-07-24 10:00",
+        "openDt": "2026-07-24 11:00",
+        "registerDeadline": "2026-07-23 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "엄예슬",
+        "officerTel": "033-640-5474",
+        "officerEmail": "gn007@korea.kr",
+        "referenceNo": "강릉시 공고 제2026-1244호",
+        "linkedBidNoList": "",
+        "productName": "회의용탁자",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20822911",
+      "bidNtceNo": "PL-R26DD20822911",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026 애기봉평화생태공원 열린관광지 미디어아트 전시콘텐츠 조성 용역",
+      "ntceInsttNm": "경기도 김포시",
+      "dminsttNm": "경기도 김포시",
+      "assignBudgetAmt": 250000000,
+      "bidNtceRegistDt": "2026-07-16 17:52",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20822911",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "제한경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "관광진흥과",
+        "officerName": "장민호",
+        "officerTel": "031-980-5105",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 250000000,
+        "rawBusinessDivision": "용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
+    {
+      "bidId": "BF-R26BD00253434",
+      "bidNtceNo": "BF-R26BD00253434",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026~2027 V-리그 미디어데이 및 시상식 대행업체 선정 관련 입찰",
+      "ntceInsttNm": "(사단)한국배구연맹",
+      "dminsttNm": "(사단)한국배구연맹",
+      "assignBudgetAmt": 181368000,
+      "bidNtceRegistDt": "2026-07-16 17:39",
+      "bidClseDt": "2026-07-20 17:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00253434",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00253434&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-07-20 17:00",
+        "deliveryLimitDt": "2027-05-31 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "한대희",
+        "officerTel": "02-6393-5425",
+        "officerEmail": "",
+        "referenceNo": "20260716",
+        "linkedBidNoList": "",
+        "productName": "2026~2027 V-리그 미디어데이 및 시상식 대행업체 선정 관련 입찰",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "일반용역"
+      },
+      "refNo": "20260716",
+      "linkedBidNtceNoList": ""
+    },
     {
       "bidId": "BF-R26BD00253347",
       "bidNtceNo": "BF-R26BD00253347",
@@ -541,7 +944,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:17.307Z"
@@ -734,7 +1137,7 @@
         "전광판",
         "세종"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:18.954Z"
@@ -824,7 +1227,7 @@
         "조명기구 교체공사",
         "임대주택"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:20.529Z"
@@ -914,7 +1317,7 @@
         "조명기구",
         "교체공사"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:22.150Z"
@@ -999,7 +1402,7 @@
         "전광판",
         "세종"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:23.658Z"
@@ -1082,7 +1485,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:25.089Z"
@@ -1167,7 +1570,7 @@
         "전광판",
         "세종"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:26.542Z"
@@ -1348,20 +1751,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "2607-01-0007",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "LOW",
-      "aiScore": 20,
-      "aiSummary": "LED 관련 소프트웨어 구입",
-      "aiReason": "LED 전광판, 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업과 직접 관련이 없는 소프트웨어 구입",
-      "aiAction": "조달 정보를 확인하여 관련성이 있는 항목을 확인",
-      "aiTags": [
-        "LED",
-        "소프트웨어 구입"
-      ],
-      "aiStatus": "OK",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-16T07:41:27.977Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01636568-000",
@@ -1509,7 +1899,7 @@
         "VMS",
         "실시설계용역"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-16T07:41:15.827Z"
@@ -4879,127 +5269,6 @@
         "orderAmount": 0,
         "rawBusinessDivision": ""
       }
-    },
-    {
-      "bidId": "BF-R26BD00251096",
-      "bidNtceNo": "BF-R26BD00251096",
-      "bidNtceOrd": "",
-      "bidNtceNm": "2025 APEC 정상회의 1주년 기념 보문 멀티미디어 드론쇼 운영 용역",
-      "ntceInsttNm": "경상북도문화관광공사",
-      "dminsttNm": "경상북도문화관광공사",
-      "assignBudgetAmt": 100000000,
-      "bidNtceRegistDt": "2026-07-10 16:29",
-      "bidClseDt": "2026-07-15 23:59",
-      "searchKeyword": "미디어",
-      "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00251096",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251096&fileType=BFDTL&fileSeq=1"
-        },
-        {
-          "label": "규격문서 2",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251096&fileType=BFDTL&fileSeq=2"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-07-15 23:59",
-        "deliveryLimitDt": "2026-11-30 00:00",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "이권은",
-        "officerTel": "",
-        "officerEmail": "",
-        "referenceNo": "입찰공고 제2026-55호",
-        "linkedBidNoList": "",
-        "productName": "2025 APEC 정상회의 1주년 기념 보문 멀티미디어 드론쇼 운영 용역",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "일반용역"
-      },
-      "refNo": "입찰공고 제2026-55호",
-      "linkedBidNtceNoList": ""
-    },
-    {
-      "bidId": "PL-R26DD20817593",
-      "bidNtceNo": "PL-R26DD20817593",
-      "bidNtceOrd": "",
-      "bidNtceNm": "2025 APEC 정상회의 1주년 기념 보문 멀티미디어 드론쇼 운영 용역",
-      "ntceInsttNm": "경상북도문화관광공사",
-      "dminsttNm": "경상북도문화관광공사",
-      "assignBudgetAmt": 100000000,
-      "bidNtceRegistDt": "2026-07-10 16:27",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "미디어",
-      "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20817593",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "제한경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "국내마케팅팀",
-        "officerName": "김진호",
-        "officerTel": "054-740-3075",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 100000000,
-        "rawBusinessDivision": "용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
     },
     {
       "bidId": "BF-R26BD00251081",
@@ -8623,7 +8892,7 @@
         "officerTel": "033-640-5474",
         "officerEmail": "",
         "referenceNo": "ITS추진과-3552",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01636211",
         "productName": "2026 강릉 ITS 세계총회 대회의장 건립공사 관급(가구류)",
         "productDetails": "[1^5610170601^회의용탁자]",
         "purpose": "",
@@ -8633,7 +8902,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "ITS추진과-3552",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01636211"
     },
     {
       "bidId": "BF-R26BD00248762",
@@ -8804,7 +9073,7 @@
         "officerTel": "033-640-5474",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01636211000",
         "productName": "회의용탁자",
         "productDetails": "",
         "purpose": "2026 강릉 ITS 세계총회 대회의장 건립공사 관급자재",
@@ -17853,7 +18122,7 @@
         "officerTel": "054-840-6136",
         "officerEmail": "",
         "referenceNo": "회계과-",
-        "linkedBidNoList": "R26BK01605278",
+        "linkedBidNoList": "R26BK01638145,R26BK01605278",
         "productName": "2026 세계유산축전 안동 홍보 마케팅 행사장 디스플레이 대행 용역",
         "productDetails": "",
         "purpose": "",
@@ -17863,7 +18132,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "회계과-",
-      "linkedBidNtceNoList": "R26BK01605278"
+      "linkedBidNtceNoList": "R26BK01638145,R26BK01605278"
     },
     {
       "bidId": "BF-R26BD00243769",
