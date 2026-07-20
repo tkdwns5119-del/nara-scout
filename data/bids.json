@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-20T11:04:40.737Z",
+  "generatedAt": "2026-07-20T23:59:54.177Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
-  "rangeBegin": "202606200000",
-  "rangeEnd": "202607202359",
-  "totalCount": 315,
-  "rawCount": 368,
+  "rangeBegin": "202606210000",
+  "rangeEnd": "202607212359",
+  "totalCount": 316,
+  "rawCount": 369,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,112 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
-    "skipped": 295,
+    "analyzed": 1,
+    "cached": 19,
+    "skipped": 296,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 158,
+    "공고": 159,
     "사전규격": 67,
     "발주계획": 90
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 173,
     "미디어/파사드 계열": 97,
-    "ITS/VMS 계열": 45
+    "ITS/VMS 계열": 46
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01641037-000",
+      "bidNtceNo": "R26BK01641037",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 지능형교통체계(ITS) 구축사업 용역",
+      "ntceInsttNm": "강원특별자치도 강릉시",
+      "dminsttNm": "강원특별자치도 강릉시",
+      "assignBudgetAmt": 6897000000,
+      "bidNtceRegistDt": "2026-07-20 20:19",
+      "bidClseDt": "2026-07-30 16:00",
+      "searchKeyword": "ITS",
+      "region": "강원",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01641037&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01641037&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01641037&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01641037&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=05"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01641037&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01641037&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정(엔지니어링)",
+        "contractType": "일반경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-23 09:00",
+        "bidClseDt": "2026-07-30 16:00",
+        "openDt": "2026-07-30 17:00",
+        "registerDeadline": "2026-07-29 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "안다해",
+        "officerTel": "033-640-5161",
+        "officerEmail": "",
+        "referenceNo": "강릉시 공고 제2026-1125호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "ITS 구축사업 용역으로 ITS/VMS 사업과 직접 관련되어 예산이 크고 실행 가능성이 높습니다.",
+      "aiReason": "ITS/VMS 사업과 직접 관련되어 예산이 크고 실행 가능성이 높습니다.",
+      "aiAction": "사업부와의 협의를 통해 우선순위에 따라 추진할 수 있도록 하자.",
+      "aiTags": [
+        "ITS",
+        "VMS",
+        "LED",
+        "미디어월",
+        "디지털 사이니지",
+        "미디어파사드"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-20T23:59:52.976Z"
+    },
     {
       "bidId": "PL-R26DD20824339",
       "bidNtceNo": "PL-R26DD20824339",
@@ -9762,22 +9851,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "안동시 지능형교통체계(ITS) 유지관리 용역",
-      "aiReason": "ITS/VMS 사업에 직접 관련된 유지관리 용역으로 예산이 285억원으로 높은 실행 가능성을 보유하고 있습니다.",
-      "aiAction": "사업부와의 협의를 통해 사업 참여 가능성을 확인하고, 예산 및 범위 확인을 위한 추가 자료를 요청합니다.",
-      "aiTags": [
-        "ITS",
-        "VMS",
-        "유지관리",
-        "협상"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-13T08:36:35.533Z"
+      }
     },
     {
       "bidId": "PL-R26DD20812718",
@@ -18942,8 +19016,8 @@
         "orderYear": "",
         "orderMonth": "",
         "department": "",
-        "officerName": "심소현",
-        "officerTel": "033-640-5462",
+        "officerName": "안다해",
+        "officerTel": "033-640-5161",
         "officerEmail": "",
         "referenceNo": "강릉시 공고 제2026-1125호",
         "linkedBidNoList": "",
