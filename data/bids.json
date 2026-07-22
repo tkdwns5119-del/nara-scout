@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-21T10:37:29.005Z",
+  "generatedAt": "2026-07-22T00:01:31.775Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
-  "rangeBegin": "202606210000",
-  "rangeEnd": "202607212359",
+  "rangeBegin": "202606220000",
+  "rangeEnd": "202607222359",
   "totalCount": 337,
   "rawCount": 391,
   "successCalls": 288,
@@ -23,8 +23,8 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
+    "analyzed": 4,
+    "cached": 16,
     "skipped": 317,
     "model": "llama-3.1-8b-instant"
   },
@@ -40,6 +40,66 @@
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01638979-001",
+      "bidNtceNo": "R26BK01638979",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "[긴급] 용인삼성생명블루밍스농구단 소셜미디어 운영",
+      "ntceInsttNm": "한국여자농구연맹",
+      "dminsttNm": "한국여자농구연맹",
+      "assignBudgetAmt": 72600000,
+      "bidNtceRegistDt": "2026-07-22 07:41",
+      "bidClseDt": "2026-08-03 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638979&bidPbancOrd=001",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638979&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01638979&bidPbancOrd=001",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "취소공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-08-03 10:00",
+        "registerDeadline": "2026-07-27 23:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김희나",
+        "officerTel": "02-752-7493",
+        "officerEmail": "",
+        "referenceNo": "2026-24",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BF-R26BD00254770",
       "bidNtceNo": "BF-R26BD00254770",
@@ -615,7 +675,22 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "MEDIUM",
+      "aiScore": 60,
+      "aiSummary": "미디어 관련 용역 공고",
+      "aiReason": "미디어 관련 용역으로 예상되는 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업과 관련성이 있으나, 정확한 범위 확인 필요",
+      "aiAction": "공고 내용을 확인하여 정확한 범위와 예산을 확인하고, 사업부와의 협의 필요",
+      "aiTags": [
+        "미디어월",
+        "디지털 사이니지",
+        "미디어파사드",
+        "ITS/VMS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-22T00:01:25.646Z"
     },
     {
       "bidId": "BF-R26BD00254510",
@@ -1077,7 +1152,20 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "MEDIUM",
+      "aiScore": 60,
+      "aiSummary": "LED 관련 물품 공급",
+      "aiReason": "LED 키워드가 포함되어 있으나, 물품 공급으로 인프라 구축과 관련이 불명확",
+      "aiAction": "관련성 확인 및 범위 확보",
+      "aiTags": [
+        "LED",
+        "물품 공급"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-22T00:01:27.225Z"
     },
     {
       "bidId": "BID-R26BK01641785-000",
@@ -1981,7 +2069,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 전광판 설치 사업",
+      "aiReason": "LED 관련 키워드 포함, 예산 50억원, 직접 관련",
+      "aiAction": "사업부 담당자와 연락하여 사업 내용 확인 및 예산 확인",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "물품"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-22T00:01:28.743Z"
     },
     {
       "bidId": "BF-R26BD00253875",
@@ -2293,21 +2395,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "대형강의실 LED 전광판 구매설치",
-      "aiReason": "LED 전광판 직접 관련 + 예산 453709840원",
-      "aiAction": "영업 검토 및 예산 확인",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "강의실"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-20T08:28:18.351Z"
+      }
     },
     {
       "bidId": "PL-R26DD20823753",
@@ -2756,21 +2844,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "관광진흥과-12747",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "미디어아트 전시콘텐츠 조성 용역",
-      "aiReason": "미디어 관련 용역으로 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 관련성이 있으나, 용역의 구체적인 내용과 예산을 확인해야 함",
-      "aiAction": "용역의 구체적인 내용과 예산을 확인하고, 관련 사업 부서와 협의하여 우선순위를 결정해야 함",
-      "aiTags": [
-        "미디어아트",
-        "전시콘텐츠",
-        "용역"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-21T02:47:25.303Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01636211-000",
@@ -2842,7 +2916,24 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "강릉 ITS 세계총회 대회의장 건립공사 관급(가구류)에서 ITS/VMS 사업과 관련된 물품을 구매할 예정입니다.",
+      "aiReason": "ITS/VMS 사업과 관련된 물품을 구매할 예정이며 예산도 176억원으로 높습니다.",
+      "aiAction": "관련 사업부로 전달하여 영업 검토를 진행하시기 바랍니다.",
+      "aiTags": [
+        "ITS",
+        "VMS",
+        "LED",
+        "미디어월",
+        "디지털 사이니지",
+        "미디어파사드"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-22T00:01:30.575Z"
     },
     {
       "bidId": "PL-R26DD20822911",
@@ -3962,23 +4053,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "남양주체육문화센터 보조경기장 전광판 제작설치",
-      "aiReason": "전광판 직접 관련 + 예산 또는 실행 가능성 높음",
-      "aiAction": "조달청 서울지방조달청 및 남양주도시공사와 연락하여 사업 범위 확인 및 예산 확인",
-      "aiTags": [
-        "전광판",
-        "LED",
-        "미디어월",
-        "사이니지",
-        "ITS/VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-16T07:41:25.089Z"
+      }
     },
     {
       "bidId": "BID-R26BK01637071-000",
@@ -10194,21 +10269,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "사이니지 시스템 실증 및 고도화 사업",
-      "aiReason": "사이니지 시스템 실증 및 고도화 사업으로 DI영업지원팀의 영업 검토 우선순위가 높습니다.",
-      "aiAction": "사업 내용을 확인하고 예산 및 실행 가능성을 확인합니다.",
-      "aiTags": [
-        "사이니지",
-        "실증",
-        "고도화"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-14T07:29:11.805Z"
+      }
     },
     {
       "bidId": "BID-R26BK01620408-000",
@@ -19346,7 +19407,7 @@
         "officerTel": "02-752-7493",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01605752000,R26BK01637589000,R26BK01638979000",
+        "linkedBidNoList": "R26BK01605752000,R26BK01637589000,R26BK01638979001",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -21938,65 +21999,6 @@
         "referenceNo": "제2026-2346호",
         "linkedBidNoList": "",
         "productName": "영상정보디스플레이장치",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "BID-R26BK01592428-000",
-      "bidNtceNo": "R26BK01592428",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "EDC 근린공원 미디어아트 조성 경관조명 제작 설치",
-      "ntceInsttNm": "조달청 부산지방조달청",
-      "dminsttNm": "부산광역시 강서구",
-      "assignBudgetAmt": 215324780,
-      "bidNtceRegistDt": "2026-06-21 19:02",
-      "bidClseDt": "2026-06-24 12:00",
-      "searchKeyword": "미디어",
-      "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01592428&bidPbancOrd=000",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01592428&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01592428&bidPbancOrd=000",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "전자시담",
-        "awardMethod": "수의시담-수의시담",
-        "contractType": "수의계약",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-06-24 10:00",
-        "bidClseDt": "2026-06-24 12:00",
-        "openDt": "2026-06-24 13:00",
-        "registerDeadline": "2026-06-23 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "김동건",
-        "officerTel": "070-4056-6545",
-        "officerEmail": "dgunrla1303@korea.kr",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "LED경관조명기구",
         "productDetails": "",
         "purpose": "",
         "quantity": "",
