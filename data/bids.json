@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-24T07:48:39.920Z",
+  "generatedAt": "2026-07-24T10:29:22.710Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606240000",
   "rangeEnd": "202607242359",
-  "totalCount": 354,
-  "rawCount": 410,
+  "totalCount": 356,
+  "rawCount": 412,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,160 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 3,
-    "cached": 17,
-    "skipped": 334,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 336,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 185,
-    "사전규격": 72,
+    "공고": 186,
+    "사전규격": 73,
     "발주계획": 97
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 192,
+    "디스플레이/사이니지 계열": 193,
     "미디어/파사드 계열": 111,
-    "ITS/VMS 계열": 51
+    "ITS/VMS 계열": 52
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00256633",
+      "bidNtceNo": "BF-R26BD00256633",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2026년 스마트생태공장_LED 조명 및 loT제어",
+      "ntceInsttNm": "(주)위드텍",
+      "dminsttNm": "(주)위드텍",
+      "assignBudgetAmt": 99550000,
+      "bidNtceRegistDt": "2026-07-24 18:36",
+      "bidClseDt": "2026-07-29 23:59",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00256633",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00256633&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-07-29 23:59",
+        "deliveryLimitDt": "2026-10-30 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "차장현",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "withtech_20260724_LED",
+        "linkedBidNoList": "",
+        "productName": "2026년 스마트생태공장_LED 조명 및 loT제어",
+        "productDetails": "[1^3911161102^LED투광등기구]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "withtech_20260724_LED",
+      "linkedBidNtceNoList": ""
+    },
+    {
+      "bidId": "BID-R26BK01648896-000",
+      "bidNtceNo": "R26BK01648896",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 익산청 국도ITS 구축공사 등 재해예방 기술지도용역",
+      "ntceInsttNm": "국토교통부 익산지방국토관리청",
+      "dminsttNm": "국토교통부 익산지방국토관리청",
+      "assignBudgetAmt": 24860000,
+      "bidNtceRegistDt": "2026-07-24 18:00",
+      "bidClseDt": "2026-07-31 10:00",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01648896&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01648896&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01648896&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01648896&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01648896&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=05"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01648896&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01648896&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만(건축사법에 따른 설계는 1억원 미만)인 기술용역 평가기준",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-28 10:00",
+        "bidClseDt": "2026-07-31 10:00",
+        "openDt": "2026-07-31 11:00",
+        "registerDeadline": "2026-07-30 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이다희",
+        "officerTel": "063-850-9151",
+        "officerEmail": "",
+        "referenceNo": "익산지방국토관리청 공고 제2026-241호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01648161-000",
       "bidNtceNo": "R26BK01648161",
@@ -111,7 +248,7 @@
         "미디어파사드",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-24T07:48:35.282Z"
@@ -363,7 +500,7 @@
         "농업기술센터",
         "경상북도 김천시"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-24T07:48:38.719Z"
@@ -796,7 +933,7 @@
         "마이크로LED",
         "대면적 접합 장비"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-24T07:48:37.067Z"
@@ -993,7 +1130,7 @@
         "officerTel": "063-850-9151",
         "officerEmail": "",
         "referenceNo": "지역협력과",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01648896",
         "productName": "2026년 익산청 국도ITS 구축공사 등 재해예방 기술지도용역",
         "productDetails": "",
         "purpose": "",
@@ -1003,7 +1140,7 @@
         "rawBusinessDivision": "기술용역"
       },
       "refNo": "지역협력과",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01648896"
     },
     {
       "bidId": "PL-R26DD20828670",
@@ -1049,7 +1186,7 @@
         "officerTel": "063-850-9151",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01648896000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -19453,7 +19590,7 @@
         "officerTel": "031-5189-3278",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01648161000",
         "productName": "융복합고정네트워크장비및부품",
         "productDetails": "",
         "purpose": "안전사고 예방",
