@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-25T00:07:55.585Z",
+  "generatedAt": "2026-07-25T07:33:43.210Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606250000",
   "rangeEnd": "202607252359",
-  "totalCount": 343,
-  "rawCount": 398,
+  "totalCount": 344,
+  "rawCount": 399,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,88 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 3,
-    "cached": 17,
-    "skipped": 323,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 324,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
     "공고": 180,
-    "사전규격": 71,
+    "사전규격": 72,
     "발주계획": 92
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 184,
-    "미디어/파사드 계열": 109,
+    "미디어/파사드 계열": 110,
     "ITS/VMS 계열": 50
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00256675",
+      "bidNtceNo": "BF-R26BD00256675",
+      "bidNtceOrd": "",
+      "bidNtceNm": "[혁신] 중앙동서관 미디어월 구입",
+      "ntceInsttNm": "원광대학교",
+      "dminsttNm": "원광대학교",
+      "assignBudgetAmt": 0,
+      "bidNtceRegistDt": "2026-07-25 15:01",
+      "bidClseDt": "2026-07-30 23:59",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00256675",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00256675&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00256675&fileType=BFDTL&fileSeq=2"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-07-30 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "권철수",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "2026-W계약-846",
+        "linkedBidNoList": "",
+        "productName": "[혁신] 중앙동서관 미디어월 구입",
+        "productDetails": "[1^5512190301^안내전광판]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "2026-W계약-846",
+      "linkedBidNtceNoList": ""
+    },
     {
       "bidId": "BF-R26BD00256633",
       "bidNtceNo": "BF-R26BD00256633",
@@ -1333,7 +1398,7 @@
         "미디어파사드",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-25T00:07:52.708Z"
@@ -5253,7 +5318,7 @@
         "전광판",
         "물품"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-25T00:07:51.070Z"
@@ -5909,7 +5974,7 @@
         "미디어파사드",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-25T00:07:54.384Z"
