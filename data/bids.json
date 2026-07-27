@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-27T08:57:26.586Z",
+  "generatedAt": "2026-07-27T11:37:24.150Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606270000",
   "rangeEnd": "202607272359",
-  "totalCount": 333,
-  "rawCount": 384,
+  "totalCount": 335,
+  "rawCount": 386,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,167 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 2,
-    "cached": 18,
-    "skipped": 313,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 315,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 176,
+    "공고": 178,
     "사전규격": 72,
     "발주계획": 85
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 176,
     "미디어/파사드 계열": 106,
-    "ITS/VMS 계열": 51
+    "ITS/VMS 계열": 53
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01652983-000",
+      "bidNtceNo": "R26BK01652983",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 ITS 국제협력센터 홈페이지 유지보수 및 기능 개선 용역",
+      "ntceInsttNm": "한국지능형교통체계협회",
+      "dminsttNm": "한국지능형교통체계협회",
+      "assignBudgetAmt": 30000000,
+      "bidNtceRegistDt": "2026-07-27 19:25",
+      "bidClseDt": "2026-08-07 17:00",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652983&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652983&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652983&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652983&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652983&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652983&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-08-07 17:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "홍진선",
+        "officerTel": "031-478-0467",
+        "officerEmail": "",
+        "referenceNo": "글로벌2026-116",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01652680-000",
+      "bidNtceNo": "R26BK01652680",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026년 강릉시 지능형교통체계(ITS) 구축사업 감리용역",
+      "ntceInsttNm": "한국지능형교통체계협회",
+      "dminsttNm": "한국지능형교통체계협회",
+      "assignBudgetAmt": 90000000,
+      "bidNtceRegistDt": "2026-07-27 17:59",
+      "bidClseDt": "2026-08-04 10:00",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652680&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 적격심사",
+      "contractMethods": [
+        "일반경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652680&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652680&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01652680&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=05"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652680&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01652680&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만(건축사법에 따른 설계는 1억원 미만)인 기술용역 평가기준",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-07-27 19:00",
+        "bidClseDt": "2026-08-04 10:00",
+        "openDt": "2026-08-04 11:00",
+        "registerDeadline": "2026-08-03 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "홍진선",
+        "officerTel": "031-478-0467",
+        "officerEmail": "",
+        "referenceNo": "사업2026-525",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01652005-000",
       "bidNtceNo": "R26BK01652005",
@@ -326,7 +470,7 @@
         "사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-27T08:57:23.779Z"
@@ -416,7 +560,7 @@
         "ITS",
         "교통정보센터"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-27T08:57:25.385Z"
@@ -4411,7 +4555,7 @@
         "officerTel": "031-478-0467",
         "officerEmail": "",
         "referenceNo": "사업 2026-525",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01652680",
         "productName": "2026년 강릉시 지능형교통체계(ITS) 구축사업 감리용역",
         "productDetails": "",
         "purpose": "",
@@ -4421,7 +4565,7 @@
         "rawBusinessDivision": "기술용역"
       },
       "refNo": "사업 2026-525",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01652680"
     },
     {
       "bidId": "PL-R26DD20825701",
@@ -4467,7 +4611,7 @@
         "officerTel": "031-478-0467",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01652680000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -5587,7 +5731,7 @@
         "officerTel": "031-478-0467",
         "officerEmail": "",
         "referenceNo": "글로벌2026-116",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01652983",
         "productName": "2026년 ITS 국제협력센터 홈페이지 유지보수 및 기능 개선 용역",
         "productDetails": "",
         "purpose": "",
@@ -5597,7 +5741,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "글로벌2026-116",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01652983"
     },
     {
       "bidId": "BID-R26BK01639960-000",
@@ -5795,7 +5939,7 @@
         "officerTel": "031-478-0435",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01652983000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
