@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-28T07:58:00.854Z",
+  "generatedAt": "2026-07-28T10:49:52.463Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606280000",
   "rangeEnd": "202607282359",
-  "totalCount": 347,
-  "rawCount": 404,
+  "totalCount": 348,
+  "rawCount": 405,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,79 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 3,
-    "cached": 17,
-    "skipped": 327,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 328,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
     "공고": 183,
     "사전규격": 74,
-    "발주계획": 90
+    "발주계획": 91
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 184,
+    "디스플레이/사이니지 계열": 185,
     "미디어/파사드 계열": 110,
     "ITS/VMS 계열": 53
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20831927",
+      "bidNtceNo": "PL-R26DD20831927",
+      "bidNtceOrd": "",
+      "bidNtceNm": "샘모루초 외 3교(부흥고, 평촌경영고, 호계초) LED 조명교체 전기, 통신, 소방공사 설계용역",
+      "ntceInsttNm": "경기도교육청 경기도안양과천교육지원청",
+      "dminsttNm": "경기도교육청 경기도안양과천교육지원청",
+      "assignBudgetAmt": 17668000,
+      "bidNtceRegistDt": "2026-07-28 17:25",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "LED",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20831927",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "교육시설과",
+        "officerName": "이석현",
+        "officerTel": "031-380-7299",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 17668000,
+        "rawBusinessDivision": "용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
     {
       "bidId": "BID-R26BK01654853-000",
       "bidNtceNo": "R26BK01654853",
@@ -328,7 +384,7 @@
         "전광판",
         "농업기술센터"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-28T07:57:56.432Z"
@@ -640,7 +696,7 @@
         "용역",
         "수원화성"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-28T07:57:58.132Z"
@@ -826,7 +882,7 @@
         "차량 보조 신호등",
         "교통 환경 개선"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-28T07:57:59.653Z"
