@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-28T10:49:52.463Z",
+  "generatedAt": "2026-07-29T00:07:57.525Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
-  "rangeBegin": "202606280000",
-  "rangeEnd": "202607282359",
+  "rangeBegin": "202606290000",
+  "rangeEnd": "202607292359",
   "totalCount": 348,
-  "rawCount": 405,
+  "rawCount": 404,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,15 +23,15 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
+    "analyzed": 4,
+    "cached": 16,
     "skipped": 328,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
     "공고": 183,
-    "사전규격": 74,
-    "발주계획": 91
+    "사전규격": 75,
+    "발주계획": 90
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 185,
@@ -40,6 +40,62 @@
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00257845",
+      "bidNtceNo": "BF-R26BD00257845",
+      "bidNtceOrd": "",
+      "bidNtceNm": "행정중심복합도시 5-1L5BL 아파트 전기공사 LED경관조명기구 제작 및 설치",
+      "ntceInsttNm": "한국토지주택공사",
+      "dminsttNm": "한국토지주택공사",
+      "assignBudgetAmt": 148090353,
+      "bidNtceRegistDt": "2026-07-28 23:40",
+      "bidClseDt": "2026-08-04 09:25",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00257845",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-04 09:25",
+        "deliveryLimitDt": "2026-12-31 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "20260728233001",
+        "linkedBidNoList": "",
+        "productName": "행정중심복합도시 5-1L5BL 아파트 전기공사 LED경관조명기구 제작 및 설치",
+        "productDetails": "[1^^행정중심복합도시 5-1L5BL 아파트 전기공사 LED경관조명기구 제작 및 설치]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "20260728233001",
+      "linkedBidNtceNoList": ""
+    },
     {
       "bidId": "PL-R26DD20831927",
       "bidNtceNo": "PL-R26DD20831927",
@@ -174,7 +230,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "엑스코 LED 전광판 구매 공급업체 선정",
+      "aiReason": "LED 전광판 구매로 DI영업지원팀의 영업 검토 우선순위 HIGH",
+      "aiAction": "LED 전광판 구매 공급업체 선정에 대한 영업 검토 수행",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "엑스코"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-29T00:07:51.354Z"
     },
     {
       "bidId": "BID-R26BK01654795-000",
@@ -870,22 +940,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "디지털 LED 차량 보조 신호등 구입",
-      "aiReason": "디지털 LED 관련 사업으로 예산도 높고 실행 가능성이 높음",
-      "aiAction": "사업부와 협의하여 영업 활동을 진행할 것",
-      "aiTags": [
-        "디지털 LED",
-        "LED",
-        "차량 보조 신호등",
-        "교통 환경 개선"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-28T07:57:59.653Z"
+      }
     },
     {
       "bidId": "BID-R26BK01652983-000",
@@ -4096,7 +4151,22 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "2026년 재난문자 전광판 구매 및 설치",
+      "aiReason": "전광판 직접 관련 + 예산 50,000,000원",
+      "aiAction": "사업부 담당자와 협의 후 추진",
+      "aiTags": [
+        "전광판",
+        "LED",
+        "미디어월",
+        "ITS/VMS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-29T00:07:53.044Z"
     },
     {
       "bidId": "BF-R26BD00255174",
@@ -4372,7 +4442,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "LOW",
+      "aiScore": 20,
+      "aiSummary": "국가유산 미디어아트 구 군산세관 본관 공연 연출 및 운영대행 용역 재공고",
+      "aiReason": "미디어 관련 키워드가 있으나, 용역 사업으로 LED/미디어월/사이니지/ITS/VMS 직접 관련이 낮음",
+      "aiAction": "조달 정보를 확인하여 예산 및 실행 가능성을 확인할 필요가 있음",
+      "aiTags": [
+        "미디어",
+        "용역",
+        "국가유산"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-29T00:07:54.659Z"
     },
     {
       "bidId": "BID-R26BK01642358-001",
@@ -5593,7 +5677,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 조명 공사 관련 조달 공고",
+      "aiReason": "LED 전광판, 미디어월, 디지털 사이니지, 미디어파사드, ITS/VMS 사업과 직접 관련되어 있으며 예산도 81억원으로 높습니다.",
+      "aiAction": "조달 공고 확인 및 영업 추진",
+      "aiTags": [
+        "LED",
+        "조달공고",
+        "스마트생태공장"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-07-29T00:07:56.323Z"
     },
     {
       "bidId": "BF-R26BD00254695",
@@ -8908,21 +9006,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 전광판/미디어월/디지털 사이니지/미디어파사드/ITS/VMS 사업과 관련된 2026년 오산권 임대주택 조명기구 교체공사",
-      "aiReason": "LED 실내조명등 교체공사로 LED 관련 제품 구매가 예상되며, 예산도 1억 7천 8백 8만 9천 1백 60원으로 높음",
-      "aiAction": "사업부 담당자와 협의하여 사업 관련성 확인 및 추진 방안 수립",
-      "aiTags": [
-        "LED",
-        "조명기구 교체공사",
-        "임대주택"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-16T07:41:20.529Z"
+      }
     },
     {
       "bidId": "BID-R26BK01636261-000",
@@ -8998,21 +9082,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED실내조명등 교체공사",
-      "aiReason": "LED 전광판/미디어월/디지털 사이니지/미디어파사드/ITS/VMS 사업과 직접 관련된 LED실내조명등 교체공사이며, 예산 또한 높음",
-      "aiAction": "사업부 담당자와 협의하여 사업 참여 가능성을 확인하고, 예산 확인 후 사업 참여 여부 결정",
-      "aiTags": [
-        "LED",
-        "조명기구",
-        "교체공사"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-16T07:41:22.150Z"
+      }
     },
     {
       "bidId": "BID-R26BK01636953-000",
@@ -15777,21 +15847,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 95,
-      "aiSummary": "LED 전광판 관련 사업",
-      "aiReason": "LED 전광판 제작 설치로 DI영업지원팀의 영업 검토 우선순위가 높습니다.",
-      "aiAction": "영업 검토 및 예산 확인",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "시내버스"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-21T02:47:23.672Z"
+      }
     },
     {
       "bidId": "BID-R26BK01620784-000",
@@ -22745,62 +22801,6 @@
         "unit": "",
         "orderAmount": 108200000,
         "rawBusinessDivision": "용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "06"
-    },
-    {
-      "bidId": "PL-R26DD20805085",
-      "bidNtceNo": "PL-R26DD20805085",
-      "bidNtceOrd": "",
-      "bidNtceNm": "타임리스미디어아트 전시관 LED 교체",
-      "ntceInsttNm": "경상북도문화관광공사",
-      "dminsttNm": "경상북도문화관광공사",
-      "assignBudgetAmt": 93000000,
-      "bidNtceRegistDt": "2026-06-28 14:28",
-      "bidClseDt": "2026-06",
-      "searchKeyword": "LED",
-      "region": "경상",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20805085",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "발주계획",
-      "businessType": "물품",
-      "documentUrls": [],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "물품",
-        "originalPageUrl": "",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "수의계약",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "06",
-        "department": "문화기획팀",
-        "officerName": "박정호",
-        "officerTel": "054-740-3022",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "전광판",
-        "productDetails": "",
-        "purpose": "전시관 LED(전광판)",
-        "quantity": "",
-        "unit": "식",
-        "orderAmount": 93000000,
-        "rawBusinessDivision": "물품"
       },
       "orderYear": "2026",
       "orderMnth": "06"
