@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-29T08:07:23.736Z",
+  "generatedAt": "2026-07-29T10:51:28.896Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202606290000",
   "rangeEnd": "202607292359",
-  "totalCount": 360,
-  "rawCount": 419,
+  "totalCount": 363,
+  "rawCount": 422,
   "successCalls": 288,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,216 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 3,
-    "cached": 17,
-    "skipped": 340,
+    "analyzed": 0,
+    "cached": 20,
+    "skipped": 343,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 190,
-    "사전규격": 78,
-    "발주계획": 92
+    "공고": 191,
+    "사전규격": 79,
+    "발주계획": 93
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 193,
-    "미디어/파사드 계열": 112,
+    "디스플레이/사이니지 계열": 195,
+    "미디어/파사드 계열": 113,
     "ITS/VMS 계열": 55
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00258351",
+      "bidNtceNo": "BF-R26BD00258351",
+      "bidNtceOrd": "",
+      "bidNtceNm": "LED 스크린 구매",
+      "ntceInsttNm": "조선대학교",
+      "dminsttNm": "조선대학교",
+      "assignBudgetAmt": 38060000,
+      "bidNtceRegistDt": "2026-07-29 18:14",
+      "bidClseDt": "2026-08-03 23:59",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00258351",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00258351&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-03 23:59",
+        "deliveryLimitDt": "2026-08-25 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "강민욱",
+        "officerTel": "062-230-6313",
+        "officerEmail": "",
+        "referenceNo": "총무 제26-195호",
+        "linkedBidNoList": "",
+        "productName": "LED 스크린 구매",
+        "productDetails": "[1^5512190301^안내전광판]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "총무 제26-195호",
+      "linkedBidNtceNoList": ""
+    },
+    {
+      "bidId": "PL-R26DD20833141",
+      "bidNtceNo": "PL-R26DD20833141",
+      "bidNtceOrd": "",
+      "bidNtceNm": "LED 스크린 구매",
+      "ntceInsttNm": "조선대학교",
+      "dminsttNm": "조선대학교",
+      "assignBudgetAmt": 38060000,
+      "bidNtceRegistDt": "2026-07-29 18:13",
+      "bidClseDt": "2026-07",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TPLAN&kwd=R26DD20833141",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "07",
+        "department": "총무팀",
+        "officerName": "강민욱",
+        "officerTel": "062-230-6313",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "전광판",
+        "productDetails": "",
+        "purpose": "홍보용",
+        "quantity": "",
+        "unit": "세트",
+        "orderAmount": 38060000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "07"
+    },
+    {
+      "bidId": "BID-R26BK01657390-000",
+      "bidNtceNo": "R26BK01657390",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "퍼포먼스 다이닝 미디어 콘텐츠 개발 및 운영 용역",
+      "ntceInsttNm": "재단법인속초문화관광재단",
+      "dminsttNm": "재단법인속초문화관광재단",
+      "assignBudgetAmt": 160000000,
+      "bidNtceRegistDt": "2026-07-29 17:39",
+      "bidClseDt": "2026-08-12 17:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01657390&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01657390&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01657390&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01657390&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01657390&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01657390&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01657390&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-08-12 17:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김영민",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "(재)속초문화관광재단 공고 제2026-49호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01649296-000",
       "bidNtceNo": "R26BK01649296",
@@ -195,7 +388,7 @@
         "영상감시장치",
         "금속기둥"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-29T08:07:19.494Z"
@@ -274,7 +467,7 @@
         "VMS",
         "영상감시장치"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-29T08:07:21.045Z"
@@ -364,7 +557,7 @@
         "전광판",
         "물품"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-07-29T08:07:22.536Z"
@@ -3255,7 +3448,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "속초문화관광재단-4968",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01657390",
         "productName": "퍼포먼스 다이닝 미디어 콘텐츠 개발 및 운영 용역",
         "productDetails": "",
         "purpose": "",
@@ -3265,7 +3458,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "속초문화관광재단-4968",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01657390"
     },
     {
       "bidId": "PL-R26DD20829241",
@@ -3311,7 +3504,7 @@
         "officerTel": "033-636-0665",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01657390000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -12649,8 +12842,8 @@
         "orderYear": "",
         "orderMonth": "",
         "department": "",
-        "officerName": "심소현",
-        "officerTel": "033-640-5462",
+        "officerName": "안다해",
+        "officerTel": "033-640-5161",
         "officerEmail": "",
         "referenceNo": "강릉시 공고 2026-1221호",
         "linkedBidNoList": "",
