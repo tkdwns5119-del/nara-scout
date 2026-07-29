@@ -322,6 +322,18 @@
       background: #fbfdff;
     }
 
+    .list-mode-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .list-mode-switch .mode-button {
+      min-height: 34px;
+      padding: 0 12px;
+    }
+
     .search {
       position: relative;
     }
@@ -850,6 +862,8 @@
       .panel-head { align-items: flex-start; flex-direction: column; }
       .priority-head-actions { width: 100%; justify-content: space-between; }
       .mode-switch { flex: 1 1 auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .list-mode-row { align-items: stretch; }
+      .list-mode-switch { width: 100%; }
       .toolbar { grid-template-columns: 1fr; }
       .filters {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1045,6 +1059,16 @@
 
         <section class="panel">
           <div class="toolbar">
+            <div class="list-mode-row">
+              <div class="mode-switch list-mode-switch" role="tablist" aria-label="등록일 분류">
+                <button class="mode-button active" type="button" data-list-mode="all" role="tab" aria-selected="true">
+                  <i data-lucide="list-filter"></i><span>전체 사업</span><span class="mode-count" id="allListCount">0</span>
+                </button>
+                <button class="mode-button" type="button" data-list-mode="today" role="tab" aria-selected="false">
+                  <i data-lucide="calendar-plus"></i><span>오늘 사업만</span><span class="mode-count" id="todayListCount">0</span>
+                </button>
+              </div>
+            </div>
             <div class="search">
               <i data-lucide="search"></i>
               <input type="search" id="searchInput" placeholder="사업명, 기관, 공고번호, 담당자 검색">
@@ -1175,6 +1199,7 @@
         budget: "ALL"
       },
       query: "",
+      listMode: "all",
       priorityMode: "today",
       sideTab: "detail",
       review: JSON.parse(localStorage.getItem(REVIEW_KEY) || "{}")
@@ -1403,6 +1428,7 @@
       let list = [...state.bids];
       const filters = state.filters;
 
+      if (state.listMode === "today") list = list.filter(isToday);
       if (filters.service !== "ALL") list = list.filter((item) => item.serviceType === filters.service);
       if (filters.contract !== "ALL") {
         list = list.filter((item) => safe(item.contractMethod || item.contractMethodRaw, "").includes(filters.contract));
@@ -1637,6 +1663,17 @@
       }).join("") || `<div class="empty">${state.priorityMode === "today" ? "오늘 등록된 사업이 없습니다." : "우선 확인 사업이 없습니다."}</div>`;
     };
 
+    const renderListMode = () => {
+      const todayTotal = state.bids.filter(isToday).length;
+      $("allListCount").textContent = state.bids.length.toLocaleString("ko-KR");
+      $("todayListCount").textContent = todayTotal.toLocaleString("ko-KR");
+      document.querySelectorAll("[data-list-mode]").forEach((button) => {
+        const active = button.dataset.listMode === state.listMode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", String(active));
+      });
+    };
+
     const renderRows = () => {
       state.filtered = filteredByView();
       if (state.filtered.length && !state.filtered.some((item) => item.bidNtceNo === state.selectedId)) {
@@ -1646,7 +1683,9 @@
       const resultMeta = $("resultMeta");
       if (resultMeta) {
         const todayVisible = state.filtered.filter(isToday).length;
-        resultMeta.textContent = `오늘 ${todayVisible.toLocaleString("ko-KR")}건 먼저 · ${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
+        resultMeta.textContent = state.listMode === "today"
+          ? `오늘 사업 ${state.filtered.length.toLocaleString("ko-KR")}건 표시`
+          : `오늘 ${todayVisible.toLocaleString("ko-KR")}건 먼저 · ${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
       }
       $("bidRows").innerHTML = state.filtered.map((item) => {
         const c = contact(item);
@@ -1675,7 +1714,7 @@
             <td><strong>${c.name}</strong><div class="title-sub">${c.tel}</div></td>
           </tr>
         `;
-      }).join("") || `<tr><td colspan="5"><div class="empty">조건에 맞는 사업이 없습니다.</div></td></tr>`;
+      }).join("") || `<tr><td colspan="5"><div class="empty">${state.listMode === "today" ? "오늘 등록된 사업이 없습니다." : "조건에 맞는 사업이 없습니다."}</div></td></tr>`;
     };
 
     const noteField = (type, review) => `
@@ -1767,6 +1806,7 @@
     const render = () => {
       renderMetrics();
       renderPriority();
+      renderListMode();
       renderRows();
       renderStatusBoard();
       renderDetail();
@@ -1788,6 +1828,13 @@
     };
 
     document.addEventListener("click", (event) => {
+      const listMode = event.target.closest("[data-list-mode]")?.dataset.listMode;
+      if (listMode) {
+        state.listMode = listMode;
+        render();
+        return;
+      }
+
       const priorityMode = event.target.closest("[data-priority-mode]")?.dataset.priorityMode;
       if (priorityMode) {
         state.priorityMode = priorityMode;
