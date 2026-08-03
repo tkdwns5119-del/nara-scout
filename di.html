@@ -334,6 +334,42 @@
       padding: 0 12px;
     }
 
+    .date-filter {
+      min-height: 40px;
+      padding: 0 8px 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .date-filter.active {
+      border-color: #96d4df;
+      background: #e8f7fa;
+      color: var(--blue);
+    }
+
+    .date-filter svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+    }
+
+    .date-filter select {
+      min-width: 170px;
+      min-height: 36px;
+      padding: 0 24px 0 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: inherit;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
     .search {
       position: relative;
     }
@@ -862,8 +898,10 @@
       .panel-head { align-items: flex-start; flex-direction: column; }
       .priority-head-actions { width: 100%; justify-content: space-between; }
       .mode-switch { flex: 1 1 auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .list-mode-row { align-items: stretch; }
+      .list-mode-row { align-items: stretch; flex-direction: column; }
       .list-mode-switch { width: 100%; }
+      .date-filter { width: 100%; }
+      .date-filter select { min-width: 0; width: 100%; }
       .toolbar { grid-template-columns: 1fr; }
       .filters {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1068,6 +1106,12 @@
                   <i data-lucide="calendar-plus"></i><span>오늘 사업만</span><span class="mode-count" id="todayListCount">0</span>
                 </button>
               </div>
+              <label class="date-filter" id="dateFilterControl">
+                <i data-lucide="calendar-days"></i>
+                <select id="filterDate" aria-label="등록 날짜 선택">
+                  <option value="">등록 날짜 선택</option>
+                </select>
+              </label>
             </div>
             <div class="search">
               <i data-lucide="search"></i>
@@ -1408,7 +1452,22 @@
       return `${get("year")}-${get("month")}-${get("day")}`;
     };
 
-    const isToday = (item) => safe(item.bidNtceRegistDt, "").slice(0, 10) === kstDayKey();
+    const postedDateKey = (item) => safe(item.bidNtceRegistDt, "").slice(0, 10);
+
+    const isToday = (item) => postedDateKey(item) === kstDayKey();
+
+    const isDateListMode = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value);
+
+    const dateLabel = (value) => {
+      const date = new Date(`${value}T00:00:00+09:00`);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat("ko-KR", {
+        timeZone: "Asia/Seoul",
+        month: "long",
+        day: "numeric",
+        weekday: "short"
+      }).format(date);
+    };
 
     const postedNewest = (a, b) => safe(b.bidNtceRegistDt, "").localeCompare(safe(a.bidNtceRegistDt, ""));
 
@@ -1429,6 +1488,7 @@
       const filters = state.filters;
 
       if (state.listMode === "today") list = list.filter(isToday);
+      else if (isDateListMode(state.listMode)) list = list.filter((item) => postedDateKey(item) === state.listMode);
       if (filters.service !== "ALL") list = list.filter((item) => item.serviceType === filters.service);
       if (filters.contract !== "ALL") {
         list = list.filter((item) => safe(item.contractMethod || item.contractMethodRaw, "").includes(filters.contract));
@@ -1665,8 +1725,21 @@
 
     const renderListMode = () => {
       const todayTotal = state.bids.filter(isToday).length;
+      const dateCounts = state.bids.reduce((counts, item) => {
+        const key = postedDateKey(item);
+        if (isDateListMode(key)) counts.set(key, (counts.get(key) || 0) + 1);
+        return counts;
+      }, new Map());
+      const selectedDate = isDateListMode(state.listMode) ? state.listMode : "";
+      const dateSelect = $("filterDate");
       $("allListCount").textContent = state.bids.length.toLocaleString("ko-KR");
       $("todayListCount").textContent = todayTotal.toLocaleString("ko-KR");
+      dateSelect.innerHTML = `<option value="">등록 날짜 선택</option>${[...dateCounts.entries()]
+        .sort(([a], [b]) => b.localeCompare(a))
+        .map(([date, count]) => `<option value="${date}">${dateLabel(date)} · ${count.toLocaleString("ko-KR")}건</option>`)
+        .join("")}`;
+      dateSelect.value = selectedDate;
+      $("dateFilterControl").classList.toggle("active", Boolean(selectedDate));
       document.querySelectorAll("[data-list-mode]").forEach((button) => {
         const active = button.dataset.listMode === state.listMode;
         button.classList.toggle("active", active);
@@ -1685,6 +1758,8 @@
         const todayVisible = state.filtered.filter(isToday).length;
         resultMeta.textContent = state.listMode === "today"
           ? `오늘 사업 ${state.filtered.length.toLocaleString("ko-KR")}건 표시`
+          : isDateListMode(state.listMode)
+            ? `${dateLabel(state.listMode)} 사업 ${state.filtered.length.toLocaleString("ko-KR")}건 표시`
           : `오늘 ${todayVisible.toLocaleString("ko-KR")}건 먼저 · ${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
       }
       $("bidRows").innerHTML = state.filtered.map((item) => {
@@ -1714,7 +1789,7 @@
             <td><strong>${c.name}</strong><div class="title-sub">${c.tel}</div></td>
           </tr>
         `;
-      }).join("") || `<tr><td colspan="5"><div class="empty">${state.listMode === "today" ? "오늘 등록된 사업이 없습니다." : "조건에 맞는 사업이 없습니다."}</div></td></tr>`;
+      }).join("") || `<tr><td colspan="5"><div class="empty">${state.listMode === "today" ? "오늘 등록된 사업이 없습니다." : isDateListMode(state.listMode) ? "선택한 날짜에 등록된 사업이 없습니다." : "조건에 맞는 사업이 없습니다."}</div></td></tr>`;
     };
 
     const noteField = (type, review) => `
@@ -1892,6 +1967,11 @@
         region: $("filterRegion").value,
         budget: $("filterBudget").value
       };
+      render();
+    });
+
+    $("filterDate").addEventListener("change", (event) => {
+      state.listMode = event.target.value || "all";
       render();
     });
 
