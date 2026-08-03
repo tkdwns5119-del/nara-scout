@@ -121,7 +121,7 @@ const PAGE_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 30000;
 const RETRY_COUNT = 3;
 const MAX_PAGES_PER_QUERY = 5;
-const UPDATE_SCHEDULE_KST = ['08:00', '14:00', '17:00'];
+const UPDATE_SCHEDULE_KST = ['09:00', '12:00', '16:00'];
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
