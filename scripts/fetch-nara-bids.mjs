@@ -9,6 +9,9 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import dns from 'node:dns';
+
+dns.setDefaultResultOrder('ipv4first');
 
 function normalizeServiceKey(key) {
     const raw = String(key || '').trim();
@@ -118,13 +121,63 @@ const CHUNK_DAYS = 15;
 const NUM_OF_ROWS = 100;
 const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
-const REQUEST_TIMEOUT_MS = 30000;
-const RETRY_COUNT = 3;
+const REQUEST_TIMEOUT_MS = Number(process.env.NARA_REQUEST_TIMEOUT_MS || 30000);
+const RETRY_COUNT = Number(process.env.NARA_RETRY_COUNT || 3);
+const MAX_CONSECUTIVE_CONNECTIVITY_FAILURES = Number(process.env.NARA_MAX_CONSECUTIVE_FAILURES || 3);
+const MIN_SUCCESS_RATIO = Number(process.env.NARA_MIN_SUCCESS_RATIO || 0.8);
 const MAX_PAGES_PER_QUERY = 5;
 const UPDATE_SCHEDULE_KST = ['09:00', '12:00', '16:00'];
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function describeRequestError(error) {
+    if (!error) return 'Unknown request error';
+
+    const details = [];
+    if (error.name === 'AbortError' || error.name === 'TimeoutError') {
+        details.push(`timeout (${REQUEST_TIMEOUT_MS}ms)`);
+    } else if (error.message) {
+        details.push(error.message);
+    }
+
+    let cause = error.cause;
+    while (cause) {
+        const causeDetail = [cause.code, cause.message].filter(Boolean).join(': ');
+        if (causeDetail) details.push(causeDetail);
+        cause = cause.cause;
+    }
+
+    return [...new Set(details)].join(' | ') || String(error);
+}
+
+function isRetryableRequestError(error) {
+    if (!error) return false;
+    if (error.name === 'AbortError' || error.name === 'TimeoutError') return true;
+    if (error instanceof TypeError && error.message === 'fetch failed') return true;
+    if (/^HTTP (408|425|429|5\d\d)\b/.test(error.message || '')) return true;
+
+    const retryableCodes = new Set([
+        'UND_ERR_CONNECT_TIMEOUT',
+        'UND_ERR_HEADERS_TIMEOUT',
+        'UND_ERR_SOCKET',
+        'ECONNRESET',
+        'ECONNREFUSED',
+        'ETIMEDOUT',
+        'EAI_AGAIN',
+        'ENOTFOUND',
+        'EHOSTUNREACH',
+        'ENETUNREACH'
+    ]);
+
+    let cause = error.cause;
+    while (cause) {
+        if (retryableCodes.has(cause.code)) return true;
+        cause = cause.cause;
+    }
+
+    return false;
 }
 
 function getKstDate() {
@@ -408,10 +461,13 @@ async function fetchPageWithRetry(source, keyword, dateRange, pageNo) {
             return result;
         } catch (e) {
             const isLast = attempt === RETRY_COUNT;
-            const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
+            const retryable = isRetryableRequestError(e);
+            const msg = describeRequestError(e);
 
-            if (isLast) {
-                throw new Error(msg);
+            if (isLast || !retryable) {
+                const finalError = new Error(msg);
+                finalError.isConnectivityFailure = retryable;
+                throw finalError;
             }
 
             const waitMs = attempt * 2000;
@@ -1101,7 +1157,7 @@ function initServiceStats() {
 async function main() {
     const now = getKstDate();
     const past = getKstDate();
-    past.setDate(now.getDate() - DAYS_TO_FETCH);
+    past.setDate(now.getDate() - (DAYS_TO_FETCH - 1));
 
     const dateRanges = makeDateRanges(past, now, CHUNK_DAYS);
 
@@ -1116,6 +1172,8 @@ async function main() {
     const allBids = [];
     const errors = [];
     let successCount = 0;
+    let attemptedCount = 0;
+    let consecutiveConnectivityFailures = 0;
 
     for (const dateRange of dateRanges) {
         console.log(`[INFO] 구간 처리: ${dateRange.bgn} ~ ${dateRange.end}`);
@@ -1129,14 +1187,17 @@ async function main() {
             }
 
             for (const term of SEARCH_TERMS) {
+                attemptedCount++;
                 try {
                     const result = await fetchOne(source, term, dateRange);
 
                     if (result.error) {
+                        consecutiveConnectivityFailures = 0;
                         errors.push(`[${source.serviceType}/${source.businessType}/${term}/${dateRange.bgn}-${dateRange.end}] ${result.error}`);
                         console.log(`  - FAIL ${source.serviceType} / ${source.businessType} / "${term}" — ${result.error}`);
                     } else {
                         successCount++;
+                        consecutiveConnectivityFailures = 0;
                         console.log(`  - OK   ${source.serviceType} / ${source.businessType} / "${term}" — ${result.items.length}건 / totalCount ${result.totalCount}`);
 
                         for (const i of result.items) {
@@ -1144,9 +1205,22 @@ async function main() {
                         }
                     }
                 } catch (e) {
-                    const msg = e.name === 'AbortError' ? '타임아웃' : e.message;
+                    const msg = describeRequestError(e);
                     errors.push(`[${source.serviceType}/${source.businessType}/${term}/${dateRange.bgn}-${dateRange.end}] ${msg}`);
                     console.log(`  - FAIL ${source.serviceType} / ${source.businessType} / "${term}" — ${msg}`);
+
+                    if (e.isConnectivityFailure || isRetryableRequestError(e)) {
+                        consecutiveConnectivityFailures++;
+                    } else {
+                        consecutiveConnectivityFailures = 0;
+                    }
+                }
+
+                if (consecutiveConnectivityFailures >= MAX_CONSECUTIVE_CONNECTIVITY_FAILURES) {
+                    throw new Error(
+                        `Connectivity failed ${consecutiveConnectivityFailures} times in a row. ` +
+                        'Stopping early so the workflow can retry after a cooldown.'
+                    );
                 }
 
                 await sleep(REQUEST_DELAY_MS);
@@ -1154,9 +1228,15 @@ async function main() {
         }
     }
 
-    if (successCount === 0) {
+    const successRatio = attemptedCount > 0 ? successCount / attemptedCount : 0;
+
+    if (successCount === 0 || successRatio < MIN_SUCCESS_RATIO) {
         console.error('');
-        console.error('[ERROR] 모든 API 호출 실패. 기존 data/bids.json 보호를 위해 파일을 덮어쓰지 않습니다.');
+        console.error(
+            `[ERROR] API success ratio is below the safety threshold: ${successCount}/${attemptedCount} ` +
+            `(${(successRatio * 100).toFixed(1)}%, required ${(MIN_SUCCESS_RATIO * 100).toFixed(0)}%).`
+        );
+        console.error('[ERROR] Keeping the previous data/bids.json instead of publishing partial data.');
         console.error('[ERROR] 상위 오류 목록:');
         for (const err of errors.slice(0, 10)) {
             console.error(`  - ${err}`);

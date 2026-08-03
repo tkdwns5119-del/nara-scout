@@ -48,7 +48,25 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_MODEL: ${{ vars.GROQ_MODEL }}
           AI_ANALYSIS_LIMIT: ${{ vars.AI_ANALYSIS_LIMIT }}
-        run: node scripts/fetch-nara-bids.mjs
+          NODE_OPTIONS: --dns-result-order=ipv4first
+        run: |
+          for attempt in 1 2 3; do
+            echo "Fetch attempt ${attempt}/3"
+            if node scripts/fetch-nara-bids.mjs; then
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              break
+            fi
+
+            wait_seconds=$((attempt * 90))
+            echo "Fetch failed. Waiting ${wait_seconds}s before a full retry."
+            sleep "$wait_seconds"
+          done
+
+          echo "All fetch attempts failed. Keeping the previous data file."
+          exit 1
 
       - name: Commit updated data
         run: |
