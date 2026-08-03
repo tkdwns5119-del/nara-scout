@@ -1028,6 +1028,264 @@
     .filters select:last-child { grid-column: 1 / -1; }
   }
 </style>
+
+<style id="workflow-ui-enhancements">
+  .sync-health {
+    min-height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .sync-health::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+    box-shadow: 0 0 0 3px #eef2f6;
+  }
+
+  .sync-health[data-tone="healthy"] { color: var(--green); border-color: #a8ddc2; background: #f3fbf7; }
+  .sync-health[data-tone="healthy"]::before { background: var(--green); box-shadow: 0 0 0 3px #dff3e8; }
+  .sync-health[data-tone="pending"] { color: var(--blue); border-color: #b9e3ea; background: #f2fbfd; }
+  .sync-health[data-tone="pending"]::before { background: var(--blue); box-shadow: 0 0 0 3px #d9f1f5; }
+  .sync-health[data-tone="warning"] { color: var(--orange); border-color: #f0d09c; background: #fff9ed; }
+  .sync-health[data-tone="warning"]::before { background: var(--orange); box-shadow: 0 0 0 3px #fceac8; }
+  .sync-health[data-tone="error"] { color: var(--red); border-color: #f2b8c5; background: #fff5f7; }
+  .sync-health[data-tone="error"]::before { background: var(--red); box-shadow: 0 0 0 3px #fde2e8; }
+
+  .insight-bar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .insight-button {
+    min-height: 42px;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 800;
+    color: #475569;
+    background: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .insight-button > span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .insight-button strong {
+    min-width: 28px;
+    font-size: 14px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .insight-button.active strong { color: var(--blue); }
+
+  .priority-mode-switch { grid-template-columns: repeat(3, minmax(0, auto)); }
+
+  .saved-filter-bar {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) 36px 36px 36px;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .saved-select {
+    min-height: 36px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .mini-icon-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .mini-icon-btn svg { width: 16px; height: 16px; }
+  .mini-icon-btn:disabled { opacity: 0.42; cursor: default; }
+
+  .favorite-button {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    padding: 0;
+    display: inline-grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: #94a3b8;
+  }
+
+  .favorite-button:hover { border-color: transparent; background: #fff8db; color: #9a6700; }
+  .favorite-button.active { border-color: transparent; background: #fff4c2; color: #9a6700; }
+  .favorite-button svg { width: 16px; height: 16px; }
+  .favorite-button.active svg { fill: currentColor; }
+
+  .badge.changed { color: #9a5800; background: #fff4df; border-color: #f0d09c; }
+  .badge.favorite { color: #8a6200; background: #fff8db; border-color: #ead48b; }
+
+  .field.changed {
+    border-color: #e7bd77;
+    background: #fffaf0;
+  }
+
+  .field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .field-label-row .field-label { margin-bottom: 0; }
+
+  .related-section,
+  .history-section {
+    display: grid;
+    gap: 8px;
+    padding-top: 2px;
+  }
+
+  .section-heading {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .related-list,
+  .history-list {
+    display: grid;
+    gap: 6px;
+  }
+
+  .related-item,
+  .history-item {
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-soft);
+  }
+
+  button.related-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .related-item-title {
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+  }
+
+  .related-item-meta,
+  .history-item-meta {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .history-item {
+    border-left: 3px solid #b8c4d2;
+  }
+
+  .history-item strong {
+    display: block;
+    font-size: 11px;
+  }
+
+  .history-item-note {
+    margin-top: 4px;
+    color: #475569;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-actions button.favorite.active {
+    border-color: #ead48b;
+    background: #fff8db;
+    color: #8a6200;
+  }
+
+  @media (max-width: 1180px) {
+    .insight-bar { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 760px) {
+    .top-actions { width: 100%; }
+    .sync-health { flex: 1 1 auto; justify-content: center; }
+    .insight-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .insight-button:last-child { grid-column: 1 / -1; }
+    .priority-mode-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .priority-mode-switch .mode-button { padding: 0 6px; }
+    .saved-filter-bar { grid-template-columns: minmax(0, 1fr) 36px 36px 36px; }
+    .business-title-row { gap: 5px; }
+  }
+
+  .reviewer-row {
+    margin: 10px 10px 0;
+    min-height: 38px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+  }
+
+  .reviewer-row svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+  }
+
+  .reviewer-row input {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+</style>
 </head>
 <body>
   <div class="app">
@@ -1045,6 +1303,7 @@
           </div>
         </div>
         <div class="top-actions">
+          <div class="sync-health" id="syncHealth" data-tone="pending" title="&#50629;&#45936;&#51060;&#53944; &#49345;&#53468;">&#50629;&#45936;&#51060;&#53944; &#54869;&#51064; &#51473;</div>
           <button class="icon-btn" id="refreshBtn" title="데이터 새로고침">
             <i data-lucide="refresh-cw"></i><span>새로고침</span>
           </button>
@@ -1077,16 +1336,27 @@
           </div>
         </div>
 
+        <div class="insight-bar" aria-label="&#48736;&#47480; &#49324;&#50629; &#48516;&#47448;">
+          <button class="insight-button" type="button" data-list-mode="newToday"><span>&#49888;&#44508; &#50724;&#45720;</span><strong id="quickNewCount">0</strong></button>
+          <button class="insight-button" type="button" data-list-mode="changedToday"><span>&#51221;&#51221; &#50724;&#45720;</span><strong id="quickChangedCount">0</strong></button>
+          <button class="insight-button" type="button" data-list-mode="recent3"><span>&#52572;&#44540; 3&#51068;</span><strong id="quick3Count">0</strong></button>
+          <button class="insight-button" type="button" data-list-mode="recent7"><span>&#52572;&#44540; 7&#51068;</span><strong id="quick7Count">0</strong></button>
+          <button class="insight-button" type="button" data-list-mode="favorite"><span>&#44288;&#49900; &#49324;&#50629;</span><strong id="quickFavoriteCount">0</strong></button>
+        </div>
+
         <section class="panel">
           <div class="panel-head">
             <div class="panel-title"><i data-lucide="calendar-clock"></i><span id="priorityTitle">오늘 업데이트</span></div>
             <div class="priority-head-actions">
-              <div class="mode-switch" role="tablist" aria-label="우선 확인 보기">
+              <div class="mode-switch priority-mode-switch" role="tablist" aria-label="우선 확인 보기">
                 <button class="mode-button active" type="button" data-priority-mode="today" role="tab" aria-selected="true">
                   <i data-lucide="calendar-plus"></i><span>오늘 업데이트</span><span class="mode-count" id="todayCount">0</span>
                 </button>
                 <button class="mode-button" type="button" data-priority-mode="urgent" role="tab" aria-selected="false">
                   <i data-lucide="badge-alert"></i><span>마감 우선</span>
+                </button>
+                <button class="mode-button" type="button" data-priority-mode="favorite" role="tab" aria-selected="false">
+                  <i data-lucide="star"></i><span>&#44288;&#49900;</span>
                 </button>
               </div>
               <div class="meta"><span id="priorityMeta">최신순</span></div>
@@ -1171,6 +1441,14 @@
                 <option value="OVER_500">5&#50613; &#50896; &#51060;&#49345;</option>
               </select>
             </div>
+            <div class="saved-filter-bar">
+              <select class="saved-select" id="savedFilter" aria-label="&#51200;&#51109;&#54620; &#54596;&#53552;">
+                <option value="">&#51200;&#51109; &#54596;&#53552;</option>
+              </select>
+              <button class="mini-icon-btn" type="button" id="saveFilterBtn" title="&#54788;&#51116; &#51312;&#44148; &#51200;&#51109;" aria-label="&#54788;&#51116; &#51312;&#44148; &#51200;&#51109;"><i data-lucide="bookmark-plus"></i></button>
+              <button class="mini-icon-btn" type="button" id="deleteFilterBtn" title="&#49440;&#53469;&#54620; &#54596;&#53552; &#49325;&#51228;" aria-label="&#49440;&#53469;&#54620; &#54596;&#53552; &#49325;&#51228;" disabled><i data-lucide="bookmark-x"></i></button>
+              <button class="mini-icon-btn" type="button" id="resetFiltersBtn" title="&#54596;&#53552; &#52488;&#44592;&#54868;" aria-label="&#54596;&#53552; &#52488;&#44592;&#54868;"><i data-lucide="rotate-ccw"></i></button>
+            </div>
             <div class="result-meta" id="resultMeta">0&#44148; &#54364;&#49884;</div>
           </div>
           <div class="table-wrap">
@@ -1208,6 +1486,10 @@
             </div>
           </div>
           <div class="side-pane" id="reviewPane" data-side-pane="review" role="tabpanel" hidden>
+            <label class="reviewer-row">
+              <i data-lucide="user-round"></i>
+              <input id="reviewerNameInput" type="text" maxlength="30" placeholder="&#51089;&#49457;&#51088; &#51060;&#47492;" aria-label="&#44160;&#53664; &#51089;&#49457;&#51088; &#51060;&#47492;">
+            </label>
             <div class="review-board" id="reviewBoard"></div>
           </div>
         </section>
@@ -1217,6 +1499,16 @@
 
   <script>
     const REVIEW_KEY = "NARA_SCOUT_IMPORTANT_ISSUE_V1";
+    const FILTER_KEY = "NARA_SCOUT_SAVED_FILTERS_V1";
+    const REVIEWER_KEY = "NARA_SCOUT_REVIEWER_NAME_V1";
+
+    const readStoredJson = (key, fallback) => {
+      try {
+        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+      } catch {
+        return fallback;
+      }
+    };
 
     const REVIEW_SYNC_APP = "di-actionboard-review";
     let reviewRemoteRef = null;
@@ -1232,6 +1524,7 @@
     window.addEventListener("load", createIcons);
 
     const state = {
+      rawBids: [],
       bids: [],
       filtered: [],
       selectedId: "",
@@ -1246,7 +1539,11 @@
       listMode: "all",
       priorityMode: "today",
       sideTab: "detail",
-      review: JSON.parse(localStorage.getItem(REVIEW_KEY) || "{}")
+      dataMeta: {},
+      savedFilters: readStoredJson(FILTER_KEY, []),
+      savedFilterId: "",
+      reviewerName: localStorage.getItem(REVIEWER_KEY) || "",
+      review: readStoredJson(REVIEW_KEY, {})
     };
 
     const $ = (id) => document.getElementById(id);
@@ -1303,7 +1600,7 @@
 
     const reviewTypeByKey = (key) => REVIEW_TYPES.find((type) => type.key === key);
 
-    const hasReviewData = (review) => REVIEW_TYPES.some((type) => review[type.key] || safe(review[type.noteKey], ""));
+    const hasReviewData = (review) => Boolean(review?.favorite || review?.history?.length) || REVIEW_TYPES.some((type) => review[type.key] || safe(review[type.noteKey], ""));
 
     const number = (value) => Number(value || 0);
 
@@ -1400,8 +1697,14 @@
     const dedupeBids = (items) => {
       const map = new Map();
       for (const item of items) {
-        const key = displayKey(item);
-        if (!map.has(key)) map.set(key, item);
+        const bidNumber = safe(item.bidNtceNo, "");
+        const key = bidNumber ? [item.serviceType, bidNumber].join("|") : displayKey(item);
+        const current = map.get(key);
+        if (!current
+          || revisionNumber(item) > revisionNumber(current)
+          || (revisionNumber(item) === revisionNumber(current) && postedNewest(item, current) < 0)) {
+          map.set(key, item);
+        }
       }
       return [...map.values()];
     };
@@ -1417,6 +1720,62 @@
     };
 
     const reviewState = (item) => state.review[item.bidNtceNo] || {};
+
+    const revisionNumber = (item) => Number.parseInt(safe(item.bidNtceOrd, "0"), 10) || 0;
+
+    const revisionSiblings = (item) => uniqueBy(
+      state.rawBids.filter((candidate) => candidate.bidNtceNo === item.bidNtceNo),
+      (candidate) => [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|")
+    ).sort((a, b) => revisionNumber(b) - revisionNumber(a));
+
+    const isRevision = (item) => revisionNumber(item) > 0 || revisionSiblings(item).some((candidate) => revisionNumber(candidate) < revisionNumber(item));
+
+    const revisionChanges = (item) => {
+      const previous = revisionSiblings(item).find((candidate) => revisionNumber(candidate) < revisionNumber(item));
+      if (!previous) return { previous: null, labels: [], keys: new Set() };
+      const fields = [
+        { key: "title", label: "\uC0AC\uC5C5\uBA85", get: (value) => safe(value.bidNtceNm, "") },
+        { key: "budget", label: "\uC608\uC0B0", get: (value) => number(value.assignBudgetAmt) },
+        { key: "deadline", label: "\uB9C8\uAC10", get: (value) => safe(value.bidClseDt, "") },
+        { key: "contract", label: "\uACC4\uC57D\uBC29\uBC95", get: (value) => contractLabel(value) },
+        { key: "institution", label: "\uC218\uC694\uAE30\uAD00", get: (value) => safe(value.dminsttNm || value.ntceInsttNm, "") }
+      ];
+      const changed = fields.filter((fieldInfo) => fieldInfo.get(item) !== fieldInfo.get(previous));
+      return { previous, labels: changed.map((fieldInfo) => fieldInfo.label), keys: new Set(changed.map((fieldInfo) => fieldInfo.key)) };
+    };
+
+    const normalizedBusinessTitle = (value) => safe(value, "")
+      .toLowerCase()
+      .replace(/(?:\uAE34\uAE09|\uC7AC\uACF5\uACE0)/g, "")
+      .replace(/[^0-9a-z\uAC00-\uD7A3]/g, "");
+
+    const relatedItems = (item) => {
+      const titleKey = normalizedBusinessTitle(item.bidNtceNm);
+      const institution = safe(item.dminsttNm || item.ntceInsttNm, "");
+      const currentKey = [item.bidNtceNo, item.bidNtceOrd, item.serviceType].join("|");
+      return uniqueBy(
+        state.rawBids.filter((candidate) => {
+          const candidateKey = [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|");
+          if (candidateKey === currentKey) return false;
+          if (candidate.bidNtceNo === item.bidNtceNo) return true;
+          return titleKey && normalizedBusinessTitle(candidate.bidNtceNm) === titleKey
+            && safe(candidate.dminsttNm || candidate.ntceInsttNm, "") === institution;
+        }),
+        (candidate) => [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|")
+      ).sort(postedNewest).slice(0, 6);
+    };
+
+    const isWithinDays = (item, days) => {
+      const posted = postedDateKey(item);
+      if (!isDateListMode(posted)) return false;
+      const todayStart = new Date(kstDayKey() + "T00:00:00+09:00");
+      const postedAt = new Date(posted + "T00:00:00+09:00");
+      const elapsed = Math.floor((todayStart.getTime() - postedAt.getTime()) / 86400000);
+      return elapsed >= 0 && elapsed < days;
+    };
+
+    const isNewToday = (item) => isToday(item) && !isRevision(item);
+    const isChangedToday = (item) => isToday(item) && isRevision(item);
 
     const score = (item) => {
       const days = daysLeft(item.bidClseDt);
@@ -1488,7 +1847,13 @@
       const filters = state.filters;
 
       if (state.listMode === "today") list = list.filter(isToday);
+      else if (state.listMode === "newToday") list = list.filter(isNewToday);
+      else if (state.listMode === "changedToday") list = list.filter(isChangedToday);
+      else if (state.listMode === "recent3") list = list.filter((item) => isWithinDays(item, 3));
+      else if (state.listMode === "recent7") list = list.filter((item) => isWithinDays(item, 7));
+      else if (state.listMode === "favorite") list = list.filter((item) => reviewState(item).favorite);
       else if (isDateListMode(state.listMode)) list = list.filter((item) => postedDateKey(item) === state.listMode);
+
       if (filters.service !== "ALL") list = list.filter((item) => item.serviceType === filters.service);
       if (filters.contract !== "ALL") {
         list = list.filter((item) => safe(item.contractMethod || item.contractMethodRaw, "").includes(filters.contract));
@@ -1524,6 +1889,9 @@
         });
       }
 
+      if (state.listMode === "favorite") {
+        return list.sort((a, b) => safe(reviewState(b).updatedAt, "").localeCompare(safe(reviewState(a).updatedAt, "")) || todayFirst(a, b));
+      }
       return list.sort(todayFirst);
     };
 
@@ -1543,6 +1911,111 @@
     const saveReview = (options = {}) => {
       localStorage.setItem(REVIEW_KEY, JSON.stringify(state.review));
       if (!options.skipRemote) scheduleReviewSync();
+    };
+
+    const saveStoredFilters = () => {
+      localStorage.setItem(FILTER_KEY, JSON.stringify(state.savedFilters));
+    };
+
+    const currentFilterSnapshot = () => ({
+      filters: { ...state.filters },
+      query: state.query,
+      listMode: state.listMode
+    });
+
+    const filterSnapshotLabel = () => {
+      const parts = [];
+      const listLabels = {
+        today: "\uC624\uB298 \uC0AC\uC5C5",
+        newToday: "\uC624\uB298 \uC2E0\uADDC",
+        changedToday: "\uC624\uB298 \uC815\uC815",
+        recent3: "\uCD5C\uADFC 3\uC77C",
+        recent7: "\uCD5C\uADFC 7\uC77C",
+        favorite: "\uAD00\uC2EC \uC0AC\uC5C5"
+      };
+      if (isDateListMode(state.listMode)) parts.push(dateLabel(state.listMode));
+      else if (listLabels[state.listMode]) parts.push(listLabels[state.listMode]);
+
+      ["filterService", "filterContract", "filterKeyword", "filterRegion", "filterBudget"].forEach((id) => {
+        const select = $(id);
+        if (select?.value && select.value !== "ALL") {
+          parts.push(select.selectedOptions[0]?.textContent?.trim() || select.value);
+        }
+      });
+      if (state.query) parts.push('"' + state.query + '"');
+      return parts.slice(0, 4).join(" \u00B7 ") || "\uC804\uCCB4 \uC0AC\uC5C5";
+    };
+
+    const renderSavedFilters = () => {
+      const select = $("savedFilter");
+      if (!select) return;
+      const filters = Array.isArray(state.savedFilters) ? state.savedFilters : [];
+      select.innerHTML = '<option value="">\uC800\uC7A5 \uD544\uD130</option>' + filters
+        .map((item) => '<option value="' + escapeHtml(item.id) + '">' + escapeHtml(item.label) + "</option>")
+        .join("");
+      select.value = filters.some((item) => item.id === state.savedFilterId) ? state.savedFilterId : "";
+      $("deleteFilterBtn").disabled = !select.value;
+    };
+
+    const syncFilterControls = () => {
+      $("filterService").value = state.filters.service;
+      $("filterContract").value = state.filters.contract;
+      $("filterKeyword").value = state.filters.keyword;
+      $("filterRegion").value = state.filters.region;
+      $("filterBudget").value = state.filters.budget;
+      $("searchInput").value = state.query;
+    };
+
+    const saveCurrentFilter = () => {
+      const filters = Array.isArray(state.savedFilters) ? state.savedFilters : [];
+      const snapshot = currentFilterSnapshot();
+      const serialized = JSON.stringify(snapshot);
+      const existing = filters.find((item) => JSON.stringify(item.snapshot) === serialized);
+      if (existing) {
+        state.savedFilterId = existing.id;
+      } else {
+        const item = { id: String(Date.now()), label: filterSnapshotLabel(), snapshot };
+        state.savedFilters = [item, ...filters].slice(0, 12);
+        state.savedFilterId = item.id;
+        saveStoredFilters();
+      }
+      renderSavedFilters();
+    };
+
+    const applySavedFilter = (id) => {
+      const item = (Array.isArray(state.savedFilters) ? state.savedFilters : []).find((candidate) => candidate.id === id);
+      if (!item) return;
+      state.savedFilterId = id;
+      state.filters = {
+        service: "ALL",
+        contract: "ALL",
+        keyword: "ALL",
+        region: "ALL",
+        budget: "ALL",
+        ...(item.snapshot?.filters || {})
+      };
+      state.query = safe(item.snapshot?.query, "");
+      state.listMode = item.snapshot?.listMode || "all";
+      syncFilterControls();
+      render();
+    };
+
+    const deleteSavedFilter = () => {
+      if (!state.savedFilterId) return;
+      state.savedFilters = (Array.isArray(state.savedFilters) ? state.savedFilters : [])
+        .filter((item) => item.id !== state.savedFilterId);
+      state.savedFilterId = "";
+      saveStoredFilters();
+      renderSavedFilters();
+    };
+
+    const resetFilters = () => {
+      state.filters = { service: "ALL", contract: "ALL", keyword: "ALL", region: "ALL", budget: "ALL" };
+      state.query = "";
+      state.listMode = "all";
+      state.savedFilterId = "";
+      syncFilterControls();
+      render();
     };
 
     const initializeReviewSync = async () => {
@@ -1591,8 +2064,26 @@
       }
     };
 
+    const appendReviewHistory = (history, entry) => [
+      ...(Array.isArray(history) ? history : []),
+      { at: new Date().toISOString(), by: state.reviewerName || "공용 사용자", ...entry }
+    ].slice(-30);
+
     const setReview = (key, patch) => {
-      const next = { ...reviewState({ bidNtceNo: key }), ...patch, updatedAt: new Date().toISOString() };
+      const current = reviewState({ bidNtceNo: key });
+      const changedKey = Object.keys(patch)[0];
+      const isActive = Boolean(patch[changedKey]);
+      const reviewType = reviewTypeByKey(changedKey);
+      const action = changedKey === "favorite"
+        ? (isActive ? "\uAD00\uC2EC \uC0AC\uC5C5 \uC124\uC815" : "\uAD00\uC2EC \uC0AC\uC5C5 \uD574\uC81C")
+        : (reviewType ? reviewType.label + (isActive ? " \uC124\uC815" : " \uD574\uC81C") : "\uC0C1\uD0DC \uBCC0\uACBD");
+      const note = reviewType ? safe(current[reviewType.noteKey], "") : "";
+      const next = {
+        ...current,
+        ...patch,
+        updatedAt: new Date().toISOString(),
+        history: appendReviewHistory(current.history, { action, note })
+      };
       state.review[key] = next;
       if (!hasReviewData(next)) delete state.review[key];
       saveReview();
@@ -1600,13 +2091,20 @@
     };
 
     const setReviewNote = (key, type, value, shouldRender = false) => {
-      const next = { ...reviewState({ bidNtceNo: key }), updatedAt: new Date().toISOString() };
-      const text = value.trim();
-      if (text) {
-        next[type.noteKey] = text;
+      const current = reviewState({ bidNtceNo: key });
+      const next = { ...current, updatedAt: new Date().toISOString() };
+      const noteText = value.trim();
+      if (noteText) {
+        next[type.noteKey] = noteText;
         next[type.key] = true;
       } else {
         delete next[type.noteKey];
+      }
+      if (shouldRender) {
+        next.history = appendReviewHistory(current.history, {
+          action: type.label + " \uC0AC\uC720 \uC800\uC7A5",
+          note: noteText || "\uB0B4\uC6A9 \uBE44\uC6C0"
+        });
       }
       state.review[key] = next;
       if (!hasReviewData(next)) delete state.review[key];
@@ -1614,7 +2112,6 @@
       if (shouldRender) render();
       else renderStatusBoard();
     };
-
 
     const renderSideTabs = () => {
       document.querySelectorAll("[data-side-tab]").forEach((button) => {
@@ -1632,7 +2129,11 @@
       const reviewBoard = $("reviewBoard");
       if (!reviewMeta || !reviewBoard) return;
 
-      const groups = REVIEW_TYPES.map((type) => {
+      const statusTypes = [
+        { key: "favorite", label: "\uAD00\uC2EC", tone: "favorite", icon: "star" },
+        ...REVIEW_TYPES
+      ];
+      const groups = statusTypes.map((type) => {
         const list = state.bids.filter((item) => reviewState(item)[type.key]).sort((a, b) => {
           const ra = reviewState(a).updatedAt || "";
           const rb = reviewState(b).updatedAt || "";
@@ -1640,12 +2141,14 @@
         });
         return { type, list };
       });
-      const reviewedCount = groups.reduce((total, group) => total + group.list.length, 0);
-      reviewMeta.textContent = `${reviewedCount.toLocaleString("ko-KR")}\uAC74`;
+      const reviewedIds = new Set(groups.flatMap((group) => group.list.map((item) => item.bidNtceNo)));
+      reviewMeta.textContent = reviewedIds.size.toLocaleString("ko-KR") + "\uAC74";
       reviewBoard.innerHTML = groups.filter((group) => group.list.length > 0).map(({ type, list }) => {
         const items = list.slice(0, 12).map((item) => {
           const review = reviewState(item);
-          const note = safe(review[type.noteKey], "\uC0AC\uC720 \uBBF8\uC785\uB825");
+          const note = type.key === "favorite"
+            ? "\uB9C8\uAC10 " + dday(item.bidClseDt).text + " \u00B7 " + money(item.assignBudgetAmt)
+            : safe(review[type.noteKey], "\uC0AC\uC720 \uBBF8\uC785\uB825");
           return `
             <button class="status-item ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
               <span class="status-item-title">${safe(item.bidNtceNm)}</span>
@@ -1662,8 +2165,68 @@
             <div class="status-list">${items}</div>
           </section>
         `;
-      }).join("") || `<div class="status-empty">\uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC\uB97C \uD45C\uC2DC\uD558\uBA74 \uC5EC\uAE30\uC5D0 \uBAA8\uC544\uBCF4\uC5EC\uC694.</div>`;
+      }).join("") || `<div class="status-empty">\uAD00\uC2EC, \uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC\uB97C \uD45C\uC2DC\uD558\uBA74 \uC5EC\uAE30\uC5D0 \uBAA8\uC544\uBCF4\uC5EC\uC694.</div>`;
       createIcons();
+    };
+
+    const kstDateKey = (date) => {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(date);
+      const get = (type) => parts.find((part) => part.type === type)?.value || "";
+      return get("year") + "-" + get("month") + "-" + get("day");
+    };
+
+    const latestExpectedUpdate = (times) => {
+      const now = new Date();
+      const todayStart = new Date(kstDateKey(now) + "T00:00:00+09:00");
+      const dayKeys = [
+        kstDateKey(new Date(todayStart.getTime() - 86400000)),
+        kstDateKey(todayStart)
+      ];
+      return dayKeys.flatMap((dayKey) => times.map((time) => new Date(dayKey + "T" + time + ":00+09:00")))
+        .filter((date) => date.getTime() <= now.getTime())
+        .sort((a, b) => b.getTime() - a.getTime())[0] || null;
+    };
+
+    const renderSyncHealth = () => {
+      const element = $("syncHealth");
+      if (!element) return;
+      const meta = state.dataMeta || {};
+      const times = meta.updateSchedule?.times || ["09:00", "12:00", "16:00"];
+      const generated = meta.generatedAt ? new Date(meta.generatedAt) : null;
+      const expected = latestExpectedUpdate(times);
+      const now = new Date();
+      let tone = "pending";
+      let label = "\uC5C5\uB370\uC774\uD2B8 \uD655\uC778 \uC911";
+
+      if (!generated || Number.isNaN(generated.getTime())) {
+        tone = "error";
+        label = "\uC5C5\uB370\uC774\uD2B8 \uBBF8\uD655\uC778";
+      } else if (number(meta.failedCalls) > 0) {
+        tone = "warning";
+        label = "\uBD80\uBD84 \uC131\uACF5 \u00B7 " + number(meta.failedCalls).toLocaleString("ko-KR") + "\uAC74 \uC624\uB958";
+      } else if (expected && generated.getTime() < expected.getTime() - 300000) {
+        const graceEnd = expected.getTime() + 45 * 60000;
+        if (now.getTime() <= graceEnd) {
+          tone = "pending";
+          label = "\uC608\uC815 \uC5C5\uB370\uC774\uD2B8 \uC9C4\uD589 \uC911";
+        } else {
+          tone = "error";
+          label = "\uC5C5\uB370\uC774\uD2B8 \uC9C0\uC5F0";
+        }
+      } else {
+        tone = "healthy";
+        label = "\uC5C5\uB370\uC774\uD2B8 \uC815\uC0C1";
+      }
+
+      element.dataset.tone = tone;
+      element.textContent = label;
+      element.title = "\uB9C8\uC9C0\uB9C9 \uC131\uACF5 " + (generated ? formatKst(generated) + " KST" : "\uBBF8\uD655\uC778")
+        + (expected ? " \u00B7 \uCD5C\uADFC \uC608\uC815 " + formatKst(expected) + " KST" : "");
     };
 
     const renderMetrics = () => {
@@ -1671,15 +2234,20 @@
         const d = daysLeft(item.bidClseDt);
         return isActiveDeadline(item.bidClseDt) && d != null && d <= 7;
       });
-      const bid = state.bids.filter((item) => item.serviceType === "공고").length;
-      const spec = state.bids.filter((item) => item.serviceType === "사전규격").length;
-      const plan = state.bids.filter((item) => item.serviceType === "발주계획").length;
+      const bid = state.bids.filter((item) => item.serviceType === "\uACF5\uACE0").length;
+      const spec = state.bids.filter((item) => item.serviceType === "\uC0AC\uC804\uADDC\uACA9").length;
+      const plan = state.bids.filter((item) => item.serviceType === "\uBC1C\uC8FC\uACC4\uD68D").length;
 
       $("mUrgent").textContent = urgent.length.toLocaleString("ko-KR");
       $("mNew").textContent = state.bids.filter(isToday).length.toLocaleString("ko-KR");
       $("mLarge").textContent = state.bids.filter((item) => number(item.assignBudgetAmt) >= 200000000).length.toLocaleString("ko-KR");
       $("mTotal").textContent = state.bids.length.toLocaleString("ko-KR");
-      $("mService").textContent = `공고 ${bid} / 사전 ${spec} / 계획 ${plan}`;
+      $("mService").textContent = `\uACF5\uACE0 ${bid} / \uC0AC\uC804 ${spec} / \uACC4\uD68D ${plan}`;
+      $("quickNewCount").textContent = state.bids.filter(isNewToday).length.toLocaleString("ko-KR");
+      $("quickChangedCount").textContent = state.bids.filter(isChangedToday).length.toLocaleString("ko-KR");
+      $("quick3Count").textContent = state.bids.filter((item) => isWithinDays(item, 3)).length.toLocaleString("ko-KR");
+      $("quick7Count").textContent = state.bids.filter((item) => isWithinDays(item, 7)).length.toLocaleString("ko-KR");
+      $("quickFavoriteCount").textContent = state.bids.filter((item) => reviewState(item).favorite).length.toLocaleString("ko-KR");
     };
 
     const renderPriority = () => {
@@ -1689,38 +2257,48 @@
         (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
       );
       const urgentItems = uniqueBy(
-        [...state.bids].sort((a, b) => score(b) - score(a)),
+        [...state.bids].filter((item) => isActiveDeadline(item.bidClseDt)).sort((a, b) => score(b) - score(a)),
         (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
       );
-      const source = state.priorityMode === "today" ? todayItems : urgentItems;
+      const favoriteItems = state.bids
+        .filter((item) => reviewState(item).favorite)
+        .sort((a, b) => score(b) - score(a));
+
+      const sources = { today: todayItems, urgent: urgentItems, favorite: favoriteItems };
+      const titles = { today: "\uC624\uB298 \uC5C5\uB370\uC774\uD2B8", urgent: "\uB9C8\uAC10 \uC6B0\uC120 \uC0AC\uC5C5", favorite: "\uAD00\uC2EC \uC0AC\uC5C5" };
+      const source = sources[state.priorityMode] || todayItems;
       const top = source.slice(0, 5);
-      $("priorityTitle").textContent = state.priorityMode === "today" ? "오늘 업데이트" : "마감 우선 사업";
+
+      $("priorityTitle").textContent = titles[state.priorityMode] || titles.today;
       $("todayCount").textContent = todayAll.length.toLocaleString("ko-KR");
       $("priorityMeta").textContent = state.priorityMode === "today"
-        ? `${todayAll.length.toLocaleString("ko-KR")}건 · ${todayItems.length.toLocaleString("ko-KR")}개 사업`
-        : `상위 ${top.length}건`;
+        ? todayAll.length.toLocaleString("ko-KR") + "\uAC74 \u00B7 " + todayItems.length.toLocaleString("ko-KR") + "\uAC1C \uC0AC\uC5C5"
+        : "\uC0C1\uC704 " + top.length.toLocaleString("ko-KR") + "\uAC74";
       document.querySelectorAll("[data-priority-mode]").forEach((button) => {
         const active = button.dataset.priorityMode === state.priorityMode;
         button.classList.toggle("active", active);
         button.setAttribute("aria-selected", String(active));
       });
+
       $("priorityList").innerHTML = top.map((item) => {
         const d = dday(item.bidClseDt);
         const postedTime = safe(item.bidNtceRegistDt, "").slice(11, 16);
+        const favorite = reviewState(item).favorite;
         return `
           <button class="priority-card ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
             <div class="badge-row">
               <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
               ${state.priorityMode === "today"
-                ? `<span class="badge green">오늘 ${postedTime} 게시</span>`
-                : `<span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "orange" : "gray"}">${d.text}</span>`}
+                ? `<span class="badge ${isRevision(item) ? "changed" : "green"}">${isRevision(item) ? "\uC815\uC815" : "\uC2E0\uADDC"} \u00B7 ${postedTime}</span>`
+                : `<span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>`}
+              ${favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
               <span class="badge gray">${contractLabel(item)}</span>
             </div>
             <div class="title-main">${safe(item.bidNtceNm)}</div>
-            <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${money(item.assignBudgetAmt)}</div>
+            <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${money(item.assignBudgetAmt)}</div>
           </button>
         `;
-      }).join("") || `<div class="empty">${state.priorityMode === "today" ? "오늘 등록된 사업이 없습니다." : "우선 확인 사업이 없습니다."}</div>`;
+      }).join("") || `<div class="empty">${state.priorityMode === "today" ? "\uC624\uB298 \uB4F1\uB85D\uB41C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : state.priorityMode === "favorite" ? "\uAD00\uC2EC \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : "\uC6B0\uC120 \uD655\uC778 \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."}</div>`;
     };
 
     const renderListMode = () => {
@@ -1734,9 +2312,9 @@
       const dateSelect = $("filterDate");
       $("allListCount").textContent = state.bids.length.toLocaleString("ko-KR");
       $("todayListCount").textContent = todayTotal.toLocaleString("ko-KR");
-      dateSelect.innerHTML = `<option value="">등록 날짜 선택</option>${[...dateCounts.entries()]
+      dateSelect.innerHTML = `<option value="">\uB4F1\uB85D \uB0A0\uC9DC \uC120\uD0DD</option>${[...dateCounts.entries()]
         .sort(([a], [b]) => b.localeCompare(a))
-        .map(([date, count]) => `<option value="${date}">${dateLabel(date)} · ${count.toLocaleString("ko-KR")}건</option>`)
+        .map(([date, count]) => `<option value="${date}">${dateLabel(date)} \u00B7 ${count.toLocaleString("ko-KR")}\uAC74</option>`)
         .join("")}`;
       dateSelect.value = selectedDate;
       $("dateFilterControl").classList.toggle("active", Boolean(selectedDate));
@@ -1753,33 +2331,54 @@
         state.selectedId = state.filtered[0].bidNtceNo;
       }
       if (!state.filtered.length) state.selectedId = "";
+
       const resultMeta = $("resultMeta");
       if (resultMeta) {
-        const todayVisible = state.filtered.filter(isToday).length;
-        resultMeta.textContent = state.listMode === "today"
-          ? `오늘 사업 ${state.filtered.length.toLocaleString("ko-KR")}건 표시`
-          : isDateListMode(state.listMode)
-            ? `${dateLabel(state.listMode)} 사업 ${state.filtered.length.toLocaleString("ko-KR")}건 표시`
-          : `오늘 ${todayVisible.toLocaleString("ko-KR")}건 먼저 · ${state.filtered.length.toLocaleString("ko-KR")}건 표시 / 전체 ${state.bids.length.toLocaleString("ko-KR")}건`;
+        const modeLabels = {
+          today: "\uC624\uB298 \uC0AC\uC5C5",
+          newToday: "\uC624\uB298 \uC2E0\uADDC",
+          changedToday: "\uC624\uB298 \uC815\uC815",
+          recent3: "\uCD5C\uADFC 3\uC77C",
+          recent7: "\uCD5C\uADFC 7\uC77C",
+          favorite: "\uAD00\uC2EC \uC0AC\uC5C5"
+        };
+        if (isDateListMode(state.listMode)) {
+          resultMeta.textContent = dateLabel(state.listMode) + " \uC0AC\uC5C5 " + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC";
+        } else if (state.listMode !== "all") {
+          resultMeta.textContent = (modeLabels[state.listMode] || "\uC120\uD0DD \uC0AC\uC5C5") + " " + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC";
+        } else {
+          const todayVisible = state.filtered.filter(isToday).length;
+          resultMeta.textContent = "\uC624\uB298 " + todayVisible.toLocaleString("ko-KR") + "\uAC74 \uBA3C\uC800 \u00B7 "
+            + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC / \uC804\uCCB4 "
+            + state.bids.length.toLocaleString("ko-KR") + "\uAC74";
+        }
       }
+
       $("bidRows").innerHTML = state.filtered.map((item) => {
         const c = contact(item);
         const d = dday(item.bidClseDt);
         const r = reviewState(item);
+        const revised = isRevision(item);
+        const relatedCount = relatedItems(item).length;
+        const revision = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
         return `
           <tr class="${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
             <td>
               <div class="title-cell">
                 <div class="business-title-row">
+                  <button class="favorite-button ${r.favorite ? "active" : ""}" type="button" data-favorite="${item.bidNtceNo}" title="${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC \uC124\uC815"}" aria-label="${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC \uC124\uC815"}"><i data-lucide="star"></i></button>
                   <span class="contract-prefix" title="${contractLabel(item)}">${contractLabel(item)}</span>
                   <div class="title-main">${safe(item.bidNtceNm)}</div>
                 </div>
-                <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} · ${safe(item.region)}</div>
-                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">오늘</span>` : ""}\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
+                <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${safe(item.region)}</div>
+                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">\uC624\uB298</span>` : ""}\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
                 <div class="badge-row">
-                  ${r.checked ? `<span class="badge green">체크</span>` : ""}
-                  ${r.issue ? `<span class="badge red">이슈</span>` : ""}
-                  ${r.done ? `<span class="badge gray">완료</span>` : ""}
+                  ${isToday(item) && !revised ? '<span class="badge green">\uC2E0\uADDC</span>' : ""}
+                  ${revised ? `<span class="badge changed">\uC815\uC815 ${revision}\uCC28</span>` : ""}
+                  ${relatedCount ? `<span class="badge gray">\uAD00\uB828 ${relatedCount}\uAC74</span>` : ""}
+                  ${r.checked ? '<span class="badge green">\uCCB4\uD06C</span>' : ""}
+                  ${r.issue ? '<span class="badge red">\uC774\uC288</span>' : ""}
+                  ${r.done ? '<span class="badge gray">\uC644\uB8CC</span>' : ""}
                 </div>
               </div>
             </td>
@@ -1789,7 +2388,7 @@
             <td><strong>${c.name}</strong><div class="title-sub">${c.tel}</div></td>
           </tr>
         `;
-      }).join("") || `<tr><td colspan="5"><div class="empty">${state.listMode === "today" ? "오늘 등록된 사업이 없습니다." : isDateListMode(state.listMode) ? "선택한 날짜에 등록된 사업이 없습니다." : "조건에 맞는 사업이 없습니다."}</div></td></tr>`;
+      }).join("") || '<tr><td colspan="5"><div class="empty">\uC870\uAC74\uC5D0 \uB9DE\uB294 \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.</div></td></tr>';
     };
 
     const noteField = (type, review) => `
@@ -1806,33 +2405,62 @@
       const item = state.bids.find((bid) => bid.bidNtceNo === state.selectedId);
       if (!item) {
         $("detailState").textContent = "\uBBF8\uC120\uD0DD";
-        $("detailBody").innerHTML = `<div class="empty">\uBAA9\uB85D\uC5D0\uC11C \uC0AC\uC5C5\uC744 \uC120\uD0DD\uD558\uC138\uC694.</div>`;
+        $("detailBody").innerHTML = '<div class="empty">\uBAA9\uB85D\uC5D0\uC11C \uC0AC\uC5C5\uC744 \uC120\uD0DD\uD558\uC138\uC694.</div>';
         return;
       }
 
       const c = contact(item);
       const d = dday(item.bidClseDt);
       const r = reviewState(item);
-      $("detailState").textContent = r.issue ? "\uC774\uC288" : r.checked ? "\uCCB4\uD06C" : r.done ? "\uC644\uB8CC" : "\uBBF8\uAC80\uD1A0";
+      const revision = revisionChanges(item);
+      const related = relatedItems(item);
+      const revisionOrder = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
+      const history = [...(Array.isArray(r.history) ? r.history : [])].reverse().slice(0, 8);
+      const statusLabel = r.issue ? "\uC774\uC288" : r.checked ? "\uCCB4\uD06C" : r.done ? "\uC644\uB8CC" : r.favorite ? "\uAD00\uC2EC" : "\uBBF8\uAC80\uD1A0";
+      $("detailState").textContent = statusLabel;
+
+      const relatedMarkup = related.map((candidate) => {
+        const candidateOrder = safe(candidate.bidNtceOrd, "").replace(/^0+/, "") || "0";
+        const content = `
+          <div class="related-item-title">${safe(candidate.bidNtceNm)}</div>
+          <div class="related-item-meta">${typeLabel(candidate)} \u00B7 ${candidateOrder}\uCC28 \u00B7 ${safe(candidate.bidNtceRegistDt)}</div>
+        `;
+        return candidate.bidNtceNo === item.bidNtceNo
+          ? `<div class="related-item">${content}</div>`
+          : `<button class="related-item" type="button" data-select="${candidate.bidNtceNo}">${content}</button>`;
+      }).join("");
+
+      const historyMarkup = history.map((entry) => `
+        <div class="history-item">
+          <strong>${escapeHtml(entry.action || "\uC0C1\uD0DC \uBCC0\uACBD")}</strong>
+          ${entry.note ? `<div class="history-item-note">${escapeHtml(entry.note)}</div>` : ""}
+          <div class="history-item-meta">${formatKst(entry.at)} KST · ${escapeHtml(entry.by || "공용 사용자")}</div>
+        </div>
+      `).join("");
+
       $("detailBody").innerHTML = `
         <div class="badge-row">
           <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
-          <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "orange" : "gray"}">${d.text}</span>
+          <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>
+          ${isRevision(item) ? `<span class="badge changed">\uC815\uC815 ${revisionOrder}\uCC28</span>` : `<span class="badge green">\uC2E0\uADDC</span>`}
+          ${r.favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
           <span class="badge gray">${safe(item.bidNtceNo)}</span>
         </div>
         <h2 class="detail-title">${safe(item.bidNtceNm)}</h2>
+        ${revision.labels.length ? `<div class="note-empty">\uC774\uC804 \uCC28\uC218 \uB300\uBE44 \uBCC0\uACBD: ${revision.labels.join(", ")}</div>` : ""}
         <div class="field-grid">
-          ${field("\uC218\uC694\uAE30\uAD00", item.dminsttNm)}
+          ${field("\uC218\uC694\uAE30\uAD00", item.dminsttNm, { changed: revision.keys.has("institution") })}
           ${field("\uACF5\uACE0\uAE30\uAD00", item.ntceInsttNm)}
           ${field(item.serviceType === "\uACF5\uACE0" ? "\uACF5\uACE0 \uAC8C\uC2DC\uC77C" : "\uB4F1\uB85D\uC77C", item.bidNtceRegistDt)}
-          ${field("\uC608\uC0B0", money(item.assignBudgetAmt))}
-          ${field("\uB9C8\uAC10/\uC608\uC815", `${safe(item.bidClseDt)} / ${d.text}${d.sub ? ` (${d.sub})` : ""}`)}
+          ${field("\uC608\uC0B0", money(item.assignBudgetAmt), { changed: revision.keys.has("budget") })}
+          ${field("\uB9C8\uAC10/\uC608\uC815", `${safe(item.bidClseDt)} / ${d.text}${d.sub ? ` (${d.sub})` : ""}`, { changed: revision.keys.has("deadline") })}
           ${field("\uB2F4\uB2F9\uC790", c.name)}
           ${field("\uC804\uD654", c.tel)}
-          ${field("\uACC4\uC57D\uBC29\uBC95", item.contractMethod || item.contractMethodRaw)}
+          ${field("\uACC4\uC57D\uBC29\uBC95", item.contractMethod || item.contractMethodRaw, { changed: revision.keys.has("contract") })}
           ${field("\uD0A4\uC6CC\uB4DC/\uC9C0\uC5ED", `${safe(item.searchKeyword)} / ${safe(item.region)}`)}
         </div>
         <div class="detail-actions">
+          <button class="favorite ${r.favorite ? "active" : ""}" data-action="favorite"><i data-lucide="star"></i><span>${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC"}</span></button>
           <button class="${r.checked ? "active" : ""}" data-action="checked"><i data-lucide="check-circle"></i><span>${r.checked ? "\uCCB4\uD06C \uD574\uC81C" : "\uCCB4\uD06C"}</span></button>
           <button class="${r.issue ? "active issue" : ""}" data-action="issue"><i data-lucide="badge-alert"></i><span>${r.issue ? "\uC774\uC288 \uD574\uC81C" : "\uC774\uC288"}</span></button>
           <button class="${r.done ? "active done" : ""}" data-action="done"><i data-lucide="circle-check-big"></i><span>${r.done ? "\uC644\uB8CC \uD574\uC81C" : "\uC644\uB8CC"}</span></button>
@@ -1842,15 +2470,30 @@
           </a>
         </div>
         <div class="note-grid">
-          ${REVIEW_TYPES.filter((type) => r[type.key]).map((type) => noteField(type, r)).join("") || `<div class="note-empty">\uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD558\uBA74 \uD574\uB2F9 \uC0AC\uC720 \uC785\uB825\uCE78\uC774 \uD45C\uC2DC\uB429\uB2C8\uB2E4.</div>`}
+          ${REVIEW_TYPES.filter((type) => r[type.key]).map((type) => noteField(type, r)).join("") || '<div class="note-empty">\uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD558\uBA74 \uD574\uB2F9 \uC0AC\uC720 \uC785\uB825\uCE78\uC774 \uD45C\uC2DC\uB429\uB2C8\uB2E4.</div>'}
         </div>
+        ${related.length ? `
+          <section class="related-section">
+            <h3 class="section-heading"><span>\uC774\uC804 \uCC28\uC218/\uAD00\uB828 \uACF5\uACE0</span><span class="badge gray">${related.length}\uAC74</span></h3>
+            <div class="related-list">${relatedMarkup}</div>
+          </section>
+        ` : ""}
+        ${history.length ? `
+          <section class="history-section">
+            <h3 class="section-heading"><span>\uD65C\uB3D9 \uC774\uB825</span><span class="badge gray">${history.length}\uAC74</span></h3>
+            <div class="history-list">${historyMarkup}</div>
+          </section>
+        ` : ""}
       `;
       createIcons();
     };
 
-    const field = (label, value) => `
-      <div class="field">
-        <div class="field-label">${label}</div>
+    const field = (label, value, options = {}) => `
+      <div class="field ${options.changed ? "changed" : ""}">
+        <div class="field-label-row">
+          <div class="field-label">${label}</div>
+          ${options.changed ? '<span class="badge changed">\uBCC0\uACBD</span>' : ""}
+        </div>
         <div class="field-value">${safe(value)}</div>
       </div>
     `;
@@ -1879,6 +2522,7 @@
     };
 
     const render = () => {
+      renderSyncHealth();
       renderMetrics();
       renderPriority();
       renderListMode();
@@ -1886,26 +2530,39 @@
       renderStatusBoard();
       renderDetail();
       renderSideTabs();
+      renderSavedFilters();
       createIcons();
     };
 
     const loadData = async () => {
-      $("lastUpdated").textContent = "데이터 로딩 중";
+      $("lastUpdated").textContent = "\uB370\uC774\uD130 \uB85C\uB529 \uC911";
+      $("syncHealth").dataset.tone = "pending";
+      $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uD655\uC778 \uC911";
       const response = await fetch(`./data/bids.json?t=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
-      state.bids = dedupeBids(Array.isArray(payload.bids) ? payload.bids : []);
+      state.rawBids = Array.isArray(payload.bids) ? payload.bids : [];
+      state.bids = dedupeBids(state.rawBids);
+      state.dataMeta = payload;
       const times = payload.updateSchedule?.times || ["09:00", "12:00", "16:00"];
-      $("lastUpdated").textContent = payload.generatedAt ? `최종 업데이트 ${formatKst(payload.generatedAt)} KST` : "업데이트 시각 미확인";
-      $("nextUpdate").textContent = `예정 ${times.join(", ")} KST`;
+      $("lastUpdated").textContent = payload.generatedAt ? `\uCD5C\uC885 \uC5C5\uB370\uC774\uD2B8 ${formatKst(payload.generatedAt)} KST` : "\uC5C5\uB370\uC774\uD2B8 \uC2DC\uAC01 \uBBF8\uD655\uC778";
+      $("nextUpdate").textContent = `\uC608\uC815 ${times.join(", ")} KST`;
       state.selectedId = [...state.bids].sort(todayFirst)[0]?.bidNtceNo || "";
       render();
     };
 
     document.addEventListener("click", (event) => {
+      const favoriteKey = event.target.closest("[data-favorite]")?.dataset.favorite;
+      if (favoriteKey) {
+        const current = reviewState({ bidNtceNo: favoriteKey });
+        setReview(favoriteKey, { favorite: !current.favorite });
+        return;
+      }
+
       const listMode = event.target.closest("[data-list-mode]")?.dataset.listMode;
       if (listMode) {
         state.listMode = listMode;
+        state.savedFilterId = "";
         render();
         return;
       }
@@ -1937,6 +2594,7 @@
       const action = event.target.closest("[data-action]")?.dataset.action;
       if (!action || !state.selectedId) return;
       const r = reviewState({ bidNtceNo: state.selectedId });
+      if (action === "favorite") setReview(state.selectedId, { favorite: !r.favorite });
       if (action === "checked") setReview(state.selectedId, { checked: !r.checked });
       if (action === "issue") setReview(state.selectedId, { issue: !r.issue });
       if (action === "done") setReview(state.selectedId, { done: !r.done });
@@ -1960,6 +2618,7 @@
     });
 
     $("filterControls").addEventListener("change", () => {
+      state.savedFilterId = "";
       state.filters = {
         service: $("filterService").value,
         contract: $("filterContract").value,
@@ -1971,24 +2630,48 @@
     });
 
     $("filterDate").addEventListener("change", (event) => {
+      state.savedFilterId = "";
       state.listMode = event.target.value || "all";
       render();
     });
 
     $("searchInput").addEventListener("input", (event) => {
+      state.savedFilterId = "";
       state.query = event.target.value;
       render();
     });
 
+    $("reviewerNameInput").value = state.reviewerName;
+    $("reviewerNameInput").addEventListener("change", (event) => {
+      state.reviewerName = event.target.value.trim();
+      localStorage.setItem(REVIEWER_KEY, state.reviewerName);
+    });
+
+    $("savedFilter").addEventListener("change", (event) => {
+      if (event.target.value) applySavedFilter(event.target.value);
+      else {
+        state.savedFilterId = "";
+        renderSavedFilters();
+      }
+    });
+
+    $("saveFilterBtn").addEventListener("click", saveCurrentFilter);
+    $("deleteFilterBtn").addEventListener("click", deleteSavedFilter);
+    $("resetFiltersBtn").addEventListener("click", resetFilters);
+
     $("refreshBtn").addEventListener("click", () => {
       loadData().catch((error) => {
-        $("lastUpdated").textContent = `로드 실패: ${error.message}`;
+        $("lastUpdated").textContent = `\uB85C\uB4DC \uC2E4\uD328: ${error.message}`;
+        $("syncHealth").dataset.tone = "error";
+        $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uB85C\uB4DC \uC2E4\uD328";
       });
     });
 
     loadData().catch((error) => {
-      $("lastUpdated").textContent = `로드 실패: ${error.message}`;
-      $("bidRows").innerHTML = `<tr><td colspan="5"><div class="empty">데이터를 불러오지 못했습니다.</div></td></tr>`;
+      $("lastUpdated").textContent = `\uB85C\uB4DC \uC2E4\uD328: ${error.message}`;
+      $("syncHealth").dataset.tone = "error";
+      $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uB85C\uB4DC \uC2E4\uD328";
+      $("bidRows").innerHTML = `<tr><td colspan="5"><div class="empty">\uB370\uC774\uD130\uB97C \uBD88\uB7EC\uC624\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.</div></td></tr>`;
     });
     initializeReviewSync();
   </script>
