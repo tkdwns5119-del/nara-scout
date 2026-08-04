@@ -126,7 +126,7 @@ const RETRY_COUNT = Number(process.env.NARA_RETRY_COUNT || 3);
 const MAX_CONSECUTIVE_CONNECTIVITY_FAILURES = Number(process.env.NARA_MAX_CONSECUTIVE_FAILURES || 3);
 const MIN_SUCCESS_RATIO = Number(process.env.NARA_MIN_SUCCESS_RATIO || 0.8);
 const MAX_PAGES_PER_QUERY = 5;
-const UPDATE_SCHEDULE_KST = ['09:00', '12:00', '16:00'];
+const UPDATE_SCHEDULE_KST = ['07:00', '11:00', '16:00'];
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

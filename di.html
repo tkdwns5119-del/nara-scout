@@ -1297,7 +1297,7 @@
             <h1>DI 조달 액션보드</h1>
             <div class="meta">
               <span id="lastUpdated">데이터 로딩 중</span>
-              <span id="nextUpdate">예정 09:00, 12:00, 16:00 KST</span>
+              <span id="nextUpdate">예정 07:00, 11:00, 16:00 KST</span>
               <span id="reviewSyncState">검토함 동기화 준비 중</span>
             </div>
           </div>
@@ -2196,7 +2196,7 @@
       const element = $("syncHealth");
       if (!element) return;
       const meta = state.dataMeta || {};
-      const times = meta.updateSchedule?.times || ["09:00", "12:00", "16:00"];
+      const times = meta.updateSchedule?.times || ["07:00", "11:00", "16:00"];
       const generated = meta.generatedAt ? new Date(meta.generatedAt) : null;
       const expected = latestExpectedUpdate(times);
       const now = new Date();
@@ -2544,7 +2544,7 @@
       state.rawBids = Array.isArray(payload.bids) ? payload.bids : [];
       state.bids = dedupeBids(state.rawBids);
       state.dataMeta = payload;
-      const times = payload.updateSchedule?.times || ["09:00", "12:00", "16:00"];
+      const times = payload.updateSchedule?.times || ["07:00", "11:00", "16:00"];
       $("lastUpdated").textContent = payload.generatedAt ? `\uCD5C\uC885 \uC5C5\uB370\uC774\uD2B8 ${formatKst(payload.generatedAt)} KST` : "\uC5C5\uB370\uC774\uD2B8 \uC2DC\uAC01 \uBBF8\uD655\uC778";
       $("nextUpdate").textContent = `\uC608\uC815 ${times.join(", ")} KST`;
       state.selectedId = [...state.bids].sort(todayFirst)[0]?.bidNtceNo || "";

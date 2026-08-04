@@ -3,9 +3,9 @@ name: Sync Nara Bids
 on:
   schedule:
     # GitHub Actions cron uses UTC.
-    # 00:00 UTC = 09:00 KST, 03:00 UTC = 12:00 KST, 07:00 UTC = 16:00 KST.
-    - cron: '0 0 * * *'
-    - cron: '0 3 * * *'
+    # 22:00 UTC = 07:00 KST (next day), 02:00 UTC = 11:00 KST, 07:00 UTC = 16:00 KST.
+    - cron: '0 22 * * *'
+    - cron: '0 2 * * *'
     - cron: '0 7 * * *'
   workflow_dispatch:
 
