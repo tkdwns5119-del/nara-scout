@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-08T07:49:26.455Z",
+  "generatedAt": "2026-08-08T22:26:35.932Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
-  "rangeBegin": "202607100000",
-  "rangeEnd": "202608082359",
-  "totalCount": 357,
-  "rawCount": 410,
+  "rangeBegin": "202607110000",
+  "rangeEnd": "202608092359",
+  "totalCount": 344,
+  "rawCount": 393,
   "successCalls": 192,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,195 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
-    "skipped": 337,
+    "analyzed": 2,
+    "cached": 18,
+    "skipped": 324,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 180,
-    "사전규격": 79,
-    "발주계획": 98
+    "공고": 176,
+    "사전규격": 75,
+    "발주계획": 93
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 198,
-    "미디어/파사드 계열": 118,
-    "ITS/VMS 계열": 41
+    "디스플레이/사이니지 계열": 195,
+    "미디어/파사드 계열": 111,
+    "ITS/VMS 계열": 38
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01671038-000",
+      "bidNtceNo": "R26BK01671038",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "경성대학교 하이플렉스 강의실 LED Display 구매 설치 입찰 (긴급) 공고",
+      "ntceInsttNm": "경성대학교 직속기관 산학협력단",
+      "dminsttNm": "경성대학교 직속기관 산학협력단",
+      "assignBudgetAmt": 998200000,
+      "bidNtceRegistDt": "2026-08-08 19:49",
+      "bidClseDt": "2026-08-14 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671038&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671038&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671038&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671038&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671038&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671038&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격 10억원 미만 5억원 이상인 중소기업자간 경쟁물품",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-09 10:00",
+        "bidClseDt": "2026-08-14 10:00",
+        "openDt": "2026-08-14 11:30",
+        "registerDeadline": "2026-08-13 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김승연",
+        "officerTel": "051-663-5086",
+        "officerEmail": "rto1997@naver.com",
+        "referenceNo": "산단26-13호",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED Display 구매 설치 입찰",
+      "aiReason": "LED 관련 조달, 예산 998억, 경성대학교",
+      "aiAction": "사업부 담당자에게 연락하여 입찰 참여 가능성을 확인",
+      "aiTags": [
+        "LED",
+        "경성대학교",
+        "입찰"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-08T22:26:32.944Z"
+    },
+    {
+      "bidId": "BID-R26BK01671037-000",
+      "bidNtceNo": "R26BK01671037",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "경성대학교 대형홀 LED월 구축 입찰 (긴급) 공고",
+      "ntceInsttNm": "경성대학교 직속기관 산학협력단",
+      "dminsttNm": "경성대학교 직속기관 산학협력단",
+      "assignBudgetAmt": 480471200,
+      "bidNtceRegistDt": "2026-08-08 19:48",
+      "bidClseDt": "2026-08-14 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671037&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671037&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671037&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671037&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671037&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671037&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 5억원 미만으로 고시금액이상인 중소기업자간 경쟁물품",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-09 10:00",
+        "bidClseDt": "2026-08-14 10:00",
+        "openDt": "2026-08-14 11:00",
+        "registerDeadline": "2026-08-13 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김승연",
+        "officerTel": "051-663-5086",
+        "officerEmail": "rto1997@naver.com",
+        "referenceNo": "산단26-12호",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "경성대학교 대형홀 LED월 구축 입찰",
+      "aiReason": "LED월 구축 입찰로 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 직접 관련되어 있으며, 예산 또한 높음",
+      "aiAction": "영업 담당자와 협의하여 입찰 참여 여부 결정",
+      "aiTags": [
+        "LED월",
+        "경성대학교",
+        "입찰"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-08T22:26:34.728Z"
+    },
     {
       "bidId": "BF-R26BD00262018",
       "bidNtceNo": "BF-R26BD00262018",
@@ -3082,7 +3254,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "산단26-13호",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01671038",
         "productName": "경성대학교 하이플렉스 강의실 LED Display 구매 설치",
         "productDetails": "[1^5512190301^안내전광판],[2^5512190301^안내전광판],[3^5612159801^교탁],[4^4321150701^데스크톱컴퓨터],[5^5216154701^오디오앰프],[6^5216151201^스피커],[7^3912100402^전원공급장치],[8^3910169901^LED램프],[9^3912100402^전원공급장치]",
         "purpose": "",
@@ -3092,7 +3264,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "산단26-13호",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01671038"
     },
     {
       "bidId": "BF-R26BD00260369",
@@ -3143,7 +3315,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "산단26-12호",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01671037",
         "productName": "경성대학교 대형홀 LED월 구축",
         "productDetails": "[1^5512190301^안내전광판],[2^5612159801^교탁],[3^4411190201^전자칠판],[4^4512150401^디지털카메라],[5^4321150701^데스크톱컴퓨터],[6^3912100402^전원공급장치],[7^3912110102^분전함],[8^3116259801^브래킷],[9^5512190301^안내전광판]",
         "purpose": "",
@@ -3153,7 +3325,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "산단26-12호",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01671037"
     },
     {
       "bidId": "BID-R26BK01666356-000",
@@ -3275,7 +3447,7 @@
         "officerTel": "051-663-5086",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01671038000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "LED Display 구매 설치",
@@ -3723,7 +3895,7 @@
         "officerTel": "051-663-5086",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01671037000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "LED월 구축",
@@ -11437,21 +11609,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "교통정보센터 노후 장비 구매설치(VMS, CCTV)로 VMS 사업에 직접 관련",
-      "aiReason": "VMS와 CCTV가 함께 구매설치되는 조달 공고로, DI영업지원팀의 영업 우선순위가 높음",
-      "aiAction": "조달 공고에 대한 영업 추진을 진행하고, 예산 및 실행 가능성을 확인할 것",
-      "aiTags": [
-        "VMS",
-        "CCTV",
-        "교통정보센터"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-08T03:44:03.011Z"
+      }
     },
     {
       "bidId": "BID-R26BK01651451-000",
@@ -12284,24 +12442,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "고위험 작업장 등 중대재해예방 안전장구 및 전광판 설치공사",
-      "aiReason": "전광판 설치공사로 인한 LED/미디어월/사이니지/ITS/VMS 사업과 직접 관련이 있으며 예산 또한 높음",
-      "aiAction": "사업부와의 협의를 통해 사업 기회를 파악하고 추진",
-      "aiTags": [
-        "전광판",
-        "LED",
-        "미디어월",
-        "사이니지",
-        "ITS",
-        "VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-08T03:44:04.510Z"
+      }
     },
     {
       "bidId": "BF-R26BD00256524",
@@ -22804,974 +22945,6 @@
       },
       "refNo": "A260713001",
       "linkedBidNtceNoList": ""
-    },
-    {
-      "bidId": "BID-R26BK01626007-000",
-      "bidNtceNo": "R26BK01626007",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "한동대학교 제네시스랩 디지털 사이니지와 LED디스플레이 구축 및 설치",
-      "ntceInsttNm": "한동대학교 산학협력단",
-      "dminsttNm": "한동대학교 산학협력단",
-      "assignBudgetAmt": 0,
-      "bidNtceRegistDt": "2026-07-10 16:32",
-      "bidClseDt": "2026-07-16 11:00",
-      "searchKeyword": "LED",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626007&bidPbancOrd=000",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01626007&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01626007&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 3",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01626007&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 4",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01626007&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 5",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01626007&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626007&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626007&bidPbancOrd=000",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "전자입찰",
-        "awardMethod": "소액수의견적-소액수의견적(2인 이상 견적 제출)",
-        "contractType": "수의계약",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-10 20:00",
-        "bidClseDt": "2026-07-16 11:00",
-        "openDt": "2026-07-16 13:00",
-        "registerDeadline": "2026-07-15 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "박지령",
-        "officerTel": "054-260-1144",
-        "officerEmail": "qkrwlfud@handong.edu",
-        "referenceNo": "제2026-0006호",
-        "linkedBidNoList": "",
-        "productName": "영상정보디스플레이장치",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "BF-R26BD00251081",
-      "bidNtceNo": "BF-R26BD00251081",
-      "bidNtceOrd": "",
-      "bidNtceNm": "지능형교통체계(ITS) 기본계획 2030 재검토 연구",
-      "ntceInsttNm": "국토교통부",
-      "dminsttNm": "국토교통부",
-      "assignBudgetAmt": 18181818,
-      "bidNtceRegistDt": "2026-07-10 16:16",
-      "bidClseDt": "2026-07-15 23:59",
-      "searchKeyword": "ITS",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00251081",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251081&fileType=BFDTL&fileSeq=1"
-        },
-        {
-          "label": "규격문서 2",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251081&fileType=BFDTL&fileSeq=2"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-07-15 23:59",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "손국환",
-        "officerTel": "044-201-3186",
-        "officerEmail": "",
-        "referenceNo": "국토교통부 공고 제2026-945호",
-        "linkedBidNoList": "R26BK01636568,R26BK01659928",
-        "productName": "지능형교통체계(ITS) 기본계획 2030 재검토 연구",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "일반용역"
-      },
-      "refNo": "국토교통부 공고 제2026-945호",
-      "linkedBidNtceNoList": "R26BK01636568,R26BK01659928"
-    },
-    {
-      "bidId": "BF-R26BD00251072",
-      "bidNtceNo": "BF-R26BD00251072",
-      "bidNtceOrd": "",
-      "bidNtceNm": "중앙대학교 다빈치캠퍼스 디지털미디어 인프라 구축용 기자재 구매",
-      "ntceInsttNm": "중앙대학교",
-      "dminsttNm": "중앙대학교",
-      "assignBudgetAmt": 120010000,
-      "bidNtceRegistDt": "2026-07-10 16:11",
-      "bidClseDt": "2026-07-16 15:00",
-      "searchKeyword": "미디어",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00251072",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251072&fileType=BFDTL&fileSeq=1"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "물품",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-07-16 15:00",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "김준형",
-        "officerTel": "",
-        "officerEmail": "",
-        "referenceNo": "중앙대학교 물품 202607-04",
-        "linkedBidNoList": "R26BK01638229",
-        "productName": "중앙대학교 다빈치캠퍼스 디지털미디어 인프라 구축용 기자재 구매",
-        "productDetails": "[1^4321150701^데스크톱컴퓨터],[2^4321190201^액정모니터]",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "물품"
-      },
-      "refNo": "중앙대학교 물품 202607-04",
-      "linkedBidNtceNoList": "R26BK01638229"
-    },
-    {
-      "bidId": "PL-R26DD20817556",
-      "bidNtceNo": "PL-R26DD20817556",
-      "bidNtceOrd": "",
-      "bidNtceNm": "중앙대학교 다빈치캠퍼스 디지털미디어 인프라 구축용 기자재 구매",
-      "ntceInsttNm": "중앙대학교",
-      "dminsttNm": "중앙대학교",
-      "assignBudgetAmt": 120010000,
-      "bidNtceRegistDt": "2026-07-10 16:09",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "미디어",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817556",
-      "contractMethod": "일반경쟁",
-      "contractMethods": [
-        "일반경쟁"
-      ],
-      "contractMethodRaw": "일반경쟁",
-      "serviceType": "발주계획",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817556"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817556",
-        "contractMethodRaw": "일반경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "일반경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "구매계약팀",
-        "officerName": "김준형",
-        "officerTel": "02-820-6314",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "R26BK01638229001",
-        "productName": "데스크톱컴퓨터",
-        "productDetails": "",
-        "purpose": "디지털미디어 인프라 구축용",
-        "quantity": "34",
-        "unit": "대",
-        "orderAmount": 120010000,
-        "rawBusinessDivision": "물품"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
-    },
-    {
-      "bidId": "BF-R26BD00251059",
-      "bidNtceNo": "BF-R26BD00251059",
-      "bidNtceOrd": "",
-      "bidNtceNm": "2026년 한국보건의료연구원 소셜미디어 운영 용역",
-      "ntceInsttNm": "조달청 서울지방조달청",
-      "dminsttNm": "한국보건의료연구원",
-      "assignBudgetAmt": 143389200,
-      "bidNtceRegistDt": "2026-07-10 15:55",
-      "bidClseDt": "2026-07-15 23:59",
-      "searchKeyword": "미디어",
-      "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00251059",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00251059&fileType=BFDTL&fileSeq=1"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-07-15 23:59",
-        "deliveryLimitDt": "2026-12-31 00:00",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "장기순",
-        "officerTel": "02-590-8884",
-        "officerEmail": "",
-        "referenceNo": "재무회계팀-1271(20260710)",
-        "linkedBidNoList": "R26BK01638858",
-        "productName": "2026년 한국보건의료연구원 소셜미디어 운영 용역",
-        "productDetails": "[1^8017169901^홍보및마케팅서비스]",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "일반용역"
-      },
-      "refNo": "재무회계팀-1271(20260710)",
-      "linkedBidNtceNoList": "R26BK01638858"
-    },
-    {
-      "bidId": "PL-R26DD20817513",
-      "bidNtceNo": "PL-R26DD20817513",
-      "bidNtceOrd": "",
-      "bidNtceNm": "지능형교통체계(ITS) 기본계획 2030 재검토 연구",
-      "ntceInsttNm": "국토교통부",
-      "dminsttNm": "국토교통부",
-      "assignBudgetAmt": 20000000,
-      "bidNtceRegistDt": "2026-07-10 15:55",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "ITS",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817513",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817513"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817513",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "제한경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "모빌리티총괄과",
-        "officerName": "황지민",
-        "officerTel": "044-201-3822",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "R26BK01659928000,R26BK01636568000",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "0",
-        "unit": "",
-        "orderAmount": 20000000,
-        "rawBusinessDivision": "일반용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
-    },
-    {
-      "bidId": "BF-R26BD00250983",
-      "bidNtceNo": "BF-R26BD00250983",
-      "bidNtceOrd": "",
-      "bidNtceNm": "2026 애기봉평화생태공원 열린관광지 반응형 미디어아트 조성 용역",
-      "ntceInsttNm": "경기도 김포시",
-      "dminsttNm": "경기도 김포시",
-      "assignBudgetAmt": 350000000,
-      "bidNtceRegistDt": "2026-07-10 14:47",
-      "bidClseDt": "2026-07-13 23:59",
-      "searchKeyword": "미디어",
-      "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00250983",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00250983&fileType=BFDTL&fileSeq=1"
-        },
-        {
-          "label": "규격문서 2",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00250983&fileType=BFDTL&fileSeq=2"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-07-13 23:59",
-        "deliveryLimitDt": "2026-12-30 00:00",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "김민지",
-        "officerTel": "",
-        "officerEmail": "",
-        "referenceNo": "관광진흥과-12064",
-        "linkedBidNoList": "",
-        "productName": "2026 애기봉평화생태공원 열린관광지 반응형 미디어아트 조성 용역",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "일반용역"
-      },
-      "refNo": "관광진흥과-12064",
-      "linkedBidNtceNoList": ""
-    },
-    {
-      "bidId": "BID-R26BK01624425-000",
-      "bidNtceNo": "R26BK01624425",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "2026년 KOICA 자체발굴 수출선도 혁신제품(촉각디스플레이 기반 시각장애인 학습지원용 보조기기) 구매 계약",
-      "ntceInsttNm": "한국국제협력단",
-      "dminsttNm": "한국국제협력단",
-      "assignBudgetAmt": 32000000,
-      "bidNtceRegistDt": "2026-07-10 14:39",
-      "bidClseDt": "2026-07-15 17:00",
-      "searchKeyword": "디스플레이",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624425&bidPbancOrd=000",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01624425&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624425&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01624425&bidPbancOrd=000",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "전자시담",
-        "awardMethod": "수의시담-수의시담",
-        "contractType": "수의계약",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-13 09:00",
-        "bidClseDt": "2026-07-15 17:00",
-        "openDt": "2026-07-15 18:00",
-        "registerDeadline": "2026-07-13 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "정혜민",
-        "officerTel": "031-740-0349",
-        "officerEmail": "hminn@koica.go.kr",
-        "referenceNo": "협동반-1048",
-        "linkedBidNoList": "",
-        "productName": "시각장애인용컴퓨터",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "BID-R26BK01626738-000",
-      "bidNtceNo": "R26BK01626738",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "정보제공용 도로전광판(VMS) 교체",
-      "ntceInsttNm": "조달청 부산지방조달청",
-      "dminsttNm": "울산광역시",
-      "assignBudgetAmt": 147086080,
-      "bidNtceRegistDt": "2026-07-10 14:31",
-      "bidClseDt": "2026-07-16 12:00",
-      "searchKeyword": "VMS",
-      "region": "부산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626738&bidPbancOrd=000",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626738&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01626738&bidPbancOrd=000",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "전자시담",
-        "awardMethod": "수의시담-수의시담",
-        "contractType": "수의계약",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-16 10:00",
-        "bidClseDt": "2026-07-16 12:00",
-        "openDt": "2026-07-16 13:00",
-        "registerDeadline": "2026-07-15 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "천정원",
-        "officerTel": "070-4056-6533",
-        "officerEmail": "cjwwww@korea.kr",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "안내전광판",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "PL-R26DD20817273",
-      "bidNtceNo": "PL-R26DD20817273",
-      "bidNtceOrd": "",
-      "bidNtceNm": "2026 애기봉평화생태공원 열린관광지 반응형 미디어아트 조성 용역",
-      "ntceInsttNm": "경기도 김포시",
-      "dminsttNm": "경기도 김포시",
-      "assignBudgetAmt": 350000000,
-      "bidNtceRegistDt": "2026-07-10 14:31",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "미디어",
-      "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817273",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817273"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817273",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "제한경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "관광진흥과",
-        "officerName": "장민호",
-        "officerTel": "031-980-5105",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "0",
-        "unit": "",
-        "orderAmount": 350000000,
-        "rawBusinessDivision": "일반용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
-    },
-    {
-      "bidId": "BID-R26BK01625443-000",
-      "bidNtceNo": "R26BK01625443",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "우수조달물품(2024151, LED투광등기구), 제3자 단가계약",
-      "ntceInsttNm": "조달청",
-      "dminsttNm": "각 수요기관",
-      "assignBudgetAmt": 2569000,
-      "bidNtceRegistDt": "2026-07-10 14:26",
-      "bidClseDt": "2026-07-13 11:00",
-      "searchKeyword": "LED",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625443&bidPbancOrd=000",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01625443&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01625443&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625443&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625443&bidPbancOrd=000",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "전자시담",
-        "awardMethod": "수의시담-수의시담(우수제품-3자단가)",
-        "contractType": "수의계약",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-13 10:00",
-        "bidClseDt": "2026-07-13 11:00",
-        "openDt": "2026-07-13 12:00",
-        "registerDeadline": "2026-07-12 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "이우열",
-        "officerTel": "070-4056-6148",
-        "officerEmail": "ppslwy@korea.kr",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "LED투광등기구",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "PL-R26DD20817240",
-      "bidNtceNo": "PL-R26DD20817240",
-      "bidNtceOrd": "",
-      "bidNtceNm": "쇼핑 가이드 디스플레이 디자인 및 AI 기반 디지털 콘텐츠 개발",
-      "ntceInsttNm": "서울시설공단",
-      "dminsttNm": "서울시설공단",
-      "assignBudgetAmt": 9900000,
-      "bidNtceRegistDt": "2026-07-10 14:17",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "디스플레이",
-      "region": "서울",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817240",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817240"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817240",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "수의계약",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "상가운영처",
-        "officerName": "박종만",
-        "officerTel": "02-2290-7287",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "0",
-        "unit": "",
-        "orderAmount": 9900000,
-        "rawBusinessDivision": "일반용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
-    },
-    {
-      "bidId": "PL-R26DD20817017",
-      "bidNtceNo": "PL-R26DD20817017",
-      "bidNtceOrd": "",
-      "bidNtceNm": "도서관 외 1개동 공간조정에 따른 환경개선공사 관급자재 구매설치(전광판설비)",
-      "ntceInsttNm": "국립한밭대학교",
-      "dminsttNm": "국립한밭대학교",
-      "assignBudgetAmt": 123850000,
-      "bidNtceRegistDt": "2026-07-10 11:27",
-      "bidClseDt": "2026-07",
-      "searchKeyword": "전광판",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817017",
-      "contractMethod": "일반경쟁",
-      "contractMethods": [
-        "일반경쟁"
-      ],
-      "contractMethodRaw": "일반경쟁",
-      "serviceType": "발주계획",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817017"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20817017",
-        "contractMethodRaw": "일반경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "일반경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "07",
-        "department": "사무국 총무과",
-        "officerName": "라원정",
-        "officerTel": "042-821-1042",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "전광판",
-        "productDetails": "",
-        "purpose": "국고시설",
-        "quantity": "1",
-        "unit": "식",
-        "orderAmount": 123850000,
-        "rawBusinessDivision": "물품"
-      },
-      "orderYear": "2026",
-      "orderMnth": "07"
-    },
-    {
-      "bidId": "BID-R26BK01618766-000",
-      "bidNtceNo": "R26BK01618766",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "2026년 미디어 리터러시 주간-미리위크 행사 기획 및 운영 용역",
-      "ntceInsttNm": "한국언론진흥재단",
-      "dminsttNm": "한국언론진흥재단",
-      "assignBudgetAmt": 382000000,
-      "bidNtceRegistDt": "2026-07-10 09:04",
-      "bidClseDt": "2026-07-21 11:00",
-      "searchKeyword": "미디어",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01618766&bidPbancOrd=000",
-      "contractMethod": "일반경쟁 / 협상계약",
-      "contractMethods": [
-        "일반경쟁",
-        "협상계약"
-      ],
-      "contractMethodRaw": "일반경쟁",
-      "serviceType": "공고",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01618766&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01618766&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
-        },
-        {
-          "label": "공고규격서 3",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01618766&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01618766&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01618766&bidPbancOrd=000",
-        "contractMethodRaw": "일반경쟁",
-        "bidMethod": "전자입찰",
-        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
-        "contractType": "일반경쟁",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-10 11:00",
-        "bidClseDt": "2026-07-21 11:00",
-        "openDt": "2026-07-21 12:00",
-        "registerDeadline": "2026-07-20 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "박의연",
-        "officerTel": "02-2001-7723",
-        "officerEmail": "",
-        "referenceNo": "한국언론진흥재단 제2026-125호",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "BID-R26BK01625875-000",
-      "bidNtceNo": "R26BK01625875",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "개편학과(미디어크리에이터) 교육훈련장비_VR카메라 등  9종 구매",
-      "ntceInsttNm": "한국폴리텍대학춘천캠퍼스",
-      "dminsttNm": "한국폴리텍대학춘천캠퍼스",
-      "assignBudgetAmt": 99810000,
-      "bidNtceRegistDt": "2026-07-10 08:26",
-      "bidClseDt": "2026-07-16 10:00",
-      "searchKeyword": "미디어",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625875&bidPbancOrd=000",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "공고",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01625875&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01625875&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 3",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01625875&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625875&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01625875&bidPbancOrd=000",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "전자입찰",
-        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
-        "contractType": "제한경쟁",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-07-10 10:00",
-        "bidClseDt": "2026-07-16 10:00",
-        "openDt": "2026-07-16 11:00",
-        "registerDeadline": "2026-07-15 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "이동근",
-        "officerTel": "033-260-7361",
-        "officerEmail": "juri7361@kopo.ac.kr",
-        "referenceNo": "행정처-2369",
-        "linkedBidNoList": "",
-        "productName": "캠코더",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
     }
   ]
 }
