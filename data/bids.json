@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T22:26:35.932Z",
+  "generatedAt": "2026-08-09T03:52:40.052Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
@@ -23,8 +23,8 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 2,
-    "cached": 18,
+    "analyzed": 3,
+    "cached": 17,
     "skipped": 324,
     "model": "llama-3.1-8b-instant"
   },
@@ -121,7 +121,7 @@
         "경성대학교",
         "입찰"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-08T22:26:32.944Z"
@@ -207,7 +207,7 @@
         "경성대학교",
         "입찰"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-08T22:26:34.728Z"
@@ -2655,22 +2655,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "AX사업단 2026-120",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "강릉 ITS 세계총회 국토교통부 AX-Sprint 통합전시관 기획·디자인·설치 및 운영 대행 용역",
-      "aiReason": "ITS 관련 사업으로 예산이 400억원으로 높은 실행 가능성이 있어, 미디어월, 디지털 사이니지, ITS/VMS 사업 관점에서 우선순위를 매길 수 있다.",
-      "aiAction": "사업 범위 확인 및 예산 확인 필요",
-      "aiTags": [
-        "ITS",
-        "미디어월",
-        "디지털 사이니지",
-        "ITS/VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-05T09:38:06.806Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20838452",
@@ -5257,20 +5242,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "관광부-2053",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "미디어 관련 사업으로 예산이 상당하지만 정확한 범위 확인 필요",
-      "aiReason": "미디어 관련 키워드가 포함되어 있으며 예산이 상당하지만 정확한 범위 확인 필요",
-      "aiAction": "사업 범위 확인 및 예산 확인",
-      "aiTags": [
-        "미디어",
-        "예산"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-03T09:08:17.139Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20836412",
@@ -6905,21 +6877,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "20260731000001",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "대구포항선 임고1터널 LED교체 ESCO사업",
-      "aiReason": "LED 교체 ESCO 사업으로 LED 전광판과 직접 관련되어 있으며 예산도 높습니다.",
-      "aiAction": "사업부 담당자와 연락하여 더 자세한 정보를 확인하고 사업 참여 가능성을 확인합니다.",
-      "aiTags": [
-        "LED",
-        "ESCO",
-        "대구"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-07-31T08:10:32.330Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20834853",
@@ -11609,7 +11567,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "교통정보센터 노후 장비 구매설치(VMS, CCTV)로 VMS 사업과 직접 관련이 있어 우선순위가 높습니다.",
+      "aiReason": "VMS가 포함된 사업으로 예산도 높고, 실행 가능성이 높습니다.",
+      "aiAction": "사업부 담당자와 협의하여 사업 참여를 검토하고, 예산 및 범위 확인을 요청합니다.",
+      "aiTags": [
+        "VMS",
+        "교통정보센터",
+        "노후 장비 구매설치"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-09T03:52:35.797Z"
     },
     {
       "bidId": "BID-R26BK01651451-000",
@@ -12442,7 +12414,24 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "고위험 작업장 등 중대재해예방 안전장구 및 전광판 설치공사",
+      "aiReason": "전광판 설치공사로 인한 LED/미디어월/사이니지/ITS/VMS 사업 관련성 높음",
+      "aiAction": "사업부와의 협의 후 영업 활동 진행",
+      "aiTags": [
+        "전광판",
+        "LED",
+        "미디어월",
+        "사이니지",
+        "ITS",
+        "VMS"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-09T03:52:37.320Z"
     },
     {
       "bidId": "BF-R26BD00256524",
@@ -13109,7 +13098,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "마이크로LED 대면적 접합 장비 공급",
+      "aiReason": "LED 관련 제품으로 예산도 높고, 실행 가능성이 높음",
+      "aiAction": "사업부 내 전문가와 협의하여 사업 참여 가능성을 확인",
+      "aiTags": [
+        "LED",
+        "마이크로LED",
+        "대면적 접합 장비"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-09T03:52:38.849Z"
     },
     {
       "bidId": "BID-R26BK01649074-000",
