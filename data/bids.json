@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-09T22:28:27.710Z",
+  "generatedAt": "2026-08-10T04:07:16.295Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202607120000",
   "rangeEnd": "202608102359",
-  "totalCount": 346,
-  "rawCount": 395,
+  "totalCount": 353,
+  "rawCount": 404,
   "successCalls": 192,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,579 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
-    "skipped": 326,
+    "analyzed": 3,
+    "cached": 17,
+    "skipped": 333,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 176,
-    "사전규격": 76,
-    "발주계획": 94
+    "공고": 181,
+    "사전규격": 77,
+    "발주계획": 95
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 197,
-    "미디어/파사드 계열": 111,
-    "ITS/VMS 계열": 38
+    "디스플레이/사이니지 계열": 198,
+    "미디어/파사드 계열": 115,
+    "ITS/VMS 계열": 40
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01670947-000",
+      "bidNtceNo": "R26BK01670947",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "수지중앙터널 내 미디어 설치사업 마스터플랜 수립 용역",
+      "ntceInsttNm": "경기도 용인시 수지구",
+      "dminsttNm": "경기도 용인시 수지구",
+      "assignBudgetAmt": 44605000,
+      "bidNtceRegistDt": "2026-08-10 11:25",
+      "bidClseDt": "2026-08-10 15:00",
+      "searchKeyword": "미디어",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01670947&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01670947&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01670947&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01670947&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01670947&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01670947&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-10 14:00",
+        "bidClseDt": "2026-08-10 15:00",
+        "openDt": "2026-08-10 16:00",
+        "registerDeadline": "2026-08-10 12:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이하진",
+        "officerTel": "031-6193-8043",
+        "officerEmail": "",
+        "referenceNo": "자치행정과-14446",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BF-R26BD00262143",
+      "bidNtceNo": "BF-R26BD00262143",
+      "bidNtceOrd": "",
+      "bidNtceNm": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 미디어파사드 콘텐츠 제작 용역",
+      "ntceInsttNm": "경상남도 창원시",
+      "dminsttNm": "경상남도 창원시",
+      "assignBudgetAmt": 300000000,
+      "bidNtceRegistDt": "2026-08-10 10:55",
+      "bidClseDt": "2026-08-15 23:59",
+      "searchKeyword": "파사드",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00262143",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00262143&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00262143&fileType=BFDTL&fileSeq=2"
+        },
+        {
+          "label": "규격문서 3",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00262143&fileType=BFDTL&fileSeq=3"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-15 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이창재",
+        "officerTel": "***********",
+        "officerEmail": "",
+        "referenceNo": "1",
+        "linkedBidNoList": "",
+        "productName": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 미디어파사드 콘텐츠 제작 용역",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "기술용역"
+      },
+      "refNo": "1",
+      "linkedBidNtceNoList": "",
+      "aiPriority": "MEDIUM",
+      "aiScore": 60,
+      "aiSummary": "미디어파사드 콘텐츠 제작 용역",
+      "aiReason": "미디어파사드 콘텐츠 제작 용역이 사업에 포함되어 있으나, 예산 및 실행 가능성은 확인 필요",
+      "aiAction": "사업 범위 및 예산 확인 필요",
+      "aiTags": [
+        "미디어파사드",
+        "콘텐츠 제작"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-10T04:07:11.627Z"
+    },
+    {
+      "bidId": "PL-R26DD20841555",
+      "bidNtceNo": "PL-R26DD20841555",
+      "bidNtceOrd": "",
+      "bidNtceNm": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 미디어파사드 콘텐츠 제작 용역",
+      "ntceInsttNm": "경상남도 창원시",
+      "dminsttNm": "경상남도 창원시",
+      "assignBudgetAmt": 300000000,
+      "bidNtceRegistDt": "2026-08-10 10:52",
+      "bidClseDt": "2026-08",
+      "searchKeyword": "파사드",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20841555",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20841555"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20841555",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "제한경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "08",
+        "department": "문화관광체육국 관광과",
+        "officerName": "이창재",
+        "officerTel": "055-225-3645",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 300000000,
+        "rawBusinessDivision": "기술용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "08"
+    },
+    {
+      "bidId": "BID-R26BK01673196-000",
+      "bidNtceNo": "R26BK01673196",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "[제2026-국제산학17(재)호] 2026년 경희대학교 실감미디어혁신융합대학사업단 도쿄게임쇼 전시 운영 용역 업체 선정",
+      "ntceInsttNm": "경희대학교산학협력단",
+      "dminsttNm": "경희대학교산학협력단",
+      "assignBudgetAmt": 45000000,
+      "bidNtceRegistDt": "2026-08-10 09:31",
+      "bidClseDt": "2026-08-21 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673196&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673196&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673196&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673196&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673196&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-10 10:00",
+        "bidClseDt": "2026-08-21 10:00",
+        "openDt": "2026-08-21 11:00",
+        "registerDeadline": "2026-08-20 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "강결",
+        "officerTel": "031-201-3529",
+        "officerEmail": "",
+        "referenceNo": "공고 제2026-국제산학17(재)호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01673098-000",
+      "bidNtceNo": "R26BK01673098",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "808nm LED 레이저 모듈 외1 구매",
+      "ntceInsttNm": "한국과학기술연구원",
+      "dminsttNm": "한국과학기술연구원",
+      "assignBudgetAmt": 59400000,
+      "bidNtceRegistDt": "2026-08-10 08:59",
+      "bidClseDt": "2026-08-19 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673098&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 규격가격동시",
+      "contractMethods": [
+        "제한경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 6",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673098&bidPbancOrd=000&fileType=&fileSeq=6&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673098&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673098&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-10 17:00",
+        "bidClseDt": "2026-08-19 10:00",
+        "openDt": "2026-08-19 11:00",
+        "registerDeadline": "2026-08-19 10:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김정애",
+        "officerTel": "02-958-6304",
+        "officerEmail": "kja@kist.re.kr",
+        "referenceNo": "5049-00309",
+        "linkedBidNoList": "",
+        "productName": "레이저발생장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01673027-000",
+      "bidNtceNo": "R26BK01673027",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(관급자재)2026년 익산청 국도ITS 구축공사(전남권역)-영상감시장치 금속기둥",
+      "ntceInsttNm": "조달청 전북지방조달청",
+      "dminsttNm": "국토교통부 익산지방국토관리청",
+      "assignBudgetAmt": 245479230,
+      "bidNtceRegistDt": "2026-08-10 08:23",
+      "bidClseDt": "2026-08-19 12:00",
+      "searchKeyword": "ITS",
+      "region": "전라",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673027&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673027&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673027&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673027&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673027&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01673027&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673027&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01673027&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만인 중소기업자간 경쟁물품",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-14 10:00",
+        "bidClseDt": "2026-08-19 12:00",
+        "openDt": "2026-08-19 13:00",
+        "registerDeadline": "2026-08-18 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "한상용",
+        "officerTel": "070-4056-8961",
+        "officerEmail": "hansy0507@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "금속기둥",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "국토교통부 익산지방국토관리청에서 ITS 구축공사를 진행 중이며, 영상감시장치 금속기둥을 구매하고자 함.",
+      "aiReason": "ITS/VMS 사업과 직접 관련이 있으며, 예산 또한 245억원으로 높음.",
+      "aiAction": "해당 사업에 대한 영업 검토를 진행하고, 관련 제품을 제안할 수 있는지 확인할 필요가 있음.",
+      "aiTags": [
+        "ITS",
+        "VMS",
+        "영상감시장치",
+        "금속기둥"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-10T04:07:13.283Z"
+    },
+    {
+      "bidId": "BID-R26BK01671128-000",
+      "bidNtceNo": "R26BK01671128",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(관급자재)2026년 익산청 국도ITS 구축공사(전북권역)-영상감시장치 금속기둥",
+      "ntceInsttNm": "조달청 전북지방조달청",
+      "dminsttNm": "국토교통부 익산지방국토관리청",
+      "assignBudgetAmt": 219211100,
+      "bidNtceRegistDt": "2026-08-10 08:23",
+      "bidClseDt": "2026-08-19 12:00",
+      "searchKeyword": "ITS",
+      "region": "전라",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671128&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671128&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671128&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671128&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671128&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01671128&bidPbancOrd=000&fileType=&fileSeq=6&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671128&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01671128&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만인 중소기업자간 경쟁물품",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-14 10:00",
+        "bidClseDt": "2026-08-19 12:00",
+        "openDt": "2026-08-19 13:00",
+        "registerDeadline": "2026-08-18 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "한상용",
+        "officerTel": "070-4056-8961",
+        "officerEmail": "hansy0507@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "금속기둥",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "국토교통부 익산지방국토관리청에서 ITS 구축공사를 진행 중이며, 영상감시장치 금속기둥을 구매하고자 함.",
+      "aiReason": "ITS/VMS 사업과 직접 관련이 있으며, 예산 또한 높음.",
+      "aiAction": "사업부 담당자와 협의하여 사업 관련 정보를 확인하고, 예산 및 범위 확인 필요.",
+      "aiTags": [
+        "ITS",
+        "VMS",
+        "영상감시장치",
+        "금속기둥"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-10T04:07:15.089Z"
+    },
     {
       "bidId": "BF-R26BD00262042",
       "bidNtceNo": "BF-R26BD00262042",
@@ -1323,7 +1879,7 @@
         "officerTel": "031-6193-8436",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01670947000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -4977,21 +5533,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "도시재생과-8256",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "노암예술터널 미디어아트 콘텐츠 공모전 운영 및 제작 용역",
-      "aiReason": "미디어 관련 용역으로, 미디어월, 디지털 사이니지, 미디어파사드와 관련성이 있으나, 예산 및 실행 가능성은 확인 필요",
-      "aiAction": "사업부와의 협의 및 예산 확인",
-      "aiTags": [
-        "미디어",
-        "용역",
-        "노암예술터널"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-04T05:25:26.082Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01663818-000",
@@ -8751,7 +9293,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "5049-00309",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01673098",
         "productName": "808nm LED 레이저 모듈 외1 구매",
         "productDetails": "[1^4111530701^레이저발생장치]",
         "purpose": "",
@@ -8761,7 +9303,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "5049-00309",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01673098"
     },
     {
       "bidId": "BID-R26BK01652555-000",
@@ -9548,7 +10090,7 @@
         "officerTel": "070-4056-8961",
         "officerEmail": "",
         "referenceNo": "운영지원과-5549",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01673027",
         "productName": "(관급자재)2026년 익산청 국도ITS 구축공사(전남권역)-영상감시장치 금속기둥",
         "productDetails": "[1^3010290301^금속기둥]",
         "purpose": "",
@@ -9558,7 +10100,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "운영지원과-5549",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01673027"
     },
     {
       "bidId": "BF-R26BD00258131",
@@ -9613,7 +10155,7 @@
         "officerTel": "070-4056-8961",
         "officerEmail": "",
         "referenceNo": "운영지원과-5549",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01671128",
         "productName": "(관급자재)2026년 익산청 국도ITS 구축공사(전북권역)-영상감시장치 금속기둥",
         "productDetails": "[1^3010290301^금속기둥]",
         "purpose": "",
@@ -9623,7 +10165,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "운영지원과-5549",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01671128"
     },
     {
       "bidId": "BID-R26BK01652427-000",
@@ -12540,24 +13082,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "고위험 작업장 등 중대재해예방 안전장구 및 전광판 설치공사",
-      "aiReason": "전광판 설치공사로 인한 LED/미디어월/사이니지/ITS/VMS 사업 관련성 높음",
-      "aiAction": "사업부와의 협의 후 영업 활동 진행",
-      "aiTags": [
-        "전광판",
-        "LED",
-        "미디어월",
-        "사이니지",
-        "ITS",
-        "VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-09T03:52:37.320Z"
+      }
     },
     {
       "bidId": "BF-R26BD00256524",
@@ -13224,21 +13749,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "마이크로LED 대면적 접합 장비 공급",
-      "aiReason": "LED 관련 제품으로 예산도 높고, 실행 가능성이 높음",
-      "aiAction": "사업부 내 전문가와 협의하여 사업 참여 가능성을 확인",
-      "aiTags": [
-        "LED",
-        "마이크로LED",
-        "대면적 접합 장비"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-09T03:52:38.849Z"
+      }
     },
     {
       "bidId": "BID-R26BK01649074-000",
@@ -13554,7 +14065,7 @@
         "officerTel": "031-201-3530",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01649758000",
+        "linkedBidNoList": "R26BK01649758000,R26BK01673196000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
