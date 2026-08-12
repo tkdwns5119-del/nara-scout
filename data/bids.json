@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-12T04:17:33.211Z",
+  "generatedAt": "2026-08-12T08:17:56.232Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202607140000",
   "rangeEnd": "202608122359",
-  "totalCount": 376,
-  "rawCount": 429,
+  "totalCount": 380,
+  "rawCount": 435,
   "successCalls": 192,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -23,23 +23,293 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 4,
-    "cached": 16,
-    "skipped": 356,
+    "analyzed": 1,
+    "cached": 19,
+    "skipped": 360,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 194,
+    "공고": 197,
     "사전규격": 84,
-    "발주계획": 98
+    "발주계획": 99
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 212,
-    "미디어/파사드 계열": 125,
+    "디스플레이/사이니지 계열": 214,
+    "미디어/파사드 계열": 127,
     "ITS/VMS 계열": 39
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01678998-000",
+      "bidNtceNo": "R26BK01678998",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "UPS 안전성평가센터 옥외 LED전광판 구입",
+      "ntceInsttNm": "한국전기안전공사",
+      "dminsttNm": "한국전기안전공사",
+      "assignBudgetAmt": 99960000,
+      "bidNtceRegistDt": "2026-08-12 16:37",
+      "bidClseDt": "2026-08-13 12:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01678998&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01678998&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01678998&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-12 17:00",
+        "bidClseDt": "2026-08-13 12:00",
+        "openDt": "2026-08-13 13:00",
+        "registerDeadline": "2026-08-12 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "조은미",
+        "officerTel": "063-716-2262",
+        "officerEmail": "jem129@kesco.or.kr",
+        "referenceNo": "202608060001",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 전광판 구입",
+      "aiReason": "LED 전광판 구입으로 인한 DI영업지원팀의 영업 검토 우선순위",
+      "aiAction": "LED 전광판 구입에 대한 영업 검토를 진행한다.",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "DI영업"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-12T08:17:55.018Z"
+    },
+    {
+      "bidId": "BID-R26BK01669517-001",
+      "bidNtceNo": "R26BK01669517",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "보령원도심 무대 LED 전광판 제작설치",
+      "ntceInsttNm": "보령원도심 도시락상권 활성화사업단",
+      "dminsttNm": "보령원도심 도시락상권 활성화사업단",
+      "assignBudgetAmt": 70000000,
+      "bidNtceRegistDt": "2026-08-12 14:49",
+      "bidClseDt": "2026-08-21 15:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01669517&bidPbancOrd=001",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01669517&bidPbancOrd=001&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01669517&bidPbancOrd=001&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01669517&bidPbancOrd=001&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01669517&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01669517&bidPbancOrd=001",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 고시금액 미만인 물품의 평가기준(물품구매)",
+        "contractType": "제한경쟁",
+        "noticeKind": "변경공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-13 10:00",
+        "bidClseDt": "2026-08-21 15:00",
+        "openDt": "2026-08-21 16:00",
+        "registerDeadline": "2026-08-20 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "유원종",
+        "officerTel": "***********",
+        "officerEmail": "y4190star@empas.com",
+        "referenceNo": "도시락 2026-04",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01679054-000",
+      "bidNtceNo": "R26BK01679054",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "[실감미디어혁신융합대학] 2026 글로벌 교육협력 워크숍 운영 용역",
+      "ntceInsttNm": "건국대학교 산학협력단",
+      "dminsttNm": "건국대학교 산학협력단",
+      "assignBudgetAmt": 45000000,
+      "bidNtceRegistDt": "2026-08-12 13:56",
+      "bidClseDt": "2026-08-26 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01679054&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01679054&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01679054&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01679054&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-12 14:00",
+        "bidClseDt": "2026-08-26 10:00",
+        "openDt": "2026-08-26 11:00",
+        "registerDeadline": "2026-08-25 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "전대호",
+        "officerTel": "02-450-3050",
+        "officerEmail": "",
+        "referenceNo": "260812-01-02",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "PL-R26DD20844231",
+      "bidNtceNo": "PL-R26DD20844231",
+      "bidNtceOrd": "",
+      "bidNtceNm": "[실감미디어혁신융합대학] 2026 글로벌 교육협력 워크숍 운영 용역",
+      "ntceInsttNm": "건국대학교 산학협력단",
+      "dminsttNm": "건국대학교 산학협력단",
+      "assignBudgetAmt": 45000000,
+      "bidNtceRegistDt": "2026-08-12 13:53",
+      "bidClseDt": "2026-08",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20844231",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20844231"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20844231",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "08",
+        "department": "사업운영센터",
+        "officerName": "김수진 연구원",
+        "officerTel": "02-450-4234",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01679054000",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 45000000,
+        "rawBusinessDivision": "일반용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "08"
+    },
     {
       "bidId": "PL-R26DD20844085",
       "bidNtceNo": "PL-R26DD20844085",
@@ -250,7 +520,7 @@
         "DIMMING",
         "무대조명장치"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-12T04:17:28.903Z"
@@ -912,24 +1182,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 스크린 구입",
-      "aiReason": "LED 스크린 구입으로 인한 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 직접 관련성이 높으며 예산 또한 높음",
-      "aiAction": "사업부 담당자와 협의 후 추진",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "미디어월",
-        "사이니지",
-        "ITS",
-        "VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-11T22:40:07.742Z"
+      }
     },
     {
       "bidId": "PL-R26DD20843438",
@@ -980,7 +1233,7 @@
         "officerTel": "063-716-2244",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01678998000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "건물 옥외용",
@@ -3008,7 +3261,7 @@
         "소프트웨어 구매",
         "초고해상도 광학위성 핵심기술"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-12T04:17:30.445Z"
@@ -3570,7 +3823,7 @@
         "디지털 사이니지",
         "ITS/VMS"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-12T04:17:32.011Z"
@@ -3760,7 +4013,7 @@
         "영상감시장치",
         "금속기둥"
       ],
-      "aiStatus": "OK",
+      "aiStatus": "CACHED",
       "aiProvider": "groq",
       "aiModel": "llama-3.1-8b-instant",
       "aiGeneratedAt": "2026-08-12T04:17:27.193Z"
@@ -10786,7 +11039,7 @@
         "officerTel": "041-932-9446",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01669517000",
+        "linkedBidNoList": "R26BK01669517001",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "콘텐츠송출",
