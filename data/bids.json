@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T22:19:11.831Z",
+  "generatedAt": "2026-08-17T03:10:42.057Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
@@ -23,8 +23,8 @@
   },
   "aiStats": {
     "provider": "groq",
-    "analyzed": 0,
-    "cached": 20,
+    "analyzed": 4,
+    "cached": 16,
     "skipped": 348,
     "model": "llama-3.1-8b-instant"
   },
@@ -1885,7 +1885,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "대전역 및 유성온천역 LED 전광판 제작 구매 및 설치",
+      "aiReason": "LED 전광판 직접 관련 + 예산 88,455,000원",
+      "aiAction": "사업부 담당자와 협의하여 사업 참여 가능성을 확인",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "대전"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-17T03:10:36.288Z"
     },
     {
       "bidId": "BID-R26BK01681763-000",
@@ -2082,7 +2096,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "LED 전광판 관련 용역 공고",
+      "aiReason": "LED 키워드 포함, 예산 8,200,000원, 실행 가능성 높음",
+      "aiAction": "사업부 담당자와 협의 후 추진",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "용역"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-17T03:10:37.807Z"
     },
     {
       "bidId": "BF-R26BD00263709",
@@ -2212,22 +2240,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "행정지원과-24312",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "용산구 종합행정타운 안내체계 개선(사이니지 개발 및 제작설치) 용역",
-      "aiReason": "사이니지 개발 및 제작설치로 ITS/VMS 사업과 직접 관련이 있으며 예산도 높음",
-      "aiAction": "사업부 담당자와 협의하여 사업 관련 정보를 확인하고, 예산 및 실행 가능성을 확인한다.",
-      "aiTags": [
-        "사이니지",
-        "ITS/VMS",
-        "용역",
-        "급여"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-13T08:21:03.188Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01680953-000",
@@ -2809,7 +2822,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "HIGH",
+      "aiScore": 90,
+      "aiSummary": "보령원도심 무대 LED 전광판 제작설치",
+      "aiReason": "LED 전광판 직접 관련 + 예산 70,000,000원",
+      "aiAction": "사업부 담당자와 협의 후 추진",
+      "aiTags": [
+        "LED",
+        "전광판",
+        "무대"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-17T03:10:39.334Z"
     },
     {
       "bidId": "BID-R26BK01679054-000",
@@ -3727,7 +3754,21 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiPriority": "LOW",
+      "aiScore": 2,
+      "aiSummary": "미디어 관련 용역 공고",
+      "aiReason": "미디어 관련 키워드가 포함되어 있으나, 용역 형식으로 전광판/LED/미디어월/사이니지/ITS/VMS 직접 관련이 낮음",
+      "aiAction": "관련성 확인 후 추가 검토",
+      "aiTags": [
+        "미디어",
+        "용역",
+        "광주"
+      ],
+      "aiStatus": "OK",
+      "aiProvider": "groq",
+      "aiModel": "llama-3.1-8b-instant",
+      "aiGeneratedAt": "2026-08-17T03:10:40.847Z"
     },
     {
       "bidId": "BID-R26BK01677825-000",
@@ -4391,23 +4432,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "SH 전자공고 제2026-000",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "마곡 16단지 공공주택 전기공사 LED실내조명등(단위세대) 제조구매",
-      "aiReason": "LED 관련 조달 공고로 예산도 높고 실행 가능성이 높습니다.",
-      "aiAction": "조달 공고를 확인하고, DI영업지원팀 내의 LED 전광판/미디어월/디지털 사이니지/미디어파사드/ITS/VMS 사업 담당자에게 연락하여 영업 검토를 요청합니다.",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "미디어월",
-        "디지털 사이니지",
-        "ITS/VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-11T03:54:39.974Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20842641",
@@ -4977,24 +5002,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "무대기술팀-1170",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 조명장비 구매",
-      "aiReason": "LED 전광판/미디어월/디지털 사이니지/미디어파사드/ITS/VMS 사업에 직접 관련되어 예산 또한 높음",
-      "aiAction": "사업부 담당자와 협의 후 영업 활동을 진행",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "미디어월",
-        "디지털 사이니지",
-        "미디어파사드",
-        "ITS/VMS"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-11T03:54:41.555Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BF-R26BD00262496",
@@ -5063,21 +5071,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "관광과-17926",
-      "linkedBidNtceNoList": "",
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 전광판 제작 및 설치 사업",
-      "aiReason": "LED 전광판 직접 관련 + 예산이 280억으로 높음",
-      "aiAction": "사업부 담당자와 연락하여 사업 범위 및 예산 확인",
-      "aiTags": [
-        "LED 전광판",
-        "디지털 안내체계",
-        "한탄강 주상절리길"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-15T03:02:21.373Z"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20842391",
