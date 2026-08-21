@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-20T22:26:08.822Z",
+  "generatedAt": "2026-08-21T03:15:03.910Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202607230000",
   "rangeEnd": "202608212359",
-  "totalCount": 361,
-  "rawCount": 415,
+  "totalCount": 370,
+  "rawCount": 425,
   "successCalls": 192,
-  "failedCalls": 9,
+  "failedCalls": 14,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
   "updateSchedule": {
@@ -24,32 +24,606 @@
   "aiStats": {
     "provider": "groq",
     "analyzed": 0,
-    "cached": 11,
-    "skipped": 341,
+    "cached": 6,
+    "skipped": 350,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 193,
-    "사전규격": 73,
-    "발주계획": 95
+    "공고": 196,
+    "사전규격": 76,
+    "발주계획": 98
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 219,
-    "미디어/파사드 계열": 117,
+    "디스플레이/사이니지 계열": 224,
+    "미디어/파사드 계열": 121,
     "ITS/VMS 계열": 25
   },
   "errors": [
     "[Groq/BID-R26BK01686519-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BF-R26BD00266067] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01690479-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01691071-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01690860-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01689473-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01688744-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01687843-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01677180-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01681445-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01669517-001] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
+    "[Groq/BID-R26BK01669517-001] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01678056-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01677837-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01674957-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01669517-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
   ],
   "bids": [
+    {
+      "bidId": "BID-R26BK01692468-000",
+      "bidNtceNo": "R26BK01692468",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "동아연필(주)-2026년 스마트생태공장 구축사업_자동절전 제어형 LED 조명",
+      "ntceInsttNm": "동아연필(주)",
+      "dminsttNm": "동아연필(주)",
+      "assignBudgetAmt": 89100000,
+      "bidNtceRegistDt": "2026-08-21 11:40",
+      "bidClseDt": "2026-09-01 12:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692468&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692468&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692468&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692468&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692468&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692468&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692468&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-21 12:00",
+        "bidClseDt": "2026-09-01 12:00",
+        "openDt": "2026-09-01 13:00",
+        "registerDeadline": "2026-08-31 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "오경균",
+        "officerTel": "042-620-7112",
+        "officerEmail": "green99k@naver.com",
+        "referenceNo": "2026-4",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BF-R26BD00266114",
+      "bidNtceNo": "BF-R26BD00266114",
+      "bidNtceOrd": "",
+      "bidNtceNm": "동아연필(주)-2026년 스마트생태공장 구축사업_자동절전 제어형 LED 조명",
+      "ntceInsttNm": "동아연필(주)",
+      "dminsttNm": "동아연필(주)",
+      "assignBudgetAmt": 89100000,
+      "bidNtceRegistDt": "2026-08-21 11:31",
+      "bidClseDt": "2026-08-26 23:59",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00266114",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-26 23:59",
+        "deliveryLimitDt": "2026-11-30 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "오경균",
+        "officerTel": "",
+        "officerEmail": "",
+        "referenceNo": "2026-4",
+        "linkedBidNoList": "R26BK01692468",
+        "productName": "동아연필(주)-2026년 스마트생태공장 구축사업_자동절전 제어형 LED 조명",
+        "productDetails": "[1^3911210201^LED실내조명등]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "2026-4",
+      "linkedBidNtceNoList": "R26BK01692468"
+    },
+    {
+      "bidId": "PL-R26DD20851059",
+      "bidNtceNo": "PL-R26DD20851059",
+      "bidNtceOrd": "",
+      "bidNtceNm": "동아연필(주)-2026년 스마트생태공장 구축사업_자동절전 제어형 LED 조명",
+      "ntceInsttNm": "동아연필(주)",
+      "dminsttNm": "동아연필(주)",
+      "assignBudgetAmt": 81000000,
+      "bidNtceRegistDt": "2026-08-21 11:29",
+      "bidClseDt": "2026-08",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851059",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851059"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851059",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "08",
+        "department": "경영지원팀",
+        "officerName": "오경균",
+        "officerTel": "042-620-7112",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01692468000",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "동아연필(주)-2026년 스마트생태공장 구축사업_자동절전 제어형 LED 조명",
+        "quantity": "1",
+        "unit": "개",
+        "orderAmount": 81000000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "08"
+    },
+    {
+      "bidId": "BID-R26BK01634323-001",
+      "bidNtceNo": "R26BK01634323",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "동아연필 스마트 생태공장 구축 사업 -자동 절전제어형 LED조명 공사",
+      "ntceInsttNm": "동아연필(주)",
+      "dminsttNm": "동아연필(주)",
+      "assignBudgetAmt": 81000000,
+      "bidNtceRegistDt": "2026-08-21 11:11",
+      "bidClseDt": "2026-07-30 11:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01634323&bidPbancOrd=001",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01634323&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01634323&bidPbancOrd=001",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "최저가낙찰제-최저가낙찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "취소공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-07-30 11:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "오경균",
+        "officerTel": "042-620-7112",
+        "officerEmail": "green99k@naver.com",
+        "referenceNo": "R26BK01634323",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01692306-000",
+      "bidNtceNo": "R26BK01692306",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "안서 유니브시티 AI 미디어 창업 스튜디오 비품 구입",
+      "ntceInsttNm": "백석문화대학교 산학협력단",
+      "dminsttNm": "백석문화대학교 산학협력단",
+      "assignBudgetAmt": 61992000,
+      "bidNtceRegistDt": "2026-08-21 10:51",
+      "bidClseDt": "2026-08-28 11:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692306&bidPbancOrd=000",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692306&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692306&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01692306&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692306&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01692306&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-08-28 11:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김선현",
+        "officerTel": "041-550-2954",
+        "officerEmail": "sundarks@bu.ac.kr",
+        "referenceNo": "20260821-01",
+        "linkedBidNoList": "",
+        "productName": "데스크톱컴퓨터",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BF-R26BD00266070",
+      "bidNtceNo": "BF-R26BD00266070",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안서 유니브시티 AI 미디어 창업 스튜디오 비품 구입",
+      "ntceInsttNm": "백석문화대학교 산학협력단",
+      "dminsttNm": "백석문화대학교 산학협력단",
+      "assignBudgetAmt": 61992000,
+      "bidNtceRegistDt": "2026-08-21 10:45",
+      "bidClseDt": "2026-08-28 11:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00266070",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00266070&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-28 11:00",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김선현",
+        "officerTel": "041-550-2954",
+        "officerEmail": "",
+        "referenceNo": "20260821-01",
+        "linkedBidNoList": "R26BK01692306",
+        "productName": "안서 유니브시티 AI 미디어 창업 스튜디오 비품 구입",
+        "productDetails": "[1^4321150701^데스크톱컴퓨터],[2^4321190201^액정모니터],[3^4321151501^워크스테이션],[4^4322261002^허브],[5^4321200201^모니터암],[6^4320180301^하드디스크드라이브]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "20260821-01",
+      "linkedBidNtceNoList": "R26BK01692306"
+    },
+    {
+      "bidId": "BF-R26BD00266067",
+      "bidNtceNo": "BF-R26BD00266067",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안동댐 미디어파사드 제조구매설치",
+      "ntceInsttNm": "조달청 대구지방조달청",
+      "dminsttNm": "한국수자원공사 안동권관리단",
+      "assignBudgetAmt": 331487960,
+      "bidNtceRegistDt": "2026-08-21 10:41",
+      "bidClseDt": "2026-08-26 23:59",
+      "searchKeyword": "파사드",
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00266067",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00266067&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-26 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이도영",
+        "officerTel": "070-4056-7972",
+        "officerEmail": "",
+        "referenceNo": "C1202608348",
+        "linkedBidNoList": "",
+        "productName": "안동댐 미디어파사드 제조구매설치",
+        "productDetails": "[1^5512190301^안내전광판]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "C1202608348",
+      "linkedBidNtceNoList": "",
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+    },
+    {
+      "bidId": "PL-R26DD20850961",
+      "bidNtceNo": "PL-R26DD20850961",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안서 유니브시티 AI 미디어 창업 스튜디오 비품 구입",
+      "ntceInsttNm": "백석문화대학교 산학협력단",
+      "dminsttNm": "백석문화대학교 산학협력단",
+      "assignBudgetAmt": 61992000,
+      "bidNtceRegistDt": "2026-08-21 10:29",
+      "bidClseDt": "2026-08",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850961",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850961"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850961",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "08",
+        "department": "앵커사업단",
+        "officerName": "김유현",
+        "officerTel": "041-550-2987",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "R26BK01692306000",
+        "productName": "데스크톱컴퓨터",
+        "productDetails": "",
+        "purpose": "행정용",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 61992000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "08"
+    },
+    {
+      "bidId": "PL-R26DD20850904",
+      "bidNtceNo": "PL-R26DD20850904",
+      "bidNtceOrd": "",
+      "bidNtceNm": "그랜드호텔 및 마운틴콘도 환경개선공사 관급자재(LED조명기구) 구매보고",
+      "ntceInsttNm": "(주)강원랜드",
+      "dminsttNm": "(주)강원랜드",
+      "assignBudgetAmt": 2505035000,
+      "bidNtceRegistDt": "2026-08-21 10:04",
+      "bidClseDt": "2026-08",
+      "searchKeyword": "LED",
+      "region": "강원",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850904",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850904"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20850904",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "08",
+        "department": "건설관리팀",
+        "officerName": "장영조",
+        "officerTel": "033-590-5717",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "호텔콘도 LED실내조명등 및 LED다운라이트 설치에 필요한 자재",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 2505035000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "08"
+    },
     {
       "bidId": "BID-R26BK01688868-000",
       "bidNtceNo": "R26BK01688868",
@@ -200,7 +774,9 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
     },
     {
       "bidId": "BID-R26BK01691071-000",
@@ -1810,7 +2386,7 @@
       "dminsttNm": "서울특별시 물재생센터 중랑물재생센터",
       "assignBudgetAmt": 8000000,
       "bidNtceRegistDt": "2026-08-19 13:40",
-      "bidClseDt": "2026-08-19 18:00",
+      "bidClseDt": "2026-08-21 16:00",
       "searchKeyword": "전광판",
       "region": "서울",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01688150&bidPbancOrd=000",
@@ -1838,8 +2414,8 @@
         "noticeKind": "등록공고",
         "restrictionRegion": "",
         "bidBeginDt": "2026-08-19 14:00",
-        "bidClseDt": "2026-08-19 18:00",
-        "openDt": "2026-08-19 19:00",
+        "bidClseDt": "2026-08-21 16:00",
+        "openDt": "2026-08-21 17:00",
         "registerDeadline": "2026-08-19 18:00",
         "opinionCloseDt": "",
         "deliveryLimitDt": "",
@@ -3641,21 +4217,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 전광판 및 미디어월 관련 사업",
-      "aiReason": "3채널 돔 디스플레이 시스템 제작 및 구축, 예산 154억원",
-      "aiAction": "사업부 담당자와 협의 후 사업 참여 가능성을 확인",
-      "aiTags": [
-        "LED 전광판",
-        "미디어월",
-        "디스플레이"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-15T03:02:24.523Z"
+      }
     },
     {
       "bidId": "BID-R26BK01683651-000",
@@ -3727,21 +4289,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED 전광판 및 미디어월 관련 사업",
-      "aiReason": "3채널 돔 디스플레이 시스템 제작 및 구축, 예산 154억원",
-      "aiAction": "사업부 담당자와 협의하여 영업 전략 수립",
-      "aiTags": [
-        "LED 전광판",
-        "미디어월",
-        "디스플레이"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-16T03:10:36.760Z"
+      }
     },
     {
       "bidId": "BID-R26BK01683624-000",
@@ -5318,21 +5866,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "대전역 및 유성온천역 LED 전광판 제작 구매 및 설치",
-      "aiReason": "LED 전광판 직접 관련 + 예산 88,455,000원",
-      "aiAction": "사업부 담당자와 협의하여 사업 참여 가능성을 확인",
-      "aiTags": [
-        "LED",
-        "전광판",
-        "대전"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-17T03:10:36.288Z"
+      }
     },
     {
       "bidId": "BID-R26BK01681763-000",
@@ -5529,9 +6063,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BF-R26BD00263709",
@@ -6906,7 +7438,9 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
     },
     {
       "bidId": "BF-R26BD00263009",
@@ -7163,7 +7697,9 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
     },
     {
       "bidId": "BID-R26BK01677825-000",
@@ -8595,7 +9131,9 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
     },
     {
       "bidId": "BID-R26BK01674460-000",
@@ -10388,21 +10926,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "HIGH",
-      "aiScore": 90,
-      "aiSummary": "LED전광판 구매설치",
-      "aiReason": "LED전광판 직접 관련 + 예산 329684360원",
-      "aiAction": "영업 검토 및 예산 확인",
-      "aiTags": [
-        "LED전광판",
-        "전북대학교",
-        "조달청 전북지방조달청"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-13T04:22:36.372Z"
+      }
     },
     {
       "bidId": "BF-R26BD00261880",
@@ -11667,7 +12191,9 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      }
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
     },
     {
       "bidId": "BID-R26BK01662747-000",
@@ -15280,21 +15806,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "ITS/VMS 사업과 관련성이 있으나, 예산 및 실행 가능성은 불명확",
-      "aiReason": "ITS/VMS 사업과 관련성이 있으나, 예산 및 실행 가능성은 불명확",
-      "aiAction": "예산 및 실행 가능성을 확인하고, 사업부와의 협의 필요",
-      "aiTags": [
-        "ITS",
-        "VMS",
-        "ITSM"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-13T04:22:37.985Z"
+      }
     },
     {
       "bidId": "PL-R26DD20836396",
