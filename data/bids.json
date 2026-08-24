@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-24T03:15:50.620Z",
+  "generatedAt": "2026-08-24T08:00:12.222Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202607260000",
   "rangeEnd": "202608242359",
-  "totalCount": 350,
-  "rawCount": 402,
+  "totalCount": 354,
+  "rawCount": 406,
   "successCalls": 192,
   "failedCalls": 19,
   "requestDelayMs": 1000,
@@ -25,17 +25,17 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 1,
-    "skipped": 330,
+    "skipped": 334,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 184,
+    "공고": 188,
     "사전규격": 70,
     "발주계획": 96
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 214,
-    "미디어/파사드 계열": 113,
+    "디스플레이/사이니지 계열": 216,
+    "미디어/파사드 계열": 115,
     "ITS/VMS 계열": 23
   },
   "errors": [
@@ -44,6 +44,7 @@
     "[Groq/BID-R26BK01686519-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BF-R26BD00266610] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BF-R26BD00266067] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
+    "[Groq/BID-R26BK01694889-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01693737-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01678056-001] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01690479-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
@@ -56,10 +57,299 @@
     "[Groq/BID-R26BK01685842-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01685365-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01685118-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01682362-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01678056-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
+    "[Groq/BID-R26BK01682362-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
   ],
   "bids": [
+    {
+      "bidId": "BID-R26BK01694762-000",
+      "bidNtceNo": "R26BK01694762",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "우수조달물품(2023001, LED가로등기구) 제3자단가계약",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "각 수요기관",
+      "assignBudgetAmt": 280937,
+      "bidNtceRegistDt": "2026-08-24 16:14",
+      "bidClseDt": "2026-08-26 11:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694762&bidPbancOrd=000",
+      "contractMethod": "수의계약 / 제3자단가",
+      "contractMethods": [
+        "수의계약",
+        "제3자단가"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694762&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694762&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694762&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694762&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담(우수제품-3자단가)",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-26 10:00",
+        "bidClseDt": "2026-08-26 11:00",
+        "openDt": "2026-08-26 12:00",
+        "registerDeadline": "2026-08-25 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이우열",
+        "officerTel": "070-4056-6148",
+        "officerEmail": "ppslwy@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01694959-000",
+      "bidNtceNo": "R26BK01694959",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "프로스포츠 전용 미디어 플랫폼 운영 및 확장",
+      "ntceInsttNm": "(사)한국프로스포츠협회",
+      "dminsttNm": "(사)한국프로스포츠협회",
+      "assignBudgetAmt": 98000000,
+      "bidNtceRegistDt": "2026-08-24 14:07",
+      "bidClseDt": "2026-09-04 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694959&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694959&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694959&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694959&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694959&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694959&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정(SW사업)",
+        "contractType": "일반경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-24 15:00",
+        "bidClseDt": "2026-09-04 10:00",
+        "openDt": "2026-09-04 11:00",
+        "registerDeadline": "2026-09-04 10:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "현미진",
+        "officerTel": "02-6273-5907",
+        "officerEmail": "",
+        "referenceNo": "경영기획팀-913",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01694889-000",
+      "bidNtceNo": "R26BK01694889",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(재공고)한국에너지공과대학교 대면적 LED 솔라용 전류밀도-전압 및 최대전력추적(MPPT) 측정 시스템 구매",
+      "ntceInsttNm": "한국에너지공과대학교",
+      "dminsttNm": "한국에너지공과대학교",
+      "assignBudgetAmt": 142252000,
+      "bidNtceRegistDt": "2026-08-24 13:57",
+      "bidClseDt": "2026-08-31 14:00",
+      "searchKeyword": "LED",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694889&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 규격가격동시",
+      "contractMethods": [
+        "제한경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694889&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694889&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694889&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694889&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694889&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694889&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-27 14:00",
+        "bidClseDt": "2026-08-31 14:00",
+        "openDt": "2026-08-31 15:00",
+        "registerDeadline": "2026-08-30 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "최지혜",
+        "officerTel": "061-320-9727",
+        "officerEmail": "jihye__c@naver.com",
+        "referenceNo": "재무구매팀-17948",
+        "linkedBidNoList": "",
+        "productName": "모의태양장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+    },
+    {
+      "bidId": "BID-R26BK01694387-000",
+      "bidNtceNo": "R26BK01694387",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2027 서울 세계청년대회 홍보 미디어 콘텐츠 배포",
+      "ntceInsttNm": "재단법인 2027 서울 세계청년대회 조직위원회",
+      "dminsttNm": "재단법인 2027 서울 세계청년대회 조직위원회",
+      "assignBudgetAmt": 400000000,
+      "bidNtceRegistDt": "2026-08-24 12:58",
+      "bidClseDt": "2026-09-04 14:00",
+      "searchKeyword": "미디어",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694387&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694387&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694387&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01694387&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694387&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01694387&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-24 14:00",
+        "bidClseDt": "2026-09-04 14:00",
+        "openDt": "2026-09-04 15:00",
+        "registerDeadline": "2026-09-03 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "박초희",
+        "officerTel": "02-2230-2039",
+        "officerEmail": "",
+        "referenceNo": "조직위 제2026-05",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "PL-R26DD20852284",
       "bidNtceNo": "PL-R26DD20852284",
@@ -109,7 +399,7 @@
         "officerTel": "02-2230-2039",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01694387000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -2623,7 +2913,7 @@
         "officerTel": "02-2230-2039",
         "officerEmail": "",
         "referenceNo": "조직위 제2026-05",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01694387",
         "productName": "2027 서울 세계청년대회 홍보 미디어 콘텐츠 배포",
         "productDetails": "",
         "purpose": "",
@@ -2633,7 +2923,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "조직위 제2026-05",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01694387"
     },
     {
       "bidId": "BID-R26BK01689473-000",
@@ -2980,7 +3270,7 @@
       "dminsttNm": "경기도교육청 경기도수원교육청 동성중학교",
       "assignBudgetAmt": 157407930,
       "bidNtceRegistDt": "2026-08-19 16:48",
-      "bidClseDt": "2026-08-24 16:00",
+      "bidClseDt": "2026-08-24 17:00",
       "searchKeyword": "LED",
       "region": "경기",
       "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01688744&bidPbancOrd=000",
@@ -3007,9 +3297,9 @@
         "contractType": "수의계약",
         "noticeKind": "등록공고",
         "restrictionRegion": "",
-        "bidBeginDt": "2026-08-24 15:00",
-        "bidClseDt": "2026-08-24 16:00",
-        "openDt": "2026-08-24 17:00",
+        "bidBeginDt": "2026-08-24 16:00",
+        "bidClseDt": "2026-08-24 17:00",
+        "openDt": "2026-08-24 17:01",
         "registerDeadline": "2026-08-23 18:00",
         "opinionCloseDt": "",
         "deliveryLimitDt": "",
@@ -8310,9 +8600,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BF-R26BD00263009",
@@ -17588,7 +17876,7 @@
         "officerTel": "02-6273-5907",
         "officerEmail": "",
         "referenceNo": "경영기획팀-913",
-        "linkedBidNoList": "R26BK01665637",
+        "linkedBidNoList": "R26BK01665637,R26BK01694959",
         "productName": "프로스포츠 전용 미디어 플랫폼 운영 및 확장",
         "productDetails": "",
         "purpose": "",
@@ -17598,7 +17886,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "경영기획팀-913",
-      "linkedBidNtceNoList": "R26BK01665637"
+      "linkedBidNtceNoList": "R26BK01665637,R26BK01694959"
     },
     {
       "bidId": "PL-R26DD20835324",
@@ -17649,7 +17937,7 @@
         "officerTel": "02-6273-5900",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01665637000",
+        "linkedBidNoList": "R26BK01665637000,R26BK01694959000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
