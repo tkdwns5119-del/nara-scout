@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-24T08:00:12.222Z",
+  "generatedAt": "2026-08-24T22:25:32.936Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
-  "rangeBegin": "202607260000",
-  "rangeEnd": "202608242359",
-  "totalCount": 354,
-  "rawCount": 406,
+  "rangeBegin": "202607270000",
+  "rangeEnd": "202608252359",
+  "totalCount": 355,
+  "rawCount": 408,
   "successCalls": 192,
   "failedCalls": 19,
   "requestDelayMs": 1000,
@@ -25,20 +25,21 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 1,
-    "skipped": 334,
+    "skipped": 335,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
     "공고": 188,
-    "사전규격": 70,
+    "사전규격": 71,
     "발주계획": 96
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 216,
-    "미디어/파사드 계열": 115,
+    "미디어/파사드 계열": 116,
     "ITS/VMS 계열": 23
   },
   "errors": [
+    "[Groq/BF-R26BD00266861] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01693892-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01690406-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01686519-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
@@ -56,10 +57,76 @@
     "[Groq/BID-R26BK01677180-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01685842-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
     "[Groq/BID-R26BK01685365-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01685118-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01682362-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
+    "[Groq/BID-R26BK01685118-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
   ],
   "bids": [
+    {
+      "bidId": "BF-R26BD00266861",
+      "bidNtceNo": "BF-R26BD00266861",
+      "bidNtceOrd": "",
+      "bidNtceNm": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 관급자재 - 미디어파사드 제작 설치",
+      "ntceInsttNm": "조달청 경남지방조달청",
+      "dminsttNm": "경상남도 창원시",
+      "assignBudgetAmt": 2434726000,
+      "bidNtceRegistDt": "2026-08-24 17:00",
+      "bidClseDt": "2026-08-31 23:59",
+      "searchKeyword": "파사드",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00266861",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00266861&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00266861&fileType=BFDTL&fileSeq=2"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-08-31 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "윤성민",
+        "officerTel": "070-4056-6750",
+        "officerEmail": "",
+        "referenceNo": "관광과-13249",
+        "linkedBidNoList": "",
+        "productName": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 관급자재 - 미디어파사드 제작 설치",
+        "productDetails": "[1^4511161601^비디오프로젝터]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "관광과-13249",
+      "linkedBidNtceNoList": "",
+      "aiStatus": "ERROR",
+      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+    },
     {
       "bidId": "BID-R26BK01694762-000",
       "bidNtceNo": "R26BK01694762",
@@ -6162,9 +6229,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BF-R26BD00263946",
