@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-26T03:17:50.439Z",
+  "generatedAt": "2026-08-26T07:47:37.305Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202607280000",
   "rangeEnd": "202608262359",
-  "totalCount": 357,
-  "rawCount": 414,
+  "totalCount": 362,
+  "rawCount": 420,
   "successCalls": 192,
   "failedCalls": 19,
   "requestDelayMs": 1000,
@@ -25,17 +25,17 @@
     "provider": "groq",
     "analyzed": 0,
     "cached": 1,
-    "skipped": 337,
+    "skipped": 342,
     "model": "llama-3.1-8b-instant"
   },
   "serviceStats": {
-    "공고": 190,
+    "공고": 195,
     "사전규격": 71,
     "발주계획": 96
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 219,
-    "미디어/파사드 계열": 118,
+    "디스플레이/사이니지 계열": 222,
+    "미디어/파사드 계열": 120,
     "ITS/VMS 계열": 20
   },
   "errors": [
@@ -60,6 +60,361 @@
     "[Groq/BID-R26BK01690293-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
   ],
   "bids": [
+    {
+      "bidId": "BID-R26BK01700018-000",
+      "bidNtceNo": "R26BK01700018",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "UV-C LED 광융합 기반 위생 강화형 센서 휴지통",
+      "ntceInsttNm": "한국광기술원",
+      "dminsttNm": "한국광기술원",
+      "assignBudgetAmt": 20000000,
+      "bidNtceRegistDt": "2026-08-26 16:40",
+      "bidClseDt": "2026-09-01 10:00",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01700018&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01700018&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01700018&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01700018&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01700018&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01700018&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자입찰",
+        "awardMethod": "소액수의견적-소액수의견적(2인 이상 견적 제출)",
+        "contractType": "수의계약",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-27 09:00",
+        "bidClseDt": "2026-09-01 10:00",
+        "openDt": "2026-09-01 11:00",
+        "registerDeadline": "2026-08-31 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "오승희",
+        "officerTel": "062-605-9124",
+        "officerEmail": "lulu@kopti.re.kr",
+        "referenceNo": "PUR11202606240004",
+        "linkedBidNoList": "",
+        "productName": "쓰레기통",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01699486-000",
+      "bidNtceNo": "R26BK01699486",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "첨단산업 인재양성 디스플레이 부트캠프 다목적 박막 증착용 스퍼터 시스템 구매입찰",
+      "ntceInsttNm": "한양대학교 에리카산학협력단",
+      "dminsttNm": "한양대학교 에리카산학협력단",
+      "assignBudgetAmt": 83600000,
+      "bidNtceRegistDt": "2026-08-26 14:45",
+      "bidClseDt": "2026-09-04 10:00",
+      "searchKeyword": "디스플레이",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699486&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 규격가격동시",
+      "contractMethods": [
+        "일반경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699486&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699486&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699486&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699486&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699486&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-26 15:00",
+        "bidClseDt": "2026-09-04 10:00",
+        "openDt": "2026-09-04 11:00",
+        "registerDeadline": "2026-09-03 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "박영미",
+        "officerTel": "031-400-4969",
+        "officerEmail": "minjang36@hanyang.ac.kr",
+        "referenceNo": "한양대디스플레이부트캠프 - 13 호",
+        "linkedBidNoList": "",
+        "productName": "진공증착기",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01699257-000",
+      "bidNtceNo": "R26BK01699257",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "첨단산업 인재양성 디스플레이 부트캠프 트리플 스캔 측정용 3D 현미경 구매입찰",
+      "ntceInsttNm": "한양대학교 에리카산학협력단",
+      "dminsttNm": "한양대학교 에리카산학협력단",
+      "assignBudgetAmt": 99000000,
+      "bidNtceRegistDt": "2026-08-26 14:25",
+      "bidClseDt": "2026-09-04 10:00",
+      "searchKeyword": "디스플레이",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699257&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 규격가격동시",
+      "contractMethods": [
+        "일반경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699257&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699257&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699257&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699257&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699257&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-26 14:30",
+        "bidClseDt": "2026-09-04 10:00",
+        "openDt": "2026-09-04 11:00",
+        "registerDeadline": "2026-09-03 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "박영미",
+        "officerTel": "031-400-4969",
+        "officerEmail": "minjang36@hanyang.ac.kr",
+        "referenceNo": "한양대디스플레이부트캠프 - 11 호",
+        "linkedBidNoList": "",
+        "productName": "레이저현미경",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01698222-000",
+      "bidNtceNo": "R26BK01698222",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 미디어파사드 콘텐츠 제작 용역",
+      "ntceInsttNm": "경상남도 창원시",
+      "dminsttNm": "경상남도 창원시",
+      "assignBudgetAmt": 300000000,
+      "bidNtceRegistDt": "2026-08-26 13:59",
+      "bidClseDt": "2026-09-16 17:00",
+      "searchKeyword": "파사드",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01698222&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01698222&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01698222&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01698222&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01698222&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01698222&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01698222&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "직찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "2026-09-16 17:00",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이창재",
+        "officerTel": "055-225-3645",
+        "officerEmail": "",
+        "referenceNo": "창원시 공고 제2026 - 1653호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
+    {
+      "bidId": "BID-R26BK01699307-000",
+      "bidNtceNo": "R26BK01699307",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "[실감미디어혁신융합대학] 2026 글로벌 교육협력 워크숍 운영 용역",
+      "ntceInsttNm": "건국대학교 산학협력단",
+      "dminsttNm": "건국대학교 산학협력단",
+      "assignBudgetAmt": 45000000,
+      "bidNtceRegistDt": "2026-08-26 13:41",
+      "bidClseDt": "2026-09-07 10:00",
+      "searchKeyword": "미디어",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699307&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 협상계약",
+      "contractMethods": [
+        "일반경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01699307&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699307&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01699307&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정",
+        "contractType": "일반경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-08-26 14:00",
+        "bidClseDt": "2026-09-07 10:00",
+        "openDt": "2026-09-07 11:00",
+        "registerDeadline": "2026-09-06 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "전대호",
+        "officerTel": "02-450-3050",
+        "officerEmail": "",
+        "referenceNo": "260812-01-02",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01698894-000",
       "bidNtceNo": "R26BK01698894",
@@ -5201,7 +5556,7 @@
         "officerTel": "062-605-9124",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01687485000",
+        "linkedBidNoList": "R26BK01700018000,R26BK01687485000",
         "productName": "쓰레기통또는쓰레기통라이너",
         "productDetails": "",
         "purpose": "연구개발용",
@@ -9344,7 +9699,7 @@
         "officerTel": "02-450-4234",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01679054000",
+        "linkedBidNoList": "R26BK01699307000,R26BK01679054000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -12501,7 +12856,7 @@
         "officerTel": "***********",
         "officerEmail": "",
         "referenceNo": "1",
-        "linkedBidNoList": "R26BK01692989",
+        "linkedBidNoList": "R26BK01692989,R26BK01698222",
         "productName": "남부권 K-예술마실섬 네트워크 구축사업(오션플레이아일랜드) 미디어파사드 콘텐츠 제작 용역",
         "productDetails": "",
         "purpose": "",
@@ -12511,7 +12866,7 @@
         "rawBusinessDivision": "기술용역"
       },
       "refNo": "1",
-      "linkedBidNtceNoList": "R26BK01692989"
+      "linkedBidNtceNoList": "R26BK01692989,R26BK01698222"
     },
     {
       "bidId": "PL-R26DD20841555",
@@ -12562,7 +12917,7 @@
         "officerTel": "055-225-3645",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01692989002",
+        "linkedBidNoList": "R26BK01698222000,R26BK01692989002",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -18515,7 +18870,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "한양대디스플레이부트캠프 - 13 호",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01699486",
         "productName": "첨단산업 인재양성 디스플레이 부트캠프 사업",
         "productDetails": "[1^2399039801^진공증착기]",
         "purpose": "",
@@ -18525,7 +18880,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "한양대디스플레이부트캠프 - 13 호",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01699486"
     },
     {
       "bidId": "PL-R26DD20836085",
@@ -18576,7 +18931,7 @@
         "officerTel": "031-436-6100",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01699486000",
         "productName": "다목적 박막 증착용 스퍼터 시스템",
         "productDetails": "",
         "purpose": "디스플레이 부트캠프 사업 참여 학생 실습 교육용",
@@ -18637,7 +18992,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "한양대디스플레이부트캠프 - 11 호",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01699257",
         "productName": "첨단산업 인재양성 디스플레이 부트캠프 사업",
         "productDetails": "[1^4111172301^레이저현미경]",
         "purpose": "",
@@ -18647,7 +19002,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "한양대디스플레이부트캠프 - 11 호",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01699257"
     },
     {
       "bidId": "PL-R26DD20836053",
@@ -18698,7 +19053,7 @@
         "officerTel": "031-436-6100",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01699257000",
         "productName": "트리플 스캔 측정용 3D 현미경",
         "productDetails": "",
         "purpose": "디스플레이 부트캠프사업 교육용",
