@@ -3,29 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DI 조달 액션보드</title>
+  <title>DI 조달 검토 보드</title>
   <script defer src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --bg: #f5f7fb;
+      --bg: #f3f6f8;
       --panel: #ffffff;
-      --panel-soft: #f8fafc;
-      --panel-strong: #eef4f8;
-      --line: #d9e2ec;
-      --line-soft: #edf1f5;
-      --line-strong: #b8c4d2;
-      --text: #172033;
-      --muted: #64748b;
-      --blue: #0b7891;
-      --green: #087f5b;
-      --red: #c22f52;
-      --orange: #b76a00;
-      --purple: #7c3aed;
+      --panel-soft: #f7f9fb;
+      --line: #d8e0e7;
+      --line-soft: #e9eef2;
+      --text: #182230;
+      --muted: #657386;
+      --navy: #16324b;
+      --teal: #087d80;
+      --teal-soft: #e8f7f5;
+      --green: #16734a;
+      --green-soft: #eaf7ef;
+      --amber: #9a5c00;
+      --amber-soft: #fff5dd;
+      --red: #b53545;
+      --red-soft: #fff0f1;
+      --blue: #1769aa;
+      --blue-soft: #edf6fd;
       --radius: 8px;
-      --shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.04);
+      --shadow: 0 1px 2px rgba(20, 35, 50, 0.05), 0 8px 22px rgba(20, 35, 50, 0.04);
     }
 
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     html, body { margin: 0; min-height: 100%; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -34,1712 +39,615 @@
       letter-spacing: 0;
     }
 
-    button, input, select, textarea {
-      font: inherit;
-      border-radius: 6px;
-    }
-
-    button {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--text);
-      cursor: pointer;
-      transition: background 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
-    }
-
-    button:hover { border-color: var(--line-strong); background: #f8fbfd; }
-    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline: 2px solid rgba(11, 120, 145, 0.24);
+    button, input, select, textarea { font: inherit; }
+    button, select, input, textarea { border-radius: 6px; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid rgba(8, 125, 128, 0.2);
       outline-offset: 2px;
     }
-    button.active { border-color: #96d4df; background: #e8f7fa; color: var(--blue); font-weight: 800; }
-
-    .app {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
+    a { color: inherit; }
+    svg { width: 16px; height: 16px; stroke-width: 2; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    header {
+    .app { min-height: 100vh; }
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.96);
+      z-index: 30;
+      min-height: 64px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid var(--line);
-      box-shadow: 0 1px 12px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 2px 12px rgba(20, 35, 50, 0.05);
       backdrop-filter: blur(10px);
     }
 
-    .topbar {
-      min-height: 64px;
-      padding: 12px 18px;
-      display: grid;
-      grid-template-columns: minmax(260px, 1fr) auto;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
     .brand-mark {
       width: 38px;
       height: 38px;
+      flex: 0 0 auto;
       display: grid;
       place-items: center;
-      background: #102a43;
-      color: #fff;
       border-radius: var(--radius);
-      flex: 0 0 auto;
-      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+      background: var(--navy);
+      color: #fff;
     }
+    .brand h1 { margin: 0; font-size: 17px; line-height: 1.2; }
+    .brand-sub { margin-top: 3px; color: var(--muted); font-size: 11px; }
 
-    h1 {
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .meta {
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 11px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .icon-btn {
+    .top-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .sync-pill {
       min-height: 34px;
       padding: 0 10px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .layout {
-      padding: 16px 18px 22px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(420px, 460px);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .main {
-      display: grid;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(150px, 1fr));
-      gap: 10px;
-    }
-
-    .metric {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 13px 14px;
-      min-height: 84px;
-      box-shadow: var(--shadow);
-    }
-
-    .metric-label {
-      display: flex;
-      align-items: center;
       gap: 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .metric-value {
-      margin-top: 9px;
-      font-size: 24px;
-      line-height: 1.05;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .metric-sub {
-      margin-top: 5px;
       font-size: 11px;
-      color: var(--muted);
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .panel-head {
-      min-height: 46px;
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      background: #fbfdff;
-    }
-
-    .panel-title {
-      font-size: 14px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      min-width: 0;
-    }
-
-    .panel-title span {
-      overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
     }
+    .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa7b5; }
+    .sync-pill.ok .sync-dot { background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+    .sync-pill.error .sync-dot { background: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
 
-    .priority-head-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .mode-switch {
-      display: inline-grid;
-      grid-template-columns: repeat(2, minmax(0, auto));
-      gap: 2px;
-      padding: 3px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #f3f6fa;
-    }
-
-    .mode-button {
-      min-height: 30px;
-      padding: 0 9px;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
+    .btn, .link-btn {
+      min-height: 34px;
+      padding: 0 11px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 800;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: none;
       white-space: nowrap;
     }
+    .btn:hover, .link-btn:hover { border-color: #aebbc8; background: #f8fafb; }
+    .btn.primary, .link-btn.primary { border-color: var(--teal); background: var(--teal); color: #fff; }
+    .btn.primary:hover, .link-btn.primary:hover { background: #066d70; }
+    .btn.icon-only { width: 34px; padding: 0; }
 
-    .mode-button:hover { border-color: transparent; }
-
-    .mode-button.active {
-      border-color: transparent;
-      background: #fff;
-      color: var(--blue);
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
-    }
-
-    .mode-button svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    .mode-count {
-      min-width: 20px;
-      padding: 1px 5px;
-      border-radius: 999px;
-      background: #e2e8f0;
-      color: #475569;
-      font-size: 10px;
-      text-align: center;
-    }
-
-    .mode-button.active .mode-count {
-      background: #d9f1f5;
-      color: var(--blue);
-    }
-
-    .priority-list {
+    .workspace {
+      padding: 14px 16px 22px;
       display: grid;
-      grid-template-columns: repeat(5, minmax(170px, 1fr));
-      gap: 10px;
-      padding: 12px;
-      overflow-x: auto;
+      grid-template-columns: minmax(690px, 1fr) minmax(410px, 450px);
+      gap: 14px;
+      align-items: start;
     }
+    .board, .detail-pane { min-width: 0; }
 
-    .priority-card {
-      min-height: 132px;
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       border: 1px solid var(--line);
-      background: #fff;
       border-radius: var(--radius);
-      padding: 11px;
-      text-align: left;
-      display: grid;
-      gap: 8px;
-      align-content: start;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
+    .summary-item { padding: 12px 14px; border-right: 1px solid var(--line-soft); }
+    .summary-item:last-child { border-right: 0; }
+    .summary-label { color: var(--muted); font-size: 11px; font-weight: 750; }
+    .summary-value { margin-top: 4px; font-size: 21px; line-height: 1.15; font-weight: 850; }
+    .summary-hint { margin-left: 4px; color: var(--muted); font-size: 10px; font-weight: 600; }
 
-    .priority-card:hover {
-      border-color: #a8c3d1;
-      background: #fbfdff;
-    }
-
-    .priority-card.selected {
-      border-color: #80c7d5;
-      box-shadow: inset 3px 0 0 var(--blue);
-    }
-
-    .toolbar {
-      padding: 12px;
-      display: grid;
-      grid-template-columns: minmax(240px, 1fr) minmax(520px, auto);
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      background: #fbfdff;
-    }
-
-    .list-mode-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .list-mode-switch .mode-button {
-      min-height: 34px;
-      padding: 0 12px;
-    }
-
-    .date-filter {
-      min-height: 40px;
-      padding: 0 8px 0 10px;
+    .control-panel {
+      margin-top: 12px;
       border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #fff;
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .view-tabs {
+      min-height: 48px;
+      padding: 6px 8px 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--line);
+    }
+    .view-tab {
+      min-height: 41px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      flex: 1 1 auto;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      border-radius: 5px 5px 0 0;
+      background: transparent;
       color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+    }
+    .view-tab:hover { background: var(--panel-soft); color: var(--text); }
+    .view-tab.active { color: var(--teal); border-bottom-color: var(--teal); background: var(--teal-soft); }
+    .tab-count {
+      min-width: 21px;
+      height: 20px;
+      padding: 0 6px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #e9eef2;
+      color: #526274;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .view-tab.active .tab-count { background: #ccebe7; color: #076c6f; }
+
+    .filters {
+      padding: 10px;
+      display: grid;
+      grid-template-columns: minmax(230px, 1.4fr) repeat(5, minmax(105px, 0.7fr)) auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .search-wrap { position: relative; }
+    .search-wrap svg { position: absolute; left: 11px; top: 10px; color: var(--muted); pointer-events: none; }
+    .search-wrap input { padding-left: 34px; width: 100%; }
+    input, select, textarea {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+    input, select { height: 36px; padding: 0 10px; font-size: 12px; }
+    select { min-width: 0; width: 100%; }
+    input::placeholder, textarea::placeholder { color: #96a2af; }
+    .filter-reset { height: 36px; min-width: 36px; padding: 0 9px; border: 1px solid var(--line); background: #fff; color: var(--muted); }
+
+    .keyword-filters {
+      padding: 9px 10px;
+      display: grid;
+      grid-template-columns: auto minmax(220px, 1fr) minmax(180px, 0.75fr) minmax(180px, 0.9fr);
+      gap: 8px;
+      align-items: center;
+      border-top: 1px solid var(--line-soft);
+      background: #fbfcfd;
+    }
+    .keyword-filter-label {
+      min-height: 36px;
       display: inline-flex;
       align-items: center;
       gap: 7px;
+      color: #46576a;
+      font-size: 11px;
+      font-weight: 850;
+      white-space: nowrap;
     }
+    .keyword-filter-label svg { color: var(--teal); }
+    .keyword-guide { color: var(--muted); font-size: 10px; line-height: 1.35; }
 
-    .date-filter.active {
-      border-color: #96d4df;
-      background: #e8f7fa;
-      color: var(--blue);
+    .list-meta {
+      min-height: 40px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line-soft);
+      background: #fbfcfd;
+      color: var(--muted);
+      font-size: 11px;
     }
+    .list-meta strong { color: var(--text); }
+    .legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
 
-    .date-filter svg {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 auto;
-    }
-
-    .date-filter select {
-      min-width: 170px;
-      min-height: 36px;
-      padding: 0 24px 0 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: inherit;
+    .table-wrap { overflow: auto; max-height: calc(100vh - 270px); border-top: 1px solid var(--line); }
+    table { width: 100%; min-width: 910px; border-collapse: collapse; table-layout: fixed; }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      height: 40px;
+      padding: 0 10px;
+      border-bottom: 1px solid var(--line);
+      background: #edf3f6;
+      color: #536274;
+      text-align: left;
       font-size: 11px;
       font-weight: 800;
     }
-
-    .search {
-      position: relative;
-    }
-
-    .search svg {
-      position: absolute;
-      left: 11px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #8091a7;
-      width: 16px;
-      height: 16px;
-    }
-
-    input[type="search"] {
-      width: 100%;
-      min-height: 36px;
-      border: 1px solid var(--line);
-      padding: 0 12px 0 34px;
-      outline: none;
-      color: var(--text);
-      background: #fff;
-    }
-
-    input[type="search"]:focus {
-      border-color: #80c7d5;
-      box-shadow: 0 0 0 3px rgba(11, 120, 145, 0.12);
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(118px, auto));
-      gap: 6px;
-      justify-content: flex-end;
-    }
-
-    .filters select {
-      min-height: 36px;
-      padding: 0 10px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: #475569;
-      outline: none;
-      white-space: nowrap;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .filters select:hover {
-      border-color: var(--line-strong);
-    }
-
-    .filters select:focus {
-      border-color: #80c7d5;
-      box-shadow: 0 0 0 3px rgba(11, 120, 145, 0.12);
-    }
-
-    .filters select:first-child {
-      border-color: #b9e3ea;
-      background: #e8f7fa;
-      color: var(--blue);
-    }
-
-    .result-meta {
-      grid-column: 1 / -1;
-      min-height: 20px;
-      color: var(--muted);
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    th, td {
-      padding: 12px 12px;
+    td {
+      padding: 11px 10px;
       border-bottom: 1px solid var(--line-soft);
       vertical-align: top;
       font-size: 12px;
     }
+    tbody tr { background: #fff; cursor: pointer; transition: background 120ms ease, box-shadow 120ms ease; }
+    tbody tr:hover { background: #f8fbfc; }
+    tbody tr.selected { background: #edf8f8; box-shadow: inset 3px 0 0 var(--teal); }
+    tbody tr:focus-visible { outline: 3px solid rgba(8, 125, 128, 0.2); outline-offset: -3px; }
+    .col-notice { width: 130px; }
+    .col-business { width: 34%; }
+    .col-verdict { width: 120px; }
+    .col-contract { width: 180px; }
+    .col-budget { width: 105px; }
+    .col-deadline { width: 138px; }
+    .col-link { width: 48px; text-align: center; }
 
-    th {
-      background: var(--panel-strong);
-      color: #354052;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    tr {
-      background: #fff;
-      cursor: pointer;
-    }
-
-    tbody td {
-      min-height: 66px;
-    }
-
-    tbody tr:hover { background: #f8fbfd; }
-    tbody tr.selected {
-      background: #eaf7fa;
-      box-shadow: inset 3px 0 0 var(--blue);
-    }
-
-    .title-cell {
-      display: grid;
-      gap: 6px;
-      min-width: 0;
-    }
-
-    .title-main {
-      font-weight: 800;
-      color: #111827;
-      line-height: 1.35;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .business-title-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 7px;
-      min-width: 0;
-    }
-
-    .business-title-row .title-main { min-width: 0; }
-
-    .contract-prefix {
-      flex: 0 0 auto;
-      max-width: 126px;
+    .eyebrow { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+    .type-badge, .relevance-badge, .review-badge {
       min-height: 20px;
       padding: 0 6px;
-      border: 1px solid #cbd5e1;
-      border-radius: 5px;
-      background: #f3f6fa;
-      color: #475569;
-      font-size: 10px;
-      font-weight: 800;
-      line-height: 18px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .title-sub {
-      color: var(--muted);
-      font-size: 11px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .published-date {
-      color: #475569;
-      font-weight: 700;
-    }
-
-    .today-marker {
       display: inline-flex;
       align-items: center;
-      min-height: 18px;
-      margin-right: 5px;
-      padding: 0 5px;
-      border: 1px solid #a8ddc2;
+      border: 1px solid var(--line);
       border-radius: 4px;
-      background: #e8f7ef;
-      color: var(--green);
-      font-size: 9px;
-      font-weight: 900;
-      vertical-align: 1px;
+      background: #f6f8fa;
+      color: #526274;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
     }
+    .type-badge.bid { border-color: #b8d9ef; background: var(--blue-soft); color: var(--blue); }
+    .type-badge.pre { border-color: #d8c7f0; background: #f6f0fc; color: #7150a0; }
+    .type-badge.plan { border-color: #c9d3dc; background: #f2f5f7; color: #526274; }
+    .relevance-badge.direct { border-color: #b9dfd3; background: var(--green-soft); color: var(--green); }
+    .relevance-badge.check { border-color: #efd29c; background: var(--amber-soft); color: var(--amber); }
+    .review-badge { border: 0; background: #e8eef3; }
+    .review-badge.issue { background: var(--red-soft); color: var(--red); }
+    .review-badge.done { background: var(--green-soft); color: var(--green); }
+    .review-badge.checked { background: var(--blue-soft); color: var(--blue); }
+    .notice-no { margin-top: 5px; color: var(--muted); font-size: 10px; word-break: break-all; }
+    .notice-date { margin-top: 3px; color: #8794a2; font-size: 10px; }
+    .business-title { font-size: 13px; line-height: 1.42; font-weight: 800; word-break: keep-all; }
+    .business-agency { margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .keyword-path { margin-top: 6px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; color: #526274; font-size: 10px; }
+    .keyword-path strong { color: var(--teal); font-weight: 850; }
+    .keyword-path strong.keyword-check { color: var(--amber); }
+    .keyword-path strong.keyword-low { color: var(--red); }
+    .keyword-evidence { color: #7b8997; }
 
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .badge {
+    .verdict {
+      min-height: 24px;
+      padding: 0 8px;
       display: inline-flex;
       align-items: center;
-      min-height: 22px;
-      padding: 0 7px;
-      border: 1px solid var(--line);
+      gap: 5px;
+      border: 1px solid transparent;
       border-radius: 999px;
-      background: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .badge.bid { color: var(--blue); background: #e8f7fa; border-color: #b9e3ea; }
-    .badge.spec { color: var(--purple); background: #f1ecff; border-color: #d8c9ff; }
-    .badge.plan { color: var(--orange); background: #fff4df; border-color: #f0d09c; }
-    .badge.red { color: var(--red); background: #fff0f3; border-color: #f2b8c5; }
-    .badge.green { color: var(--green); background: #e8f7ef; border-color: #a8ddc2; }
-    .badge.gray { color: #475569; background: #f3f6fa; border-color: #dbe3ec; }
-
-    .money {
-      font-weight: 900;
-      color: #111827;
-      white-space: nowrap;
-    }
-
-    .dday {
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .dday.red { color: var(--red); }
-    .dday.orange { color: var(--orange); }
-    .dday.gray { color: var(--muted); }
-
-    .side {
-      position: sticky;
-      top: 82px;
-      scroll-margin-top: 82px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .side-panel {
-      overflow: hidden;
-      max-height: calc(100vh - 98px);
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr);
-    }
-
-    .side-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--line);
-      background: #fbfdff;
-    }
-
-    .side-tab {
-      min-height: 48px;
-      padding: 7px 10px;
-      border: 0;
-      border-right: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      display: grid;
-      align-content: center;
-      justify-items: center;
-      gap: 3px;
-      font-size: 12px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .side-tab:last-child {
-      border-right: 0;
-    }
-
-    .side-tab.active {
-      background: #e8f7fa;
-      color: var(--blue);
-      box-shadow: inset 0 -3px 0 var(--blue);
-    }
-
-    .side-tab-meta {
-      font-size: 10px;
-      color: inherit;
-      opacity: 0.82;
-      font-weight: 800;
-    }
-
-    .side-pane {
-      min-height: 0;
-      overflow: auto;
-    }
-
-    .side-pane[hidden] {
-      display: none;
-    }
-
-    .detail-body {
-      padding: 16px;
-      display: grid;
-      gap: 16px;
-    }
-
-    .detail-title {
-      margin: 0;
-      font-size: 17px;
-      line-height: 1.5;
-    }
-
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 9px;
-    }
-
-    .field {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 11px 12px;
-      background: var(--panel-soft);
-      min-width: 0;
-    }
-
-    .field-label {
-      color: var(--muted);
       font-size: 11px;
-      font-weight: 800;
-      margin-bottom: 6px;
+      font-weight: 850;
+      white-space: nowrap;
     }
-
-    .field-value {
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1.45;
-      overflow-wrap: anywhere;
-    }
-
-    .detail-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .detail-actions button, .detail-link {
-      min-height: 40px;
-      padding: 0 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 800;
+    .verdict.possible { border-color: #b8dfca; background: var(--green-soft); color: var(--green); }
+    .verdict.check { border-color: #f0cf91; background: var(--amber-soft); color: var(--amber); }
+    .verdict.restricted { border-color: #efc1c7; background: var(--red-soft); color: var(--red); }
+    .verdict.closed { border-color: #d8e0e7; background: #f2f5f7; color: #687688; }
+    .verdict-reason { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .contract-main { font-weight: 750; line-height: 1.35; }
+    .contract-sub { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .budget { font-weight: 850; white-space: nowrap; }
+    .dday { display: inline-block; font-size: 14px; font-weight: 900; }
+    .dday.soon { color: var(--red); }
+    .dday.mid { color: var(--amber); }
+    .dday.plan { color: var(--blue); }
+    .deadline-date { margin-top: 4px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .schedule-line { margin-top: 4px; display: flex; gap: 5px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .schedule-label { min-width: 24px; color: #7c8997; font-weight: 750; }
+    .row-link {
+      width: 31px;
+      height: 31px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--teal);
       text-decoration: none;
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: #fff;
-      border-radius: 6px;
     }
+    .row-link:hover { border-color: var(--teal); background: var(--teal-soft); }
 
-    .detail-actions button.active {
-      border-color: #80c7d5;
-      background: #e8f7fa;
-      color: var(--blue);
-    }
-
-    .detail-actions button.active.issue {
-      border-color: #f2b8c5;
-      background: #fff0f3;
-      color: var(--red);
-    }
-
-    .detail-actions button.active.done {
-      border-color: #cbd5e1;
-      background: #f3f6fa;
-      color: #475569;
-    }
-
-    .review-board {
-      padding: 10px;
+    .loading, .empty {
+      min-height: 240px;
+      padding: 32px;
       display: grid;
-      gap: 10px;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
     }
+    .empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 14px; }
 
-    .status-card {
+    .detail-pane {
+      position: sticky;
+      top: 78px;
+      height: calc(100vh - 94px);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--panel);
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
+    .detail-empty { height: 100%; padding: 40px; display: grid; place-items: center; text-align: center; color: var(--muted); }
+    .detail-empty svg { width: 30px; height: 30px; margin-bottom: 12px; color: #91a0af; }
+    .detail-empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 14px; }
+    .detail-content { height: 100%; display: grid; grid-template-rows: auto auto 1fr; }
+    .detail-head { padding: 16px 16px 14px; border-bottom: 1px solid var(--line); }
+    .detail-head-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .detail-close { display: none; }
+    .detail-title { margin: 12px 0 0; font-size: 17px; line-height: 1.45; word-break: keep-all; }
+    .detail-sub { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 6px 10px; color: var(--muted); font-size: 10px; }
 
-    .status-card-head {
-      min-height: 34px;
-      padding: 0 10px;
+    .decision-box { margin-top: 13px; padding: 11px 12px; border-left: 3px solid var(--amber); background: var(--amber-soft); }
+    .decision-box.possible { border-left-color: var(--green); background: var(--green-soft); }
+    .decision-box.restricted { border-left-color: var(--red); background: var(--red-soft); }
+    .decision-label { font-size: 11px; font-weight: 850; }
+    .decision-reason { margin-top: 4px; color: #526274; font-size: 11px; line-height: 1.45; }
+    .decision-warning { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+
+    .detail-actions { padding: 9px 12px; display: flex; gap: 7px; border-bottom: 1px solid var(--line); background: #fbfcfd; }
+    .detail-actions .primary { flex: 1; }
+    .detail-scroll { min-height: 0; overflow-y: auto; }
+
+    .review-block { padding: 13px 15px; border-bottom: 1px solid var(--line); background: #f8fafb; }
+    .section-label { margin: 0 0 8px; color: #526274; font-size: 11px; font-weight: 850; }
+    .review-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .review-btn { height: 32px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .review-btn.active[data-review="unchecked"] { border-color: #9cadbd; background: #edf2f6; color: var(--text); }
+    .review-btn.active[data-review="checked"] { border-color: #8fc6ec; background: var(--blue-soft); color: var(--blue); }
+    .review-btn.active[data-review="issue"] { border-color: #e7a8b1; background: var(--red-soft); color: var(--red); }
+    .review-btn.active[data-review="done"] { border-color: #9fd0b6; background: var(--green-soft); color: var(--green); }
+    .review-note { width: 100%; min-height: 78px; margin-top: 8px; padding: 9px 10px; resize: vertical; font-size: 11px; line-height: 1.45; }
+    .note-foot { min-height: 26px; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
+    .save-note { min-height: 28px; padding: 0 9px; border: 1px solid var(--line); background: #fff; font-size: 10px; font-weight: 800; }
+
+    details { border-bottom: 1px solid var(--line); }
+    summary {
+      min-height: 43px;
+      padding: 0 15px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #edf1f5;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .status-list {
-      max-height: 184px;
-      overflow: auto;
-    }
-
-    .status-item {
-      width: 100%;
-      padding: 9px 10px;
-      border: 0;
-      border-bottom: 1px solid #edf1f5;
-      background: #fff;
-      text-align: left;
-      display: grid;
-      gap: 5px;
+      gap: 8px;
       cursor: pointer;
-    }
-
-    .status-item:hover,
-    .status-item.selected {
-      background: #f8fbfd;
-    }
-
-    .status-item.selected {
-      box-shadow: inset 3px 0 0 var(--blue);
-    }
-
-    .status-item-title {
-      font-size: 12px;
-      line-height: 1.35;
-      font-weight: 800;
-      color: #111827;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .status-item-note {
-      font-size: 11px;
-      color: var(--muted);
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .status-empty {
-      padding: 14px 10px;
-      color: var(--muted);
-      font-size: 12px;
-      text-align: center;
-    }
-
-    .note-grid {
-      display: grid;
-      gap: 8px;
-    }
-
-    .note-empty {
-      padding: 12px;
-      border: 1px dashed var(--line-strong);
-      border-radius: var(--radius);
-      background: #fbfdff;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-      text-align: center;
-    }
-
-    .note-field {
-      display: grid;
-      gap: 7px;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel-soft);
-    }
-
-    .note-field.active {
-      border-color: #b9e3ea;
-      background: #f4fbfd;
-    }
-
-    .note-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    .note-field textarea {
-      width: 100%;
-      min-height: 72px;
-      resize: vertical;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 9px;
+      list-style: none;
       color: var(--text);
-      background: #fff;
-      font: inherit;
       font-size: 12px;
-      line-height: 1.5;
-      outline: none;
+      font-weight: 850;
     }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; margin-left: auto; color: var(--muted); font-size: 17px; font-weight: 500; }
+    details[open] summary::after { content: "−"; }
+    summary:hover { background: #f9fbfc; }
+    .detail-section { padding: 0 15px 14px; }
+    .field-grid { display: grid; grid-template-columns: 112px minmax(0, 1fr); }
+    .field-label, .field-value { min-height: 36px; padding: 8px 9px; border-top: 1px solid var(--line-soft); font-size: 11px; line-height: 1.45; }
+    .field-label { background: #f5f8fa; color: var(--muted); font-weight: 750; }
+    .field-value { color: var(--text); overflow-wrap: anywhere; }
+    .field-grid > :nth-child(-n+2) { border-top: 1px solid var(--line); }
+    .field-value.muted { color: #8b98a6; }
+    .doc-list { display: grid; gap: 6px; }
+    .doc-link { min-height: 34px; padding: 7px 9px; display: flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--blue); font-size: 11px; font-weight: 750; text-decoration: none; }
+    .doc-link:hover { border-color: #91bddd; background: var(--blue-soft); }
+    .detail-foot { padding: 14px 15px 20px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 
-    .note-field textarea:focus {
-      border-color: #80c7d5;
-      box-shadow: 0 0 0 3px rgba(11, 120, 145, 0.12);
-    }
-
-    .detail-link.primary {
-      grid-column: 1 / -1;
-      background: #0b7891;
-      border-color: #0b7891;
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 80;
+      padding: 9px 13px;
+      border-radius: 6px;
+      background: #1f2f3e;
       color: #fff;
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 8px);
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1260px) {
+      .workspace { grid-template-columns: minmax(620px, 1fr) 390px; }
+      .filters { grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(110px, 0.75fr)) auto; }
+      .filters .filter-secondary { display: none; }
+      .keyword-filters { grid-template-columns: auto minmax(180px, 1fr) minmax(150px, 0.8fr); }
+      .keyword-guide { display: none; }
     }
 
-    .empty {
-      padding: 34px 16px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
-    }
-
-    @media (max-width: 1180px) {
-      .layout { grid-template-columns: 1fr; }
-      .side { position: static; }
-      .side-panel { max-height: none; }
-      .side-pane { overflow: visible; }
-    }
-
-    @media (max-width: 760px) {
-      .topbar { grid-template-columns: 1fr; }
-      .top-actions { justify-content: flex-start; }
-      .layout { padding: 10px; }
-      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .panel-head { align-items: flex-start; flex-direction: column; }
-      .priority-head-actions { width: 100%; justify-content: space-between; }
-      .mode-switch { flex: 1 1 auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .list-mode-row { align-items: stretch; flex-direction: column; }
-      .list-mode-switch { width: 100%; }
-      .date-filter { width: 100%; }
-      .date-filter select { min-width: 0; width: 100%; }
-      .toolbar { grid-template-columns: 1fr; }
-      .filters {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        justify-content: stretch;
+    @media (max-width: 980px) {
+      .workspace { display: block; padding: 12px; }
+      .detail-pane {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+        transform: translateX(100%);
+        transition: transform 180ms ease;
       }
+      .detail-pane.open { transform: translateX(0); }
+      .detail-close { display: inline-grid; }
+      .table-wrap { max-height: none; }
+    }
 
-      .result-meta {
-        justify-content: flex-start;
-      }
-      .priority-list { grid-template-columns: repeat(5, 78vw); }
-      table { min-width: 860px; }
-      .table-wrap { overflow-x: auto; }
-      .field-grid { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      .topbar { position: static; min-height: auto; padding: 10px 12px; align-items: flex-start; }
+      .brand-mark { width: 34px; height: 34px; }
+      .brand h1 { font-size: 15px; }
+      .top-actions .sync-pill, .top-actions .link-btn { display: none; }
+      .summary-strip { grid-template-columns: repeat(2, 1fr); }
+      .summary-item:nth-child(2) { border-right: 0; }
+      .summary-item:nth-child(-n+2) { border-bottom: 1px solid var(--line-soft); }
+      .view-tab { flex: 0 0 auto; }
+      .filters { grid-template-columns: 1fr 1fr auto; }
+      .search-wrap { grid-column: 1 / -1; }
+      .filters .filter-mobile-hide { display: none; }
+      .keyword-filters { grid-template-columns: 1fr 1fr; }
+      .keyword-filter-label { grid-column: 1 / -1; min-height: 24px; }
+      .list-meta { align-items: flex-start; padding-top: 9px; padding-bottom: 9px; }
+      .legend { display: none; }
+      .table-wrap { padding: 8px; background: #f4f7f9; }
+      table { min-width: 0; display: block; }
+      thead { display: none; }
+      tbody { display: grid; gap: 8px; }
+      tbody tr { display: grid; grid-template-columns: 1fr auto; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+      tbody tr.selected { box-shadow: inset 3px 0 0 var(--teal); }
+      td { display: block; padding: 8px 10px; border-bottom: 0; }
+      td:nth-child(1) { grid-column: 1; padding-bottom: 4px; }
+      td:nth-child(2) { grid-column: 1 / -1; padding-top: 4px; border-bottom: 1px solid var(--line-soft); }
+      td:nth-child(3) { grid-column: 1; }
+      td:nth-child(4) { grid-column: 1 / -1; padding-top: 0; }
+      td:nth-child(5) { grid-column: 1; border-top: 1px solid var(--line-soft); }
+      td:nth-child(6) { grid-column: 2; grid-row: 5; border-top: 1px solid var(--line-soft); text-align: right; }
+      td:nth-child(7) { grid-column: 2; grid-row: 1; }
+      .business-agency { white-space: normal; }
+      .contract-sub { display: none; }
+      .detail-head { padding: 13px 14px; }
+      .detail-title { font-size: 16px; }
     }
   </style>
-<style id="production-ui-polish">
-  :root {
-    --bg: #f3f6f9;
-    --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 18px rgba(15, 23, 42, 0.035);
-  }
-
-  .metric-label svg {
-    width: 18px;
-    height: 18px;
-    color: #53657a;
-    stroke-width: 1.8;
-  }
-
-  .priority-list {
-    scrollbar-width: thin;
-    scrollbar-color: #aebbc8 transparent;
-  }
-
-  .priority-list::-webkit-scrollbar { height: 7px; }
-  .priority-list::-webkit-scrollbar-track { background: transparent; }
-  .priority-list::-webkit-scrollbar-thumb { background: #aebbc8; border-radius: 999px; }
-
-  .toolbar {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 9px;
-  }
-
-  input[type="search"] { min-height: 40px; }
-
-  .filters {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 8px;
-    width: 100%;
-    justify-content: stretch;
-  }
-
-  .filters select {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .result-meta {
-    grid-column: auto;
-    min-height: 18px;
-  }
-
-  th { border-bottom-color: var(--line); }
-
-  tr { transition: background 120ms ease, box-shadow 120ms ease; }
-
-  .side-panel {
-    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05), 0 12px 30px rgba(15, 23, 42, 0.05);
-  }
-
-  .side-tab > span:first-child {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .side-tab svg {
-    width: 17px;
-    height: 17px;
-    stroke-width: 1.9;
-  }
-
-  .side-pane {
-    scrollbar-width: thin;
-    scrollbar-color: #aebbc8 transparent;
-  }
-
-  .side-pane::-webkit-scrollbar { width: 7px; }
-  .side-pane::-webkit-scrollbar-track { background: transparent; }
-  .side-pane::-webkit-scrollbar-thumb { background: #aebbc8; border-radius: 999px; }
-
-  .detail-body {
-    padding: 15px;
-    gap: 14px;
-  }
-
-  .field-grid {
-    gap: 0;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--panel-soft);
-    overflow: hidden;
-  }
-
-  .field {
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    border-radius: 0;
-    padding: 12px 13px;
-    background: transparent;
-  }
-
-  .field:last-child { border-bottom: 0; }
-
-  @media (max-width: 1180px) {
-    .main { display: contents; }
-    .summary-grid { grid-row: 1; }
-    .main > .panel:first-of-type { grid-row: 2; }
-    .side { grid-row: 3; }
-    .main > .panel:last-of-type { grid-row: 4; }
-  }
-
-  @media (max-width: 760px) {
-    .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .filters select:last-child { grid-column: 1 / -1; }
-  }
-</style>
-
-<style id="workflow-ui-enhancements">
-  .sync-health {
-    min-height: 34px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--muted);
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 11px;
-    font-weight: 900;
-    white-space: nowrap;
-  }
-
-  .sync-health::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #94a3b8;
-    box-shadow: 0 0 0 3px #eef2f6;
-  }
-
-  .sync-health[data-tone="healthy"] { color: var(--green); border-color: #a8ddc2; background: #f3fbf7; }
-  .sync-health[data-tone="healthy"]::before { background: var(--green); box-shadow: 0 0 0 3px #dff3e8; }
-  .sync-health[data-tone="pending"] { color: var(--blue); border-color: #b9e3ea; background: #f2fbfd; }
-  .sync-health[data-tone="pending"]::before { background: var(--blue); box-shadow: 0 0 0 3px #d9f1f5; }
-  .sync-health[data-tone="warning"] { color: var(--orange); border-color: #f0d09c; background: #fff9ed; }
-  .sync-health[data-tone="warning"]::before { background: var(--orange); box-shadow: 0 0 0 3px #fceac8; }
-  .sync-health[data-tone="error"] { color: var(--red); border-color: #f2b8c5; background: #fff5f7; }
-  .sync-health[data-tone="error"]::before { background: var(--red); box-shadow: 0 0 0 3px #fde2e8; }
-
-  .insight-bar {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .insight-button {
-    min-height: 42px;
-    padding: 7px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 800;
-    color: #475569;
-    background: #fff;
-    box-shadow: var(--shadow);
-  }
-
-  .insight-button > span:first-child {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .insight-button strong {
-    min-width: 28px;
-    font-size: 14px;
-    color: var(--text);
-    text-align: right;
-  }
-
-  .insight-button.active strong { color: var(--blue); }
-
-  .priority-mode-switch { grid-template-columns: repeat(3, minmax(0, auto)); }
-
-  .saved-filter-bar {
-    display: grid;
-    grid-template-columns: minmax(180px, 1fr) 36px 36px 36px;
-    gap: 7px;
-    align-items: center;
-  }
-
-  .filters.advanced-filters {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr);
-  }
-
-  .classification-line {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 3px 6px;
-    color: #475569;
-    font-size: 10px;
-    line-height: 1.4;
-  }
-
-  .classification-line strong {
-    color: var(--blue);
-    font-size: 10px;
-  }
-
-  .classification-line .classification-check { color: #9a5800; }
-  .classification-line .classification-low { color: var(--red); }
-
-  .classification-evidence {
-    min-width: 0;
-    color: var(--muted);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .priority-list:has(> .empty) {
-    display: block;
-    overflow: hidden;
-    padding: 0;
-  }
-
-  .priority-list:has(> .empty) > .empty {
-    padding: 18px 16px;
-  }
-
-  .schedule-stack {
-    display: grid;
-    gap: 2px;
-    margin-top: 5px;
-  }
-
-  .schedule-line {
-    display: grid;
-    grid-template-columns: 27px minmax(0, 1fr);
-    gap: 4px;
-    color: var(--muted);
-    font-size: 10px;
-    line-height: 1.35;
-  }
-
-  .schedule-line strong {
-    color: #475569;
-    font-size: 10px;
-  }
-
-  .participation-summary {
-    padding: 11px 12px;
-    border: 1px solid var(--line);
-    border-left: 3px solid #94a3b8;
-    border-radius: 6px;
-    background: var(--panel-soft);
-  }
-
-  .participation-summary.possible { border-left-color: var(--green); background: #f1faf5; }
-  .participation-summary.check { border-left-color: #d68a16; background: #fffaf0; }
-  .participation-summary.restricted { border-left-color: var(--red); background: #fff5f6; }
-
-  .participation-summary-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 6px;
-    font-size: 11px;
-    font-weight: 900;
-  }
-
-  .participation-summary p {
-    margin: 0;
-    color: #475569;
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-  .status-card-empty {
-    padding: 13px 10px;
-    color: var(--muted);
-    font-size: 10px;
-    line-height: 1.45;
-    text-align: center;
-  }
-
-  .mobile-detail-close {
-    display: none;
-    width: 42px;
-    min-height: 48px;
-    padding: 0;
-    border: 0;
-    border-left: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
-    place-items: center;
-  }
-
-  .mobile-detail-close svg { width: 18px; height: 18px; }
-
-  .saved-select {
-    min-height: 36px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    background: #fff;
-    color: #475569;
-    font-size: 11px;
-    font-weight: 800;
-  }
-
-  .mini-icon-btn {
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    display: inline-grid;
-    place-items: center;
-  }
-
-  .mini-icon-btn svg { width: 16px; height: 16px; }
-  .mini-icon-btn:disabled { opacity: 0.42; cursor: default; }
-
-  .favorite-button {
-    width: 26px;
-    height: 26px;
-    flex: 0 0 26px;
-    padding: 0;
-    display: inline-grid;
-    place-items: center;
-    border: 0;
-    background: transparent;
-    color: #94a3b8;
-  }
-
-  .favorite-button:hover { border-color: transparent; background: #fff8db; color: #9a6700; }
-  .favorite-button.active { border-color: transparent; background: #fff4c2; color: #9a6700; }
-  .favorite-button svg { width: 16px; height: 16px; }
-  .favorite-button.active svg { fill: currentColor; }
-
-  .badge.changed { color: #9a5800; background: #fff4df; border-color: #f0d09c; }
-  .badge.favorite { color: #8a6200; background: #fff8db; border-color: #ead48b; }
-
-  .field.changed {
-    border-color: #e7bd77;
-    background: #fffaf0;
-  }
-
-  .field-label-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-
-  .field-label-row .field-label { margin-bottom: 0; }
-
-  .related-section,
-  .history-section {
-    display: grid;
-    gap: 8px;
-    padding-top: 2px;
-  }
-
-  .section-heading {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 900;
-  }
-
-  .related-list,
-  .history-list {
-    display: grid;
-    gap: 6px;
-  }
-
-  .related-item,
-  .history-item {
-    min-width: 0;
-    padding: 9px 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--panel-soft);
-  }
-
-  button.related-item {
-    width: 100%;
-    text-align: left;
-  }
-
-  .related-item-title {
-    font-size: 11px;
-    line-height: 1.4;
-    font-weight: 800;
-    overflow-wrap: anywhere;
-  }
-
-  .related-item-meta,
-  .history-item-meta {
-    margin-top: 4px;
-    color: var(--muted);
-    font-size: 10px;
-  }
-
-  .history-item {
-    border-left: 3px solid #b8c4d2;
-  }
-
-  .history-item strong {
-    display: block;
-    font-size: 11px;
-  }
-
-  .history-item-note {
-    margin-top: 4px;
-    color: #475569;
-    font-size: 11px;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-  }
-
-  .detail-actions button.favorite.active {
-    border-color: #ead48b;
-    background: #fff8db;
-    color: #8a6200;
-  }
-
-  @media (max-width: 1180px) {
-    .insight-bar { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  }
-
-  @media (max-width: 760px) {
-    .side { grid-row: 3; }
-    .main > .panel:last-of-type { grid-row: 4; }
-    .side-panel { max-height: 72vh; }
-    .side:not(.mobile-open) .side-panel { grid-template-rows: auto; }
-    .side:not(.mobile-open) .side-pane { display: none !important; }
-    .side.mobile-open .side-tabs { grid-template-columns: 1fr 1fr 42px; }
-    .side.mobile-open .mobile-detail-close { display: grid; }
-    .top-actions { width: 100%; }
-    .sync-health { flex: 1 1 auto; justify-content: center; }
-    .insight-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .insight-button:last-child { grid-column: 1 / -1; }
-    .priority-mode-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .priority-mode-switch .mode-button { padding: 0 6px; }
-    .saved-filter-bar { grid-template-columns: minmax(0, 1fr) 36px 36px 36px; }
-    .filters.advanced-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .filters.advanced-filters select:first-child { grid-column: 1 / -1; }
-    .filters.advanced-filters select:last-child { grid-column: auto; }
-    .business-title-row { gap: 5px; }
-  }
-
-  .reviewer-row {
-    margin: 10px 10px 0;
-    min-height: 38px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--panel-soft);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-  }
-
-  .reviewer-row svg {
-    width: 16px;
-    height: 16px;
-    flex: 0 0 auto;
-  }
-
-  .reviewer-row input {
-    width: 100%;
-    min-width: 0;
-    height: 34px;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: var(--text);
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-</style>
 </head>
 <body>
   <div class="app">
-    <header>
-      <div class="topbar">
-        <div class="brand">
-          <div class="brand-mark"><i data-lucide="radar"></i></div>
-          <div>
-            <h1>DI 조달 액션보드</h1>
-            <div class="meta">
-              <span id="lastUpdated">데이터 로딩 중</span>
-              <span id="nextUpdate">예정 07:00, 11:00, 16:00 KST</span>
-              <span id="reviewSyncState">검토함 동기화 준비 중</span>
-            </div>
-          </div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"><i data-lucide="scan-search" aria-hidden="true"></i></div>
+        <div>
+          <h1>DI 조달 검토 보드</h1>
+          <div class="brand-sub">나라장터에 들어가기 전, 참여 여부와 검토 순서를 빠르게 정리합니다.</div>
         </div>
-        <div class="top-actions">
-          <div class="sync-health" id="syncHealth" data-tone="pending" title="&#50629;&#45936;&#51060;&#53944; &#49345;&#53468;">&#50629;&#45936;&#51060;&#53944; &#54869;&#51064; &#51473;</div>
-          <button class="icon-btn" id="refreshBtn" title="데이터 새로고침">
-            <i data-lucide="refresh-cw"></i><span>새로고침</span>
-          </button>
-        </div>
+      </div>
+      <div class="top-actions">
+        <div class="sync-pill" id="syncPill"><span class="sync-dot"></span><span id="syncText">데이터 불러오는 중</span></div>
+        <button class="btn" id="reloadBtn" type="button"><i data-lucide="refresh-cw" aria-hidden="true"></i>새로고침</button>
       </div>
     </header>
 
-    <main class="layout">
-      <section class="main">
-        <div class="summary-grid">
-          <div class="metric">
-            <div class="metric-label"><i data-lucide="timer"></i><span>7일 내 마감</span></div>
-            <div class="metric-value" id="mUrgent">0</div>
-            <div class="metric-sub">오늘 우선 확인</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label"><i data-lucide="calendar-plus"></i><span>오늘 등록</span></div>
-            <div class="metric-value" id="mNew">0</div>
-            <div class="metric-sub">당일 게시 기준</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label"><i data-lucide="wallet-cards"></i><span>2억 이상</span></div>
-            <div class="metric-value" id="mLarge">0</div>
-            <div class="metric-sub">예산 중점 사업</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label"><i data-lucide="database"></i><span>전체 수집</span></div>
-            <div class="metric-value" id="mTotal">0</div>
-            <div class="metric-sub" id="mService">공고 0 / 사전 0 / 계획 0</div>
-          </div>
+    <main class="workspace">
+      <section class="board" aria-label="조달 사업 목록">
+        <div class="summary-strip">
+          <div class="summary-item"><div class="summary-label">검토 대상</div><div class="summary-value" id="metricReview">-</div></div>
+          <div class="summary-item"><div class="summary-label">참여 가능</div><div class="summary-value" id="metricPossible">-</div></div>
+          <div class="summary-item"><div class="summary-label">확인 필요</div><div class="summary-value" id="metricCheck">-</div></div>
+          <div class="summary-item"><div class="summary-label">마감 3일 이내</div><div class="summary-value" id="metricSoon">-</div></div>
         </div>
 
-        <div class="insight-bar" aria-label="&#48736;&#47480; &#49324;&#50629; &#48516;&#47448;">
-          <button class="insight-button" type="button" data-list-mode="newToday"><span>&#49888;&#44508; &#50724;&#45720;</span><strong id="quickNewCount">0</strong></button>
-          <button class="insight-button" type="button" data-list-mode="changedToday"><span>&#51221;&#51221; &#50724;&#45720;</span><strong id="quickChangedCount">0</strong></button>
-          <button class="insight-button" type="button" data-list-mode="recent3"><span>&#52572;&#44540; 3&#51068;</span><strong id="quick3Count">0</strong></button>
-          <button class="insight-button" type="button" data-list-mode="recent7"><span>&#52572;&#44540; 7&#51068;</span><strong id="quick7Count">0</strong></button>
-          <button class="insight-button" type="button" data-list-mode="favorite"><span>&#44288;&#49900; &#49324;&#50629;</span><strong id="quickFavoriteCount">0</strong></button>
-        </div>
+        <div class="control-panel">
+          <nav class="view-tabs" id="viewTabs" aria-label="사업 보기">
+            <button class="view-tab active" type="button" data-view="review"><i data-lucide="list-checks"></i>검토 대상 <span class="tab-count" data-count="review">0</span></button>
+            <button class="view-tab" type="button" data-view="possible"><i data-lucide="circle-check"></i>참여 가능 <span class="tab-count" data-count="possible">0</span></button>
+            <button class="view-tab" type="button" data-view="check"><i data-lucide="circle-help"></i>확인 필요 <span class="tab-count" data-count="check">0</span></button>
+            <button class="view-tab" type="button" data-view="restricted"><i data-lucide="circle-slash"></i>참여 제한 <span class="tab-count" data-count="restricted">0</span></button>
+            <button class="view-tab" type="button" data-view="soon"><i data-lucide="clock-3"></i>마감 임박 <span class="tab-count" data-count="soon">0</span></button>
+            <button class="view-tab" type="button" data-view="all"><i data-lucide="layers-3"></i>전체 진행 <span class="tab-count" data-count="all">0</span></button>
+          </nav>
 
-        <section class="panel">
-          <div class="panel-head">
-            <div class="panel-title"><i data-lucide="calendar-clock"></i><span id="priorityTitle">오늘 업데이트</span></div>
-            <div class="priority-head-actions">
-              <div class="mode-switch priority-mode-switch" role="tablist" aria-label="우선 확인 보기">
-                <button class="mode-button active" type="button" data-priority-mode="today" role="tab" aria-selected="true">
-                  <i data-lucide="calendar-plus"></i><span>오늘 업데이트</span><span class="mode-count" id="todayCount">0</span>
-                </button>
-                <button class="mode-button" type="button" data-priority-mode="urgent" role="tab" aria-selected="false">
-                  <i data-lucide="badge-alert"></i><span>마감 우선</span>
-                </button>
-                <button class="mode-button" type="button" data-priority-mode="favorite" role="tab" aria-selected="false">
-                  <i data-lucide="star"></i><span>&#44288;&#49900;</span>
-                </button>
-              </div>
-              <div class="meta"><span id="priorityMeta">최신순</span></div>
+          <div class="filters">
+            <label class="search-wrap">
+              <i data-lucide="search" aria-hidden="true"></i>
+              <input id="searchInput" type="search" placeholder="사업명, 기관, 공고번호 검색" aria-label="사업 검색">
+            </label>
+            <select id="registeredFilter" aria-label="등록일 기준">
+              <option value="">전체 등록일</option>
+              <option value="today">오늘 등록</option>
+              <option value="last3">최근 3일</option>
+              <option value="last7">최근 7일</option>
+            </select>
+            <select id="serviceFilter" aria-label="공고 형태">
+              <option value="">전체 형태</option>
+              <option value="공고">공고</option>
+              <option value="사전규격">사전규격</option>
+              <option value="발주계획">발주계획</option>
+            </select>
+            <select id="businessFilter" class="filter-mobile-hide" aria-label="업무 구분">
+              <option value="">전체 업무</option>
+              <option value="물품">물품</option>
+              <option value="용역">용역</option>
+              <option value="공사">공사</option>
+            </select>
+            <select id="contractFilter" class="filter-secondary filter-mobile-hide" aria-label="계약 방법"><option value="">전체 계약방법</option></select>
+            <select id="regionFilter" class="filter-secondary filter-mobile-hide" aria-label="지역"><option value="">전체 지역</option></select>
+            <button class="filter-reset" id="resetBtn" type="button" aria-label="필터 초기화" title="필터 초기화"><i data-lucide="rotate-ccw"></i></button>
+          </div>
+
+          <div class="keyword-filters">
+            <div class="keyword-filter-label"><i data-lucide="tags" aria-hidden="true"></i>상세 키워드</div>
+            <select id="keywordFilter" aria-label="전광판 상세 분류"><option value="">전체 키워드 분류</option></select>
+            <select id="workFilter" aria-label="업무 유형"><option value="">전체 업무 유형</option></select>
+            <div class="keyword-guide">품명만이 아니라 사업명·세부품목·사용목적까지 함께 검색합니다.</div>
+          </div>
+
+          <div class="list-meta">
+            <div><strong id="resultCount">0건</strong> <span id="resultDescription">진행 중 검토 대상</span></div>
+            <div class="legend" aria-label="참여 판단 범례">
+              <span><i class="legend-dot" style="background:var(--green)"></i>가능</span>
+              <span><i class="legend-dot" style="background:#d38a12"></i>확인</span>
+              <span><i class="legend-dot" style="background:var(--red)"></i>제한</span>
             </div>
           </div>
-          <div class="priority-list" id="priorityList"></div>
-        </section>
 
-        <section class="panel">
-          <div class="toolbar">
-            <div class="list-mode-row">
-              <div class="mode-switch list-mode-switch" role="tablist" aria-label="등록일 분류">
-                <button class="mode-button active" type="button" data-list-mode="all" role="tab" aria-selected="true">
-                  <i data-lucide="list-filter"></i><span>전체 사업</span><span class="mode-count" id="allListCount">0</span>
-                </button>
-                <button class="mode-button" type="button" data-list-mode="today" role="tab" aria-selected="false">
-                  <i data-lucide="calendar-plus"></i><span>오늘 사업만</span><span class="mode-count" id="todayListCount">0</span>
-                </button>
-              </div>
-              <label class="date-filter" id="dateFilterControl">
-                <i data-lucide="calendar-days"></i>
-                <select id="filterDate" aria-label="등록 날짜 선택">
-                  <option value="">등록 날짜 선택</option>
-                </select>
-              </label>
-            </div>
-            <div class="search">
-              <i data-lucide="search"></i>
-              <input type="search" id="searchInput" placeholder="사업명, 품명, 기관, 공고번호, 담당자 검색">
-            </div>
-            <div class="filters" id="filterControls">
-              <select id="filterService" aria-label="service type">
-                <option value="ALL">&#51204;&#52404; &#49436;&#48708;&#49828;</option>
-                <option value="&#44277;&#44256;">&#51077;&#52272;&#44277;&#44256;&#47564;</option>
-                <option value="&#49324;&#51204;&#44508;&#44201;">&#49324;&#51204;&#44508;&#44201;&#47564;</option>
-                <option value="&#48156;&#51452;&#44228;&#54925;">&#48156;&#51452;&#44228;&#54925;&#47564;</option>
-              </select>
-              <select id="filterContract" aria-label="contract method">
-                <option value="ALL">&#51204;&#52404; &#44228;&#50557;&#48169;&#48277;</option>
-                <option value="&#49688;&#51032;">&#49688;&#51032;&#44228;&#50557;</option>
-                <option value="&#51648;&#50669;">&#51648;&#50669;&#51228;&#54620;</option>
-                <option value="&#51648;&#47749;">&#51648;&#47749;&#44221;&#51137;</option>
-                <option value="&#51228;&#54620;">&#51228;&#54620;&#44221;&#51137;</option>
-                <option value="&#51068;&#48152;">&#51068;&#48152;&#44221;&#51137;</option>
-                <option value="&#54801;&#49345;">&#54801;&#49345;&#44228;&#50557;</option>
-              </select>
-              <select id="filterKeyword" aria-label="keyword">
-                <option value="ALL">&#51204;&#52404; &#53412;&#50892;&#46300;</option>
-                <optgroup label="&#46356;&#49828;&#54540;&#47112;&#51060;/&#49324;&#51060;&#45768;&#51648;">
-                  <option value="&#51204;&#44305;&#54032;">&#51204;&#44305;&#54032;</option>
-                  <option value="LED">LED</option>
-                  <option value="&#46356;&#49828;&#54540;&#47112;&#51060;">&#46356;&#49828;&#54540;&#47112;&#51060;</option>
-                  <option value="&#49324;&#51060;&#45768;&#51648;">&#49324;&#51060;&#45768;&#51648;</option>
-                </optgroup>
-                <optgroup label="&#48120;&#46356;&#50612;/&#54028;&#49324;&#46300;">
-                  <option value="&#48120;&#46356;&#50612;">&#48120;&#46356;&#50612;</option>
-                  <option value="&#54028;&#49324;&#46300;">&#54028;&#49324;&#46300;</option>
-                </optgroup>
-                <optgroup label="ITS/VMS">
-                  <option value="ITS">ITS</option>
-                  <option value="VMS">VMS</option>
-                </optgroup>
-              </select>
-              <select id="filterRegion" aria-label="region">
-                <option value="ALL">&#51204;&#44397; &#51648;&#50669;</option>
-                <option value="&#49436;&#50872;">&#49436;&#50872;</option>
-                <option value="&#44221;&#44592;">&#44221;&#44592;</option>
-                <option value="&#51064;&#52380;">&#51064;&#52380;</option>
-                <option value="&#48512;&#49328;">&#48512;&#49328;</option>
-                <option value="&#44053;&#50896;">&#44053;&#50896;</option>
-                <option value="&#44221;&#49345;">&#44221;&#49345;</option>
-                <option value="&#51204;&#46972;">&#51204;&#46972;</option>
-                <option value="&#52649;&#52397;">&#52649;&#52397;</option>
-                <option value="&#51228;&#51452;">&#51228;&#51452;</option>
-                <option value="&#49464;&#51333;">&#49464;&#51333;</option>
-              </select>
-              <select id="filterBudget" aria-label="budget">
-                <option value="ALL">&#51204;&#52404; &#50696;&#49328; &#44508;&#47784;</option>
-                <option value="UNDER_50">5&#52380;&#47564; &#50896; &#48120;&#47564;</option>
-                <option value="50_TO_200">5&#52380;&#47564; ~ 2&#50613; &#50896;</option>
-                <option value="200_TO_500">2&#50613; ~ 5&#50613; &#50896;</option>
-                <option value="OVER_500">5&#50613; &#50896; &#51060;&#49345;</option>
-              </select>
-            </div>
-            <div class="filters advanced-filters" id="advancedFilterControls">
-              <select id="filterKeywordDetail" aria-label="상세 키워드 분류">
-                <option value="ALL">전체 상세 분류</option>
-              </select>
-              <select id="filterWork" aria-label="업무 유형">
-                <option value="ALL">전체 업무 유형</option>
-              </select>
-              <select id="filterParticipation" aria-label="참여 판단">
-                <option value="ALL">전체 참여 판단</option>
-                <option value="possible">참여 가능</option>
-                <option value="check">확인 필요</option>
-                <option value="restricted">참여 제한</option>
-                <option value="closed">마감</option>
-              </select>
-            </div>
-            <div class="saved-filter-bar">
-              <select class="saved-select" id="savedFilter" aria-label="&#51200;&#51109;&#54620; &#54596;&#53552;">
-                <option value="">&#51200;&#51109; &#54596;&#53552;</option>
-              </select>
-              <button class="mini-icon-btn" type="button" id="saveFilterBtn" title="&#54788;&#51116; &#51312;&#44148; &#51200;&#51109;" aria-label="&#54788;&#51116; &#51312;&#44148; &#51200;&#51109;"><i data-lucide="bookmark-plus"></i></button>
-              <button class="mini-icon-btn" type="button" id="deleteFilterBtn" title="&#49440;&#53469;&#54620; &#54596;&#53552; &#49325;&#51228;" aria-label="&#49440;&#53469;&#54620; &#54596;&#53552; &#49325;&#51228;" disabled><i data-lucide="bookmark-x"></i></button>
-              <button class="mini-icon-btn" type="button" id="resetFiltersBtn" title="&#54596;&#53552; &#52488;&#44592;&#54868;" aria-label="&#54596;&#53552; &#52488;&#44592;&#54868;"><i data-lucide="rotate-ccw"></i></button>
-            </div>
-            <div class="result-meta" id="resultMeta">0&#44148; &#54364;&#49884;</div>
-          </div>
-          <div class="table-wrap">
-            <table>
+          <div class="table-wrap" id="tableWrap">
+            <div class="loading" id="loadingState">최신 조달 정보를 정리하고 있습니다.</div>
+            <table id="bidTable" hidden>
               <thead>
                 <tr>
-                  <th style="width: 42%">사업</th>
-                  <th style="width: 13%">유형</th>
-                  <th style="width: 14%">예산</th>
-                  <th style="width: 13%">마감</th>
-                  <th style="width: 18%">담당</th>
+                  <th class="col-notice">공고</th>
+                  <th class="col-business">사업 / 기관</th>
+                  <th class="col-verdict">참여 판단</th>
+                  <th class="col-contract">계약 방법</th>
+                  <th class="col-budget">예산</th>
+                  <th class="col-deadline">등록 / 마감</th>
+                  <th class="col-link"><span class="sr-only">원문</span></th>
                 </tr>
               </thead>
               <tbody id="bidRows"></tbody>
             </table>
+            <div class="empty" id="emptyState" hidden><div><strong>조건에 맞는 사업이 없습니다.</strong>필터를 초기화하거나 전체 진행을 확인해 보세요.</div></div>
           </div>
-        </section>
+        </div>
       </section>
 
-      <aside class="side" id="detailSide">
-        <section class="panel side-panel">
-          <div class="side-tabs" role="tablist" aria-label="review detail tabs">
-            <button class="side-tab active" type="button" data-side-tab="detail" role="tab" aria-selected="true" aria-controls="detailPane">
-              <span><i data-lucide="file-search"></i> &#49345;&#49464;</span>
-              <span class="side-tab-meta" id="detailState">&#48120;&#49440;&#53469;</span>
-            </button>
-            <button class="side-tab" type="button" data-side-tab="review" role="tab" aria-selected="false" aria-controls="reviewPane">
-              <span><i data-lucide="clipboard-check"></i> &#44160;&#53664;&#54632;</span>
-              <span class="side-tab-meta" id="reviewMeta">0&#44148;</span>
-            </button>
-            <button class="mobile-detail-close" type="button" id="mobileDetailClose" title="상세 닫기" aria-label="상세 닫기"><i data-lucide="x"></i></button>
-          </div>
-          <div class="side-pane" id="detailPane" data-side-pane="detail" role="tabpanel">
-            <div class="detail-body" id="detailBody">
-              <div class="empty">&#47785;&#47197;&#50640;&#49436; &#49324;&#50629;&#51012; &#49440;&#53469;&#54616;&#49464;&#50836;.</div>
-            </div>
-          </div>
-          <div class="side-pane" id="reviewPane" data-side-pane="review" role="tabpanel" hidden>
-            <label class="reviewer-row">
-              <i data-lucide="user-round"></i>
-              <input id="reviewerNameInput" type="text" maxlength="30" placeholder="&#51089;&#49457;&#51088; &#51060;&#47492;" aria-label="&#44160;&#53664; &#51089;&#49457;&#51088; &#51060;&#47492;">
-            </label>
-            <div class="review-board" id="reviewBoard"></div>
-          </div>
-        </section>
+      <aside class="detail-pane" id="detailPane" aria-label="사업 상세">
+        <div class="detail-empty" id="detailEmpty">
+          <div><i data-lucide="panel-right-open" aria-hidden="true"></i><strong>사업을 선택해 주세요.</strong>참여 판단 근거와 나라장터 핵심 항목을 한 화면에서 확인할 수 있습니다.</div>
+        </div>
+        <div class="detail-content" id="detailContent" hidden></div>
       </aside>
     </main>
   </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const REVIEW_KEY = "NARA_SCOUT_IMPORTANT_ISSUE_V1";
-    const FILTER_KEY = "NARA_SCOUT_SAVED_FILTERS_V1";
-    const REVIEWER_KEY = "NARA_SCOUT_REVIEWER_NAME_V1";
-
-    const readStoredJson = (key, fallback) => {
-      try {
-        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
-      } catch {
-        return fallback;
-      }
-    };
-
-    const REVIEW_SYNC_APP = "di-actionboard-review";
+    const REVIEW_KEY = "di-practical-review-v1";
+    const LEGACY_REVIEW_KEY = "NARA_SCOUT_IMPORTANT_ISSUE_V1";
+    const REVIEW_SYNC_APP = "di-practical-review";
     let reviewRemoteRef = null;
     let reviewRemoteApplying = false;
     let reviewSaveTimer = null;
-
-    const createIcons = () => {
-      if (window.lucide && typeof window.lucide.createIcons === "function") {
-        window.lucide.createIcons();
-      }
-    };
-
-    window.addEventListener("load", createIcons);
-
-    const state = {
-      rawBids: [],
-      bids: [],
-      filtered: [],
-      selectedId: "",
-      filters: {
-        service: "ALL",
-        contract: "ALL",
-        keyword: "ALL",
-        keywordDetail: "ALL",
-        work: "ALL",
-        participation: "ALL",
-        region: "ALL",
-        budget: "ALL"
-      },
-      query: "",
-      listMode: "all",
-      priorityMode: "today",
-      sideTab: "detail",
-      dataMeta: {},
-      scopeExcludedCount: 0,
-      savedFilters: readStoredJson(FILTER_KEY, []),
-      savedFilterId: "",
-      reviewerName: localStorage.getItem(REVIEWER_KEY) || "",
-      review: readStoredJson(REVIEW_KEY, {})
-    };
-
-    const $ = (id) => document.getElementById(id);
-
-    const setReviewSyncState = (message) => {
-      const element = $("reviewSyncState");
-      if (element) element.textContent = message;
-    };
-
-    const loadExternalScript = (src) => new Promise((resolve, reject) => {
-      const existing = document.querySelector('script[src="' + src + '"]');
-      if (existing) {
-        if (window.firebase) resolve();
-        else existing.addEventListener("load", resolve, { once: true });
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = resolve;
-      script.onerror = () => reject(new Error("\uc2a4\ud06c\ub9bd\ud2b8 \ub85c\ub4dc \uc2e4\ud328: " + src));
-      document.head.appendChild(script);
-    });
-
-    const mergeReviewStores = (localStore, remoteStore) => {
-      const merged = {};
-      const keys = new Set([...Object.keys(localStore || {}), ...Object.keys(remoteStore || {})]);
-      keys.forEach((key) => {
-        const local = localStore?.[key];
-        const remote = remoteStore?.[key];
-        if (!local) merged[key] = remote;
-        else if (!remote) merged[key] = local;
-        else merged[key] = (remote.updatedAt || "") >= (local.updatedAt || "") ? remote : local;
-      });
-      return merged;
-    };
-    const safe = (value, fallback = "-") => {
-      const text = value == null ? "" : String(value).trim();
-      return text || fallback;
-    };
-
-    const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[char]));
-
-    const REVIEW_TYPES = [
-      { key: "checked", noteKey: "checkedNote", label: "\uCCB4\uD06C", active: "\uCCB4\uD06C\uB428", noteLabel: "\uCCB4\uD06C \uC0AC\uC720", placeholder: "\uC65C \uCCB4\uD06C\uD588\uB294\uC9C0 \uC9E7\uAC8C \uC801\uC5B4\uB450\uC138\uC694.", tone: "green", icon: "check-circle", empty: "\uCCB4\uD06C\uD55C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." },
-      { key: "issue", noteKey: "issueNote", label: "\uC774\uC288", active: "\uC774\uC288\uB85C \uD45C\uC2DC", noteLabel: "\uC774\uC288 \uC0AC\uC720", placeholder: "\uC704\uD5D8, \uD655\uC778\uD560 \uC810, \uBCF4\uB958 \uC774\uC720\uB97C \uC801\uC5B4\uB450\uC138\uC694.", tone: "red", icon: "badge-alert", empty: "\uC774\uC288\uB85C \uD45C\uC2DC\uD55C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." },
-      { key: "done", noteKey: "doneNote", label: "\uC644\uB8CC", active: "\uC644\uB8CC\uB428", noteLabel: "\uC644\uB8CC \uC0AC\uC720", placeholder: "\uBB34\uC5C7\uC744 \uD655\uC778\uD574\uC11C \uC644\uB8CC\uD588\uB294\uC9C0 \uB0A8\uACA8\uB450\uC138\uC694.", tone: "gray", icon: "circle-check-big", empty: "\uC644\uB8CC\uD55C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." }
-    ];
-
     const KEYWORD_GROUPS = [
       { id: "display_all", section: "전광판", label: "전광판 전체", pattern: /(전광판|전광표지|안내전광|문자전광|led\s*(display|디스플레이|스크린)|옥외\s*led|실내\s*led|\bvms\b)/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "display_traffic", section: "전광판", label: "교통·도로 전광판", pattern: /(도로.*(전광|표지)|교통.*(전광|정보표시)|가변정보표지|전광.*교통|its.*(도로|교통|관제|전광|표지)|버스정보.*(안내|표시))/i, exclude: /(세계총회.*(부스|전시관)|it서비스)/i },
@@ -1795,7 +703,6 @@
       { id: "vms_maintenance", section: "VMS", label: "VMS 유지보수·부품", pattern: /(vms.*(유지|보수|교체|예비품|부품))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "vms_vibration", section: "VMS", label: "[비대상] 진동감시 VMS", pattern: /((진동감시|진동감시설비|vibration).*vms|vms.*(진동감시|진동감시설비|vibration))/i }
     ];
-
     const WORK_GROUPS = [
       { id: "install", label: "제작·설치·구축", pattern: /(제작\s*설치|제조\s*구매\s*설치|구매\s*설치|구입\s*설치|설치|구축|조성|도입)/i },
       { id: "maintenance", label: "유지보수·교체", pattern: /(유지보수|유지관리|보수|교체|철거|이전\s*설치|기능개선|수리|예비품)/i },
@@ -1804,104 +711,144 @@
       { id: "design", label: "설계·감리", pattern: /(기본설계|실시설계|설계용역|감리)/i },
       { id: "purchase", label: "구매·납품", pattern: /(구매|구입|납품|관급자재|지급자재|조달물품)/i }
     ];
-
-    const reviewTypeByKey = (key) => REVIEW_TYPES.find((type) => type.key === key);
-
-    const hasReviewData = (review) => Boolean(review?.favorite || review?.history?.length) || REVIEW_TYPES.some((type) => review[type.key] || safe(review[type.noteKey], ""));
-
-    const number = (value) => Number(value || 0);
-
-    const money = (value) => {
-      const n = number(value);
-      if (!n) return "예산 미확인";
-      if (n >= 100000000) return `${Math.round(n / 100000000).toLocaleString("ko-KR")}억`;
-      if (n >= 10000) return `${Math.round(n / 10000).toLocaleString("ko-KR")}만`;
-      return `${n.toLocaleString("ko-KR")}원`;
+    const state = {
+      meta: null,
+      bids: [],
+      view: "review",
+      selectedId: "",
+      filters: { search: "", registered: "", service: "", business: "", contract: "", region: "", keyword: "", work: "" },
+      reviews: loadReviews()
     };
 
-    const parseDate = (value) => {
-      const text = safe(value, "").slice(0, 16);
-      if (!text) return null;
-      const normalized = text.replace(/\./g, "-").replace(/\//g, "-").replace(" ", "T");
-      const date = new Date(normalized);
-      return Number.isNaN(date.getTime()) ? null : date;
-    };
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const safe = (value, fallback = "-") => value == null || String(value).trim() === "" ? fallback : String(value).trim();
+    const escapeHtml = (value) => safe(value, "").replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[char]));
+    const icon = (name, size = 16) => `<i data-lucide="${name}" style="width:${size}px;height:${size}px" aria-hidden="true"></i>`;
 
-    const deadlineInfo = (value) => {
-      const date = parseDate(value);
-      if (!date) return { days: null, hours: null, overdue: false };
-      const diffMs = date.getTime() - Date.now();
-      const days = Math.ceil(diffMs / 86400000);
-      const hours = Math.ceil(Math.abs(diffMs) / 3600000);
-      return { days, hours, overdue: diffMs < 0 };
-    };
+    function loadReviews() {
+      try { return JSON.parse(localStorage.getItem(REVIEW_KEY) || "{}"); }
+      catch { return {}; }
+    }
 
-    const daysLeft = (value) => deadlineInfo(value).days;
+    function saveReviews() {
+      localStorage.setItem(REVIEW_KEY, JSON.stringify(state.reviews));
+      if (reviewRemoteApplying || !reviewRemoteRef) return;
+      clearTimeout(reviewSaveTimer);
+      reviewSaveTimer = setTimeout(() => {
+        reviewRemoteRef.set(state.reviews).catch((error) => console.warn("검토 기록 공유 저장 실패", error));
+      }, 400);
+    }
 
-    const isActiveDeadline = (value) => {
-      const info = deadlineInfo(value);
-      return info.days != null && !info.overdue;
-    };
+    function reviewStorageKey(item) {
+      return item.bidNtceNo || item.bidId;
+    }
 
-    const dday = (value) => {
-      if (/^\d{4}-\d{2}$/.test(safe(value, ""))) {
-        return { text: "계획", tone: "gray", overdue: false };
+    function reviewTimestamp(value) {
+      if (!value) return 0;
+      const parsed = new Date(value);
+      if (!Number.isNaN(parsed.getTime())) return parsed.getTime();
+      const match = String(value).match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(오전|오후)\s*(\d{1,2}):(\d{2})/);
+      if (!match) return 0;
+      let hour = Number(match[4]);
+      if (match[3] === "오후" && hour < 12) hour += 12;
+      if (match[3] === "오전" && hour === 12) hour = 0;
+      return new Date(new Date().getFullYear(), Number(match[1]) - 1, Number(match[2]), hour, Number(match[5])).getTime();
+    }
+
+    function normalizeReview(review) {
+      if (!review || typeof review !== "object") return { status: "unchecked", note: "", updatedAt: "" };
+      const status = review.status || (review.issue ? "issue" : review.checked ? "checked" : review.done ? "done" : "unchecked");
+      const note = review.note || (status === "issue" ? review.issueNote : status === "checked" ? review.checkedNote : status === "done" ? review.doneNote : "") || "";
+      return { ...review, status, note };
+    }
+
+    function newerReview(...reviews) {
+      return reviews.filter(Boolean).map(normalizeReview).sort((a, b) => reviewTimestamp(b.updatedAt) - reviewTimestamp(a.updatedAt))[0] || null;
+    }
+
+    function migrateReviewsForBids() {
+      let legacy = {};
+      try { legacy = JSON.parse(localStorage.getItem(LEGACY_REVIEW_KEY) || "{}"); }
+      catch { legacy = {}; }
+      state.bids.forEach((item) => {
+        const key = reviewStorageKey(item);
+        const migrated = newerReview(state.reviews[key], state.reviews[item.bidId], legacy[key]);
+        if (migrated) state.reviews[key] = migrated;
+      });
+      localStorage.setItem(REVIEW_KEY, JSON.stringify(state.reviews));
+    }
+
+    function mergeReviewStores(localStore, remoteStore) {
+      const merged = {};
+      const keys = new Set([...Object.keys(localStore || {}), ...Object.keys(remoteStore || {})]);
+      keys.forEach((key) => {
+        merged[key] = newerReview(localStore?.[key], remoteStore?.[key]);
+      });
+      return merged;
+    }
+
+    function loadExternalScript(src) {
+      return new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${src}"]`);
+        if (existing) {
+          if (window.firebase) resolve();
+          else existing.addEventListener("load", resolve, { once: true });
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(`스크립트 로드 실패: ${src}`));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function initializeReviewSync() {
+      try {
+        const response = await fetch(`./data/workflow-config.json?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const config = await response.json();
+        if (config.provider !== "firebase") return;
+        const firebaseConfig = { ...(config.firebaseConfig || {}) };
+        if (!firebaseConfig.apiKey && Array.isArray(firebaseConfig.apiKeyParts)) {
+          firebaseConfig.apiKey = firebaseConfig.apiKeyParts.join("");
+        }
+        await loadExternalScript("https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js");
+        await loadExternalScript("https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js");
+        const app = window.firebase.apps.find((candidate) => candidate.name === REVIEW_SYNC_APP)
+          || window.firebase.initializeApp(firebaseConfig, REVIEW_SYNC_APP);
+        reviewRemoteRef = window.firebase.database(app).ref(config.issuePath || "importantIssues");
+        reviewRemoteRef.on("value", (snapshot) => {
+          reviewRemoteApplying = true;
+          state.reviews = mergeReviewStores(state.reviews, snapshot.val() || {});
+          migrateReviewsForBids();
+          renderRows();
+          renderDetail();
+          reviewRemoteApplying = false;
+        });
+      } catch (error) {
+        console.warn("검토 기록은 이 브라우저에 저장됩니다.", error);
       }
-      const info = deadlineInfo(value);
-      if (info.days == null) return { text: "\uC77C\uC815 \uBBF8\uD655\uC778", tone: "gray", overdue: false };
-      if (info.overdue) {
-        const elapsed = info.hours < 24 ? `${info.hours}\uC2DC\uAC04` : `${Math.ceil(info.hours / 24)}\uC77C`;
-        return { text: "\uB9C8\uAC10 \uC9C0\uB0A8", sub: `${elapsed} \uACBD\uACFC`, tone: "gray", overdue: true };
+    }
+
+    function parseDate(value) {
+      if (!value || !/^\d{4}-\d{2}-\d{2}/.test(value)) return null;
+      const parsed = new Date(value.replace(" ", "T") + (value.length <= 10 ? "T23:59:59" : ""));
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function isActive(item) {
+      if (item.serviceType === "발주계획") {
+        const month = safe(item.bidClseDt, `${item.orderYear || ""}-${item.orderMnth || item.detailInfo?.orderMonth || ""}`);
+        const currentMonth = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "2-digit" }).slice(0, 7);
+        return /^\d{4}-\d{2}$/.test(month) ? month >= currentMonth : true;
       }
-      const target = parseDate(value);
-      const now = new Date();
-      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const targetStart = new Date(target.getFullYear(), target.getMonth(), target.getDate());
-      const calendarDays = Math.round((targetStart.getTime() - todayStart.getTime()) / 86400000);
-      if (calendarDays === 0) return { text: "D-DAY", tone: "red", overdue: false };
-      if (calendarDays <= 3) return { text: `D-${calendarDays}`, tone: "red", overdue: false };
-      if (calendarDays <= 7) return { text: `D-${calendarDays}`, tone: "orange", overdue: false };
-      return { text: `D-${calendarDays}`, tone: "gray", overdue: false };
-    };
+      const deadline = parseDate(item.bidClseDt || item.detailInfo?.opinionCloseDt);
+      return deadline ? deadline.getTime() >= Date.now() : true;
+    }
 
-    const formatKst = (value) => {
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "";
-      return new Intl.DateTimeFormat("ko-KR", {
-        timeZone: "Asia/Seoul",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      }).format(date);
-    };
-
-    const typeClass = (item) => {
-      if (item.serviceType === "사전규격") return "spec";
-      if (item.serviceType === "발주계획") return "plan";
-      return "bid";
-    };
-
-    const typeLabel = (item) => safe(item.serviceType, "공고");
-
-    const contractLabel = (item) => {
-      const raw = safe(item.contractMethod || item.contractMethodRaw, "");
-      if (!raw || raw === item.serviceType) return "\uACC4\uC57D \uBBF8\uC815";
-      return raw.replace(/\s*\/\s*/g, " \u00B7 ");
-    };
-
-    const contact = (item) => {
-      const detail = item.detailInfo || {};
-      return {
-        name: safe(detail.officerName || item.officerName, "담당자 미확인"),
-        tel: safe(detail.officerTel || item.officerTel, "전화 미확인"),
-        email: safe(detail.officerEmail || item.officerEmail, ""),
-        dept: safe(detail.department || item.department, "")
-      };
-    };
-
-    const keywordSources = (item) => {
+    function keywordSources(item) {
       const detail = item.detailInfo || {};
       return [
         { label: "사업명", text: safe(item.bidNtceNm, "") },
@@ -1909,9 +856,9 @@
         { label: "세부품목", text: safe(detail.productDetails, "") },
         { label: "사용목적", text: safe(detail.purpose, "") }
       ].filter((source) => source.text);
-    };
+    }
 
-    const classifyKeywords = (item) => {
+    function classifyKeywords(item) {
       const sources = keywordSources(item);
       const fullText = sources.map((source) => source.text).join(" ");
       const matchedGroups = KEYWORD_GROUPS.filter((group) => group.pattern.test(fullText) && !(group.exclude && group.exclude.test(fullText)));
@@ -1926,7 +873,7 @@
       ];
       const primary = productPriority.map((id) => matchedGroups.find((group) => group.id === id)).find(Boolean) || null;
       const matchedWorks = WORK_GROUPS.filter((group) => group.pattern.test(fullText));
-      if (!matchedWorks.length && item.businessType === "물품") {
+      if (matchedWorks.length === 0 && item.businessType === "물품") {
         const purchase = WORK_GROUPS.find((group) => group.id === "purchase");
         if (purchase) matchedWorks.push(purchase);
       }
@@ -1950,9 +897,9 @@
         evidence,
         matchedTerm
       };
-    };
+    }
 
-    const displayScope = (item) => {
+    function displayScope(item) {
       const fullText = keywordSources(item).map((source) => source.text).join(" ");
       const hasLed = /(\bled\b|\boled\b|toled|oledos)/i.test(fullText);
       if (!hasLed) return { excluded: false, reason: "" };
@@ -1964,1186 +911,536 @@
       const displayRelated = new RegExp(`${explicitDisplay.source}|영상정보디스플레이장치`, "i");
       if (displayRelated.test(fullText)) return { excluded: false, reason: "" };
       return { excluded: true, reason: "전광판·영상 디스플레이와 연결되지 않은 LED 사업" };
-    };
+    }
 
-    const matchesKeywordGroup = (item, groupId) => {
-      if (!groupId || groupId === "ALL") return true;
+    function matchesKeywordGroup(item, groupId) {
+      if (!groupId) return true;
       const primaryOnly = new Set(["display_general", "led_other", "display_keyword_other", "media_other", "its_other"]);
       if (primaryOnly.has(groupId)) return item._keyword.primaryId === groupId;
       return item._keyword.groups.includes(groupId);
-    };
+    }
 
-    const participation = (item) => {
+    function dayDiff(value) {
+      const date = parseDate(value);
+      if (!date) return null;
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const target = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      return Math.round((target.getTime() - today.getTime()) / 86400000);
+    }
+
+    function deadlineInfo(item) {
+      if (item.serviceType === "발주계획") return { text: "계획", tone: "plan", date: safe(item.bidClseDt, "일정 미정"), days: null };
+      const days = dayDiff(item.bidClseDt);
+      if (days == null) return { text: "일정 확인", tone: "mid", date: safe(item.bidClseDt), days: null };
+      if (days < 0) return { text: "마감", tone: "", date: safe(item.bidClseDt), days };
+      if (days === 0) return { text: "D-DAY", tone: "soon", date: safe(item.bidClseDt), days };
+      return { text: `D-${days}`, tone: days <= 3 ? "soon" : days <= 7 ? "mid" : "", date: safe(item.bidClseDt), days };
+    }
+
+    function relevance(item) {
       const detail = item.detailInfo || {};
-      const methods = [item.contractMethod, detail.contractMethodRaw, detail.contractType, detail.bidMethod, detail.awardMethod]
-        .filter(Boolean)
-        .join(" ");
-      if (item.serviceType === "발주계획") {
-        return { key: "check", label: "확인 필요", reason: "발주계획 단계로 참가 조건과 공고 일정이 아직 확정되지 않았습니다." };
-      }
-      if (!isActiveDeadline(item.bidClseDt || detail.opinionCloseDt) && parseDate(item.bidClseDt || detail.opinionCloseDt)) {
-        return { key: "closed", label: "마감", reason: "공고 일정이 종료되었습니다." };
-      }
+      const text = [item.bidNtceNm, detail.productName, detail.productDetails, detail.purpose].filter(Boolean).join(" ").toLowerCase();
+      const direct = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|vms|its|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
+      const offTarget = /(조명|가로등|등기구|살균|현미경|센서|휴지통|반도체|교육|연구|부트캠프|소프트웨어|전세버스|콘텐츠 제작)/i;
+      if (direct.test(text)) return { key: "direct", label: "직접 연관" };
+      if (offTarget.test(text)) return { key: "low", label: "연관성 낮음" };
+      return { key: "check", label: "연관 확인" };
+    }
+
+    function participation(item) {
+      if (!isActive(item)) return { key: "closed", label: "마감", reason: "공고 일정이 종료되었습니다." };
+      const detail = item.detailInfo || {};
+      const methods = [item.contractMethod, detail.contractMethodRaw, detail.contractType, detail.bidMethod, detail.awardMethod].filter(Boolean).join(" ");
       if (/(수의시담|전자시담|다자간수의시담|계약대상자)/.test(methods)) {
         return { key: "restricted", label: "참여 제한", reason: "수의시담·전자시담 방식으로 지정된 대상자만 참여할 수 있습니다." };
       }
-      if (item.serviceType === "사전규격") {
-        return { key: "check", label: "확인 필요", reason: "사전규격 단계로 실제 입찰 공고와 참가 조건을 다시 확인해야 합니다." };
-      }
+      if (item.serviceType === "발주계획") return { key: "check", label: "확인 필요", reason: "발주계획 단계로 참가 조건과 공고 일정이 아직 확정되지 않았습니다." };
+      if (item.serviceType === "사전규격") return { key: "check", label: "확인 필요", reason: "사전규격 단계로 실제 입찰 공고와 참가 조건을 다시 확인해야 합니다." };
       const registerDeadline = parseDate(detail.registerDeadline);
       if (registerDeadline && registerDeadline.getTime() < Date.now()) {
         return { key: "check", label: "확인 필요", reason: "참가자격 등록 마감이 지났습니다. 기존 등록 여부를 확인하세요." };
       }
-      if (detail.restrictionRegion) {
-        return { key: "check", label: "확인 필요", reason: `지역 제한(${detail.restrictionRegion}) 충족 여부를 확인해야 합니다.` };
-      }
-      if (!detail.bidMethod && !detail.awardMethod) {
-        return { key: "check", label: "확인 필요", reason: "입찰·낙찰 방식 정보가 없어 원문 확인이 필요합니다." };
-      }
+      if (detail.restrictionRegion) return { key: "check", label: "확인 필요", reason: `지역 제한(${detail.restrictionRegion}) 충족 여부를 확인해야 합니다.` };
+      if (!detail.bidMethod && !detail.awardMethod) return { key: "check", label: "확인 필요", reason: "입찰·낙찰 방식 정보가 없어 원문 확인이 필요합니다." };
       return { key: "possible", label: "참여 가능", reason: "공개 전자입찰로 확인됩니다. 세부 자격과 제한은 원문에서 최종 확인하세요." };
-    };
+    }
 
-    const keywordTone = (label) => {
-      if (label.startsWith("[비대상]") || label.startsWith("[제외]")) return "classification-low";
-      if (label.startsWith("[확인]")) return "classification-check";
-      return "";
-    };
+    function money(value) {
+      const amount = Number(value || 0);
+      if (!amount) return "미정";
+      if (amount >= 100000000) {
+        const billions = amount / 100000000;
+        return `${Number.isInteger(billions) ? billions : billions.toFixed(1)}억`;
+      }
+      if (amount >= 10000) return `${Math.round(amount / 10000).toLocaleString("ko-KR")}만`;
+      return `${amount.toLocaleString("ko-KR")}원`;
+    }
 
-    const participationTone = (key) => ({ possible: "green", check: "changed", restricted: "red", closed: "gray" })[key] || "gray";
+    function fullMoney(value) {
+      const amount = Number(value || 0);
+      return amount ? `${amount.toLocaleString("ko-KR")}원` : "미정";
+    }
 
-    const shortDateTime = (value) => {
+    function formatGenerated(value) {
+      if (!value) return "업데이트 시각 없음";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return safe(value);
+      return `${date.toLocaleDateString("ko-KR", { month: "long", day: "numeric" })} ${date.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })} 업데이트`;
+    }
+
+    function formatReviewTime(value) {
+      const timestamp = reviewTimestamp(value);
+      if (!timestamp) return safe(value, "방금");
+      return new Date(timestamp).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    }
+
+    function registrationDate(item) {
+      const match = safe(item.bidNtceRegistDt, "").match(/^\d{4}-\d{2}-\d{2}/);
+      return match ? match[0] : "";
+    }
+
+    function localDateKey(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function registrationDayAge(item) {
+      const value = registrationDate(item);
+      if (!value) return null;
+      const [year, month, day] = value.split("-").map(Number);
+      const registered = new Date(year, month - 1, day);
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      return Math.round((today.getTime() - registered.getTime()) / 86400000);
+    }
+
+    function matchesRegistration(item, filter) {
+      if (!filter) return true;
+      const value = registrationDate(item);
+      if (filter === "today") return value === localDateKey();
+      const age = registrationDayAge(item);
+      if (filter === "last3") return age != null && age >= 0 && age < 3;
+      if (filter === "last7") return age != null && age >= 0 && age < 7;
+      return filter.startsWith("date:") ? value === filter.slice(5) : true;
+    }
+
+    function shortDateTime(value) {
       const text = safe(value, "");
       if (!text) return "미정";
       return text.length >= 16 ? `${text.slice(5, 10).replace("-", ".")} ${text.slice(11, 16)}` : text;
-    };
+    }
 
-    const enrichBid = (item) => ({
-      ...item,
-      _keyword: classifyKeywords(item),
-      _scope: displayScope(item),
-      _participation: participation(item)
-    });
-
-    const displayKey = (item) => [
-      item.serviceType,
-      item.bidNtceNm,
-      item.dminsttNm || item.ntceInsttNm,
-      item.bidClseDt,
-      item.assignBudgetAmt
-    ].map((value) => safe(value, "")).join("|");
-
-    const dedupeBids = (items) => {
+    function dedupe(items) {
       const map = new Map();
-      for (const item of items) {
-        const bidNumber = safe(item.bidNtceNo, "");
-        const key = bidNumber ? [item.serviceType, bidNumber].join("|") : displayKey(item);
-        const current = map.get(key);
-        if (!current
-          || revisionNumber(item) > revisionNumber(current)
-          || (revisionNumber(item) === revisionNumber(current) && postedNewest(item, current) < 0)) {
-          map.set(key, item);
-        }
-      }
+      items.forEach((item) => {
+        const key = item.bidId || `${item.serviceType}-${item.bidNtceNo}-${item.bidNtceOrd || ""}`;
+        if (!map.has(key)) map.set(key, item);
+      });
       return [...map.values()];
-    };
+    }
 
-    const uniqueBy = (items, getKey) => {
-      const seen = new Set();
-      return items.filter((item) => {
-        const key = getKey(item);
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
-    };
+    function enrich(item) {
+      return { ...item, _active: isActive(item), _deadline: deadlineInfo(item), _relevance: relevance(item), _participation: participation(item), _keyword: classifyKeywords(item), _scope: displayScope(item) };
+    }
 
-    const reviewState = (item) => state.review[item.bidNtceNo] || {};
+    function reviewFor(item) {
+      return normalizeReview(state.reviews[reviewStorageKey(item)]);
+    }
 
-    const revisionNumber = (item) => Number.parseInt(safe(item.bidNtceOrd, "0"), 10) || 0;
+    function reviewLabel(status) {
+      return ({ unchecked: "미검토", checked: "검토", issue: "이슈", done: "완료" })[status] || "미검토";
+    }
 
-    const revisionSiblings = (item) => uniqueBy(
-      state.rawBids.filter((candidate) => candidate.bidNtceNo === item.bidNtceNo),
-      (candidate) => [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|")
-    ).sort((a, b) => revisionNumber(b) - revisionNumber(a));
+    function keywordTone(label) {
+      if (label.startsWith("[비대상]") || label.startsWith("[제외]")) return "keyword-low";
+      if (label.startsWith("[확인]")) return "keyword-check";
+      return "";
+    }
 
-    const isRevision = (item) => revisionNumber(item) > 0 || revisionSiblings(item).some((candidate) => revisionNumber(candidate) < revisionNumber(item));
+    function matchesView(item, view) {
+      if (!item._active || item._scope.excluded) return false;
+      if (view === "review") return item._relevance.key !== "low" && item._participation.key !== "restricted";
+      if (view === "possible") return item._participation.key === "possible";
+      if (view === "check") return item._participation.key === "check";
+      if (view === "restricted") return item._participation.key === "restricted";
+      if (view === "soon") return item._deadline.days != null && item._deadline.days >= 0 && item._deadline.days <= 3;
+      return true;
+    }
 
-    const revisionChanges = (item) => {
-      const previous = revisionSiblings(item).find((candidate) => revisionNumber(candidate) < revisionNumber(item));
-      if (!previous) return { previous: null, labels: [], keys: new Set() };
-      const fields = [
-        { key: "title", label: "\uC0AC\uC5C5\uBA85", get: (value) => safe(value.bidNtceNm, "") },
-        { key: "budget", label: "\uC608\uC0B0", get: (value) => number(value.assignBudgetAmt) },
-        { key: "deadline", label: "\uB9C8\uAC10", get: (value) => safe(value.bidClseDt, "") },
-        { key: "contract", label: "\uACC4\uC57D\uBC29\uBC95", get: (value) => contractLabel(value) },
-        { key: "institution", label: "\uC218\uC694\uAE30\uAD00", get: (value) => safe(value.dminsttNm || value.ntceInsttNm, "") }
-      ];
-      const changed = fields.filter((fieldInfo) => fieldInfo.get(item) !== fieldInfo.get(previous));
-      return { previous, labels: changed.map((fieldInfo) => fieldInfo.label), keys: new Set(changed.map((fieldInfo) => fieldInfo.key)) };
-    };
+    function baseForView(view) {
+      return state.bids.filter((item) => matchesView(item, view));
+    }
 
-    const normalizedBusinessTitle = (value) => safe(value, "")
-      .toLowerCase()
-      .replace(/(?:\uAE34\uAE09|\uC7AC\uACF5\uACE0)/g, "")
-      .replace(/[^0-9a-z\uAC00-\uD7A3]/g, "");
-
-    const relatedItems = (item) => {
-      const titleKey = normalizedBusinessTitle(item.bidNtceNm);
-      const institution = safe(item.dminsttNm || item.ntceInsttNm, "");
-      const currentKey = [item.bidNtceNo, item.bidNtceOrd, item.serviceType].join("|");
-      return uniqueBy(
-        state.rawBids.filter((candidate) => {
-          const candidateKey = [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|");
-          if (candidateKey === currentKey) return false;
-          if (candidate.bidNtceNo === item.bidNtceNo) return true;
-          return titleKey && normalizedBusinessTitle(candidate.bidNtceNm) === titleKey
-            && safe(candidate.dminsttNm || candidate.ntceInsttNm, "") === institution;
-        }),
-        (candidate) => [candidate.bidNtceNo, candidate.bidNtceOrd, candidate.serviceType].join("|")
-      ).sort(postedNewest).slice(0, 6);
-    };
-
-    const isWithinDays = (item, days) => {
-      const posted = postedDateKey(item);
-      if (!isDateListMode(posted)) return false;
-      const todayStart = new Date(kstDayKey() + "T00:00:00+09:00");
-      const postedAt = new Date(posted + "T00:00:00+09:00");
-      const elapsed = Math.floor((todayStart.getTime() - postedAt.getTime()) / 86400000);
-      return elapsed >= 0 && elapsed < days;
-    };
-
-    const isNewToday = (item) => isToday(item) && !isRevision(item);
-    const isChangedToday = (item) => isToday(item) && isRevision(item);
-
-    const score = (item) => {
-      const days = daysLeft(item.bidClseDt);
-      const active = isActiveDeadline(item.bidClseDt);
-      let value = 0;
-      if (active && days != null && days <= 2) value += 50;
-      else if (active && days != null && days <= 7) value += 34;
-      if (!active && days != null) value -= 60;
-      if (number(item.assignBudgetAmt) >= 500000000) value += 28;
-      else if (number(item.assignBudgetAmt) >= 200000000) value += 20;
-      else if (number(item.assignBudgetAmt) >= 50000000) value += 10;
-      if (item.serviceType === "공고") value += 12;
-      if (item.serviceType === "사전규격") value += 10;
-      if (reviewState(item).issue) value += 30;
-      if (reviewState(item).checked) value += 8;
-      return value;
-    };
-
-    const isNew = (item) => {
-      const date = parseDate(item.bidNtceRegistDt);
-      if (!date) return false;
-      return Date.now() - date.getTime() <= 86400000;
-    };
-
-    const kstDayKey = () => {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Seoul",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(new Date());
-      const get = (type) => parts.find((part) => part.type === type)?.value || "";
-      return `${get("year")}-${get("month")}-${get("day")}`;
-    };
-
-    const postedDateKey = (item) => safe(item.bidNtceRegistDt, "").slice(0, 10);
-
-    const isToday = (item) => postedDateKey(item) === kstDayKey();
-
-    const isDateListMode = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value);
-
-    const dateLabel = (value) => {
-      const date = new Date(`${value}T00:00:00+09:00`);
-      if (Number.isNaN(date.getTime())) return value;
-      return new Intl.DateTimeFormat("ko-KR", {
-        timeZone: "Asia/Seoul",
-        month: "long",
-        day: "numeric",
-        weekday: "short"
-      }).format(date);
-    };
-
-    const postedNewest = (a, b) => safe(b.bidNtceRegistDt, "").localeCompare(safe(a.bidNtceRegistDt, ""));
-
-    const todayFirst = (a, b) => {
-      const todayRank = Number(isToday(b)) - Number(isToday(a));
-      if (todayRank) return todayRank;
-      if (isToday(a) && isToday(b)) return postedNewest(a, b);
-      return score(b) - score(a) || safe(a.bidClseDt).localeCompare(safe(b.bidClseDt));
-    };
-
-    const isUnchecked = (item) => {
-      const r = reviewState(item);
-      return !r.checked && !r.issue && !r.done;
-    };
-
-    const filteredByView = () => {
-      let list = [...state.bids];
-      const filters = state.filters;
-
-      if (state.listMode === "today") list = list.filter(isToday);
-      else if (state.listMode === "newToday") list = list.filter(isNewToday);
-      else if (state.listMode === "changedToday") list = list.filter(isChangedToday);
-      else if (state.listMode === "recent3") list = list.filter((item) => isWithinDays(item, 3));
-      else if (state.listMode === "recent7") list = list.filter((item) => isWithinDays(item, 7));
-      else if (state.listMode === "favorite") list = list.filter((item) => reviewState(item).favorite);
-      else if (isDateListMode(state.listMode)) list = list.filter((item) => postedDateKey(item) === state.listMode);
-
-      if (filters.service !== "ALL") list = list.filter((item) => item.serviceType === filters.service);
-      if (filters.contract !== "ALL") {
-        list = list.filter((item) => safe(item.contractMethod || item.contractMethodRaw, "").includes(filters.contract));
-      }
-      if (filters.keyword !== "ALL") {
-        list = list.filter((item) => safe(item.searchKeyword, "") === filters.keyword || safe(item.bidNtceNm, "").includes(filters.keyword));
-      }
-      if (filters.keywordDetail !== "ALL") {
-        list = list.filter((item) => matchesKeywordGroup(item, filters.keywordDetail));
-      }
-      if (filters.work !== "ALL") {
-        list = list.filter((item) => item._keyword.works.includes(filters.work));
-      }
-      if (filters.participation !== "ALL") {
-        list = list.filter((item) => item._participation.key === filters.participation);
-      }
-      if (filters.region !== "ALL") list = list.filter((item) => item.region === filters.region);
-      if (filters.budget !== "ALL") {
-        list = list.filter((item) => {
-          const amount = number(item.assignBudgetAmt);
-          if (filters.budget === "UNDER_50") return amount < 50000000;
-          if (filters.budget === "50_TO_200") return amount >= 50000000 && amount <= 200000000;
-          if (filters.budget === "200_TO_500") return amount > 200000000 && amount <= 500000000;
-          if (filters.budget === "OVER_500") return amount > 500000000;
-          return true;
+    function visibleBids() {
+      const search = state.filters.search.toLowerCase();
+      const source = state.filters.keyword && state.view === "review" ? baseForView("all") : baseForView(state.view);
+      return source
+        .filter((item) => !search || [item.bidNtceNm, item.ntceInsttNm, item.dminsttNm, item.bidNtceNo].some((value) => safe(value, "").toLowerCase().includes(search)))
+        .filter((item) => matchesRegistration(item, state.filters.registered))
+        .filter((item) => !state.filters.service || item.serviceType === state.filters.service)
+        .filter((item) => !state.filters.business || item.businessType === state.filters.business)
+        .filter((item) => !state.filters.contract || safe(item.contractMethod, "").includes(state.filters.contract))
+        .filter((item) => !state.filters.region || item.region === state.filters.region)
+        .filter((item) => matchesKeywordGroup(item, state.filters.keyword))
+        .filter((item) => !state.filters.work || item._keyword.works.includes(state.filters.work))
+        .sort((a, b) => {
+          const reviewRank = { issue: 0, unchecked: 1, checked: 2, done: 3 };
+          const relevanceRank = { direct: 0, check: 1, low: 2 };
+          const verdictRank = { possible: 0, check: 1, restricted: 2, closed: 3 };
+          return reviewRank[reviewFor(a).status] - reviewRank[reviewFor(b).status]
+            || relevanceRank[a._relevance.key] - relevanceRank[b._relevance.key]
+            || verdictRank[a._participation.key] - verdictRank[b._participation.key]
+            || (a._deadline.days ?? 9999) - (b._deadline.days ?? 9999)
+            || safe(b.bidNtceRegistDt, "").localeCompare(safe(a.bidNtceRegistDt, ""));
         });
-      }
+    }
 
-      const query = state.query.toLowerCase();
-      if (query) {
-        list = list.filter((item) => {
-          const c = contact(item);
-          const detail = item.detailInfo || {};
-          return [
-            item.bidNtceNm,
-            item.ntceInsttNm,
-            item.dminsttNm,
-            item.bidNtceNo,
-            item.contractMethod,
-            item.searchKeyword,
-            item.region,
-            c.name,
-            c.tel,
-            detail.productName,
-            detail.productDetails,
-            detail.purpose
-          ].some((value) => safe(value, "").toLowerCase().includes(query));
-        });
-      }
+    function typeClass(type) {
+      return type === "공고" ? "bid" : type === "사전규격" ? "pre" : "plan";
+    }
 
-      if (state.listMode === "favorite") {
-        return list.sort((a, b) => safe(reviewState(b).updatedAt, "").localeCompare(safe(reviewState(a).updatedAt, "")) || todayFirst(a, b));
-      }
-      return list.sort(todayFirst);
-    };
+    function shortReason(reason) {
+      return reason.replace("수의시담·전자시담 방식으로 ", "").replace("해야 합니다.", " 필요").replace("됩니다.", "");
+    }
 
-    const scheduleReviewSync = () => {
-      if (reviewRemoteApplying || !reviewRemoteRef) return;
-      clearTimeout(reviewSaveTimer);
-      reviewSaveTimer = setTimeout(async () => {
-        try {
-          await reviewRemoteRef.set(state.review || {});
-          setReviewSyncState("\uac80\ud1a0\ud568 \uacf5\uc720 \uc5f0\uacb0");
-        } catch {
-          setReviewSyncState("\uac80\ud1a0\ud568 \ub85c\uceec \uc800\uc7a5");
-        }
-      }, 500);
-    };
-
-    const saveReview = (options = {}) => {
-      localStorage.setItem(REVIEW_KEY, JSON.stringify(state.review));
-      if (!options.skipRemote) scheduleReviewSync();
-    };
-
-    const saveStoredFilters = () => {
-      localStorage.setItem(FILTER_KEY, JSON.stringify(state.savedFilters));
-    };
-
-    const currentFilterSnapshot = () => ({
-      filters: { ...state.filters },
-      query: state.query,
-      listMode: state.listMode
-    });
-
-    const filterSnapshotLabel = () => {
-      const parts = [];
-      const listLabels = {
-        today: "\uC624\uB298 \uC0AC\uC5C5",
-        newToday: "\uC624\uB298 \uC2E0\uADDC",
-        changedToday: "\uC624\uB298 \uC815\uC815",
-        recent3: "\uCD5C\uADFC 3\uC77C",
-        recent7: "\uCD5C\uADFC 7\uC77C",
-        favorite: "\uAD00\uC2EC \uC0AC\uC5C5"
-      };
-      if (isDateListMode(state.listMode)) parts.push(dateLabel(state.listMode));
-      else if (listLabels[state.listMode]) parts.push(listLabels[state.listMode]);
-
-      ["filterService", "filterContract", "filterKeyword", "filterKeywordDetail", "filterWork", "filterParticipation", "filterRegion", "filterBudget"].forEach((id) => {
-        const select = $(id);
-        if (select?.value && select.value !== "ALL") {
-          parts.push(select.selectedOptions[0]?.textContent?.trim() || select.value);
-        }
+    function renderMetrics() {
+      const active = state.bids.filter((item) => item._active && !item._scope.excluded);
+      const review = baseForView("review");
+      const possible = active.filter((item) => item._participation.key === "possible");
+      const check = active.filter((item) => item._participation.key === "check");
+      const soon = active.filter((item) => item._deadline.days != null && item._deadline.days >= 0 && item._deadline.days <= 3);
+      $("#metricReview").innerHTML = `${review.length}<span class="summary-hint">건</span>`;
+      $("#metricPossible").innerHTML = `${possible.length}<span class="summary-hint">건</span>`;
+      $("#metricCheck").innerHTML = `${check.length}<span class="summary-hint">건</span>`;
+      $("#metricSoon").innerHTML = `${soon.length}<span class="summary-hint">건</span>`;
+      ["review", "possible", "check", "restricted", "soon", "all"].forEach((view) => {
+        const el = $(`[data-count="${view}"]`);
+        if (el) el.textContent = baseForView(view).length;
       });
-      if (state.query) parts.push('"' + state.query + '"');
-      return parts.slice(0, 4).join(" \u00B7 ") || "\uC804\uCCB4 \uC0AC\uC5C5";
-    };
+    }
 
-    const renderSavedFilters = () => {
-      const select = $("savedFilter");
-      if (!select) return;
-      const filters = Array.isArray(state.savedFilters) ? state.savedFilters : [];
-      select.innerHTML = '<option value="">\uC800\uC7A5 \uD544\uD130</option>' + filters
-        .map((item) => '<option value="' + escapeHtml(item.id) + '">' + escapeHtml(item.label) + "</option>")
-        .join("");
-      select.value = filters.some((item) => item.id === state.savedFilterId) ? state.savedFilterId : "";
-      $("deleteFilterBtn").disabled = !select.value;
-    };
-
-    const syncFilterControls = () => {
-      $("filterService").value = state.filters.service;
-      $("filterContract").value = state.filters.contract;
-      $("filterKeyword").value = state.filters.keyword;
-      $("filterKeywordDetail").value = state.filters.keywordDetail;
-      $("filterWork").value = state.filters.work;
-      $("filterParticipation").value = state.filters.participation;
-      $("filterRegion").value = state.filters.region;
-      $("filterBudget").value = state.filters.budget;
-      $("searchInput").value = state.query;
-    };
-
-    const saveCurrentFilter = () => {
-      const filters = Array.isArray(state.savedFilters) ? state.savedFilters : [];
-      const snapshot = currentFilterSnapshot();
-      const serialized = JSON.stringify(snapshot);
-      const existing = filters.find((item) => JSON.stringify(item.snapshot) === serialized);
-      if (existing) {
-        state.savedFilterId = existing.id;
-      } else {
-        const item = { id: String(Date.now()), label: filterSnapshotLabel(), snapshot };
-        state.savedFilters = [item, ...filters].slice(0, 12);
-        state.savedFilterId = item.id;
-        saveStoredFilters();
+    function renderRows() {
+      const items = visibleBids();
+      let selectionChanged = false;
+      if (!items.some((item) => item.bidId === state.selectedId)) {
+        state.selectedId = items[0]?.bidId || "";
+        selectionChanged = true;
       }
-      renderSavedFilters();
-    };
-
-    const applySavedFilter = (id) => {
-      const item = (Array.isArray(state.savedFilters) ? state.savedFilters : []).find((candidate) => candidate.id === id);
-      if (!item) return;
-      state.savedFilterId = id;
-      state.filters = {
-        service: "ALL",
-        contract: "ALL",
-        keyword: "ALL",
-        keywordDetail: "ALL",
-        work: "ALL",
-        participation: "ALL",
-        region: "ALL",
-        budget: "ALL",
-        ...(item.snapshot?.filters || {})
-      };
-      state.query = safe(item.snapshot?.query, "");
-      state.listMode = item.snapshot?.listMode || "all";
-      syncFilterControls();
-      render();
-    };
-
-    const deleteSavedFilter = () => {
-      if (!state.savedFilterId) return;
-      state.savedFilters = (Array.isArray(state.savedFilters) ? state.savedFilters : [])
-        .filter((item) => item.id !== state.savedFilterId);
-      state.savedFilterId = "";
-      saveStoredFilters();
-      renderSavedFilters();
-    };
-
-    const resetFilters = () => {
-      state.filters = {
-        service: "ALL",
-        contract: "ALL",
-        keyword: "ALL",
-        keywordDetail: "ALL",
-        work: "ALL",
-        participation: "ALL",
-        region: "ALL",
-        budget: "ALL"
-      };
-      state.query = "";
-      state.listMode = "all";
-      state.savedFilterId = "";
-      syncFilterControls();
-      render();
-    };
-
-    const initializeReviewSync = async () => {
-      setReviewSyncState("\uac80\ud1a0\ud568 \ub3d9\uae30\ud654 \uc911");
-      try {
-        const response = await fetch("./data/workflow-config.json?t=" + Date.now(), { cache: "no-store" });
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        const config = await response.json();
-        if (config.provider !== "firebase") throw new Error("\uacf5\uc720 \uc800\uc7a5\uc18c \ubbf8\uc0ac\uc6a9");
-
-        const firebaseConfig = { ...(config.firebaseConfig || {}) };
-        if (!firebaseConfig.apiKey && Array.isArray(firebaseConfig.apiKeyParts)) {
-          firebaseConfig.apiKey = firebaseConfig.apiKeyParts.join("");
-        }
-        delete firebaseConfig.apiKeyParts;
-
-        await loadExternalScript("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
-        await loadExternalScript("https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js");
-
-        let app;
-        try {
-          app = firebase.app(REVIEW_SYNC_APP);
-        } catch {
-          app = firebase.initializeApp(firebaseConfig, REVIEW_SYNC_APP);
-        }
-
-        reviewRemoteRef = firebase.database(app).ref(config.issuePath || "importantIssues");
-        const snapshot = await reviewRemoteRef.once("value");
-        state.review = mergeReviewStores(state.review, snapshot.val() || {});
-        saveReview({ skipRemote: true });
-        await reviewRemoteRef.set(state.review || {});
-
-        reviewRemoteRef.on("value", (nextSnapshot) => {
-          reviewRemoteApplying = true;
-          state.review = nextSnapshot.val() || {};
-          saveReview({ skipRemote: true });
-          reviewRemoteApplying = false;
-          render();
-          setReviewSyncState("\uac80\ud1a0\ud568 \uacf5\uc720 \uc5f0\uacb0");
-        });
-
-        setReviewSyncState("\uac80\ud1a0\ud568 \uacf5\uc720 \uc5f0\uacb0");
-      } catch (error) {
-        console.warn("Review sync unavailable", error);
-        setReviewSyncState("\uac80\ud1a0\ud568 \ub85c\uceec \uc800\uc7a5");
-      }
-    };
-
-    const appendReviewHistory = (history, entry) => [
-      ...(Array.isArray(history) ? history : []),
-      { at: new Date().toISOString(), by: state.reviewerName || "공용 사용자", ...entry }
-    ].slice(-30);
-
-    const setReview = (key, patch) => {
-      const current = reviewState({ bidNtceNo: key });
-      const changedKey = Object.keys(patch)[0];
-      const isActive = Boolean(patch[changedKey]);
-      const reviewType = reviewTypeByKey(changedKey);
-      const action = changedKey === "favorite"
-        ? (isActive ? "\uAD00\uC2EC \uC0AC\uC5C5 \uC124\uC815" : "\uAD00\uC2EC \uC0AC\uC5C5 \uD574\uC81C")
-        : (reviewType ? reviewType.label + (isActive ? " \uC124\uC815" : " \uD574\uC81C") : "\uC0C1\uD0DC \uBCC0\uACBD");
-      const note = reviewType ? safe(current[reviewType.noteKey], "") : "";
-      const next = {
-        ...current,
-        ...patch,
-        updatedAt: new Date().toISOString(),
-        history: appendReviewHistory(current.history, { action, note })
-      };
-      state.review[key] = next;
-      if (!hasReviewData(next)) delete state.review[key];
-      saveReview();
-      render();
-    };
-
-    const setReviewNote = (key, type, value, shouldRender = false) => {
-      const current = reviewState({ bidNtceNo: key });
-      const next = { ...current, updatedAt: new Date().toISOString() };
-      const noteText = value.trim();
-      if (noteText) {
-        next[type.noteKey] = noteText;
-        next[type.key] = true;
-      } else {
-        delete next[type.noteKey];
-      }
-      if (shouldRender) {
-        next.history = appendReviewHistory(current.history, {
-          action: type.label + " \uC0AC\uC720 \uC800\uC7A5",
-          note: noteText || "\uB0B4\uC6A9 \uBE44\uC6C0"
-        });
-      }
-      state.review[key] = next;
-      if (!hasReviewData(next)) delete state.review[key];
-      saveReview();
-      if (shouldRender) render();
-      else renderStatusBoard();
-    };
-
-    const renderSideTabs = () => {
-      document.querySelectorAll("[data-side-tab]").forEach((button) => {
-        const active = button.dataset.sideTab === state.sideTab;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
-      document.querySelectorAll("[data-side-pane]").forEach((pane) => {
-        pane.hidden = pane.dataset.sidePane !== state.sideTab;
-      });
-    };
-
-    const openMobileSide = () => {
-      if (!window.matchMedia("(max-width: 760px)").matches) return;
-      const side = $("detailSide");
-      side.classList.add("mobile-open");
-      requestAnimationFrame(() => side.scrollIntoView({ behavior: "smooth", block: "start" }));
-    };
-
-    const closeMobileSide = () => {
-      $("detailSide")?.classList.remove("mobile-open");
-    };
-
-    const renderStatusBoard = () => {
-      const reviewMeta = $("reviewMeta");
-      const reviewBoard = $("reviewBoard");
-      if (!reviewMeta || !reviewBoard) return;
-
-      const statusTypes = [
-        { key: "favorite", label: "\uAD00\uC2EC", tone: "favorite", icon: "star" },
-        ...REVIEW_TYPES
-      ];
-      const groups = statusTypes.map((type) => {
-        const list = state.bids.filter((item) => reviewState(item)[type.key]).sort((a, b) => {
-          const ra = reviewState(a).updatedAt || "";
-          const rb = reviewState(b).updatedAt || "";
-          return rb.localeCompare(ra);
-        });
-        return { type, list };
-      });
-      const reviewedIds = new Set(groups.flatMap((group) => group.list.map((item) => item.bidNtceNo)));
-      reviewMeta.textContent = reviewedIds.size.toLocaleString("ko-KR") + "\uAC74";
-      reviewBoard.innerHTML = groups.map(({ type, list }) => {
-        const items = list.slice(0, 12).map((item) => {
-          const review = reviewState(item);
-          const note = type.key === "favorite"
-            ? "\uB9C8\uAC10 " + dday(item.bidClseDt).text + " \u00B7 " + money(item.assignBudgetAmt)
-            : safe(review[type.noteKey], "\uC0AC\uC720 \uBBF8\uC785\uB825");
-          return `
-            <button class="status-item ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
-              <span class="status-item-title">${safe(item.bidNtceNm)}</span>
-              <span class="status-item-note">${escapeHtml(note)}</span>
-            </button>
-          `;
-        }).join("") || `<div class="status-card-empty">${type.empty || "관심 사업이 없습니다."}</div>`;
+      $("#resultCount").textContent = `${items.length}건`;
+      const selectedKeyword = KEYWORD_GROUPS.find((group) => group.id === state.filters.keyword);
+      $("#resultDescription").textContent = selectedKeyword
+        ? `${selectedKeyword.label} 상세 분류 결과`
+        : ({ review: "진행 중 핵심 검토 대상", possible: "참여 가능성이 높은 공고", check: "원문 확인이 필요한 사업", restricted: "지정 대상 참여 사업", soon: "3일 이내 마감 사업", all: "진행 중 전체 사업" })[state.view];
+      $("#bidTable").hidden = items.length === 0;
+      $("#emptyState").hidden = items.length !== 0;
+      $("#loadingState").hidden = true;
+      const rows = items.map((item) => {
+        const review = reviewFor(item);
+        const detail = item.detailInfo || {};
+        const reviewBadge = review.status === "unchecked" ? "" : `<span class="review-badge ${review.status}">${reviewLabel(review.status)}</span>`;
         return `
-          <section class="status-card">
-            <div class="status-card-head">
-              <span><i data-lucide="${type.icon}"></i> ${type.label}</span>
-              <span class="badge ${type.tone}">${list.length.toLocaleString("ko-KR")}\uAC74</span>
-            </div>
-            <div class="status-list">${items}</div>
-          </section>
-        `;
+          <tr tabindex="0" data-id="${escapeHtml(item.bidId)}" class="${state.selectedId === item.bidId ? "selected" : ""}" aria-label="${escapeHtml(item.bidNtceNm)} 상세 보기">
+            <td>
+              <div class="eyebrow"><span class="type-badge ${typeClass(item.serviceType)}">${escapeHtml(item.serviceType)}</span><span class="relevance-badge ${item._relevance.key === "direct" ? "direct" : "check"}">${escapeHtml(item._relevance.label)}</span>${reviewBadge}</div>
+              <div class="notice-no">${escapeHtml(item.bidNtceNo)}</div>
+              <div class="notice-date">등록일 ${escapeHtml(item.bidNtceRegistDt)}</div>
+            </td>
+            <td>
+              <div class="business-title">${escapeHtml(item.bidNtceNm)}</div>
+              <div class="business-agency">${escapeHtml(item.dminsttNm || item.ntceInsttNm)}</div>
+              <div class="keyword-path"><strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong><span>· ${escapeHtml(item._keyword.workLabel)}</span><span class="keyword-evidence">${escapeHtml(item._keyword.evidence)}${item._keyword.matchedTerm ? ` “${escapeHtml(item._keyword.matchedTerm)}”` : ""}</span></div>
+            </td>
+            <td><span class="verdict ${item._participation.key}">${escapeHtml(item._participation.label)}</span><div class="verdict-reason">${escapeHtml(shortReason(item._participation.reason))}</div></td>
+            <td><div class="contract-main">${escapeHtml(item.contractMethod)}</div><div class="contract-sub">${escapeHtml(detail.bidMethod)}${detail.awardMethod ? ` · ${escapeHtml(detail.awardMethod)}` : ""}</div></td>
+            <td><div class="budget">${money(item.assignBudgetAmt)}</div></td>
+            <td>
+              <div class="dday ${item._deadline.tone}">${escapeHtml(item._deadline.text)}</div>
+              <div class="schedule-line"><span class="schedule-label">등록</span><span>${escapeHtml(shortDateTime(item.bidNtceRegistDt))}</span></div>
+              <div class="schedule-line"><span class="schedule-label">마감</span><span>${escapeHtml(shortDateTime(item.bidClseDt))}</span></div>
+            </td>
+            <td class="col-link"><a class="row-link" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener" title="나라장터 원문" aria-label="나라장터 원문 열기">${icon("external-link", 15)}</a></td>
+          </tr>`;
       }).join("");
-      createIcons();
-    };
+      $("#bidRows").innerHTML = rows;
+      bindRowEvents();
+      refreshIcons();
+      if (selectionChanged) renderDetail();
+    }
 
-    const kstDateKey = (date) => {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Seoul",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(date);
-      const get = (type) => parts.find((part) => part.type === type)?.value || "";
-      return get("year") + "-" + get("month") + "-" + get("day");
-    };
-
-    const latestExpectedUpdate = (times) => {
-      const now = new Date();
-      const todayStart = new Date(kstDateKey(now) + "T00:00:00+09:00");
-      const dayKeys = [
-        kstDateKey(new Date(todayStart.getTime() - 86400000)),
-        kstDateKey(todayStart)
-      ];
-      return dayKeys.flatMap((dayKey) => times.map((time) => new Date(dayKey + "T" + time + ":00+09:00")))
-        .filter((date) => date.getTime() <= now.getTime())
-        .sort((a, b) => b.getTime() - a.getTime())[0] || null;
-    };
-
-    const renderSyncHealth = () => {
-      const element = $("syncHealth");
-      if (!element) return;
-      const meta = state.dataMeta || {};
-      const times = meta.updateSchedule?.times || ["07:00", "11:00", "16:00"];
-      const generated = meta.generatedAt ? new Date(meta.generatedAt) : null;
-      const expected = latestExpectedUpdate(times);
-      const now = new Date();
-      let tone = "pending";
-      let label = "\uC5C5\uB370\uC774\uD2B8 \uD655\uC778 \uC911";
-
-      if (!generated || Number.isNaN(generated.getTime())) {
-        tone = "error";
-        label = "\uC5C5\uB370\uC774\uD2B8 \uBBF8\uD655\uC778";
-      } else if (number(meta.failedCalls) > 0) {
-        tone = "warning";
-        label = "\uBD80\uBD84 \uC131\uACF5 \u00B7 " + number(meta.failedCalls).toLocaleString("ko-KR") + "\uAC74 \uC624\uB958";
-      } else if (expected && generated.getTime() < expected.getTime() - 300000) {
-        const graceEnd = expected.getTime() + 45 * 60000;
-        if (now.getTime() <= graceEnd) {
-          tone = "pending";
-          label = "\uC608\uC815 \uC5C5\uB370\uC774\uD2B8 \uC9C4\uD589 \uC911";
-        } else {
-          tone = "error";
-          label = "\uC5C5\uB370\uC774\uD2B8 \uC9C0\uC5F0";
-        }
-      } else {
-        tone = "healthy";
-        label = "\uC5C5\uB370\uC774\uD2B8 \uC815\uC0C1";
-      }
-
-      element.dataset.tone = tone;
-      element.textContent = label;
-      element.title = "\uB9C8\uC9C0\uB9C9 \uC131\uACF5 " + (generated ? formatKst(generated) + " KST" : "\uBBF8\uD655\uC778")
-        + (expected ? " \u00B7 \uCD5C\uADFC \uC608\uC815 " + formatKst(expected) + " KST" : "");
-    };
-
-    const renderMetrics = () => {
-      const urgent = state.bids.filter((item) => {
-        const d = daysLeft(item.bidClseDt);
-        return isActiveDeadline(item.bidClseDt) && d != null && d <= 7;
+    function bindRowEvents() {
+      $$("#bidRows tr").forEach((row) => {
+        const open = () => selectBid(row.dataset.id);
+        row.addEventListener("click", (event) => { if (!event.target.closest("a")) open(); });
+        row.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); } });
       });
-      const bid = state.bids.filter((item) => item.serviceType === "\uACF5\uACE0").length;
-      const spec = state.bids.filter((item) => item.serviceType === "\uC0AC\uC804\uADDC\uACA9").length;
-      const plan = state.bids.filter((item) => item.serviceType === "\uBC1C\uC8FC\uACC4\uD68D").length;
+      $$(".row-link").forEach((link) => link.addEventListener("click", (event) => event.stopPropagation()));
+    }
 
-      $("mUrgent").textContent = urgent.length.toLocaleString("ko-KR");
-      $("mNew").textContent = state.bids.filter(isToday).length.toLocaleString("ko-KR");
-      $("mLarge").textContent = state.bids.filter((item) => number(item.assignBudgetAmt) >= 200000000).length.toLocaleString("ko-KR");
-      $("mTotal").textContent = state.bids.length.toLocaleString("ko-KR");
-      $("mService").textContent = `\uACF5\uACE0 ${bid} / \uC0AC\uC804 ${spec} / \uACC4\uD68D ${plan}`;
-      $("quickNewCount").textContent = state.bids.filter(isNewToday).length.toLocaleString("ko-KR");
-      $("quickChangedCount").textContent = state.bids.filter(isChangedToday).length.toLocaleString("ko-KR");
-      $("quick3Count").textContent = state.bids.filter((item) => isWithinDays(item, 3)).length.toLocaleString("ko-KR");
-      $("quick7Count").textContent = state.bids.filter((item) => isWithinDays(item, 7)).length.toLocaleString("ko-KR");
-      $("quickFavoriteCount").textContent = state.bids.filter((item) => reviewState(item).favorite).length.toLocaleString("ko-KR");
-    };
+    function field(label, value, options = {}) {
+      const display = safe(value);
+      return `<div class="field-label">${escapeHtml(label)}</div><div class="field-value ${display === "-" ? "muted" : ""}">${options.html ? value : escapeHtml(display)}</div>`;
+    }
 
-    const renderPriority = () => {
-      const todayAll = state.bids.filter(isToday).sort(postedNewest);
-      const todayItems = uniqueBy(
-        todayAll,
-        (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
-      );
-      const urgentItems = uniqueBy(
-        [...state.bids].filter((item) => isActiveDeadline(item.bidClseDt)).sort((a, b) => score(b) - score(a)),
-        (item) => [item.bidNtceNm, item.dminsttNm || item.ntceInsttNm].map((value) => safe(value, "")).join("|")
-      );
-      const favoriteItems = state.bids
-        .filter((item) => reviewState(item).favorite)
-        .sort((a, b) => score(b) - score(a));
+    function selectBid(id) {
+      state.selectedId = id;
+      renderRows();
+      renderDetail();
+      if (window.innerWidth <= 980) $("#detailPane").classList.add("open");
+    }
 
-      const sources = { today: todayItems, urgent: urgentItems, favorite: favoriteItems };
-      const titles = { today: "\uC624\uB298 \uC5C5\uB370\uC774\uD2B8", urgent: "\uB9C8\uAC10 \uC6B0\uC120 \uC0AC\uC5C5", favorite: "\uAD00\uC2EC \uC0AC\uC5C5" };
-      const source = sources[state.priorityMode] || todayItems;
-      const top = source.slice(0, 5);
-
-      $("priorityTitle").textContent = titles[state.priorityMode] || titles.today;
-      $("todayCount").textContent = todayAll.length.toLocaleString("ko-KR");
-      $("priorityMeta").textContent = state.priorityMode === "today"
-        ? todayAll.length.toLocaleString("ko-KR") + "\uAC74 \u00B7 " + todayItems.length.toLocaleString("ko-KR") + "\uAC1C \uC0AC\uC5C5"
-        : "\uC0C1\uC704 " + top.length.toLocaleString("ko-KR") + "\uAC74";
-      document.querySelectorAll("[data-priority-mode]").forEach((button) => {
-        const active = button.dataset.priorityMode === state.priorityMode;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
-
-      $("priorityList").innerHTML = top.map((item) => {
-        const d = dday(item.bidClseDt);
-        const postedTime = safe(item.bidNtceRegistDt, "").slice(11, 16);
-        const favorite = reviewState(item).favorite;
-        const participationInfo = item._participation;
-        return `
-          <button class="priority-card ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
-            <div class="badge-row">
-              <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
-              ${state.priorityMode === "today"
-                ? `<span class="badge ${isRevision(item) ? "changed" : "green"}">${isRevision(item) ? "\uC815\uC815" : "\uC2E0\uADDC"} \u00B7 ${postedTime}</span>`
-                : `<span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>`}
-              ${favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
-              <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
-              <span class="badge gray">${contractLabel(item)}</span>
+    function renderDetail() {
+      const item = state.bids.find((bid) => bid.bidId === state.selectedId);
+      $("#detailEmpty").hidden = Boolean(item);
+      $("#detailContent").hidden = !item;
+      if (!item) return;
+      const detail = item.detailInfo || {};
+      const review = reviewFor(item);
+      const docs = (item.documentUrls || []).filter((doc, index, list) => doc.url && list.findIndex((entry) => entry.url === doc.url) === index);
+      const docHtml = docs.length ? `<div class="doc-list">${docs.map((doc) => `<a class="doc-link" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${icon("paperclip", 14)}<span>${escapeHtml(doc.label || "첨부 문서")}</span>${icon("external-link", 13)}</a>`).join("")}</div>` : "등록된 첨부 문서가 없습니다.";
+      const verdictClass = item._participation.key;
+      $("#detailContent").innerHTML = `
+        <div class="detail-head">
+          <div class="detail-head-top">
+            <span class="verdict ${verdictClass}">${escapeHtml(item._participation.label)}</span>
+            <button class="btn icon-only detail-close" id="detailClose" type="button" aria-label="상세 닫기" title="상세 닫기">${icon("x")}</button>
+          </div>
+          <h2 class="detail-title">${escapeHtml(item.bidNtceNm)}</h2>
+          <div class="detail-sub"><span>${escapeHtml(item.serviceType)} · ${escapeHtml(item.businessType)}</span><span>${escapeHtml(item._keyword.primaryLabel)} · ${escapeHtml(item._keyword.workLabel)}</span><span>${escapeHtml(item.bidNtceNo)}</span><span>등록 ${escapeHtml(item.bidNtceRegistDt)}</span></div>
+          <div class="decision-box ${verdictClass}">
+            <div class="decision-label">1차 참여 판단 근거</div>
+            <div class="decision-reason">${escapeHtml(item._participation.reason)}</div>
+            <div class="decision-warning">보드의 1차 분류입니다. 최종 참가 자격과 제출 조건은 나라장터 원문에서 확인하세요.</div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <a class="link-btn primary" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener">${icon("external-link")}나라장터 원문 열기</a>
+          <button class="btn icon-only" id="copyNoBtn" type="button" title="공고번호 복사" aria-label="공고번호 복사">${icon("copy")}</button>
+        </div>
+        <div class="detail-scroll">
+          <section class="review-block">
+            <h3 class="section-label">내 검토 상태</h3>
+            <div class="review-tabs">
+              ${["unchecked", "checked", "issue", "done"].map((status) => `<button class="review-btn ${review.status === status ? "active" : ""}" type="button" data-review="${status}">${reviewLabel(status)}</button>`).join("")}
             </div>
-            <div class="title-main">${safe(item.bidNtceNm)}</div>
-            <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${money(item.assignBudgetAmt)}</div>
-            <div class="classification-line"><strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong><span>· ${escapeHtml(item._keyword.workLabel)}</span></div>
-          </button>
-        `;
-      }).join("") || `<div class="empty">${state.priorityMode === "today" ? "\uC624\uB298 \uB4F1\uB85D\uB41C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : state.priorityMode === "favorite" ? "\uAD00\uC2EC \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : "\uC6B0\uC120 \uD655\uC778 \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."}</div>`;
-    };
+            <textarea class="review-note" id="reviewNote" placeholder="체크 사유, 이슈 내용, 완료 근거를 적어 두세요.">${escapeHtml(review.note || "")}</textarea>
+            <div class="note-foot"><span id="noteTime">${review.updatedAt ? `저장 ${escapeHtml(formatReviewTime(review.updatedAt))}` : "검토 메모는 팀과 공유됩니다."}</span><button class="save-note" id="saveNoteBtn" type="button">메모 저장</button></div>
+          </section>
 
-    const populateAdvancedFilters = () => {
-      const visibleGroups = KEYWORD_GROUPS.filter((group) => !group.hidden);
-      const sections = [...new Set(visibleGroups.map((group) => group.section))];
-      const keywordOptions = sections.map((section) => {
-        const options = visibleGroups.filter((group) => group.section === section).map((group) => {
-          const count = state.bids.filter((item) => matchesKeywordGroup(item, group.id)).length;
-          return `<option value="${group.id}">${escapeHtml(group.label)} (${count.toLocaleString("ko-KR")})</option>`;
+          <details open>
+            <summary>${icon("file-text", 15)}공고 일반</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("공고 형태", `${item.serviceType} / ${item.businessType}`)}
+              ${field("공고번호", `${item.bidNtceNo}${item.bidNtceOrd ? `-${item.bidNtceOrd}` : ""}`)}
+              ${field("공고기관", item.ntceInsttNm)}
+              ${field("수요기관", item.dminsttNm)}
+              ${field("등록일", item.bidNtceRegistDt)}
+              ${field("공고 구분", detail.noticeKind)}
+              ${field("참조번호", detail.referenceNo || item.refNo)}
+              ${field("키워드 분류", `${item._keyword.primaryLabel} / ${item._keyword.workLabel}`)}
+              ${field("검색 근거", `${item._keyword.evidence}${item._keyword.matchedTerm ? ` - ${item._keyword.matchedTerm}` : ""}`)}
+            </div></div>
+          </details>
+
+          <details open>
+            <summary>${icon("shield-check", 15)}참가·제한</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("계약 방법", item.contractMethod)}
+              ${field("입찰 방법", detail.bidMethod)}
+              ${field("낙찰 방법", detail.awardMethod)}
+              ${field("계약 유형", detail.contractType)}
+              ${field("지역 제한", detail.restrictionRegion || item.region)}
+              ${field("참여 판단", `${item._participation.label} - ${item._participation.reason}`)}
+            </div></div>
+          </details>
+
+          <details open>
+            <summary>${icon("calendar-clock", 15)}입찰 진행 일정</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("참가등록 마감", detail.registerDeadline)}
+              ${field("입찰 시작", detail.bidBeginDt)}
+              ${field("입찰 마감", item.bidClseDt || detail.bidClseDt)}
+              ${field("개찰", detail.openDt)}
+              ${field("의견등록 마감", detail.opinionCloseDt)}
+              ${field("납품 기한", detail.deliveryLimitDt)}
+            </div></div>
+          </details>
+
+          <details>
+            <summary>${icon("banknote", 15)}가격·구매 대상</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("배정 예산", fullMoney(item.assignBudgetAmt))}
+              ${field("발주 금액", fullMoney(detail.orderAmount))}
+              ${field("품명", detail.productName)}
+              ${field("세부 품목", detail.productDetails)}
+              ${field("수량", detail.quantity ? `${detail.quantity} ${detail.unit || ""}` : "")}
+              ${field("사용 목적", detail.purpose)}
+            </div></div>
+          </details>
+
+          <details>
+            <summary>${icon("contact", 15)}기관 담당자</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("담당 부서", detail.department)}
+              ${field("담당자", detail.officerName)}
+              ${field("전화", detail.officerTel)}
+              ${field("이메일", detail.officerEmail)}
+            </div></div>
+          </details>
+
+          <details>
+            <summary>${icon("paperclip", 15)}첨부·연관 정보 <span class="tab-count">${docs.length}</span></summary>
+            <div class="detail-section">${docHtml}</div>
+          </details>
+          <div class="detail-foot">이 화면은 빠른 선별과 검토 기록을 위한 보조 도구입니다. 입찰 참가 전에는 반드시 나라장터 원문과 첨부 규격서를 기준으로 판단하세요.</div>
+        </div>`;
+
+      $("#detailClose")?.addEventListener("click", () => $("#detailPane").classList.remove("open"));
+      $("#copyNoBtn").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(item.bidNtceNo); showToast("공고번호를 복사했습니다."); }
+        catch { showToast("공고번호 복사에 실패했습니다."); }
+      });
+      $$(".review-btn", $("#detailContent")).forEach((button) => button.addEventListener("click", () => {
+        updateReview(reviewStorageKey(item), { status: button.dataset.review });
+        renderRows();
+        renderDetail();
+      }));
+      $("#saveNoteBtn").addEventListener("click", () => {
+        updateReview(reviewStorageKey(item), { note: $("#reviewNote").value });
+        renderRows();
+        renderDetail();
+        showToast("검토 메모를 저장했습니다.");
+      });
+      refreshIcons();
+    }
+
+    function updateReview(id, patch) {
+      const current = normalizeReview(state.reviews[id]);
+      const next = { ...current, ...patch, updatedAt: new Date().toISOString() };
+      if (patch.status) {
+        next.checked = patch.status === "checked";
+        next.issue = patch.status === "issue";
+        next.done = patch.status === "done";
+      }
+      if (Object.hasOwn(patch, "note")) {
+        const noteKey = { checked: "checkedNote", issue: "issueNote", done: "doneNote" }[next.status];
+        if (noteKey) next[noteKey] = patch.note;
+      }
+      state.reviews[id] = next;
+      saveReviews();
+    }
+
+    function populateFilters() {
+      const contracts = [...new Set(state.bids.map((item) => safe(item.contractMethod, "").split(" / ")[0]).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+      const regions = [...new Set(state.bids.map((item) => item.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+      const registeredDates = [...new Set(state.bids.filter((item) => item._active && !item._scope.excluded).map(registrationDate).filter(Boolean))].sort((a, b) => b.localeCompare(a)).slice(0, 14);
+      const visibleKeywordGroups = KEYWORD_GROUPS.filter((group) => !group.hidden);
+      const keywordSections = [...new Set(visibleKeywordGroups.map((group) => group.section))];
+      const keywordOptions = keywordSections.map((section) => {
+        const options = visibleKeywordGroups.filter((group) => group.section === section).map((group) => {
+          const count = state.bids.filter((item) => item._active && !item._scope.excluded && matchesKeywordGroup(item, group.id)).length;
+          return `<option value="${group.id}">${escapeHtml(group.label)} (${count})</option>`;
         }).join("");
         return `<optgroup label="${escapeHtml(section)}">${options}</optgroup>`;
       }).join("");
       const workOptions = WORK_GROUPS.map((group) => {
-        const count = state.bids.filter((item) => item._keyword.works.includes(group.id)).length;
-        return `<option value="${group.id}">${escapeHtml(group.label)} (${count.toLocaleString("ko-KR")})</option>`;
+        const count = state.bids.filter((item) => item._active && !item._scope.excluded && item._keyword.works.includes(group.id)).length;
+        return `<option value="${group.id}">${escapeHtml(group.label)} (${count})</option>`;
       }).join("");
-      const participationOptions = [
-        { id: "possible", label: "참여 가능" },
-        { id: "check", label: "확인 필요" },
-        { id: "restricted", label: "참여 제한" },
-        { id: "closed", label: "마감" }
-      ].map((option) => {
-        const count = state.bids.filter((item) => item._participation.key === option.id).length;
-        return `<option value="${option.id}">${option.label} (${count.toLocaleString("ko-KR")})</option>`;
-      }).join("");
+      $("#contractFilter").innerHTML = `<option value="">전체 계약방법</option>${contracts.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
+      $("#regionFilter").innerHTML = `<option value="">전체 지역</option>${regions.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
+      $("#keywordFilter").innerHTML = `<option value="">전체 키워드 분류</option>${keywordOptions}`;
+      $("#workFilter").innerHTML = `<option value="">전체 업무 유형</option>${workOptions}`;
+      $("#registeredFilter").innerHTML = `
+        <option value="">전체 등록일</option>
+        <option value="today">오늘 등록</option>
+        <option value="last3">최근 3일</option>
+        <option value="last7">최근 7일</option>
+        <optgroup label="날짜별">${registeredDates.map((value) => `<option value="date:${value}">${value.replaceAll("-", ".")}</option>`).join("")}</optgroup>`;
+    }
 
-      $("filterKeywordDetail").innerHTML = `<option value="ALL">전체 상세 분류</option>${keywordOptions}`;
-      $("filterWork").innerHTML = `<option value="ALL">전체 업무 유형</option>${workOptions}`;
-      $("filterParticipation").innerHTML = `<option value="ALL">전체 참여 판단</option>${participationOptions}`;
-      syncFilterControls();
-    };
-
-    const renderListMode = () => {
-      const todayTotal = state.bids.filter(isToday).length;
-      const dateCounts = state.bids.reduce((counts, item) => {
-        const key = postedDateKey(item);
-        if (isDateListMode(key)) counts.set(key, (counts.get(key) || 0) + 1);
-        return counts;
-      }, new Map());
-      const selectedDate = isDateListMode(state.listMode) ? state.listMode : "";
-      const dateSelect = $("filterDate");
-      $("allListCount").textContent = state.bids.length.toLocaleString("ko-KR");
-      $("todayListCount").textContent = todayTotal.toLocaleString("ko-KR");
-      dateSelect.innerHTML = `<option value="">\uB4F1\uB85D \uB0A0\uC9DC \uC120\uD0DD</option>${[...dateCounts.entries()]
-        .sort(([a], [b]) => b.localeCompare(a))
-        .map(([date, count]) => `<option value="${date}">${dateLabel(date)} \u00B7 ${count.toLocaleString("ko-KR")}\uAC74</option>`)
-        .join("")}`;
-      dateSelect.value = selectedDate;
-      $("dateFilterControl").classList.toggle("active", Boolean(selectedDate));
-      document.querySelectorAll("[data-list-mode]").forEach((button) => {
-        const active = button.dataset.listMode === state.listMode;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
-    };
-
-    const renderRows = () => {
-      state.filtered = filteredByView();
-      if (state.filtered.length && !state.filtered.some((item) => item.bidNtceNo === state.selectedId)) {
-        state.selectedId = state.filtered[0].bidNtceNo;
-      }
-      if (!state.filtered.length) state.selectedId = "";
-
-      const resultMeta = $("resultMeta");
-      if (resultMeta) {
-        const modeLabels = {
-          today: "\uC624\uB298 \uC0AC\uC5C5",
-          newToday: "\uC624\uB298 \uC2E0\uADDC",
-          changedToday: "\uC624\uB298 \uC815\uC815",
-          recent3: "\uCD5C\uADFC 3\uC77C",
-          recent7: "\uCD5C\uADFC 7\uC77C",
-          favorite: "\uAD00\uC2EC \uC0AC\uC5C5"
-        };
-        if (isDateListMode(state.listMode)) {
-          resultMeta.textContent = dateLabel(state.listMode) + " \uC0AC\uC5C5 " + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC";
-        } else if (state.listMode !== "all") {
-          resultMeta.textContent = (modeLabels[state.listMode] || "\uC120\uD0DD \uC0AC\uC5C5") + " " + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC";
-        } else {
-          const todayVisible = state.filtered.filter(isToday).length;
-          resultMeta.textContent = "\uC624\uB298 " + todayVisible.toLocaleString("ko-KR") + "\uAC74 \uBA3C\uC800 \u00B7 "
-            + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC / \uC804\uCCB4 "
-            + state.bids.length.toLocaleString("ko-KR") + "\uAC74"
-            + (state.scopeExcludedCount ? " \u00B7 LED \uBE44\uB300\uC0C1 " + state.scopeExcludedCount.toLocaleString("ko-KR") + "\uAC74 \uC81C\uC678" : "");
-        }
-      }
-
-      $("bidRows").innerHTML = state.filtered.map((item) => {
-        const c = contact(item);
-        const d = dday(item.bidClseDt);
-        const r = reviewState(item);
-        const participationInfo = item._participation;
-        const revised = isRevision(item);
-        const relatedCount = relatedItems(item).length;
-        const revision = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
-        return `
-          <tr class="${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
-            <td>
-              <div class="title-cell">
-                <div class="business-title-row">
-                  <button class="favorite-button ${r.favorite ? "active" : ""}" type="button" data-favorite="${item.bidNtceNo}" title="${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC \uC124\uC815"}" aria-label="${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC \uC124\uC815"}"><i data-lucide="star"></i></button>
-                  <span class="contract-prefix" title="${contractLabel(item)}">${contractLabel(item)}</span>
-                  <div class="title-main">${safe(item.bidNtceNm)}</div>
-                </div>
-                <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${safe(item.region)}</div>
-                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">\uC624\uB298</span>` : ""}등록 ${safe(item.bidNtceRegistDt)}</div>
-                <div class="classification-line">
-                  <strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong>
-                  <span>· ${escapeHtml(item._keyword.workLabel)}</span>
-                  <span class="classification-evidence">${escapeHtml(item._keyword.evidence)}${item._keyword.matchedTerm ? ` “${escapeHtml(item._keyword.matchedTerm)}”` : ""}</span>
-                </div>
-                <div class="badge-row">
-                  ${isToday(item) && !revised ? '<span class="badge green">\uC2E0\uADDC</span>' : ""}
-                  ${revised ? `<span class="badge changed">\uC815\uC815 ${revision}\uCC28</span>` : ""}
-                  ${relatedCount ? `<span class="badge gray">\uAD00\uB828 ${relatedCount}\uAC74</span>` : ""}
-                  <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
-                  ${r.checked ? '<span class="badge green">\uCCB4\uD06C</span>' : ""}
-                  ${r.issue ? '<span class="badge red">\uC774\uC288</span>' : ""}
-                  ${r.done ? '<span class="badge gray">\uC644\uB8CC</span>' : ""}
-                </div>
-              </div>
-            </td>
-            <td><span class="badge ${typeClass(item)}">${typeLabel(item)}</span></td>
-            <td><span class="money">${money(item.assignBudgetAmt)}</span></td>
-            <td>
-              <span class="dday ${d.tone}">${d.text}</span>
-              <div class="schedule-stack">
-                <div class="schedule-line"><strong>등록</strong><span>${shortDateTime(item.bidNtceRegistDt)}</span></div>
-                <div class="schedule-line"><strong>${item.serviceType === "발주계획" ? "예정" : "마감"}</strong><span>${shortDateTime(item.bidClseDt)}${d.sub ? ` / ${d.sub}` : ""}</span></div>
-              </div>
-            </td>
-            <td><strong>${c.name}</strong><div class="title-sub">${c.tel}</div></td>
-          </tr>
-        `;
-      }).join("") || '<tr><td colspan="5"><div class="empty">\uC870\uAC74\uC5D0 \uB9DE\uB294 \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.</div></td></tr>';
-    };
-
-    const noteField = (type, review) => `
-      <label class="note-field ${review[type.key] ? "active" : ""}">
-        <span class="note-label">
-          <span>${type.noteLabel}</span>
-          <span class="badge ${review[type.key] ? type.tone : "gray"}">${review[type.key] ? type.active : "\uBBF8\uD45C\uC2DC"}</span>
-        </span>
-        <textarea data-note="${type.key}" rows="3" placeholder="${type.placeholder}">${escapeHtml(review[type.noteKey] || "")}</textarea>
-      </label>
-    `;
-
-    const renderDetail = () => {
-      const item = state.bids.find((bid) => bid.bidNtceNo === state.selectedId);
-      if (!item) {
-        $("detailState").textContent = "\uBBF8\uC120\uD0DD";
-        $("detailBody").innerHTML = '<div class="empty">\uBAA9\uB85D\uC5D0\uC11C \uC0AC\uC5C5\uC744 \uC120\uD0DD\uD558\uC138\uC694.</div>';
-        return;
-      }
-
-      const c = contact(item);
-      const d = dday(item.bidClseDt);
-      const r = reviewState(item);
-      const detail = item.detailInfo || {};
-      const participationInfo = item._participation;
-      const revision = revisionChanges(item);
-      const related = relatedItems(item);
-      const revisionOrder = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
-      const history = [...(Array.isArray(r.history) ? r.history : [])].reverse().slice(0, 8);
-      const statusLabel = r.issue ? "\uC774\uC288" : r.checked ? "\uCCB4\uD06C" : r.done ? "\uC644\uB8CC" : r.favorite ? "\uAD00\uC2EC" : "\uBBF8\uAC80\uD1A0";
-      $("detailState").textContent = statusLabel;
-
-      const relatedMarkup = related.map((candidate) => {
-        const candidateOrder = safe(candidate.bidNtceOrd, "").replace(/^0+/, "") || "0";
-        const content = `
-          <div class="related-item-title">${safe(candidate.bidNtceNm)}</div>
-          <div class="related-item-meta">${typeLabel(candidate)} \u00B7 ${candidateOrder}\uCC28 \u00B7 ${safe(candidate.bidNtceRegistDt)}</div>
-        `;
-        return candidate.bidNtceNo === item.bidNtceNo
-          ? `<div class="related-item">${content}</div>`
-          : `<button class="related-item" type="button" data-select="${candidate.bidNtceNo}">${content}</button>`;
-      }).join("");
-
-      const historyMarkup = history.map((entry) => `
-        <div class="history-item">
-          <strong>${escapeHtml(entry.action || "\uC0C1\uD0DC \uBCC0\uACBD")}</strong>
-          ${entry.note ? `<div class="history-item-note">${escapeHtml(entry.note)}</div>` : ""}
-          <div class="history-item-meta">${formatKst(entry.at)} KST · ${escapeHtml(entry.by || "공용 사용자")}</div>
-        </div>
-      `).join("");
-
-      $("detailBody").innerHTML = `
-        <div class="badge-row">
-          <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
-          <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>
-          ${isRevision(item) ? `<span class="badge changed">\uC815\uC815 ${revisionOrder}\uCC28</span>` : `<span class="badge green">\uC2E0\uADDC</span>`}
-          <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
-          ${r.favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
-          <span class="badge gray">${safe(item.bidNtceNo)}</span>
-        </div>
-        <h2 class="detail-title">${safe(item.bidNtceNm)}</h2>
-        ${revision.labels.length ? `<div class="note-empty">\uC774\uC804 \uCC28\uC218 \uB300\uBE44 \uBCC0\uACBD: ${revision.labels.join(", ")}</div>` : ""}
-        <div class="participation-summary ${participationInfo.key}">
-          <div class="participation-summary-head"><span>참여 판단</span><span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span></div>
-          <p>${escapeHtml(participationInfo.reason)}</p>
-        </div>
-        <div class="field-grid">
-          ${field("\uC218\uC694\uAE30\uAD00", item.dminsttNm, { changed: revision.keys.has("institution") })}
-          ${field("\uACF5\uACE0\uAE30\uAD00", item.ntceInsttNm)}
-          ${field("등록일", item.bidNtceRegistDt)}
-          ${field("공고 구분", detail.noticeKind)}
-          ${field("\uC608\uC0B0", money(item.assignBudgetAmt), { changed: revision.keys.has("budget") })}
-          ${field("\uB9C8\uAC10/\uC608\uC815", `${safe(item.bidClseDt)} / ${d.text}${d.sub ? ` (${d.sub})` : ""}`, { changed: revision.keys.has("deadline") })}
-          ${field("\uB2F4\uB2F9\uC790", c.name)}
-          ${field("\uC804\uD654", c.tel)}
-          ${field("담당 부서/이메일", `${safe(c.dept)} / ${safe(c.email)}`)}
-          ${field("\uACC4\uC57D\uBC29\uBC95", item.contractMethod || item.contractMethodRaw, { changed: revision.keys.has("contract") })}
-          ${field("입찰/낙찰 방법", `${safe(detail.bidMethod)} / ${safe(detail.awardMethod)}`)}
-          ${field("지역 제한", detail.restrictionRegion || item.region)}
-          ${field("참가등록 마감", detail.registerDeadline)}
-          ${field("입찰 시작/개찰", `${safe(detail.bidBeginDt)} / ${safe(detail.openDt)}`)}
-          ${field("\uD0A4\uC6CC\uB4DC/\uC9C0\uC5ED", `${safe(item.searchKeyword)} / ${safe(item.region)}`)}
-          ${field("상세 분류", `${item._keyword.primaryLabel} / ${item._keyword.workLabel}`)}
-          ${field("검색 근거", `${item._keyword.evidence}${item._keyword.matchedTerm ? ` - ${item._keyword.matchedTerm}` : ""}`)}
-          ${field("품명/세부품목", `${safe(detail.productName)} / ${safe(detail.productDetails)}`)}
-          ${field("사용 목적", detail.purpose)}
-        </div>
-        <div class="detail-actions">
-          <button class="favorite ${r.favorite ? "active" : ""}" data-action="favorite"><i data-lucide="star"></i><span>${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC"}</span></button>
-          <button class="${r.checked ? "active" : ""}" data-action="checked"><i data-lucide="check-circle"></i><span>${r.checked ? "\uCCB4\uD06C \uD574\uC81C" : "\uCCB4\uD06C"}</span></button>
-          <button class="${r.issue ? "active issue" : ""}" data-action="issue"><i data-lucide="badge-alert"></i><span>${r.issue ? "\uC774\uC288 \uD574\uC81C" : "\uC774\uC288"}</span></button>
-          <button class="${r.done ? "active done" : ""}" data-action="done"><i data-lucide="circle-check-big"></i><span>${r.done ? "\uC644\uB8CC \uD574\uC81C" : "\uC644\uB8CC"}</span></button>
-          <button data-action="copy"><i data-lucide="copy"></i><span>\uC694\uC57D \uBCF5\uC0AC</span></button>
-          <a class="detail-link primary" href="${safe(item.g2bUrl, "https://www.g2b.go.kr")}" target="_blank" rel="noopener">
-            <i data-lucide="external-link"></i><span>\uB098\uB77C\uC7A5\uD130 \uC6D0\uBB38</span>
-          </a>
-        </div>
-        <div class="note-grid">
-          ${REVIEW_TYPES.filter((type) => r[type.key]).map((type) => noteField(type, r)).join("") || '<div class="note-empty">\uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC \uC911 \uD558\uB098\uB97C \uC120\uD0DD\uD558\uBA74 \uD574\uB2F9 \uC0AC\uC720 \uC785\uB825\uCE78\uC774 \uD45C\uC2DC\uB429\uB2C8\uB2E4.</div>'}
-        </div>
-        ${related.length ? `
-          <section class="related-section">
-            <h3 class="section-heading"><span>\uC774\uC804 \uCC28\uC218/\uAD00\uB828 \uACF5\uACE0</span><span class="badge gray">${related.length}\uAC74</span></h3>
-            <div class="related-list">${relatedMarkup}</div>
-          </section>
-        ` : ""}
-        ${history.length ? `
-          <section class="history-section">
-            <h3 class="section-heading"><span>\uD65C\uB3D9 \uC774\uB825</span><span class="badge gray">${history.length}\uAC74</span></h3>
-            <div class="history-list">${historyMarkup}</div>
-          </section>
-        ` : ""}
-      `;
-      createIcons();
-    };
-
-    const field = (label, value, options = {}) => `
-      <div class="field ${options.changed ? "changed" : ""}">
-        <div class="field-label-row">
-          <div class="field-label">${label}</div>
-          ${options.changed ? '<span class="badge changed">\uBCC0\uACBD</span>' : ""}
-        </div>
-        <div class="field-value">${safe(value)}</div>
-      </div>
-    `;
-
-    const copySummary = async () => {
-      const item = state.bids.find((bid) => bid.bidNtceNo === state.selectedId);
-      if (!item) return;
-      const c = contact(item);
-      const deadline = dday(item.bidClseDt);
-      const review = reviewState(item);
-      const reviewLines = REVIEW_TYPES
-        .filter((type) => review[type.key] || safe(review[type.noteKey], ""))
-        .map((type) => `${type.label}: ${safe(review[type.noteKey], "\uC0AC\uC720 \uBBF8\uC785\uB825")}`);
-      const text = [
-        `[DI \uC870\uB2EC \uAC80\uD1A0] ${safe(item.bidNtceNm)}`,
-        `\uC720\uD615: ${typeLabel(item)} / \uBC88\uD638: ${safe(item.bidNtceNo)}`,
-        `\uAE30\uAD00: ${safe(item.dminsttNm || item.ntceInsttNm)}`,
-        `\uAC8C\uC2DC/\uB4F1\uB85D: ${safe(item.bidNtceRegistDt)}`,
-        `상세 분류: ${item._keyword.primaryLabel} / ${item._keyword.workLabel}`,
-        `참여 판단: ${item._participation.label} - ${item._participation.reason}`,
-        `\uC608\uC0B0: ${money(item.assignBudgetAmt)}`,
-        `\uB9C8\uAC10: ${safe(item.bidClseDt)} (${deadline.text}${deadline.sub ? ` / ${deadline.sub}` : ""})`,
-        ...reviewLines,
-        `\uB2F4\uB2F9: ${c.name} / ${c.tel}`,
-        `\uC6D0\uBB38: ${safe(item.g2bUrl, "https://www.g2b.go.kr")}`
-      ].join("\n");
-      await navigator.clipboard.writeText(text);
-    };
-
-    const render = () => {
-      renderSyncHealth();
-      renderMetrics();
-      renderPriority();
-      renderListMode();
+    function setView(view) {
+      state.view = view;
+      $$(".view-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
       renderRows();
-      renderStatusBoard();
-      renderDetail();
-      renderSideTabs();
-      renderSavedFilters();
-      createIcons();
-    };
+    }
 
-    const loadData = async () => {
-      $("lastUpdated").textContent = "\uB370\uC774\uD130 \uB85C\uB529 \uC911";
-      $("syncHealth").dataset.tone = "pending";
-      $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uD655\uC778 \uC911";
-      const response = await fetch(`./data/bids.json?t=${Date.now()}`, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json();
-      state.rawBids = Array.isArray(payload.bids) ? payload.bids : [];
-      const enrichedBids = dedupeBids(state.rawBids).map(enrichBid);
-      state.scopeExcludedCount = enrichedBids.filter((item) => item._scope.excluded).length;
-      state.bids = enrichedBids.filter((item) => !item._scope.excluded);
-      state.dataMeta = payload;
-      const times = payload.updateSchedule?.times || ["07:00", "11:00", "16:00"];
-      $("lastUpdated").textContent = payload.generatedAt ? `\uCD5C\uC885 \uC5C5\uB370\uC774\uD2B8 ${formatKst(payload.generatedAt)} KST` : "\uC5C5\uB370\uC774\uD2B8 \uC2DC\uAC01 \uBBF8\uD655\uC778";
-      $("nextUpdate").textContent = `\uC608\uC815 ${times.join(", ")} KST`;
-      populateAdvancedFilters();
-      state.selectedId = [...state.bids].sort(todayFirst)[0]?.bidNtceNo || "";
-      render();
-    };
+    function resetFilters() {
+      state.filters = { search: "", registered: "", service: "", business: "", contract: "", region: "", keyword: "", work: "" };
+      $("#searchInput").value = "";
+      $("#registeredFilter").value = "";
+      $("#serviceFilter").value = "";
+      $("#businessFilter").value = "";
+      $("#contractFilter").value = "";
+      $("#regionFilter").value = "";
+      $("#keywordFilter").value = "";
+      $("#workFilter").value = "";
+      renderRows();
+    }
 
-    document.addEventListener("click", (event) => {
-      if (event.target.closest("#mobileDetailClose")) {
-        closeMobileSide();
-        return;
-      }
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
 
-      const favoriteKey = event.target.closest("[data-favorite]")?.dataset.favorite;
-      if (favoriteKey) {
-        const current = reviewState({ bidNtceNo: favoriteKey });
-        setReview(favoriteKey, { favorite: !current.favorite });
-        return;
-      }
+    function refreshIcons() {
+      if (window.lucide) window.lucide.createIcons();
+    }
 
-      const listMode = event.target.closest("[data-list-mode]")?.dataset.listMode;
-      if (listMode) {
-        state.listMode = listMode;
-        state.savedFilterId = "";
-        render();
-        return;
-      }
-
-      const priorityMode = event.target.closest("[data-priority-mode]")?.dataset.priorityMode;
-      if (priorityMode) {
-        state.priorityMode = priorityMode;
-        renderPriority();
-        createIcons();
-        return;
-      }
-
-      const sideTab = event.target.closest("[data-side-tab]")?.dataset.sideTab;
-      if (sideTab) {
-        state.sideTab = sideTab;
-        renderSideTabs();
-        openMobileSide();
-        createIcons();
-        return;
-      }
-
-      const select = event.target.closest("[data-select]");
-      if (select) {
-        state.selectedId = select.dataset.select;
-        if (select.closest("#reviewBoard")) state.sideTab = "detail";
-        render();
-        openMobileSide();
-        return;
-      }
-
-      const action = event.target.closest("[data-action]")?.dataset.action;
-      if (!action || !state.selectedId) return;
-      const r = reviewState({ bidNtceNo: state.selectedId });
-      if (action === "favorite") setReview(state.selectedId, { favorite: !r.favorite });
-      if (action === "checked") setReview(state.selectedId, { checked: !r.checked });
-      if (action === "issue") setReview(state.selectedId, { issue: !r.issue });
-      if (action === "done") setReview(state.selectedId, { done: !r.done });
-      if (action === "copy") copySummary();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMobileSide();
-    });
-
-    $("mobileDetailClose").addEventListener("click", (event) => {
-      event.stopPropagation();
-      closeMobileSide();
-    });
-
-    document.addEventListener("input", (event) => {
-      const noteType = event.target.closest("[data-note]")?.dataset.note;
-      if (!noteType || !state.selectedId) return;
-      const type = reviewTypeByKey(noteType);
-      if (!type) return;
-      setReviewNote(state.selectedId, type, event.target.value);
-    });
-
-    document.addEventListener("change", (event) => {
-      const noteType = event.target.closest("[data-note]")?.dataset.note;
-      if (!noteType || !state.selectedId) return;
-      const type = reviewTypeByKey(noteType);
-      if (!type) return;
-      setReviewNote(state.selectedId, type, event.target.value, true);
-    });
-
-    const updateFiltersFromControls = () => {
-      state.savedFilterId = "";
-      state.filters = {
-        service: $("filterService").value,
-        contract: $("filterContract").value,
-        keyword: $("filterKeyword").value,
-        keywordDetail: $("filterKeywordDetail").value,
-        work: $("filterWork").value,
-        participation: $("filterParticipation").value,
-        region: $("filterRegion").value,
-        budget: $("filterBudget").value
-      };
-      render();
-    };
-
-    $("filterControls").addEventListener("change", updateFiltersFromControls);
-    $("advancedFilterControls").addEventListener("change", updateFiltersFromControls);
-
-    $("filterDate").addEventListener("change", (event) => {
-      state.savedFilterId = "";
-      state.listMode = event.target.value || "all";
-      render();
-    });
-
-    $("searchInput").addEventListener("input", (event) => {
-      state.savedFilterId = "";
-      state.query = event.target.value;
-      render();
-    });
-
-    $("reviewerNameInput").value = state.reviewerName;
-    $("reviewerNameInput").addEventListener("change", (event) => {
-      state.reviewerName = event.target.value.trim();
-      localStorage.setItem(REVIEWER_KEY, state.reviewerName);
-    });
-
-    $("savedFilter").addEventListener("change", (event) => {
-      if (event.target.value) applySavedFilter(event.target.value);
-      else {
-        state.savedFilterId = "";
-        renderSavedFilters();
-      }
-    });
-
-    $("saveFilterBtn").addEventListener("click", saveCurrentFilter);
-    $("deleteFilterBtn").addEventListener("click", deleteSavedFilter);
-    $("resetFiltersBtn").addEventListener("click", resetFilters);
-
-    $("refreshBtn").addEventListener("click", () => {
-      loadData().catch((error) => {
-        $("lastUpdated").textContent = `\uB85C\uB4DC \uC2E4\uD328: ${error.message}`;
-        $("syncHealth").dataset.tone = "error";
-        $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uB85C\uB4DC \uC2E4\uD328";
+    function bindControls() {
+      $("#viewTabs").addEventListener("click", (event) => {
+        const tab = event.target.closest("[data-view]");
+        if (tab) setView(tab.dataset.view);
       });
-    });
+      $("#searchInput").addEventListener("input", (event) => { state.filters.search = event.target.value.trim(); renderRows(); });
+      [["#registeredFilter", "registered"], ["#serviceFilter", "service"], ["#businessFilter", "business"], ["#contractFilter", "contract"], ["#regionFilter", "region"], ["#keywordFilter", "keyword"], ["#workFilter", "work"]].forEach(([selector, key]) => {
+        $(selector).addEventListener("change", (event) => { state.filters[key] = event.target.value; renderRows(); });
+      });
+      $("#resetBtn").addEventListener("click", resetFilters);
+      $("#reloadBtn").addEventListener("click", loadData);
+      window.addEventListener("keydown", (event) => { if (event.key === "Escape") $("#detailPane").classList.remove("open"); });
+    }
 
-    loadData().catch((error) => {
-      $("lastUpdated").textContent = `\uB85C\uB4DC \uC2E4\uD328: ${error.message}`;
-      $("syncHealth").dataset.tone = "error";
-      $("syncHealth").textContent = "\uC5C5\uB370\uC774\uD2B8 \uB85C\uB4DC \uC2E4\uD328";
-      $("bidRows").innerHTML = `<tr><td colspan="5"><div class="empty">\uB370\uC774\uD130\uB97C \uBD88\uB7EC\uC624\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.</div></td></tr>`;
-    });
-    initializeReviewSync();
+    async function loadData() {
+      $("#reloadBtn").disabled = true;
+      $("#syncPill").className = "sync-pill";
+      $("#syncText").textContent = "데이터 불러오는 중";
+      try {
+        const response = await fetch(`./data/bids.json?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        state.meta = data;
+        state.bids = dedupe(Array.isArray(data.bids) ? data.bids : []).map(enrich);
+        migrateReviewsForBids();
+        populateFilters();
+        renderMetrics();
+        if (state.selectedId && !state.bids.some((item) => item.bidId === state.selectedId)) state.selectedId = "";
+        if (!state.selectedId) state.selectedId = visibleBids()[0]?.bidId || "";
+        renderRows();
+        renderDetail();
+        $("#syncPill").className = data.failedCalls > 0 ? "sync-pill error" : "sync-pill ok";
+        $("#syncText").textContent = `${formatGenerated(data.generatedAt)} · ${data.failedCalls || 0}건 오류`;
+      } catch (error) {
+        console.error(error);
+        $("#loadingState").hidden = false;
+        $("#loadingState").innerHTML = `<div><strong style="display:block;color:var(--red);margin-bottom:6px">데이터를 불러오지 못했습니다.</strong>로컬 서버에서 페이지를 열었는지 확인해 주세요.</div>`;
+        $("#bidTable").hidden = true;
+        $("#syncPill").className = "sync-pill error";
+        $("#syncText").textContent = "데이터 연결 오류";
+      } finally {
+        $("#reloadBtn").disabled = false;
+        refreshIcons();
+      }
+    }
+
+    bindControls();
+    loadData().then(initializeReviewSync);
+    window.addEventListener("load", refreshIcons);
   </script>
 </body>
 </html>
