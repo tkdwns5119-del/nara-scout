@@ -593,6 +593,7 @@
     .side {
       position: sticky;
       top: 82px;
+      scroll-margin-top: 82px;
       display: grid;
       gap: 12px;
     }
@@ -1109,6 +1110,117 @@
     align-items: center;
   }
 
+  .filters.advanced-filters {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .classification-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3px 6px;
+    color: #475569;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .classification-line strong {
+    color: var(--blue);
+    font-size: 10px;
+  }
+
+  .classification-line .classification-check { color: #9a5800; }
+  .classification-line .classification-low { color: var(--red); }
+
+  .classification-evidence {
+    min-width: 0;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .priority-list:has(> .empty) {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .priority-list:has(> .empty) > .empty {
+    padding: 18px 16px;
+  }
+
+  .schedule-stack {
+    display: grid;
+    gap: 2px;
+    margin-top: 5px;
+  }
+
+  .schedule-line {
+    display: grid;
+    grid-template-columns: 27px minmax(0, 1fr);
+    gap: 4px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .schedule-line strong {
+    color: #475569;
+    font-size: 10px;
+  }
+
+  .participation-summary {
+    padding: 11px 12px;
+    border: 1px solid var(--line);
+    border-left: 3px solid #94a3b8;
+    border-radius: 6px;
+    background: var(--panel-soft);
+  }
+
+  .participation-summary.possible { border-left-color: var(--green); background: #f1faf5; }
+  .participation-summary.check { border-left-color: #d68a16; background: #fffaf0; }
+  .participation-summary.restricted { border-left-color: var(--red); background: #fff5f6; }
+
+  .participation-summary-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .participation-summary p {
+    margin: 0;
+    color: #475569;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .status-card-empty {
+    padding: 13px 10px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .mobile-detail-close {
+    display: none;
+    width: 42px;
+    min-height: 48px;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    place-items: center;
+  }
+
+  .mobile-detail-close svg { width: 18px; height: 18px; }
+
   .saved-select {
     min-height: 36px;
     padding: 0 10px;
@@ -1244,6 +1356,13 @@
   }
 
   @media (max-width: 760px) {
+    .side { grid-row: 3; }
+    .main > .panel:last-of-type { grid-row: 4; }
+    .side-panel { max-height: 72vh; }
+    .side:not(.mobile-open) .side-panel { grid-template-rows: auto; }
+    .side:not(.mobile-open) .side-pane { display: none !important; }
+    .side.mobile-open .side-tabs { grid-template-columns: 1fr 1fr 42px; }
+    .side.mobile-open .mobile-detail-close { display: grid; }
     .top-actions { width: 100%; }
     .sync-health { flex: 1 1 auto; justify-content: center; }
     .insight-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1251,6 +1370,9 @@
     .priority-mode-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .priority-mode-switch .mode-button { padding: 0 6px; }
     .saved-filter-bar { grid-template-columns: minmax(0, 1fr) 36px 36px 36px; }
+    .filters.advanced-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .filters.advanced-filters select:first-child { grid-column: 1 / -1; }
+    .filters.advanced-filters select:last-child { grid-column: auto; }
     .business-title-row { gap: 5px; }
   }
 
@@ -1385,7 +1507,7 @@
             </div>
             <div class="search">
               <i data-lucide="search"></i>
-              <input type="search" id="searchInput" placeholder="사업명, 기관, 공고번호, 담당자 검색">
+              <input type="search" id="searchInput" placeholder="사업명, 품명, 기관, 공고번호, 담당자 검색">
             </div>
             <div class="filters" id="filterControls">
               <select id="filterService" aria-label="service type">
@@ -1441,6 +1563,21 @@
                 <option value="OVER_500">5&#50613; &#50896; &#51060;&#49345;</option>
               </select>
             </div>
+            <div class="filters advanced-filters" id="advancedFilterControls">
+              <select id="filterKeywordDetail" aria-label="상세 키워드 분류">
+                <option value="ALL">전체 상세 분류</option>
+              </select>
+              <select id="filterWork" aria-label="업무 유형">
+                <option value="ALL">전체 업무 유형</option>
+              </select>
+              <select id="filterParticipation" aria-label="참여 판단">
+                <option value="ALL">전체 참여 판단</option>
+                <option value="possible">참여 가능</option>
+                <option value="check">확인 필요</option>
+                <option value="restricted">참여 제한</option>
+                <option value="closed">마감</option>
+              </select>
+            </div>
             <div class="saved-filter-bar">
               <select class="saved-select" id="savedFilter" aria-label="&#51200;&#51109;&#54620; &#54596;&#53552;">
                 <option value="">&#51200;&#51109; &#54596;&#53552;</option>
@@ -1468,7 +1605,7 @@
         </section>
       </section>
 
-      <aside class="side">
+      <aside class="side" id="detailSide">
         <section class="panel side-panel">
           <div class="side-tabs" role="tablist" aria-label="review detail tabs">
             <button class="side-tab active" type="button" data-side-tab="detail" role="tab" aria-selected="true" aria-controls="detailPane">
@@ -1479,6 +1616,7 @@
               <span><i data-lucide="clipboard-check"></i> &#44160;&#53664;&#54632;</span>
               <span class="side-tab-meta" id="reviewMeta">0&#44148;</span>
             </button>
+            <button class="mobile-detail-close" type="button" id="mobileDetailClose" title="상세 닫기" aria-label="상세 닫기"><i data-lucide="x"></i></button>
           </div>
           <div class="side-pane" id="detailPane" data-side-pane="detail" role="tabpanel">
             <div class="detail-body" id="detailBody">
@@ -1532,6 +1670,9 @@
         service: "ALL",
         contract: "ALL",
         keyword: "ALL",
+        keywordDetail: "ALL",
+        work: "ALL",
+        participation: "ALL",
         region: "ALL",
         budget: "ALL"
       },
@@ -1540,6 +1681,7 @@
       priorityMode: "today",
       sideTab: "detail",
       dataMeta: {},
+      scopeExcludedCount: 0,
       savedFilters: readStoredJson(FILTER_KEY, []),
       savedFilterId: "",
       reviewerName: localStorage.getItem(REVIEWER_KEY) || "",
@@ -1598,6 +1740,71 @@
       { key: "done", noteKey: "doneNote", label: "\uC644\uB8CC", active: "\uC644\uB8CC\uB428", noteLabel: "\uC644\uB8CC \uC0AC\uC720", placeholder: "\uBB34\uC5C7\uC744 \uD655\uC778\uD574\uC11C \uC644\uB8CC\uD588\uB294\uC9C0 \uB0A8\uACA8\uB450\uC138\uC694.", tone: "gray", icon: "circle-check-big", empty: "\uC644\uB8CC\uD55C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." }
     ];
 
+    const KEYWORD_GROUPS = [
+      { id: "display_all", section: "전광판", label: "전광판 전체", pattern: /(전광판|전광표지|안내전광|문자전광|led\s*(display|디스플레이|스크린)|옥외\s*led|실내\s*led|\bvms\b)/i, exclude: /(진동감시|진동감시설비|vibration)/i },
+      { id: "display_traffic", section: "전광판", label: "교통·도로 전광판", pattern: /(도로.*(전광|표지)|교통.*(전광|정보표시)|가변정보표지|전광.*교통|its.*(도로|교통|관제|전광|표지)|버스정보.*(안내|표시))/i, exclude: /(세계총회.*(부스|전시관)|it서비스)/i },
+      { id: "display_safety", section: "전광판", label: "재난·안전 전광판", pattern: /((재난|침수|홍수|기상|수위|안전|산불).*전광|전광.*(재난|침수|홍수|기상|수위|안전|산불))/i },
+      { id: "display_sports", section: "전광판", label: "체육·공연 전광판", pattern: /((체육|경기|운동장|스타디움|스코어|득점|무대|공연장).*전광|전광.*(체육|경기|운동장|스타디움|스코어|득점|무대|공연장))/i },
+      { id: "display_info", section: "전광판", label: "안내·홍보 전광판", pattern: /((안내|홍보|정보|문자|행정|관광).*전광|전광.*(안내|홍보|정보)|전자게시대|정보표시판)/i },
+      { id: "display_indoor", section: "전광판", label: "실내·강당 전광판", pattern: /((실내|강당|대강당|회의실|교육관|교실|체육관).*전광|전광.*(실내|강당|대강당|회의실|교육관|교실|체육관))/i },
+      { id: "display_outdoor", section: "전광판", label: "옥외·야외 전광판", pattern: /((옥외|실외|야외|외부).*전광|전광.*(옥외|실외|야외|외부)|옥외\s*led)/i },
+      { id: "display_general", section: "전광판", label: "일반 LED 전광판", pattern: /(전광판|led\s*(display|디스플레이|스크린))/i },
+
+      { id: "led_all", section: "LED", label: "LED 전광판 분야 전체", pattern: /\bled\b/i },
+      { id: "led_display", section: "LED", label: "LED 전광·영상시스템", pattern: /led\s*(전광판|display|디스플레이|스크린|영상시스템|상황판)/i },
+      { id: "led_control", section: "LED", label: "LED 제어·모듈·함체", pattern: /(led.*(제어|모듈|함체|컨트롤러|송수신|통합관리|하드웨어\s*보드)|(제어시스템|컨트롤러|송수신카드|함체).*led)/i },
+      { id: "led_lighting", section: "LED", label: "[제외] LED 조명·등기구", pattern: /(led.*(조명|등기구|가로등|bar|dimming)|(조명|등기구|가로등).*led)/i, hidden: true },
+      { id: "led_research", section: "LED", label: "[제외] LED 연구·특수장비", pattern: /(toled|oled|uv-c\s*led|led.*(측정|probe|솔라|연구|실험|예지보전|광융합|센서|수심게이지))/i, hidden: true },
+      { id: "led_other", section: "LED", label: "[제외] 기타 LED", pattern: /\b(t?oled|led)\b/i, hidden: true },
+
+      { id: "display_keyword_all", section: "디스플레이", label: "디스플레이 전체", pattern: /(디스플레이|display)/i },
+      { id: "display_video", section: "디스플레이", label: "영상·상황판 디스플레이", pattern: /(영상정보디스플레이장치|상황판.*디스플레이|돔\s*디스플레이|대형.*디스플레이|디스플레이.*(시스템|장치|교체|구축))/i },
+      { id: "display_transport", section: "디스플레이", label: "교통안내 디스플레이·BIT", pattern: /(버스정보안내단말기|\bbit\b.*디스플레이|디스플레이패널.*(버스|교통))/i },
+      { id: "display_monitor", section: "디스플레이", label: "모니터·전자칠판·패널", pattern: /(모니터|전자칠판|디스플레이\s*패널)/i },
+      { id: "display_research", section: "디스플레이", label: "[비대상] 교육·연구·R&D", pattern: /(디스플레이.*(부트캠프|연구|r&d|사업기획|학과|인재양성|로드맵|박막|현미경)|첨단디스플레이연구원)/i },
+      { id: "display_keyword_other", section: "디스플레이", label: "기타 디스플레이", pattern: /(디스플레이|display)/i },
+
+      { id: "signage_all", section: "사이니지", label: "사이니지 전체", pattern: /(사이니지|전자게시대|디지털\s*안내체계|디지털\s*게시판)/i },
+      { id: "signage_system", section: "사이니지", label: "디지털 사이니지 시스템", pattern: /(디지털\s*사이니지.*(시스템|구축|설치)|사이니지\s*시스템)/i },
+      { id: "signage_guidance", section: "사이니지", label: "안내체계·전자게시대", pattern: /(안내체계.*사이니지|사이니지.*안내|전자게시대|디지털\s*(안내체계|게시판))/i },
+      { id: "signage_equipment", section: "사이니지", label: "사이니지 기자재·구매", pattern: /(사이니지.*(기자재|구매|구입)|기자재.*사이니지)/i },
+
+      { id: "media_all", section: "미디어", label: "미디어 전체", pattern: /미디어/i },
+      { id: "media_art", section: "미디어", label: "실감미디어·미디어아트", pattern: /(실감미디어.*(제작|콘텐츠|시설)|미디어아트)/i },
+      { id: "media_content", section: "미디어", label: "미디어 콘텐츠", pattern: /(미디어.*콘텐츠|콘텐츠.*미디어)/i },
+      { id: "media_facility", section: "미디어", label: "미디어 시설·시스템", pattern: /(미디어.*(시설물|시설|시스템|스튜디오|센터|공간)|스마트도시\s*미디어)/i },
+      { id: "media_event", section: "미디어", label: "미디어 전시·행사", pattern: /(미디어.*(페스티벌|전시|워크숍|부스|행사|콘서트))/i },
+      { id: "media_education", section: "미디어", label: "[확인] 교육·방송 미디어", pattern: /(미디어.*(교육|학과|강의실|기자재|방송|혁신융합대학)|멀티미디어\s*강의실)/i },
+      { id: "media_it", section: "미디어", label: "[비대상] IT·저장매체·소프트웨어", pattern: /(lto-?9\s*미디어|멀티미디어영상현미경|미디어.*(소프트웨어|플랫폼\s*백업)|디지털미디어.*(뉴스|신문제작)|adobe)/i },
+      { id: "media_other", section: "미디어", label: "기타 미디어", pattern: /미디어/i },
+
+      { id: "facade_all", section: "파사드", label: "미디어파사드 전체", pattern: /미디어\s*파사드/i },
+      { id: "facade_install", section: "파사드", label: "파사드 시설·제작설치", pattern: /(미디어\s*파사드.*(제작|제조|설치|구축|관급)|((제작|제조|설치|구축).*)미디어\s*파사드)/i },
+      { id: "facade_content", section: "파사드", label: "파사드 콘텐츠·운영", pattern: /(미디어\s*파사드.*(콘텐츠|문화콘서트|기획|운영))/i },
+      { id: "facade_maintenance", section: "파사드", label: "파사드 유지보수·교체", pattern: /(미디어\s*파사드.*(보수|유지|교체|개선))/i },
+
+      { id: "its_all", section: "ITS", label: "ITS 전체", pattern: /(지능형교통체계|국도\s*its|\bits\b)/i, exclude: /(itsm|it서비스|me\s*units)/i },
+      { id: "its_construction", section: "ITS", label: "ITS 구축·설치공사", pattern: /((its|지능형교통체계).*(구축|설치|개선|공사)|((구축|설치|개선|공사).*)(its|지능형교통체계))/i, exclude: /(세계총회|전시관|부스)/i },
+      { id: "its_equipment", section: "ITS", label: "ITS 관급장비·시설물", pattern: /((its|지능형교통체계).*(관급|cctv|영상감시|rtu|함체|장치|기둥|시설물)|((관급|cctv|영상감시|rtu|함체|장치|기둥|시설물).*)its)/i },
+      { id: "its_plan", section: "ITS", label: "ITS 계획·연구·설계", pattern: /((its|지능형교통체계).*(기본계획|연구|재검토|설계))/i },
+      { id: "its_event", section: "ITS", label: "[확인] ITS 행사·전시", pattern: /(its.*(세계총회|전시|부스|전시관|콘퍼런스))/i },
+      { id: "its_other", section: "ITS", label: "기타 ITS", pattern: /(지능형교통체계|국도\s*its|\bits\b)/i, exclude: /(itsm|it서비스|me\s*units)/i },
+
+      { id: "vms_all", section: "VMS", label: "도로 VMS 전체", pattern: /\bvms\b/i, exclude: /(진동감시|진동감시설비|vibration)/i },
+      { id: "vms_road", section: "VMS", label: "도로전광표지·VMS 장비", pattern: /((국도|도로|교통|its).*vms|vms.*(국도|도로|교통|전광|관급))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
+      { id: "vms_maintenance", section: "VMS", label: "VMS 유지보수·부품", pattern: /(vms.*(유지|보수|교체|예비품|부품))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
+      { id: "vms_vibration", section: "VMS", label: "[비대상] 진동감시 VMS", pattern: /((진동감시|진동감시설비|vibration).*vms|vms.*(진동감시|진동감시설비|vibration))/i }
+    ];
+
+    const WORK_GROUPS = [
+      { id: "install", label: "제작·설치·구축", pattern: /(제작\s*설치|제조\s*구매\s*설치|구매\s*설치|구입\s*설치|설치|구축|조성|도입)/i },
+      { id: "maintenance", label: "유지보수·교체", pattern: /(유지보수|유지관리|보수|교체|철거|이전\s*설치|기능개선|수리|예비품)/i },
+      { id: "content", label: "콘텐츠 제작", pattern: /(콘텐츠|영상\s*제작|미디어아트\s*제작)/i },
+      { id: "rental", label: "임차·운영", pattern: /(임차|렌탈|운영|운영관리|운영\s*대행)/i },
+      { id: "design", label: "설계·감리", pattern: /(기본설계|실시설계|설계용역|감리)/i },
+      { id: "purchase", label: "구매·납품", pattern: /(구매|구입|납품|관급자재|지급자재|조달물품)/i }
+    ];
+
     const reviewTypeByKey = (key) => REVIEW_TYPES.find((type) => type.key === key);
 
     const hasReviewData = (review) => Boolean(review?.favorite || review?.history?.length) || REVIEW_TYPES.some((type) => review[type.key] || safe(review[type.noteKey], ""));
@@ -1637,16 +1844,24 @@
     };
 
     const dday = (value) => {
+      if (/^\d{4}-\d{2}$/.test(safe(value, ""))) {
+        return { text: "계획", tone: "gray", overdue: false };
+      }
       const info = deadlineInfo(value);
       if (info.days == null) return { text: "\uC77C\uC815 \uBBF8\uD655\uC778", tone: "gray", overdue: false };
       if (info.overdue) {
         const elapsed = info.hours < 24 ? `${info.hours}\uC2DC\uAC04` : `${Math.ceil(info.hours / 24)}\uC77C`;
         return { text: "\uB9C8\uAC10 \uC9C0\uB0A8", sub: `${elapsed} \uACBD\uACFC`, tone: "gray", overdue: true };
       }
-      if (info.days === 0) return { text: "D-DAY", tone: "red", overdue: false };
-      if (info.days <= 3) return { text: `D-${info.days}`, tone: "red", overdue: false };
-      if (info.days <= 7) return { text: `D-${info.days}`, tone: "orange", overdue: false };
-      return { text: `D-${info.days}`, tone: "gray", overdue: false };
+      const target = parseDate(value);
+      const now = new Date();
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const targetStart = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+      const calendarDays = Math.round((targetStart.getTime() - todayStart.getTime()) / 86400000);
+      if (calendarDays === 0) return { text: "D-DAY", tone: "red", overdue: false };
+      if (calendarDays <= 3) return { text: `D-${calendarDays}`, tone: "red", overdue: false };
+      if (calendarDays <= 7) return { text: `D-${calendarDays}`, tone: "orange", overdue: false };
+      return { text: `D-${calendarDays}`, tone: "gray", overdue: false };
     };
 
     const formatKst = (value) => {
@@ -1685,6 +1900,129 @@
         dept: safe(detail.department || item.department, "")
       };
     };
+
+    const keywordSources = (item) => {
+      const detail = item.detailInfo || {};
+      return [
+        { label: "사업명", text: safe(item.bidNtceNm, "") },
+        { label: "품명", text: safe(detail.productName, "") },
+        { label: "세부품목", text: safe(detail.productDetails, "") },
+        { label: "사용목적", text: safe(detail.purpose, "") }
+      ].filter((source) => source.text);
+    };
+
+    const classifyKeywords = (item) => {
+      const sources = keywordSources(item);
+      const fullText = sources.map((source) => source.text).join(" ");
+      const matchedGroups = KEYWORD_GROUPS.filter((group) => group.pattern.test(fullText) && !(group.exclude && group.exclude.test(fullText)));
+      const productPriority = [
+        "vms_vibration", "display_traffic", "vms_road", "display_safety", "display_sports", "display_info", "display_indoor", "display_outdoor",
+        "facade_install", "facade_content", "facade_maintenance", "facade_all",
+        "signage_system", "signage_guidance", "signage_equipment", "signage_all",
+        "its_equipment", "its_construction", "its_plan", "its_event", "its_other", "its_all",
+        "media_it", "media_education", "media_art", "media_content", "media_facility", "media_event", "media_other", "media_all",
+        "display_transport", "display_video", "display_monitor", "display_research", "display_keyword_other", "display_keyword_all",
+        "led_display", "led_control", "led_lighting", "led_research", "led_other", "led_all", "display_general", "display_all"
+      ];
+      const primary = productPriority.map((id) => matchedGroups.find((group) => group.id === id)).find(Boolean) || null;
+      const matchedWorks = WORK_GROUPS.filter((group) => group.pattern.test(fullText));
+      if (!matchedWorks.length && item.businessType === "물품") {
+        const purchase = WORK_GROUPS.find((group) => group.id === "purchase");
+        if (purchase) matchedWorks.push(purchase);
+      }
+      const workPriority = ["maintenance", "content", "rental", "design", "install", "purchase"];
+      const primaryWork = workPriority.map((id) => matchedWorks.find((group) => group.id === id)).find(Boolean) || null;
+      let evidence = "키워드 미분류";
+      let matchedTerm = "";
+      if (primary) {
+        const source = sources.find((entry) => primary.pattern.test(entry.text) && !(primary.exclude && primary.exclude.test(entry.text)));
+        const match = source?.text.match(primary.pattern);
+        evidence = source ? `${source.label} 일치` : "상세정보 일치";
+        matchedTerm = match?.[0]?.replace(/\s+/g, " ").trim() || "";
+      }
+      return {
+        groups: matchedGroups.map((group) => group.id),
+        works: matchedWorks.map((group) => group.id),
+        primaryId: primary?.id || "",
+        primaryLabel: primary?.label || "기타 디스플레이",
+        workId: primaryWork?.id || "",
+        workLabel: primaryWork?.label || "업무 미분류",
+        evidence,
+        matchedTerm
+      };
+    };
+
+    const displayScope = (item) => {
+      const fullText = keywordSources(item).map((source) => source.text).join(" ");
+      const hasLed = /(\bled\b|\boled\b|toled|oledos)/i.test(fullText);
+      if (!hasLed) return { excluded: false, reason: "" };
+      const explicitDisplay = /(전광판|전광표지|안내전광|문자전광|전자게시대|사이니지|미디어\s*월|비디오\s*월|\bled\b\s*(display|디스플레이|스크린|영상시스템|상황판)|전광판.*\bled\b|\bled\b.*(제어시스템|컨트롤러|송수신카드|함체))/i;
+      const clearNonDisplay = /(toled|oledos|uv-c\s*led|\bled\b.*(조명|등기구|가로등|bar|dimming|측정|probe|솔라|실험|광융합|센서|수심게이지)|(조명|등기구|가로등).*\bled\b)/i;
+      if (clearNonDisplay.test(fullText) && !explicitDisplay.test(fullText)) {
+        return { excluded: true, reason: "LED 조명·연구·특수장비로 전광판 분야가 아님" };
+      }
+      const displayRelated = new RegExp(`${explicitDisplay.source}|영상정보디스플레이장치`, "i");
+      if (displayRelated.test(fullText)) return { excluded: false, reason: "" };
+      return { excluded: true, reason: "전광판·영상 디스플레이와 연결되지 않은 LED 사업" };
+    };
+
+    const matchesKeywordGroup = (item, groupId) => {
+      if (!groupId || groupId === "ALL") return true;
+      const primaryOnly = new Set(["display_general", "led_other", "display_keyword_other", "media_other", "its_other"]);
+      if (primaryOnly.has(groupId)) return item._keyword.primaryId === groupId;
+      return item._keyword.groups.includes(groupId);
+    };
+
+    const participation = (item) => {
+      const detail = item.detailInfo || {};
+      const methods = [item.contractMethod, detail.contractMethodRaw, detail.contractType, detail.bidMethod, detail.awardMethod]
+        .filter(Boolean)
+        .join(" ");
+      if (item.serviceType === "발주계획") {
+        return { key: "check", label: "확인 필요", reason: "발주계획 단계로 참가 조건과 공고 일정이 아직 확정되지 않았습니다." };
+      }
+      if (!isActiveDeadline(item.bidClseDt || detail.opinionCloseDt) && parseDate(item.bidClseDt || detail.opinionCloseDt)) {
+        return { key: "closed", label: "마감", reason: "공고 일정이 종료되었습니다." };
+      }
+      if (/(수의시담|전자시담|다자간수의시담|계약대상자)/.test(methods)) {
+        return { key: "restricted", label: "참여 제한", reason: "수의시담·전자시담 방식으로 지정된 대상자만 참여할 수 있습니다." };
+      }
+      if (item.serviceType === "사전규격") {
+        return { key: "check", label: "확인 필요", reason: "사전규격 단계로 실제 입찰 공고와 참가 조건을 다시 확인해야 합니다." };
+      }
+      const registerDeadline = parseDate(detail.registerDeadline);
+      if (registerDeadline && registerDeadline.getTime() < Date.now()) {
+        return { key: "check", label: "확인 필요", reason: "참가자격 등록 마감이 지났습니다. 기존 등록 여부를 확인하세요." };
+      }
+      if (detail.restrictionRegion) {
+        return { key: "check", label: "확인 필요", reason: `지역 제한(${detail.restrictionRegion}) 충족 여부를 확인해야 합니다.` };
+      }
+      if (!detail.bidMethod && !detail.awardMethod) {
+        return { key: "check", label: "확인 필요", reason: "입찰·낙찰 방식 정보가 없어 원문 확인이 필요합니다." };
+      }
+      return { key: "possible", label: "참여 가능", reason: "공개 전자입찰로 확인됩니다. 세부 자격과 제한은 원문에서 최종 확인하세요." };
+    };
+
+    const keywordTone = (label) => {
+      if (label.startsWith("[비대상]") || label.startsWith("[제외]")) return "classification-low";
+      if (label.startsWith("[확인]")) return "classification-check";
+      return "";
+    };
+
+    const participationTone = (key) => ({ possible: "green", check: "changed", restricted: "red", closed: "gray" })[key] || "gray";
+
+    const shortDateTime = (value) => {
+      const text = safe(value, "");
+      if (!text) return "미정";
+      return text.length >= 16 ? `${text.slice(5, 10).replace("-", ".")} ${text.slice(11, 16)}` : text;
+    };
+
+    const enrichBid = (item) => ({
+      ...item,
+      _keyword: classifyKeywords(item),
+      _scope: displayScope(item),
+      _participation: participation(item)
+    });
 
     const displayKey = (item) => [
       item.serviceType,
@@ -1861,6 +2199,15 @@
       if (filters.keyword !== "ALL") {
         list = list.filter((item) => safe(item.searchKeyword, "") === filters.keyword || safe(item.bidNtceNm, "").includes(filters.keyword));
       }
+      if (filters.keywordDetail !== "ALL") {
+        list = list.filter((item) => matchesKeywordGroup(item, filters.keywordDetail));
+      }
+      if (filters.work !== "ALL") {
+        list = list.filter((item) => item._keyword.works.includes(filters.work));
+      }
+      if (filters.participation !== "ALL") {
+        list = list.filter((item) => item._participation.key === filters.participation);
+      }
       if (filters.region !== "ALL") list = list.filter((item) => item.region === filters.region);
       if (filters.budget !== "ALL") {
         list = list.filter((item) => {
@@ -1877,14 +2224,20 @@
       if (query) {
         list = list.filter((item) => {
           const c = contact(item);
+          const detail = item.detailInfo || {};
           return [
             item.bidNtceNm,
             item.ntceInsttNm,
             item.dminsttNm,
             item.bidNtceNo,
+            item.contractMethod,
+            item.searchKeyword,
             item.region,
             c.name,
-            c.tel
+            c.tel,
+            detail.productName,
+            detail.productDetails,
+            detail.purpose
           ].some((value) => safe(value, "").toLowerCase().includes(query));
         });
       }
@@ -1936,7 +2289,7 @@
       if (isDateListMode(state.listMode)) parts.push(dateLabel(state.listMode));
       else if (listLabels[state.listMode]) parts.push(listLabels[state.listMode]);
 
-      ["filterService", "filterContract", "filterKeyword", "filterRegion", "filterBudget"].forEach((id) => {
+      ["filterService", "filterContract", "filterKeyword", "filterKeywordDetail", "filterWork", "filterParticipation", "filterRegion", "filterBudget"].forEach((id) => {
         const select = $(id);
         if (select?.value && select.value !== "ALL") {
           parts.push(select.selectedOptions[0]?.textContent?.trim() || select.value);
@@ -1961,6 +2314,9 @@
       $("filterService").value = state.filters.service;
       $("filterContract").value = state.filters.contract;
       $("filterKeyword").value = state.filters.keyword;
+      $("filterKeywordDetail").value = state.filters.keywordDetail;
+      $("filterWork").value = state.filters.work;
+      $("filterParticipation").value = state.filters.participation;
       $("filterRegion").value = state.filters.region;
       $("filterBudget").value = state.filters.budget;
       $("searchInput").value = state.query;
@@ -1990,6 +2346,9 @@
         service: "ALL",
         contract: "ALL",
         keyword: "ALL",
+        keywordDetail: "ALL",
+        work: "ALL",
+        participation: "ALL",
         region: "ALL",
         budget: "ALL",
         ...(item.snapshot?.filters || {})
@@ -2010,7 +2369,16 @@
     };
 
     const resetFilters = () => {
-      state.filters = { service: "ALL", contract: "ALL", keyword: "ALL", region: "ALL", budget: "ALL" };
+      state.filters = {
+        service: "ALL",
+        contract: "ALL",
+        keyword: "ALL",
+        keywordDetail: "ALL",
+        work: "ALL",
+        participation: "ALL",
+        region: "ALL",
+        budget: "ALL"
+      };
       state.query = "";
       state.listMode = "all";
       state.savedFilterId = "";
@@ -2124,6 +2492,17 @@
       });
     };
 
+    const openMobileSide = () => {
+      if (!window.matchMedia("(max-width: 760px)").matches) return;
+      const side = $("detailSide");
+      side.classList.add("mobile-open");
+      requestAnimationFrame(() => side.scrollIntoView({ behavior: "smooth", block: "start" }));
+    };
+
+    const closeMobileSide = () => {
+      $("detailSide")?.classList.remove("mobile-open");
+    };
+
     const renderStatusBoard = () => {
       const reviewMeta = $("reviewMeta");
       const reviewBoard = $("reviewBoard");
@@ -2143,7 +2522,7 @@
       });
       const reviewedIds = new Set(groups.flatMap((group) => group.list.map((item) => item.bidNtceNo)));
       reviewMeta.textContent = reviewedIds.size.toLocaleString("ko-KR") + "\uAC74";
-      reviewBoard.innerHTML = groups.filter((group) => group.list.length > 0).map(({ type, list }) => {
+      reviewBoard.innerHTML = groups.map(({ type, list }) => {
         const items = list.slice(0, 12).map((item) => {
           const review = reviewState(item);
           const note = type.key === "favorite"
@@ -2155,7 +2534,7 @@
               <span class="status-item-note">${escapeHtml(note)}</span>
             </button>
           `;
-        }).join("");
+        }).join("") || `<div class="status-card-empty">${type.empty || "관심 사업이 없습니다."}</div>`;
         return `
           <section class="status-card">
             <div class="status-card-head">
@@ -2165,7 +2544,7 @@
             <div class="status-list">${items}</div>
           </section>
         `;
-      }).join("") || `<div class="status-empty">\uAD00\uC2EC, \uCCB4\uD06C, \uC774\uC288, \uC644\uB8CC\uB97C \uD45C\uC2DC\uD558\uBA74 \uC5EC\uAE30\uC5D0 \uBAA8\uC544\uBCF4\uC5EC\uC694.</div>`;
+      }).join("");
       createIcons();
     };
 
@@ -2284,6 +2663,7 @@
         const d = dday(item.bidClseDt);
         const postedTime = safe(item.bidNtceRegistDt, "").slice(11, 16);
         const favorite = reviewState(item).favorite;
+        const participationInfo = item._participation;
         return `
           <button class="priority-card ${state.selectedId === item.bidNtceNo ? "selected" : ""}" data-select="${item.bidNtceNo}">
             <div class="badge-row">
@@ -2292,13 +2672,45 @@
                 ? `<span class="badge ${isRevision(item) ? "changed" : "green"}">${isRevision(item) ? "\uC815\uC815" : "\uC2E0\uADDC"} \u00B7 ${postedTime}</span>`
                 : `<span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>`}
               ${favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
+              <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
               <span class="badge gray">${contractLabel(item)}</span>
             </div>
             <div class="title-main">${safe(item.bidNtceNm)}</div>
             <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${money(item.assignBudgetAmt)}</div>
+            <div class="classification-line"><strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong><span>· ${escapeHtml(item._keyword.workLabel)}</span></div>
           </button>
         `;
       }).join("") || `<div class="empty">${state.priorityMode === "today" ? "\uC624\uB298 \uB4F1\uB85D\uB41C \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : state.priorityMode === "favorite" ? "\uAD00\uC2EC \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4." : "\uC6B0\uC120 \uD655\uC778 \uC0AC\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."}</div>`;
+    };
+
+    const populateAdvancedFilters = () => {
+      const visibleGroups = KEYWORD_GROUPS.filter((group) => !group.hidden);
+      const sections = [...new Set(visibleGroups.map((group) => group.section))];
+      const keywordOptions = sections.map((section) => {
+        const options = visibleGroups.filter((group) => group.section === section).map((group) => {
+          const count = state.bids.filter((item) => matchesKeywordGroup(item, group.id)).length;
+          return `<option value="${group.id}">${escapeHtml(group.label)} (${count.toLocaleString("ko-KR")})</option>`;
+        }).join("");
+        return `<optgroup label="${escapeHtml(section)}">${options}</optgroup>`;
+      }).join("");
+      const workOptions = WORK_GROUPS.map((group) => {
+        const count = state.bids.filter((item) => item._keyword.works.includes(group.id)).length;
+        return `<option value="${group.id}">${escapeHtml(group.label)} (${count.toLocaleString("ko-KR")})</option>`;
+      }).join("");
+      const participationOptions = [
+        { id: "possible", label: "참여 가능" },
+        { id: "check", label: "확인 필요" },
+        { id: "restricted", label: "참여 제한" },
+        { id: "closed", label: "마감" }
+      ].map((option) => {
+        const count = state.bids.filter((item) => item._participation.key === option.id).length;
+        return `<option value="${option.id}">${option.label} (${count.toLocaleString("ko-KR")})</option>`;
+      }).join("");
+
+      $("filterKeywordDetail").innerHTML = `<option value="ALL">전체 상세 분류</option>${keywordOptions}`;
+      $("filterWork").innerHTML = `<option value="ALL">전체 업무 유형</option>${workOptions}`;
+      $("filterParticipation").innerHTML = `<option value="ALL">전체 참여 판단</option>${participationOptions}`;
+      syncFilterControls();
     };
 
     const renderListMode = () => {
@@ -2350,7 +2762,8 @@
           const todayVisible = state.filtered.filter(isToday).length;
           resultMeta.textContent = "\uC624\uB298 " + todayVisible.toLocaleString("ko-KR") + "\uAC74 \uBA3C\uC800 \u00B7 "
             + state.filtered.length.toLocaleString("ko-KR") + "\uAC74 \uD45C\uC2DC / \uC804\uCCB4 "
-            + state.bids.length.toLocaleString("ko-KR") + "\uAC74";
+            + state.bids.length.toLocaleString("ko-KR") + "\uAC74"
+            + (state.scopeExcludedCount ? " \u00B7 LED \uBE44\uB300\uC0C1 " + state.scopeExcludedCount.toLocaleString("ko-KR") + "\uAC74 \uC81C\uC678" : "");
         }
       }
 
@@ -2358,6 +2771,7 @@
         const c = contact(item);
         const d = dday(item.bidClseDt);
         const r = reviewState(item);
+        const participationInfo = item._participation;
         const revised = isRevision(item);
         const relatedCount = relatedItems(item).length;
         const revision = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
@@ -2371,11 +2785,17 @@
                   <div class="title-main">${safe(item.bidNtceNm)}</div>
                 </div>
                 <div class="title-sub">${safe(item.dminsttNm || item.ntceInsttNm)} \u00B7 ${safe(item.region)}</div>
-                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">\uC624\uB298</span>` : ""}\uAC8C\uC2DC ${safe(item.bidNtceRegistDt)}</div>
+                <div class="title-sub published-date">${isToday(item) ? `<span class="today-marker">\uC624\uB298</span>` : ""}등록 ${safe(item.bidNtceRegistDt)}</div>
+                <div class="classification-line">
+                  <strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong>
+                  <span>· ${escapeHtml(item._keyword.workLabel)}</span>
+                  <span class="classification-evidence">${escapeHtml(item._keyword.evidence)}${item._keyword.matchedTerm ? ` “${escapeHtml(item._keyword.matchedTerm)}”` : ""}</span>
+                </div>
                 <div class="badge-row">
                   ${isToday(item) && !revised ? '<span class="badge green">\uC2E0\uADDC</span>' : ""}
                   ${revised ? `<span class="badge changed">\uC815\uC815 ${revision}\uCC28</span>` : ""}
                   ${relatedCount ? `<span class="badge gray">\uAD00\uB828 ${relatedCount}\uAC74</span>` : ""}
+                  <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
                   ${r.checked ? '<span class="badge green">\uCCB4\uD06C</span>' : ""}
                   ${r.issue ? '<span class="badge red">\uC774\uC288</span>' : ""}
                   ${r.done ? '<span class="badge gray">\uC644\uB8CC</span>' : ""}
@@ -2384,7 +2804,13 @@
             </td>
             <td><span class="badge ${typeClass(item)}">${typeLabel(item)}</span></td>
             <td><span class="money">${money(item.assignBudgetAmt)}</span></td>
-            <td><span class="dday ${d.tone}">${d.text}</span><div class="title-sub">${safe(item.bidClseDt)}${d.sub ? ` / ${d.sub}` : ""}</div></td>
+            <td>
+              <span class="dday ${d.tone}">${d.text}</span>
+              <div class="schedule-stack">
+                <div class="schedule-line"><strong>등록</strong><span>${shortDateTime(item.bidNtceRegistDt)}</span></div>
+                <div class="schedule-line"><strong>${item.serviceType === "발주계획" ? "예정" : "마감"}</strong><span>${shortDateTime(item.bidClseDt)}${d.sub ? ` / ${d.sub}` : ""}</span></div>
+              </div>
+            </td>
             <td><strong>${c.name}</strong><div class="title-sub">${c.tel}</div></td>
           </tr>
         `;
@@ -2412,6 +2838,8 @@
       const c = contact(item);
       const d = dday(item.bidClseDt);
       const r = reviewState(item);
+      const detail = item.detailInfo || {};
+      const participationInfo = item._participation;
       const revision = revisionChanges(item);
       const related = relatedItems(item);
       const revisionOrder = safe(item.bidNtceOrd, "").replace(/^0+/, "") || "0";
@@ -2443,21 +2871,36 @@
           <span class="badge ${typeClass(item)}">${typeLabel(item)}</span>
           <span class="badge ${d.tone === "red" ? "red" : d.tone === "orange" ? "changed" : "gray"}">${d.text}</span>
           ${isRevision(item) ? `<span class="badge changed">\uC815\uC815 ${revisionOrder}\uCC28</span>` : `<span class="badge green">\uC2E0\uADDC</span>`}
+          <span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span>
           ${r.favorite ? '<span class="badge favorite">\uAD00\uC2EC</span>' : ""}
           <span class="badge gray">${safe(item.bidNtceNo)}</span>
         </div>
         <h2 class="detail-title">${safe(item.bidNtceNm)}</h2>
         ${revision.labels.length ? `<div class="note-empty">\uC774\uC804 \uCC28\uC218 \uB300\uBE44 \uBCC0\uACBD: ${revision.labels.join(", ")}</div>` : ""}
+        <div class="participation-summary ${participationInfo.key}">
+          <div class="participation-summary-head"><span>참여 판단</span><span class="badge ${participationTone(participationInfo.key)}">${participationInfo.label}</span></div>
+          <p>${escapeHtml(participationInfo.reason)}</p>
+        </div>
         <div class="field-grid">
           ${field("\uC218\uC694\uAE30\uAD00", item.dminsttNm, { changed: revision.keys.has("institution") })}
           ${field("\uACF5\uACE0\uAE30\uAD00", item.ntceInsttNm)}
-          ${field(item.serviceType === "\uACF5\uACE0" ? "\uACF5\uACE0 \uAC8C\uC2DC\uC77C" : "\uB4F1\uB85D\uC77C", item.bidNtceRegistDt)}
+          ${field("등록일", item.bidNtceRegistDt)}
+          ${field("공고 구분", detail.noticeKind)}
           ${field("\uC608\uC0B0", money(item.assignBudgetAmt), { changed: revision.keys.has("budget") })}
           ${field("\uB9C8\uAC10/\uC608\uC815", `${safe(item.bidClseDt)} / ${d.text}${d.sub ? ` (${d.sub})` : ""}`, { changed: revision.keys.has("deadline") })}
           ${field("\uB2F4\uB2F9\uC790", c.name)}
           ${field("\uC804\uD654", c.tel)}
+          ${field("담당 부서/이메일", `${safe(c.dept)} / ${safe(c.email)}`)}
           ${field("\uACC4\uC57D\uBC29\uBC95", item.contractMethod || item.contractMethodRaw, { changed: revision.keys.has("contract") })}
+          ${field("입찰/낙찰 방법", `${safe(detail.bidMethod)} / ${safe(detail.awardMethod)}`)}
+          ${field("지역 제한", detail.restrictionRegion || item.region)}
+          ${field("참가등록 마감", detail.registerDeadline)}
+          ${field("입찰 시작/개찰", `${safe(detail.bidBeginDt)} / ${safe(detail.openDt)}`)}
           ${field("\uD0A4\uC6CC\uB4DC/\uC9C0\uC5ED", `${safe(item.searchKeyword)} / ${safe(item.region)}`)}
+          ${field("상세 분류", `${item._keyword.primaryLabel} / ${item._keyword.workLabel}`)}
+          ${field("검색 근거", `${item._keyword.evidence}${item._keyword.matchedTerm ? ` - ${item._keyword.matchedTerm}` : ""}`)}
+          ${field("품명/세부품목", `${safe(detail.productName)} / ${safe(detail.productDetails)}`)}
+          ${field("사용 목적", detail.purpose)}
         </div>
         <div class="detail-actions">
           <button class="favorite ${r.favorite ? "active" : ""}" data-action="favorite"><i data-lucide="star"></i><span>${r.favorite ? "\uAD00\uC2EC \uD574\uC81C" : "\uAD00\uC2EC"}</span></button>
@@ -2512,6 +2955,8 @@
         `\uC720\uD615: ${typeLabel(item)} / \uBC88\uD638: ${safe(item.bidNtceNo)}`,
         `\uAE30\uAD00: ${safe(item.dminsttNm || item.ntceInsttNm)}`,
         `\uAC8C\uC2DC/\uB4F1\uB85D: ${safe(item.bidNtceRegistDt)}`,
+        `상세 분류: ${item._keyword.primaryLabel} / ${item._keyword.workLabel}`,
+        `참여 판단: ${item._participation.label} - ${item._participation.reason}`,
         `\uC608\uC0B0: ${money(item.assignBudgetAmt)}`,
         `\uB9C8\uAC10: ${safe(item.bidClseDt)} (${deadline.text}${deadline.sub ? ` / ${deadline.sub}` : ""})`,
         ...reviewLines,
@@ -2542,16 +2987,24 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
       state.rawBids = Array.isArray(payload.bids) ? payload.bids : [];
-      state.bids = dedupeBids(state.rawBids);
+      const enrichedBids = dedupeBids(state.rawBids).map(enrichBid);
+      state.scopeExcludedCount = enrichedBids.filter((item) => item._scope.excluded).length;
+      state.bids = enrichedBids.filter((item) => !item._scope.excluded);
       state.dataMeta = payload;
       const times = payload.updateSchedule?.times || ["07:00", "11:00", "16:00"];
       $("lastUpdated").textContent = payload.generatedAt ? `\uCD5C\uC885 \uC5C5\uB370\uC774\uD2B8 ${formatKst(payload.generatedAt)} KST` : "\uC5C5\uB370\uC774\uD2B8 \uC2DC\uAC01 \uBBF8\uD655\uC778";
       $("nextUpdate").textContent = `\uC608\uC815 ${times.join(", ")} KST`;
+      populateAdvancedFilters();
       state.selectedId = [...state.bids].sort(todayFirst)[0]?.bidNtceNo || "";
       render();
     };
 
     document.addEventListener("click", (event) => {
+      if (event.target.closest("#mobileDetailClose")) {
+        closeMobileSide();
+        return;
+      }
+
       const favoriteKey = event.target.closest("[data-favorite]")?.dataset.favorite;
       if (favoriteKey) {
         const current = reviewState({ bidNtceNo: favoriteKey });
@@ -2579,6 +3032,7 @@
       if (sideTab) {
         state.sideTab = sideTab;
         renderSideTabs();
+        openMobileSide();
         createIcons();
         return;
       }
@@ -2588,6 +3042,7 @@
         state.selectedId = select.dataset.select;
         if (select.closest("#reviewBoard")) state.sideTab = "detail";
         render();
+        openMobileSide();
         return;
       }
 
@@ -2599,6 +3054,15 @@
       if (action === "issue") setReview(state.selectedId, { issue: !r.issue });
       if (action === "done") setReview(state.selectedId, { done: !r.done });
       if (action === "copy") copySummary();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileSide();
+    });
+
+    $("mobileDetailClose").addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeMobileSide();
     });
 
     document.addEventListener("input", (event) => {
@@ -2617,17 +3081,23 @@
       setReviewNote(state.selectedId, type, event.target.value, true);
     });
 
-    $("filterControls").addEventListener("change", () => {
+    const updateFiltersFromControls = () => {
       state.savedFilterId = "";
       state.filters = {
         service: $("filterService").value,
         contract: $("filterContract").value,
         keyword: $("filterKeyword").value,
+        keywordDetail: $("filterKeywordDetail").value,
+        work: $("filterWork").value,
+        participation: $("filterParticipation").value,
         region: $("filterRegion").value,
         budget: $("filterBudget").value
       };
       render();
-    });
+    };
+
+    $("filterControls").addEventListener("change", updateFiltersFromControls);
+    $("advancedFilterControls").addEventListener("change", updateFiltersFromControls);
 
     $("filterDate").addEventListener("change", (event) => {
       state.savedFilterId = "";
