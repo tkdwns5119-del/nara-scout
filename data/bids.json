@@ -8,7 +8,7 @@
   "totalCount": 362,
   "rawCount": 420,
   "successCalls": 192,
-  "failedCalls": 19,
+  "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
   "updateSchedule": {
@@ -21,13 +21,6 @@
     "source": "GitHub Actions",
     "note": "GitHub Actions schedules use UTC and may start a few minutes late depending on platform load."
   },
-  "aiStats": {
-    "provider": "groq",
-    "analyzed": 0,
-    "cached": 1,
-    "skipped": 342,
-    "model": "llama-3.1-8b-instant"
-  },
   "serviceStats": {
     "공고": 195,
     "사전규격": 71,
@@ -38,27 +31,7 @@
     "미디어/파사드 계열": 120,
     "ITS/VMS 계열": 20
   },
-  "errors": [
-    "[Groq/BID-R26BK01696535-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01696491-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01686519-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BF-R26BD00266861] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01693892-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01690406-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BF-R26BD00267410] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BF-R26BD00266610] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BF-R26BD00266067] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01694203-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01697503-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01693653-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01694889-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01693737-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01678056-001] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01692468-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01690479-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01691071-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} ",
-    "[Groq/BID-R26BK01690293-000] Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}} "
-  ],
+  "errors": [],
   "bids": [
     {
       "bidId": "BID-R26BK01700018-000",
@@ -620,9 +593,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BF-R26BD00267432",
@@ -743,9 +714,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "교육지원과-9540",
-      "linkedBidNtceNoList": "",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01698205-000",
@@ -1161,9 +1130,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01691543-000",
@@ -1294,9 +1261,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "PL-R26DD20853774",
@@ -1437,9 +1402,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "PL-R26DD20853673",
@@ -1580,9 +1543,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01693370-000",
@@ -1715,9 +1676,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "관광과-13249",
-      "linkedBidNtceNoList": "",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01694762-000",
@@ -1933,9 +1892,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01694387-000",
@@ -2129,9 +2086,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "운영지원과-6327",
-      "linkedBidNtceNoList": "",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "BID-R26BK01693892-000",
@@ -2211,9 +2166,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "PL-R26DD20852050",
@@ -2341,9 +2294,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01693650-000",
@@ -2494,9 +2445,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "PL-R26DD20851584",
@@ -2984,9 +2933,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BF-R26BD00266114",
@@ -3355,9 +3302,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "C1202608348",
-      "linkedBidNtceNoList": "",
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      "linkedBidNtceNoList": ""
     },
     {
       "bidId": "PL-R26DD20850961",
@@ -3631,9 +3576,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01691071-000",
@@ -3700,9 +3643,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01690860-000",
@@ -3908,9 +3849,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01690345-000",
@@ -4070,9 +4009,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "BID-R26BK01690169-000",
@@ -5974,9 +5911,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiStatus": "ERROR",
-      "aiError": "Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+      }
     },
     {
       "bidId": "PL-R26DD20848070",
@@ -12712,21 +12647,7 @@
         "unit": "",
         "orderAmount": 0,
         "rawBusinessDivision": ""
-      },
-      "aiPriority": "MEDIUM",
-      "aiScore": 60,
-      "aiSummary": "노암예술터널 미디어아트 콘텐츠 공모전 운영 및 제작 용역",
-      "aiReason": "미디어 관련 용역으로, 전광판/LED/미디어월/사이니지/ITS/VMS 사업과 관련성이 있으나, 용역 형식으로, 예산 및 실행 가능성은 확인 필요",
-      "aiAction": "사업부 담당자와 협의하여, 용역의 범위 및 예산 확인 필요",
-      "aiTags": [
-        "미디어",
-        "용역",
-        "노암예술터널"
-      ],
-      "aiStatus": "CACHED",
-      "aiProvider": "groq",
-      "aiModel": "llama-3.1-8b-instant",
-      "aiGeneratedAt": "2026-08-10T08:29:08.395Z"
+      }
     },
     {
       "bidId": "BID-R26BK01670947-000",

@@ -45,9 +45,6 @@ jobs:
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
-          AI_ANALYSIS_LIMIT: ${{ vars.AI_ANALYSIS_LIMIT }}
           NODE_OPTIONS: --dns-result-order=ipv4first
         run: |
           for attempt in 1 2 3; do
