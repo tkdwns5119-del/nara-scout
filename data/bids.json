@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-31T08:35:49.622Z",
+  "generatedAt": "2026-08-31T14:51:06.886Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "rangeBegin": "202608020000",
   "rangeEnd": "202608312359",
-  "totalCount": 330,
-  "rawCount": 383,
+  "totalCount": 331,
+  "rawCount": 384,
   "successCalls": 192,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -22,17 +22,93 @@
     "note": "GitHub Actions schedules use UTC and may start a few minutes late depending on platform load."
   },
   "serviceStats": {
-    "공고": 176,
+    "공고": 177,
     "사전규격": 69,
     "발주계획": 85
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 195,
+    "디스플레이/사이니지 계열": 196,
     "미디어/파사드 계열": 119,
     "ITS/VMS 계열": 16
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01704409-000",
+      "bidNtceNo": "R26BK01704409",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "[지명경쟁] (가칭)열린도서관 실내 전광판 구매·설치(긴급)",
+      "ntceInsttNm": "서울특별시 강서구",
+      "dminsttNm": "서울특별시 강서구",
+      "assignBudgetAmt": 235606900,
+      "bidNtceRegistDt": "2026-08-31 18:34",
+      "bidClseDt": "2026-09-07 10:00",
+      "searchKeyword": "전광판",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01704409&bidPbancOrd=000",
+      "contractMethod": "지명경쟁 / 적격심사",
+      "contractMethods": [
+        "지명경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01704409&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01704409&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01704409&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01704409&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01704409&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01704409&bidPbancOrd=000",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격 고시금액 미만",
+        "contractType": "지명경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-09-01 10:00",
+        "bidClseDt": "2026-09-07 10:00",
+        "openDt": "2026-09-07 11:00",
+        "registerDeadline": "2026-09-06 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "최인숙",
+        "officerTel": "02-2600-6209",
+        "officerEmail": "ilovegangseo@gangseo.seoul.kr",
+        "referenceNo": "서울특별시 강서구 공고 제2026-155호",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BID-R26BK01706273-000",
       "bidNtceNo": "R26BK01706273",
@@ -3364,7 +3440,7 @@
         "officerTel": "02-2600-6209",
         "officerEmail": "",
         "referenceNo": "교육지원과-9540",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01704409",
         "productName": "(가칭)열린도서관 실내 전광판 구매·설치(긴급)",
         "productDetails": "[1^5512190301^안내전광판]",
         "purpose": "",
@@ -3374,7 +3450,7 @@
         "rawBusinessDivision": "물품"
       },
       "refNo": "교육지원과-9540",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01704409"
     },
     {
       "bidId": "BID-R26BK01698205-000",
@@ -5156,7 +5232,7 @@
         "officerTel": "02-2600-6986",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01704409000",
         "productName": "전광판",
         "productDetails": "",
         "purpose": "(가칭)열린도서관 전면서가 및 스마트워크 안내전광판",
