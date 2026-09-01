@@ -36,12 +36,23 @@ if (!API_KEYS.BID) {
 }
 
 const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS"];
-const SEARCH_TERMS = BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]);
+const INDIRECT_KEYWORDS = {
+    "문화시설": ["문화센터", "체육센터", "복합센터", "커뮤니티센터"],
+    "건립": ["건립", "신축"],
+    "체육시설": ["체육관", "운동장", "경기장", "수영장", "축구", "야구", "스포츠파크", "스포츠타운"]
+};
+const SEARCH_TERMS = [
+    ...BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]),
+    ...Object.values(INDIRECT_KEYWORDS).flat()
+];
 
 const KEYWORD_CATEGORY = {
     "디스플레이/사이니지 계열": ["전광판", "LED", "디스플레이", "사이니지"],
     "미디어/파사드 계열": ["미디어", "파사드"],
-    "ITS/VMS 계열": ["ITS", "VMS"]
+    "ITS/VMS 계열": ["ITS", "VMS"],
+    "전광판 외 간접 사업/문화시설": INDIRECT_KEYWORDS["문화시설"],
+    "전광판 외 간접 사업/건립": INDIRECT_KEYWORDS["건립"],
+    "전광판 외 간접 사업/체육시설": INDIRECT_KEYWORDS["체육시설"]
 };
 
 // 문서 기준 서비스 URL + 오퍼레이션명 적용.

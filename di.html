@@ -648,6 +648,7 @@
     let reviewRemoteRef = null;
     let reviewRemoteApplying = false;
     let reviewSaveTimer = null;
+    const INDIRECT_PROJECT_PATTERN = /(문화센터|체육센터|복합센터|커뮤니티센터|건립|신축|체육관|운동장|경기장|수영장|축구|야구|스포츠\s*(파크|타운))/i;
     const KEYWORD_GROUPS = [
       { id: "display_all", section: "전광판", label: "전광판 전체", pattern: /(전광판|전광표지|안내전광|문자전광|led\s*(display|디스플레이|스크린)|옥외\s*led|실내\s*led|\bvms\b)/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "display_traffic", section: "전광판", label: "교통·도로 전광판", pattern: /(도로.*(전광|표지)|교통.*(전광|정보표시)|가변정보표지|전광.*교통|its.*(도로|교통|관제|전광|표지)|버스정보.*(안내|표시))/i, exclude: /(세계총회.*(부스|전시관)|it서비스)/i },
@@ -701,7 +702,12 @@
       { id: "vms_all", section: "VMS", label: "도로 VMS 전체", pattern: /\bvms\b/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "vms_road", section: "VMS", label: "도로전광표지·VMS 장비", pattern: /((국도|도로|교통|its).*vms|vms.*(국도|도로|교통|전광|관급))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "vms_maintenance", section: "VMS", label: "VMS 유지보수·부품", pattern: /(vms.*(유지|보수|교체|예비품|부품))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
-      { id: "vms_vibration", section: "VMS", label: "[비대상] 진동감시 VMS", pattern: /((진동감시|진동감시설비|vibration).*vms|vms.*(진동감시|진동감시설비|vibration))/i }
+      { id: "vms_vibration", section: "VMS", label: "[비대상] 진동감시 VMS", pattern: /((진동감시|진동감시설비|vibration).*vms|vms.*(진동감시|진동감시설비|vibration))/i },
+
+      { id: "indirect_all", section: "전광판 외 간접 사업", label: "간접 사업 전체", pattern: INDIRECT_PROJECT_PATTERN },
+      { id: "indirect_culture", section: "전광판 외 간접 사업", label: "문화시설", pattern: /(문화센터|체육센터|복합센터|커뮤니티센터)/i },
+      { id: "indirect_construction", section: "전광판 외 간접 사업", label: "건립·신축", pattern: /(건립|신축)/i },
+      { id: "indirect_sports", section: "전광판 외 간접 사업", label: "체육시설", pattern: /(체육관|운동장|경기장|수영장|축구|야구|스포츠\s*(파크|타운))/i }
     ];
     const WORK_GROUPS = [
       { id: "install", label: "제작·설치·구축", pattern: /(제작\s*설치|제조\s*구매\s*설치|구매\s*설치|구입\s*설치|설치|구축|조성|도입)/i },
@@ -869,7 +875,8 @@
         "its_equipment", "its_construction", "its_plan", "its_event", "its_other", "its_all",
         "media_it", "media_education", "media_art", "media_content", "media_facility", "media_event", "media_other", "media_all",
         "display_transport", "display_video", "display_monitor", "display_research", "display_keyword_other", "display_keyword_all",
-        "led_display", "led_control", "led_lighting", "led_research", "led_other", "led_all", "display_general", "display_all"
+        "led_display", "led_control", "led_lighting", "led_research", "led_other", "led_all", "display_general", "display_all",
+        "indirect_culture", "indirect_construction", "indirect_sports"
       ];
       const primary = productPriority.map((id) => matchedGroups.find((group) => group.id === id)).find(Boolean) || null;
       const matchedWorks = WORK_GROUPS.filter((group) => group.pattern.test(fullText));
@@ -901,6 +908,7 @@
 
     function displayScope(item) {
       const fullText = keywordSources(item).map((source) => source.text).join(" ");
+      if (INDIRECT_PROJECT_PATTERN.test(fullText)) return { excluded: false, reason: "" };
       const hasLed = /(\bled\b|\boled\b|toled|oledos)/i.test(fullText);
       if (!hasLed) return { excluded: false, reason: "" };
       const explicitDisplay = /(전광판|전광표지|안내전광|문자전광|전자게시대|사이니지|미디어\s*월|비디오\s*월|\bled\b\s*(display|디스플레이|스크린|영상시스템|상황판)|전광판.*\bled\b|\bled\b.*(제어시스템|컨트롤러|송수신카드|함체))/i;
@@ -944,6 +952,7 @@
       const direct = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|vms|its|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
       const offTarget = /(조명|가로등|등기구|살균|현미경|센서|휴지통|반도체|교육|연구|부트캠프|소프트웨어|전세버스|콘텐츠 제작)/i;
       if (direct.test(text)) return { key: "direct", label: "직접 연관" };
+      if (INDIRECT_PROJECT_PATTERN.test(text)) return { key: "check", label: "간접 사업" };
       if (offTarget.test(text)) return { key: "low", label: "연관성 낮음" };
       return { key: "check", label: "연관 확인" };
     }
