@@ -422,6 +422,25 @@
     .note-foot { min-height: 26px; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
     .save-note { min-height: 28px; padding: 0 9px; border: 1px solid var(--line); background: #fff; font-size: 10px; font-weight: 800; }
 
+    .report-section { padding: 0 15px 15px; }
+    .report-toolbar { min-height: 34px; margin-bottom: 8px; display: flex; align-items: center; justify-content: flex-end; }
+    .copy-report { min-height: 30px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #9dcfd0; background: var(--teal-soft); color: var(--teal); font-size: 10px; font-weight: 850; }
+    .copy-report:hover { border-color: var(--teal); background: #dff3f3; }
+    .report-sheet {
+      margin: 0;
+      min-height: 300px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfcfd;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 11px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
     details { border-bottom: 1px solid var(--line); }
     summary {
       min-height: 43px;
@@ -991,6 +1010,74 @@
       return amount ? `${amount.toLocaleString("ko-KR")}원` : "미정";
     }
 
+    function reportDate(value) {
+      const text = safe(value, "");
+      const match = text.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/);
+      if (!match) return text || "원문/첨부 확인 필요";
+      const date = `${Number(match[1])}. ${Number(match[2])}. ${Number(match[3])}.`;
+      return match[4] ? `${date} ${match[4]}:${match[5]}` : date;
+    }
+
+    function reportPeriod(item, detail) {
+      if (detail.deliveryLimitDt) return `~ ${reportDate(detail.deliveryLimitDt)}까지`;
+      const year = detail.orderYear || item.orderYear;
+      const month = detail.orderMonth || item.orderMnth;
+      if (year && month) return `${year}. ${Number(month)}월 예정`;
+      return "원문/첨부 확인 필요";
+    }
+
+    function reportContract(item, detail) {
+      const methods = [detail.contractMethodRaw, detail.contractType, detail.bidMethod, detail.awardMethod, item.contractMethod]
+        .flatMap((value) => safe(value, "").split(" / "))
+        .map((value) => value.trim())
+        .filter(Boolean);
+      return [...new Set(methods)].join(", ") || "원문/첨부 확인 필요";
+    }
+
+    function reportAmount(item, detail) {
+      const amount = Number(detail.orderAmount || item.assignBudgetAmt || 0);
+      return amount ? `${amount.toLocaleString("ko-KR")}원 (VAT 포함 여부 원문 확인)` : "원문/첨부 확인 필요";
+    }
+
+    function reportApplication(detail) {
+      return detail.registerDeadline ? `~ ${reportDate(detail.registerDeadline)}까지` : "원문/첨부 확인 필요";
+    }
+
+    function reportBidSchedule(item, detail) {
+      const begin = detail.bidBeginDt ? reportDate(detail.bidBeginDt) : "";
+      const close = item.bidClseDt || detail.bidClseDt;
+      const range = begin && close ? `${begin} ~ ${reportDate(close)}` : close ? `~ ${reportDate(close)}까지` : "원문/첨부 확인 필요";
+      return detail.openDt ? `${range} (개찰 ${reportDate(detail.openDt)})` : range;
+    }
+
+    function buildReportText(item, detail, docs, review) {
+      const attachmentCount = docs.filter((doc) => !/(상세\s*URL|원문)/i.test(doc.label || "")).length;
+      const attachmentText = attachmentCount
+        ? `첨부 규격서 ${attachmentCount}건 등록 / 현장 방문 조건은 원문·첨부 확인 필요`
+        : "현장 방문 및 시방서 제공 조건은 원문/첨부 확인 필요";
+      const sections = [
+        `- 사업명 : ${safe(item.bidNtceNm)}`,
+        `- 수요기관 : ${safe(item.dminsttNm || item.ntceInsttNm)}`,
+        `- 사업기간 : ${reportPeriod(item, detail)}`,
+        `- 계약방법 : ${reportContract(item, detail)}`,
+        `- 사업금액 : ${reportAmount(item, detail)}`,
+        `- 참가신청일시 : ${reportApplication(detail)}`,
+        `- 입찰일시 : ${reportBidSchedule(item, detail)}`,
+        `- 현장 방문 및 시방서 제공 : ${attachmentText}`,
+        [
+          "- 자격여부",
+          "",
+          `1. 1차 참여 판단 : ${item._participation.label} - ${item._participation.reason}`,
+          `2. 지역 제한 : ${safe(detail.restrictionRegion || item.region, "원문/첨부 확인 필요")}`,
+          `3. 요구 품명 : ${safe(detail.productName, "원문/첨부 확인 필요")}`,
+          "4. 업종 등록·직접생산확인·인증·납품실적 요건 : 원문/첨부 확인 필요",
+          "5. 현장 대응 및 사후관리 조건 : 원문/첨부 확인 필요"
+        ].join("\n")
+      ];
+      if (review.note) sections.push(`- 내부 검토 메모\n\n${review.note}`);
+      return sections.join("\n\n");
+    }
+
     function formatGenerated(value) {
       if (!value) return "업데이트 시각 없음";
       const date = new Date(value);
@@ -1210,6 +1297,7 @@
       const docs = (item.documentUrls || []).filter((doc, index, list) => doc.url && list.findIndex((entry) => entry.url === doc.url) === index);
       const docHtml = docs.length ? `<div class="doc-list">${docs.map((doc) => `<a class="doc-link" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${icon("paperclip", 14)}<span>${escapeHtml(doc.label || "첨부 문서")}</span>${icon("external-link", 13)}</a>`).join("")}</div>` : "등록된 첨부 문서가 없습니다.";
       const verdictClass = item._participation.key;
+      const reportText = buildReportText(item, detail, docs, review);
       $("#detailContent").innerHTML = `
         <div class="detail-head">
           <div class="detail-head-top">
@@ -1229,6 +1317,14 @@
           <button class="btn icon-only" id="copyNoBtn" type="button" title="공고번호 복사" aria-label="공고번호 복사">${icon("copy")}</button>
         </div>
         <div class="detail-scroll">
+          <details open>
+            <summary>${icon("clipboard-list", 15)}공고 보고용 정리</summary>
+            <div class="report-section">
+              <div class="report-toolbar"><button class="copy-report" id="copyReportBtn" type="button">${icon("copy", 14)}보고서 복사</button></div>
+              <pre class="report-sheet" id="reportText">${escapeHtml(reportText)}</pre>
+            </div>
+          </details>
+
           <section class="review-block">
             <h3 class="section-label">내 검토 상태</h3>
             <div class="review-tabs">
@@ -1310,6 +1406,10 @@
       $("#copyNoBtn").addEventListener("click", async () => {
         try { await navigator.clipboard.writeText(item.bidNtceNo); showToast("공고번호를 복사했습니다."); }
         catch { showToast("공고번호 복사에 실패했습니다."); }
+      });
+      $("#copyReportBtn").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(reportText); showToast("공고 보고용 내용을 복사했습니다."); }
+        catch { showToast("보고서 복사에 실패했습니다."); }
       });
       $$(".review-btn", $("#detailContent")).forEach((button) => button.addEventListener("click", () => {
         updateReview(reviewStorageKey(item), { status: button.dataset.review });
