@@ -206,7 +206,7 @@
     .filters {
       padding: 10px;
       display: grid;
-      grid-template-columns: minmax(230px, 1.4fr) repeat(5, minmax(105px, 0.7fr)) auto;
+      grid-template-columns: minmax(230px, 1.4fr) repeat(6, minmax(105px, 0.7fr)) auto;
       gap: 8px;
       align-items: center;
     }
@@ -487,10 +487,13 @@
     }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+    @media (max-width: 1500px) {
+      .filters { grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(105px, 1fr)); }
+      .filter-reset { width: 36px; justify-self: end; }
+    }
+
     @media (max-width: 1260px) {
       .workspace { grid-template-columns: minmax(620px, 1fr) 390px; }
-      .filters { grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(110px, 0.75fr)) auto; }
-      .filters .filter-secondary { display: none; }
       .keyword-filters { grid-template-columns: auto minmax(180px, 1fr) minmax(150px, 0.8fr); }
       .keyword-guide { display: none; }
     }
@@ -525,6 +528,7 @@
       .filters { grid-template-columns: 1fr 1fr auto; }
       .search-wrap { grid-column: 1 / -1; }
       .filters .filter-mobile-hide { display: none; }
+      #budgetFilter { grid-column: 1 / 3; }
       .keyword-filters { grid-template-columns: 1fr 1fr; }
       .keyword-filter-label { grid-column: 1 / -1; min-height: 24px; }
       .list-meta { align-items: flex-start; padding-top: 9px; padding-bottom: 9px; }
@@ -590,8 +594,8 @@
               <i data-lucide="search" aria-hidden="true"></i>
               <input id="searchInput" type="search" placeholder="사업명, 기관, 공고번호 검색" aria-label="사업 검색">
             </label>
-            <select id="registeredFilter" aria-label="등록일 기준">
-              <option value="">전체 등록일</option>
+            <select id="registeredFilter" aria-label="등록월 기준">
+              <option value="">전체 등록월</option>
               <option value="today">오늘 등록</option>
               <option value="last3">최근 3일</option>
               <option value="last7">최근 7일</option>
@@ -609,6 +613,15 @@
               <option value="공사">공사</option>
             </select>
             <select id="contractFilter" class="filter-secondary filter-mobile-hide" aria-label="계약 방법"><option value="">전체 계약방법</option></select>
+            <select id="budgetFilter" aria-label="사업 금액">
+              <option value="">전체 사업금액</option>
+              <option value="under50m">5천만원 미만</option>
+              <option value="50m-100m">5천만원~1억원</option>
+              <option value="100m-300m">1억원~3억원</option>
+              <option value="300m-1b">3억원~10억원</option>
+              <option value="over1b">10억원 이상</option>
+              <option value="unknown">금액 미정</option>
+            </select>
             <select id="regionFilter" class="filter-secondary filter-mobile-hide" aria-label="지역"><option value="">전체 지역</option></select>
             <button class="filter-reset" id="resetBtn" type="button" aria-label="필터 초기화" title="필터 초기화"><i data-lucide="rotate-ccw"></i></button>
           </div>
@@ -742,7 +755,9 @@
       bids: [],
       view: "review",
       selectedId: "",
-      filters: { search: "", registered: "", service: "", business: "", contract: "", region: "", keyword: "", work: "" },
+      filters: { search: "", registered: "", service: "", business: "", contract: "", budget: "", region: "", keyword: "", work: "" },
+      archiveMonths: [],
+      loadedArchiveMonths: new Set(),
       reviews: loadReviews()
     };
 
@@ -1096,6 +1111,11 @@
       return match ? match[0] : "";
     }
 
+    function registrationMonth(item) {
+      const date = registrationDate(item);
+      return date ? date.slice(0, 7) : "";
+    }
+
     function localDateKey(date = new Date()) {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -1120,7 +1140,23 @@
       const age = registrationDayAge(item);
       if (filter === "last3") return age != null && age >= 0 && age < 3;
       if (filter === "last7") return age != null && age >= 0 && age < 7;
-      return filter.startsWith("date:") ? value === filter.slice(5) : true;
+      return filter.startsWith("month:") ? registrationMonth(item) === filter.slice(6) : true;
+    }
+
+    function businessAmount(item) {
+      return Number(item.assignBudgetAmt || item.detailInfo?.orderAmount || 0);
+    }
+
+    function matchesBudget(item, filter) {
+      if (!filter) return true;
+      const amount = businessAmount(item);
+      if (filter === "unknown") return amount <= 0;
+      if (filter === "under50m") return amount > 0 && amount < 50000000;
+      if (filter === "50m-100m") return amount >= 50000000 && amount < 100000000;
+      if (filter === "100m-300m") return amount >= 100000000 && amount < 300000000;
+      if (filter === "300m-1b") return amount >= 300000000 && amount < 1000000000;
+      if (filter === "over1b") return amount >= 1000000000;
+      return true;
     }
 
     function shortDateTime(value) {
@@ -1156,8 +1192,13 @@
       return "";
     }
 
-    function matchesView(item, view) {
-      if (!item._active || item._scope.excluded) return false;
+    function matchesView(item, view, includeClosed = false) {
+      if (item._scope.excluded) return false;
+      if (!item._active) {
+        if (!includeClosed) return false;
+        if (view === "review") return item._relevance.key !== "low";
+        return view === "all";
+      }
       if (view === "review") return item._relevance.key !== "low" && item._participation.key !== "restricted";
       if (view === "possible") return item._participation.key === "possible";
       if (view === "check") return item._participation.key === "check";
@@ -1167,7 +1208,8 @@
     }
 
     function baseForView(view) {
-      return state.bids.filter((item) => matchesView(item, view));
+      const includeClosed = state.filters.registered.startsWith("month:");
+      return state.bids.filter((item) => matchesView(item, view, includeClosed));
     }
 
     function visibleBids() {
@@ -1179,6 +1221,7 @@
         .filter((item) => !state.filters.service || item.serviceType === state.filters.service)
         .filter((item) => !state.filters.business || item.businessType === state.filters.business)
         .filter((item) => !state.filters.contract || safe(item.contractMethod, "").includes(state.filters.contract))
+        .filter((item) => matchesBudget(item, state.filters.budget))
         .filter((item) => !state.filters.region || item.region === state.filters.region)
         .filter((item) => matchesKeywordGroup(item, state.filters.keyword))
         .filter((item) => !state.filters.work || item._keyword.works.includes(state.filters.work))
@@ -1227,9 +1270,12 @@
       }
       $("#resultCount").textContent = `${items.length}건`;
       const selectedKeyword = KEYWORD_GROUPS.find((group) => group.id === state.filters.keyword);
+      const selectedMonth = state.filters.registered.startsWith("month:") ? state.filters.registered.slice(6) : "";
       $("#resultDescription").textContent = selectedKeyword
         ? `${selectedKeyword.label} 상세 분류 결과`
-        : ({ review: "진행 중 핵심 검토 대상", possible: "참여 가능성이 높은 공고", check: "원문 확인이 필요한 사업", restricted: "지정 대상 참여 사업", soon: "3일 이내 마감 사업", all: "진행 중 전체 사업" })[state.view];
+        : selectedMonth
+          ? `${Number(selectedMonth.slice(0, 4))}년 ${Number(selectedMonth.slice(5))}월 등록 사업`
+          : ({ review: "진행 중 핵심 검토 대상", possible: "참여 가능성이 높은 공고", check: "원문 확인이 필요한 사업", restricted: "지정 대상 참여 사업", soon: "3일 이내 마감 사업", all: "진행 중 전체 사업" })[state.view];
       $("#bidTable").hidden = items.length === 0;
       $("#emptyState").hidden = items.length !== 0;
       $("#loadingState").hidden = true;
@@ -1251,7 +1297,7 @@
             </td>
             <td><span class="verdict ${item._participation.key}">${escapeHtml(item._participation.label)}</span><div class="verdict-reason">${escapeHtml(shortReason(item._participation.reason))}</div></td>
             <td><div class="contract-main">${escapeHtml(item.contractMethod)}</div><div class="contract-sub">${escapeHtml(detail.bidMethod)}${detail.awardMethod ? ` · ${escapeHtml(detail.awardMethod)}` : ""}</div></td>
-            <td><div class="budget">${money(item.assignBudgetAmt)}</div></td>
+            <td><div class="budget">${money(businessAmount(item))}</div></td>
             <td>
               <div class="dday ${item._deadline.tone}">${escapeHtml(item._deadline.text)}</div>
               <div class="schedule-line"><span class="schedule-label">등록</span><span>${escapeHtml(shortDateTime(item.bidNtceRegistDt))}</span></div>
@@ -1442,9 +1488,24 @@
     }
 
     function populateFilters() {
-      const contracts = [...new Set(state.bids.map((item) => safe(item.contractMethod, "").split(" / ")[0]).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+      const contracts = [...new Set(state.bids
+        .filter((item) => item.serviceType !== "사전규격")
+        .map((item) => safe(item.contractMethod, "").split(" / ")[0])
+        .filter((value) => value && value !== "사전규격"))].sort((a, b) => a.localeCompare(b, "ko"));
       const regions = [...new Set(state.bids.map((item) => item.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
-      const registeredDates = [...new Set(state.bids.filter((item) => item._active && !item._scope.excluded).map(registrationDate).filter(Boolean))].sort((a, b) => b.localeCompare(a)).slice(0, 14);
+      const monthCounts = new Map();
+      state.bids.filter((item) => !item._scope.excluded).forEach((item) => {
+        const month = registrationMonth(item);
+        if (month) monthCounts.set(month, (monthCounts.get(month) || 0) + 1);
+      });
+      state.archiveMonths.forEach((entry) => {
+        if (entry?.month) monthCounts.set(entry.month, Math.max(monthCounts.get(entry.month) || 0, Number(entry.totalCount || 0)));
+      });
+      const now = new Date();
+      const registeredMonths = Array.from({ length: 12 }, (_, index) => {
+        const date = new Date(now.getFullYear(), now.getMonth() - index, 1);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+      });
       const visibleKeywordGroups = KEYWORD_GROUPS.filter((group) => !group.hidden);
       const keywordSections = [...new Set(visibleKeywordGroups.map((group) => group.section))];
       const keywordOptions = keywordSections.map((section) => {
@@ -1463,11 +1524,11 @@
       $("#keywordFilter").innerHTML = `<option value="">전체 키워드 분류</option>${keywordOptions}`;
       $("#workFilter").innerHTML = `<option value="">전체 업무 유형</option>${workOptions}`;
       $("#registeredFilter").innerHTML = `
-        <option value="">전체 등록일</option>
+        <option value="">전체 등록월</option>
         <option value="today">오늘 등록</option>
         <option value="last3">최근 3일</option>
         <option value="last7">최근 7일</option>
-        <optgroup label="날짜별">${registeredDates.map((value) => `<option value="date:${value}">${value.replaceAll("-", ".")}</option>`).join("")}</optgroup>`;
+        <optgroup label="월별 등록">${registeredMonths.map((value) => `<option value="month:${value}">${Number(value.slice(0, 4))}년 ${Number(value.slice(5))}월 (${monthCounts.get(value) || 0}건)</option>`).join("")}</optgroup>`;
     }
 
     function setView(view) {
@@ -1477,12 +1538,13 @@
     }
 
     function resetFilters() {
-      state.filters = { search: "", registered: "", service: "", business: "", contract: "", region: "", keyword: "", work: "" };
+      state.filters = { search: "", registered: "", service: "", business: "", contract: "", budget: "", region: "", keyword: "", work: "" };
       $("#searchInput").value = "";
       $("#registeredFilter").value = "";
       $("#serviceFilter").value = "";
       $("#businessFilter").value = "";
       $("#contractFilter").value = "";
+      $("#budgetFilter").value = "";
       $("#regionFilter").value = "";
       $("#keywordFilter").value = "";
       $("#workFilter").value = "";
@@ -1501,14 +1563,50 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
+    async function loadArchiveIndex() {
+      try {
+        const response = await fetch(`./data/archive/index.json?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) return [];
+        const data = await response.json();
+        return Array.isArray(data.months) ? data.months : [];
+      } catch {
+        return [];
+      }
+    }
+
+    async function loadArchiveMonth(month) {
+      if (!month || state.loadedArchiveMonths.has(month)) return;
+      state.loadedArchiveMonths.add(month);
+      const known = state.archiveMonths.some((entry) => entry?.month === month && Number(entry.totalCount || 0) > 0);
+      if (!known) return;
+      try {
+        const response = await fetch(`./data/archive/${encodeURIComponent(month)}.json?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        const archived = Array.isArray(data.bids) ? data.bids : [];
+        state.bids = dedupe([...state.bids, ...archived]).map(enrich);
+        migrateReviewsForBids();
+      } catch (error) {
+        state.loadedArchiveMonths.delete(month);
+        console.warn(`${month} 월별 데이터 불러오기 실패`, error);
+        showToast("월별 데이터를 불러오지 못했습니다.");
+      }
+    }
+
     function bindControls() {
       $("#viewTabs").addEventListener("click", (event) => {
         const tab = event.target.closest("[data-view]");
         if (tab) setView(tab.dataset.view);
       });
       $("#searchInput").addEventListener("input", (event) => { state.filters.search = event.target.value.trim(); renderRows(); });
-      [["#registeredFilter", "registered"], ["#serviceFilter", "service"], ["#businessFilter", "business"], ["#contractFilter", "contract"], ["#regionFilter", "region"], ["#keywordFilter", "keyword"], ["#workFilter", "work"]].forEach(([selector, key]) => {
-        $(selector).addEventListener("change", (event) => { state.filters[key] = event.target.value; renderRows(); });
+      [["#registeredFilter", "registered"], ["#serviceFilter", "service"], ["#businessFilter", "business"], ["#contractFilter", "contract"], ["#budgetFilter", "budget"], ["#regionFilter", "region"], ["#keywordFilter", "keyword"], ["#workFilter", "work"]].forEach(([selector, key]) => {
+        $(selector).addEventListener("change", async (event) => {
+          state.filters[key] = event.target.value;
+          if (key === "registered" && state.filters.registered.startsWith("month:")) {
+            await loadArchiveMonth(state.filters.registered.slice(6));
+          }
+          renderRows();
+        });
       });
       $("#resetBtn").addEventListener("click", resetFilters);
       $("#reloadBtn").addEventListener("click", loadData);
@@ -1525,6 +1623,8 @@
         const data = await response.json();
         state.meta = data;
         state.bids = dedupe(Array.isArray(data.bids) ? data.bids : []).map(enrich);
+        state.archiveMonths = await loadArchiveIndex();
+        state.loadedArchiveMonths = new Set();
         migrateReviewsForBids();
         populateFilters();
         renderMetrics();

@@ -122,6 +122,7 @@ const DATA_SOURCES = [
 
 const DAYS_TO_FETCH = 30;
 const CHUNK_DAYS = 15;
+const HISTORY_RETENTION_MONTHS = 12;
 const NUM_OF_ROWS = 100;
 const REQUEST_DELAY_MS = 1000;
 const PAGE_DELAY_MS = 500;
@@ -884,6 +885,66 @@ function initServiceStats() {
     };
 }
 
+function recordMonth(item) {
+    const text = String(item?.bidNtceRegistDt || '').slice(0, 7);
+    return /^\d{4}-\d{2}$/.test(text) ? text : '';
+}
+
+async function loadArchiveBids(filePath) {
+    try {
+        const stored = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+        return Array.isArray(stored?.bids) ? stored.bids : [];
+    } catch (error) {
+        if (error?.code !== 'ENOENT') console.warn(`[WARN] 월별 보관 데이터 읽기 실패: ${error.message}`);
+        return [];
+    }
+}
+
+async function updateMonthlyArchives(bids, generatedAt) {
+    const archiveDir = path.join('data', 'archive');
+    await fs.mkdir(archiveDir, { recursive: true });
+
+    const grouped = new Map();
+    for (const bid of bids) {
+        const month = recordMonth(bid);
+        if (!month) continue;
+        if (!grouped.has(month)) grouped.set(month, []);
+        grouped.get(month).push(bid);
+    }
+
+    for (const [month, monthBids] of grouped) {
+        const filePath = path.join(archiveDir, `${month}.json`);
+        const merged = new Map();
+        for (const bid of await loadArchiveBids(filePath)) {
+            merged.set(`${bid.serviceType}:${bid.bidId || bid.bidNtceNo}`, bid);
+        }
+        for (const bid of monthBids) {
+            merged.set(`${bid.serviceType}:${bid.bidId || bid.bidNtceNo}`, bid);
+        }
+        const archivedBids = Array.from(merged.values())
+            .filter((bid) => recordMonth(bid) === month)
+            .sort((a, b) => String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || '')));
+        await fs.writeFile(filePath, JSON.stringify({ generatedAt, month, totalCount: archivedBids.length, bids: archivedBids }, null, 2), 'utf-8');
+    }
+
+    const files = (await fs.readdir(archiveDir))
+        .filter((name) => /^\d{4}-\d{2}\.json$/.test(name))
+        .sort((a, b) => b.localeCompare(a))
+        .slice(0, HISTORY_RETENTION_MONTHS);
+    const months = [];
+    for (const name of files) {
+        const month = name.slice(0, 7);
+        const archived = await loadArchiveBids(path.join(archiveDir, name));
+        months.push({ month, totalCount: archived.length });
+    }
+    await fs.writeFile(
+        path.join(archiveDir, 'index.json'),
+        JSON.stringify({ generatedAt, retentionMonths: HISTORY_RETENTION_MONTHS, months }, null, 2),
+        'utf-8'
+    );
+    return months;
+}
+
 async function main() {
     const now = getKstDate();
     const past = getKstDate();
@@ -1008,11 +1069,15 @@ async function main() {
         }
     }
 
+    const generatedAt = new Date().toISOString();
+    const archiveMonths = await updateMonthlyArchives(unique, generatedAt);
     const output = {
-        generatedAt: new Date().toISOString(),
+        generatedAt,
         timezone: 'Asia/Seoul',
         rangeDays: DAYS_TO_FETCH,
         chunkDays: CHUNK_DAYS,
+        historyRetentionMonths: HISTORY_RETENTION_MONTHS,
+        archiveMonthCount: archiveMonths.length,
         rangeBegin: formatG2BDate(past) + '0000',
         rangeEnd: formatG2BDate(now) + '2359',
         totalCount: unique.length,
@@ -1040,7 +1105,7 @@ async function main() {
     await fs.writeFile(outPath, JSON.stringify(output, null, 2), 'utf-8');
 
     console.log('');
-    console.log(`[DONE] 총 ${unique.length}건 / 원본 ${allBids.length}건 → ${outPath}`);
+    console.log(`[DONE] 총 ${unique.length}건 / 원본 ${allBids.length}건 / 월별 보관 ${archiveMonths.length}개월 → ${outPath}`);
     console.log(`[DONE] 성공 호출: ${successCount} / 실패 호출: ${errors.length}`);
     console.log(`[DONE] 서비스: ${JSON.stringify(serviceStats)}`);
     console.log(`[DONE] 카테고리: ${JSON.stringify(categoryStats)}`);
