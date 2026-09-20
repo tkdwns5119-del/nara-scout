@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-20T12:07:20.824Z",
+  "generatedAt": "2026-09-20T23:56:10.738Z",
   "timezone": "Asia/Seoul",
   "rangeDays": 30,
   "chunkDays": 15,
   "historyRetentionMonths": 12,
   "archiveMonthCount": 2,
-  "rangeBegin": "202608220000",
-  "rangeEnd": "202609202359",
-  "totalCount": 1616,
-  "rawCount": 1803,
+  "rangeBegin": "202608230000",
+  "rangeEnd": "202609212359",
+  "totalCount": 1615,
+  "rawCount": 1801,
   "successCalls": 360,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -26,10 +26,10 @@
   "serviceStats": {
     "공고": 834,
     "사전규격": 314,
-    "발주계획": 468
+    "발주계획": 467
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 121,
+    "디스플레이/사이니지 계열": 120,
     "미디어/파사드 계열": 97,
     "ITS/VMS 계열": 32,
     "전광판 외 간접 사업/문화시설": 48,
@@ -38,6 +38,78 @@
   },
   "errors": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01731486-000",
+      "bidNtceNo": "R26BK01731486",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "화성여자교도소 신축공사 임목폐기물처리용역",
+      "ntceInsttNm": "법무부",
+      "dminsttNm": "법무부",
+      "assignBudgetAmt": 12733600,
+      "bidNtceRegistDt": "2026-09-21 08:47",
+      "bidClseDt": "2026-10-01 10:00",
+      "searchKeyword": "신축",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01731486&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01731486&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01731486&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01731486&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01731486&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01731486&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-폐기물처리용역 적격심사 추정가격 고시금액미만",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-09-21 10:00",
+        "bidClseDt": "2026-10-01 10:00",
+        "openDt": "2026-10-01 11:00",
+        "registerDeadline": "2026-09-30 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "조은비",
+        "officerTel": "02-2110-3486",
+        "officerEmail": "",
+        "referenceNo": "1270000",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      }
+    },
     {
       "bidId": "BF-R26BD00276605",
       "bidNtceNo": "BF-R26BD00276605",
@@ -14292,7 +14364,7 @@
         "officerTel": "",
         "officerEmail": "",
         "referenceNo": "1270000",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01731486",
         "productName": "화성여자교도소 신축공사 임목폐기물처리용역",
         "productDetails": "",
         "purpose": "",
@@ -14302,7 +14374,7 @@
         "rawBusinessDivision": "일반용역"
       },
       "refNo": "1270000",
-      "linkedBidNtceNoList": ""
+      "linkedBidNtceNoList": "R26BK01731486"
     },
     {
       "bidId": "PL-R26DD20872645",
@@ -14353,7 +14425,7 @@
         "officerTel": "02-2110-3065",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01731486000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -107827,134 +107899,6 @@
         "quantity": "1",
         "unit": "식",
         "orderAmount": 43850000,
-        "rawBusinessDivision": "물품"
-      },
-      "orderYear": "2026",
-      "orderMnth": "08"
-    },
-    {
-      "bidId": "BID-R26BK01693737-000",
-      "bidNtceNo": "R26BK01693737",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "2026년 인공지능 콘텐츠 제작지원 사업 - XR LED 디스플레이 시스템 임차·설치·운영 용역",
-      "ntceInsttNm": "(주)쉐어박스",
-      "dminsttNm": "(주)쉐어박스",
-      "assignBudgetAmt": 109560000,
-      "bidNtceRegistDt": "2026-08-22 20:46",
-      "bidClseDt": "2026-08-28 12:00",
-      "searchKeyword": "LED",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01693737&bidPbancOrd=000",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "공고",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01693737&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01693737&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01693737&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01693737&bidPbancOrd=000",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "전자입찰",
-        "awardMethod": "제한적최저가(낙찰하한율)-제한적최저가(낙찰하한율)",
-        "contractType": "제한경쟁",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-08-22 22:00",
-        "bidClseDt": "2026-08-28 12:00",
-        "openDt": "2026-08-28 13:00",
-        "registerDeadline": "2026-08-27 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "신연식",
-        "officerTel": "02-762-1998",
-        "officerEmail": "",
-        "referenceNo": "20260819",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      }
-    },
-    {
-      "bidId": "PL-R26DD20851890",
-      "bidNtceNo": "PL-R26DD20851890",
-      "bidNtceOrd": "",
-      "bidNtceNm": "(가칭)대장3초 신축공사 직접구매자재(방송장치) 구매",
-      "ntceInsttNm": "경기도교육청 경기도부천교육지원청",
-      "dminsttNm": "경기도교육청 경기도부천교육지원청",
-      "assignBudgetAmt": 311206000,
-      "bidNtceRegistDt": "2026-08-22 11:58",
-      "bidClseDt": "2026-08",
-      "searchKeyword": "신축",
-      "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851890",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "발주계획",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851890"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20851890",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "수의계약",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "08",
-        "department": "교육시설과",
-        "officerName": "장한수",
-        "officerTel": "032-620-0325",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "구내방송장치",
-        "productDetails": "",
-        "purpose": "구내방송",
-        "quantity": "1",
-        "unit": "식",
-        "orderAmount": 311206000,
         "rawBusinessDivision": "물품"
       },
       "orderYear": "2026",
