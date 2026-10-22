@@ -1,0 +1,21 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "importantIssues": {
+      ".read": true,
+      "$bidKey": {
+        ".write": "auth != null && root.child('members').child(auth.uid).val() === true",
+        ".validate": "newData.hasChildren(['status', 'updatedAt']) && newData.child('status').isString() && newData.child('updatedAt').isString()"
+      }
+    },
+    "workflow": {
+      ".read": true
+    },
+    "members": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}

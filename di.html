@@ -108,6 +108,7 @@
     .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa7b5; }
     .sync-pill.ok .sync-dot { background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
     .sync-pill.error .sync-dot { background: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
+    .sync-pill.warn .sync-dot { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
 
     .btn, .link-btn {
       min-height: 34px;
@@ -566,6 +567,8 @@
       </div>
       <div class="top-actions">
         <div class="sync-pill" id="syncPill"><span class="sync-dot"></span><span id="syncText">데이터 불러오는 중</span></div>
+        <button class="btn" id="authUidBtn" type="button" title="관리자에게 UID를 전달하면 검토 기록 공유 권한이 등록됩니다." hidden><i data-lucide="copy" aria-hidden="true"></i>공유 권한 없음 · UID 복사</button>
+        <button class="btn" id="authBtn" type="button" hidden></button>
         <button class="btn" id="reloadBtn" type="button"><i data-lucide="refresh-cw" aria-hidden="true"></i>새로고침</button>
       </div>
     </header>
@@ -677,9 +680,16 @@
     const REVIEW_KEY = "di-practical-review-v1";
     const LEGACY_REVIEW_KEY = "NARA_SCOUT_IMPORTANT_ISSUE_V1";
     const REVIEW_SYNC_APP = "di-practical-review";
+    const FIREBASE_INVALID_KEY = /[.#$\[\]\/]/;
+    const STALE_DATA_HOURS = 18;
     let reviewRemoteRef = null;
+    let reviewRemoteStore = {};
     let reviewRemoteApplying = false;
     let reviewSaveTimer = null;
+    let reviewAuth = null;
+    let reviewMembersRef = null;
+    let reviewUser = null;
+    let reviewCanWrite = false;
     const DIRECT_DISPLAY_PATTERN = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|\bvms\b|\bits\b|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
     const INDIRECT_PROJECT_PATTERN = /(문화센터|체육센터|복합센터|커뮤니티센터|건립|신축|체육관|운동장|경기장|수영장|축구|야구|스포츠\s*(파크|타운))/i;
     const KEYWORD_GROUPS = [
@@ -776,9 +786,24 @@
       localStorage.setItem(REVIEW_KEY, JSON.stringify(state.reviews));
       if (reviewRemoteApplying || !reviewRemoteRef) return;
       clearTimeout(reviewSaveTimer);
-      reviewSaveTimer = setTimeout(() => {
-        reviewRemoteRef.set(state.reviews).catch((error) => console.warn("검토 기록 공유 저장 실패", error));
-      }, 400);
+      reviewSaveTimer = setTimeout(pushNewerReviews, 400);
+    }
+
+    // 전체 덮어쓰기 대신, 원격보다 최신인 항목만 골라 항목 단위로 저장한다.
+    function pushNewerReviews() {
+      if (!reviewRemoteRef || !reviewCanWrite) return;
+      const patch = {};
+      Object.entries(state.reviews).forEach(([key, review]) => {
+        if (!review || typeof review !== "object" || FIREBASE_INVALID_KEY.test(key)) return;
+        if (reviewTimestamp(review.updatedAt) > reviewTimestamp(reviewRemoteStore[key]?.updatedAt)) {
+          patch[key] = JSON.parse(JSON.stringify(review));
+        }
+      });
+      if (!Object.keys(patch).length) return;
+      reviewRemoteRef.update(patch).catch((error) => {
+        console.warn("검토 기록 공유 저장 실패", error);
+        showToast("공유 저장에 실패했습니다. 이 브라우저에만 저장됩니다.");
+      });
     }
 
     function reviewStorageKey(item) {
@@ -857,19 +882,92 @@
         }
         await loadExternalScript("https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js");
         await loadExternalScript("https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js");
+        await loadExternalScript("https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js");
         const app = window.firebase.apps.find((candidate) => candidate.name === REVIEW_SYNC_APP)
           || window.firebase.initializeApp(firebaseConfig, REVIEW_SYNC_APP);
-        reviewRemoteRef = window.firebase.database(app).ref(config.issuePath || "importantIssues");
+        const database = window.firebase.database(app);
+        reviewRemoteRef = database.ref(config.issuePath || "importantIssues");
+        reviewMembersRef = database.ref(config.memberPath || "members");
+        reviewAuth = window.firebase.auth(app);
+        reviewAuth.onAuthStateChanged(handleReviewAuthChange);
         reviewRemoteRef.on("value", (snapshot) => {
+          reviewRemoteStore = snapshot.val() || {};
           reviewRemoteApplying = true;
-          state.reviews = mergeReviewStores(state.reviews, snapshot.val() || {});
+          state.reviews = mergeReviewStores(state.reviews, reviewRemoteStore);
           migrateReviewsForBids();
           renderRows();
           renderDetail();
           reviewRemoteApplying = false;
+          pushNewerReviews();
         });
       } catch (error) {
         console.warn("검토 기록은 이 브라우저에 저장됩니다.", error);
+      }
+    }
+
+    async function handleReviewAuthChange(user) {
+      reviewUser = user;
+      reviewCanWrite = false;
+      if (user) {
+        try {
+          const snapshot = await reviewMembersRef.child(user.uid).once("value");
+          if (reviewUser !== user) return;
+          reviewCanWrite = snapshot.val() === true;
+        } catch (error) {
+          console.warn("공유 권한 확인 실패", error);
+        }
+      }
+      renderReviewAuth();
+      pushNewerReviews();
+    }
+
+    function renderReviewAuth() {
+      const authBtn = $("#authBtn");
+      const uidBtn = $("#authUidBtn");
+      authBtn.hidden = !reviewAuth;
+      uidBtn.hidden = !reviewUser || reviewCanWrite;
+      if (!reviewUser) {
+        authBtn.className = "btn primary";
+        authBtn.title = "로그인하면 검토 기록이 팀과 공유됩니다. 로그인 전에는 이 브라우저에만 저장됩니다.";
+        authBtn.innerHTML = `${icon("log-in")}Google 로그인`;
+      } else {
+        const name = escapeHtml(reviewUser.displayName || reviewUser.email || "사용자");
+        authBtn.className = "btn";
+        authBtn.title = reviewCanWrite ? "검토 기록이 팀과 공유 저장됩니다." : "로그인했지만 공유 권한이 아직 등록되지 않았습니다.";
+        authBtn.innerHTML = `${icon("log-out")}${name} · 로그아웃`;
+      }
+      refreshIcons();
+    }
+
+    async function toggleReviewLogin() {
+      if (!reviewAuth) return;
+      try {
+        if (reviewUser) {
+          await reviewAuth.signOut();
+          showToast("로그아웃했습니다. 검토 기록은 이 브라우저에만 저장됩니다.");
+        } else {
+          await reviewAuth.signInWithPopup(new window.firebase.auth.GoogleAuthProvider());
+        }
+      } catch (error) {
+        console.warn("로그인 처리 실패", error);
+        const message = {
+          "auth/popup-blocked": "팝업이 차단되었습니다. 팝업을 허용한 뒤 다시 시도해 주세요.",
+          "auth/unauthorized-domain": "이 주소는 Firebase 승인 도메인에 등록되지 않았습니다.",
+          "auth/configuration-not-found": "Firebase에서 Google 로그인이 아직 설정되지 않았습니다. 관리자에게 문의해 주세요.",
+          "auth/operation-not-allowed": "Firebase에서 Google 로그인이 아직 설정되지 않았습니다. 관리자에게 문의해 주세요.",
+          "auth/popup-closed-by-user": "로그인 창이 닫혔습니다."
+        }[error?.code] || "로그인하지 못했습니다.";
+        showToast(message);
+      }
+    }
+
+    async function copyReviewUid() {
+      if (!reviewUser) return;
+      try {
+        await navigator.clipboard.writeText(reviewUser.uid);
+        showToast("UID를 복사했습니다. 관리자에게 전달해 주세요.");
+      } catch {
+        window.prompt("아래 UID를 복사해 관리자에게 전달해 주세요.", reviewUser.uid);
       }
     }
 
@@ -1610,6 +1708,8 @@
       });
       $("#resetBtn").addEventListener("click", resetFilters);
       $("#reloadBtn").addEventListener("click", loadData);
+      $("#authBtn").addEventListener("click", toggleReviewLogin);
+      $("#authUidBtn").addEventListener("click", copyReviewUid);
       window.addEventListener("keydown", (event) => { if (event.key === "Escape") $("#detailPane").classList.remove("open"); });
     }
 
@@ -1632,8 +1732,11 @@
         if (!state.selectedId) state.selectedId = visibleBids()[0]?.bidId || "";
         renderRows();
         renderDetail();
-        $("#syncPill").className = data.failedCalls > 0 ? "sync-pill error" : "sync-pill ok";
-        $("#syncText").textContent = `${formatGenerated(data.generatedAt)} · ${data.failedCalls || 0}건 오류`;
+        const ageHours = (Date.now() - new Date(data.generatedAt).getTime()) / 3600000;
+        const stale = !(ageHours < STALE_DATA_HOURS);
+        $("#syncPill").className = data.failedCalls > 0 ? "sync-pill error" : stale ? "sync-pill warn" : "sync-pill ok";
+        $("#syncPill").title = stale ? `마지막 수집 후 ${STALE_DATA_HOURS}시간 이상 지났습니다. GitHub Actions 실행 상태를 확인해 주세요.` : "";
+        $("#syncText").textContent = `${formatGenerated(data.generatedAt)} · ${stale ? "갱신 지연" : `${data.failedCalls || 0}건 오류`}`;
       } catch (error) {
         console.error(error);
         $("#loadingState").hidden = false;

@@ -2,12 +2,20 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    # GitHub Actions cron uses UTC.
-    # 22:00 UTC = 07:00 KST (next day), 02:00 UTC = 11:00 KST, 07:00 UTC = 16:00 KST.
-    - cron: '0 22 * * *'
-    - cron: '0 2 * * *'
-    - cron: '0 7 * * *'
+    # GitHub Actions cron uses UTC and is a best-effort backup: scheduled runs here
+    # have started 2-5 hours late. The primary trigger is an external scheduler
+    # calling workflow_dispatch at 07:00 / 11:00 / 16:00 KST (see docs).
+    # Off-the-hour minutes avoid the top-of-hour queue.
+    # 22:13 UTC = 07:13 KST (next day), 02:13 UTC = 11:13 KST, 07:13 UTC = 16:13 KST.
+    - cron: '13 22 * * *'
+    - cron: '13 2 * * *'
+    - cron: '13 7 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Fetch even if data was refreshed recently'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,13 +32,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Latest branch tip, not the SHA at trigger time, so the freshness
+          # check sees data committed by a run that finished while this one queued.
+          ref: ${{ github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      - name: Skip if data is already fresh
+        id: freshness
+        env:
+          FORCE: ${{ inputs.force }}
+          MIN_INTERVAL_MINUTES: '180'
+        run: |
+          if [ "$FORCE" = "true" ]; then
+            echo "Forced run."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          node -e "
+            const fs = require('fs');
+            let age = Infinity;
+            try { age = (Date.now() - Date.parse(JSON.parse(fs.readFileSync('data/bids.json', 'utf8')).generatedAt)) / 60000; } catch {}
+            const skip = age < Number(process.env.MIN_INTERVAL_MINUTES);
+            console.log('Data age: ' + (Number.isFinite(age) ? Math.round(age) + ' min' : 'unknown') + (skip ? ' -> skipping' : ''));
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'skip=' + skip + '\n');
+          "
+
       - name: Check required secret
+        if: steps.freshness.outputs.skip != 'true'
         env:
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
         run: |
@@ -41,6 +74,7 @@ jobs:
           echo "NARA_API_KEY exists"
 
       - name: Fetch procurement data
+        if: steps.freshness.outputs.skip != 'true'
         env:
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
@@ -66,6 +100,7 @@ jobs:
           exit 1
 
       - name: Commit updated data
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

@@ -290,24 +290,40 @@ https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServ
 .github/workflows/fetch-bids.yml
 ```
 
-현재 권장 설정:
+### 6.1 수집 시각
 
-```yaml
-name: Sync Nara Bids
+목표 수집 시각은 **KST 07:00 / 11:00 / 16:00** 하루 3회다.
 
-on:
-  schedule:
-    - cron: '0 */1 * * *'
-  workflow_dispatch:
-```
+GitHub Actions의 `schedule`은 보장되지 않는다. 2026년 10월 실측으로 예약보다 **2~5시간 늦게** 시작했다(07시 → 09시대, 11시 → 16시대, 16시 → 21시대). 그래서 다음 이중 구조로 운영한다.
 
-운영 관점에서는 1시간 주기를 기본으로 한다.  
-나라장터 데이터는 초 단위 실시간성이 필요한 데이터가 아니므로, 장애가 반복될 경우 3시간 주기로 낮춘다.
+| 구분 | 역할 | 설정 |
+|---|---|---|
+| 외부 스케줄러 → `workflow_dispatch` | **주 트리거**. 정시에 실행 | cron-job.org 등 (6.2 참고) |
+| GitHub `schedule` | **백업**. 외부 트리거가 멈췄을 때 대비 | `13 22,2,7 * * *` (UTC, 정각 혼잡 회피) |
 
-```yaml
-schedule:
-  - cron: '0 */3 * * *'
-```
+중복 실행 방지: 워크플로 첫 단계에서 `data/bids.json`의 `generatedAt`을 확인한다. **180분 이내에 갱신됐으면 수집을 건너뛴다.** 정시 외부 트리거가 이미 돌았다면 늦게 시작한 백업 실행은 API를 호출하지 않고 바로 끝난다.
+
+수동으로 즉시 다시 수집하려면 **Actions → Sync Nara Bids → Run workflow**에서 `force`를 체크한다.
+
+대시보드 상단 상태 표시는 마지막 수집 후 18시간이 지나면 주황색 `갱신 지연`으로 바뀐다.
+
+### 6.2 외부 스케줄러 설정 (cron-job.org 예시)
+
+1. GitHub → Settings → Developer settings → **Fine-grained personal access token** 생성
+   - Repository access: `nara-scout`만 선택
+   - Permissions: **Actions: Read and write** (그 외 권한 없음)
+   - 만료일을 정하고, 만료 전에 재발급한다.
+2. cron-job.org에서 작업 3개(07:00 / 11:00 / 16:00, 시간대 `Asia/Seoul`)를 만든다.
+   - URL: `https://api.github.com/repos/tkdwns5119-del/nara-scout/actions/workflows/fetch-bids.yml/dispatches`
+   - Method: `POST`
+   - Headers:
+     - `Authorization: Bearer <토큰>`
+     - `Accept: application/vnd.github+json`
+     - `X-GitHub-Api-Version: 2022-11-28`
+   - Body: `{"ref":"main"}`
+3. 성공 응답은 `204 No Content`다. Actions 탭에서 `workflow_dispatch` 실행이 정시에 시작되는지 확인한다.
+
+토큰은 저장소 Secret이 아니라 외부 스케줄러에만 저장된다. 노출되면 즉시 폐기하고 재발급한다.
 
 필수 Secret:
 
@@ -425,6 +441,35 @@ UI는 `data/bids.json?t=Date.now()` 형태로 캐시 우회를 수행한다.
 3. Actions 마지막 실행 시간 확인
 4. GitHub Pages 배포 상태 확인
 ```
+
+---
+
+### 8.4 검토 기록 공유 (Firebase) 권한
+
+검토 상태·메모는 Firebase Realtime Database `importantIssues/{공고번호}`에 항목 단위로 저장된다.
+
+| 대상 | 읽기 | 쓰기 |
+|---|---|---|
+| 로그인하지 않은 방문자 | 가능 | 불가 (이 브라우저에만 저장) |
+| Google 로그인 + `members` 미등록 | 가능 | 불가 (상단에 `공유 권한 없음 · UID 복사` 표시) |
+| Google 로그인 + `members/{uid} = true` | 가능 | 가능 |
+
+규칙 파일은 저장소의 `database.rules.json`이다. `firebase.json`이 이 파일을 가리킨다.
+
+**최초 적용 절차 (Firebase 콘솔, 관리자가 1회 수행):**
+
+1. **Authentication → Sign-in method → Google** 사용 설정
+2. **Authentication → Settings → 승인된 도메인**에 `tkdwns5119-del.github.io` 추가
+3. 팀원 등록: 팀원이 대시보드에서 Google 로그인 → `UID 복사` 버튼으로 UID 전달
+   → 관리자가 **Realtime Database → 데이터**에서 `members/<UID>` 값을 `true`로 추가
+4. **Realtime Database → 규칙**에 `database.rules.json` 내용을 붙여넣고 게시
+   - CLI를 쓴다면 `firebase deploy --only database`
+
+> 대시보드는 `members`에 등록된 사용자만 공유 저장을 시도한다. 그래서 코드 배포 후 3번이 끝날 때까지는 검토 기록이 각자 브라우저에만 저장된다. 등록 후 대시보드를 다시 열면 그동안의 기록 중 더 최신인 항목이 자동으로 공유 저장된다.
+>
+> 4번(규칙 게시) 전에는 DB가 여전히 누구나 쓸 수 있는 상태다. 3번이 끝나면 바로 게시한다.
+
+`members` 노드는 콘솔(관리자 권한)에서만 수정할 수 있다. 클라이언트에서는 본인 항목 읽기만 허용된다.
 
 ---
 

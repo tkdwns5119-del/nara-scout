@@ -1090,7 +1090,7 @@ async function main() {
             timezone: 'Asia/Seoul',
             times: UPDATE_SCHEDULE_KST,
             source: 'GitHub Actions',
-            note: 'GitHub Actions schedules use UTC and may start a few minutes late depending on platform load.'
+            note: 'Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late.'
         },
         serviceStats,
         categoryStats,
