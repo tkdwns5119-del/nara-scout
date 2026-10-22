@@ -6,7 +6,7 @@
       ".read": true,
       "$bidKey": {
         ".write": "auth != null && root.child('members').child(auth.uid).val() === true",
-        ".validate": "newData.hasChildren(['status', 'updatedAt']) && newData.child('status').isString() && newData.child('updatedAt').isString()"
+        ".validate": "newData.hasChildren(['status', 'updatedAt']) && newData.child('status').isString() && newData.child('status').val().matches(/^(unchecked|checked|issue|done)$/) && newData.child('updatedAt').isString() && newData.child('updatedAt').val().length <= 40 && (!newData.child('note').exists() || (newData.child('note').isString() && newData.child('note').val().length <= 5000))"
       }
     },
     "workflow": {

@@ -253,6 +253,17 @@ function classifyRegion(name) {
     return "전국";
 }
 
+// 조달청(지방조달청 포함)은 다른 기관 사업을 대신 공고하므로 지역 판단에서 제외하고,
+// 수요기관 → 사업명 → 공고기관 순으로 처음 확인되는 지역을 쓴다.
+function regionFrom(...candidates) {
+    for (const text of candidates) {
+        if (!text || String(text).includes('조달청')) continue;
+        const region = classifyRegion(text);
+        if (region !== '전국') return region;
+    }
+    return '전국';
+}
+
 function bodyPreview(text, max = 500) {
     return String(text || '').replace(/\s+/g, ' ').slice(0, max);
 }
@@ -743,6 +754,9 @@ function mapBidRecord(i, source, term) {
     const dminsttNm = pick(i, ['dminsttNm', 'rlDminsttNm', 'ntceInsttNm'], '자체수요기관');
     const contractMethods = extractContractMethods(i, source, title);
     const contractMethod = contractMethods.join(' / ');
+    // 입찰마감일이 없는 공고(설계공모·협상 등)는 개찰일을 마감 기준으로 쓰고 그 사실을 표시한다.
+    const closeDt = normalizeDateText(pick(i, ['bidClseDt']));
+    const openDt = normalizeDateText(pick(i, ['opengDt']));
 
     return {
         bidId,
@@ -753,9 +767,10 @@ function mapBidRecord(i, source, term) {
         dminsttNm,
         assignBudgetAmt: pickNumber(i, ['assignBudgetAmt', 'asignBdgtAmt', 'presmptPrce', 'assignBdgtAmt']),
         bidNtceRegistDt: normalizeDateText(pick(i, ['bidNtceRegistDt', 'bidNtceDt', 'rgstDt'])),
-        bidClseDt: normalizeDateText(pick(i, ['bidClseDt', 'opengDt', 'bidBeginDt'])),
+        bidClseDt: closeDt || openDt,
+        deadlineBasis: closeDt || !openDt ? '' : '개찰',
         searchKeyword: term,
-        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
+        region: regionFrom(dminsttNm, title, ntceInsttNm),
         g2bUrl: buildG2bBidUrl(i, bidNtceNo, bidSeq),
         contractMethod,
         contractMethods,
@@ -799,9 +814,9 @@ function mapPrespecRecord(i, source, term) {
         dminsttNm,
         assignBudgetAmt: pickNumber(i, ['asignBdgtAmt', 'assignBudgetAmt', 'assignBdgtAmt', 'presmptPrce', 'budgetAmt']),
         bidNtceRegistDt: normalizeDateText(pick(i, ['rcptDt', 'rgstDt', 'chgDt'])),
-        bidClseDt: normalizeDateText(pick(i, ['opninRgstClseDt', 'opinRgstClseDt', 'opinionRgstClseDt', 'dlvrTmlmtDt'])),
+        bidClseDt: normalizeDateText(pick(i, ['opninRgstClseDt', 'opinRgstClseDt', 'opinionRgstClseDt'])),
         searchKeyword: term,
-        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title}`),
+        region: regionFrom(dminsttNm, title, ntceInsttNm),
         g2bUrl: buildPrespecUrl(i, id),
         contractMethod,
         contractMethods,
@@ -856,7 +871,7 @@ function mapPlanRecord(i, source, term) {
         bidNtceRegistDt: normalizeDateText(pick(i, ['nticeDt', 'rgstDt', 'chgDt', 'orderYm', 'orderPlanYm'])),
         bidClseDt: normalizeDateText(orderYm),
         searchKeyword: term,
-        region: classifyRegion(`${ntceInsttNm} ${dminsttNm} ${title} ${pick(i, ['cnstwkRgnNm', 'insttLctNm'])}`),
+        region: regionFrom(pick(i, ['cnstwkRgnNm']), dminsttNm, title, pick(i, ['insttLctNm'])),
         g2bUrl: buildPlanUrl(i, id),
         contractMethod,
         contractMethods,
@@ -890,6 +905,57 @@ function recordMonth(item) {
     return /^\d{4}-\d{2}$/.test(text) ? text : '';
 }
 
+// 입찰공고는 정정공고(차수 000 → 001 …)를 같은 공고번호로 묶는다.
+function recordKey(bid) {
+    if (bid.serviceType === '공고' && bid.bidNtceNo) return `공고:${bid.bidNtceNo}`;
+    return `${bid.serviceType}:${bid.bidId || bid.bidNtceNo}`;
+}
+
+function termRank(term) {
+    const index = SEARCH_TERMS.indexOf(term);
+    return index === -1 ? SEARCH_TERMS.length : index;
+}
+
+// 최신 차수의 내용을 남기되, 매칭된 검색어는 모두 모으고
+// 대표 검색어는 SEARCH_TERMS 순서(직접 키워드 우선)로 정한다.
+function mergeRecords(existing, incoming) {
+    const keywords = [...new Set([
+        ...(existing?.matchedKeywords || [existing?.searchKeyword]),
+        ...(incoming.matchedKeywords || [incoming.searchKeyword])
+    ].filter(Boolean))].sort((a, b) => termRank(a) - termRank(b));
+    const existingIsNewer = existing && String(existing.bidNtceOrd || '').localeCompare(String(incoming.bidNtceOrd || '')) > 0;
+    const base = existingIsNewer ? existing : incoming;
+    return { ...base, searchKeyword: keywords[0] || base.searchKeyword, matchedKeywords: keywords };
+}
+
+function collapseRecords(records) {
+    const merged = new Map();
+    for (const bid of records) {
+        const key = recordKey(bid);
+        merged.set(key, mergeRecords(merged.get(key), bid));
+    }
+    return Array.from(merged.values());
+}
+
+// 이전 실행에서 보관된 기록에도 현재 지역·마감일 규칙을 다시 적용한다.
+function normalizeStoredRecord(bid) {
+    if (bid.serviceType === '발주계획') return bid;
+    const normalized = { ...bid, region: regionFrom(bid.dminsttNm, bid.bidNtceNm, bid.ntceInsttNm) };
+    if (bid.detailInfo && bid.serviceType === '사전규격') {
+        normalized.bidClseDt = bid.detailInfo.opinionCloseDt || '';
+    } else if (bid.detailInfo) {
+        const closeDt = bid.detailInfo.bidClseDt || '';
+        const openDt = bid.detailInfo.openDt || '';
+        normalized.bidClseDt = closeDt || openDt;
+        normalized.deadlineBasis = closeDt || !openDt ? '' : '개찰';
+    }
+    return normalized;
+}
+
+function sortByRegistration(bids) {
+    return bids.sort((a, b) => String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || '')));
+}
+
 async function loadArchiveBids(filePath) {
     try {
         const stored = JSON.parse(await fs.readFile(filePath, 'utf-8'));
@@ -914,16 +980,10 @@ async function updateMonthlyArchives(bids, generatedAt) {
 
     for (const [month, monthBids] of grouped) {
         const filePath = path.join(archiveDir, `${month}.json`);
-        const merged = new Map();
-        for (const bid of await loadArchiveBids(filePath)) {
-            merged.set(`${bid.serviceType}:${bid.bidId || bid.bidNtceNo}`, bid);
-        }
-        for (const bid of monthBids) {
-            merged.set(`${bid.serviceType}:${bid.bidId || bid.bidNtceNo}`, bid);
-        }
-        const archivedBids = Array.from(merged.values())
-            .filter((bid) => recordMonth(bid) === month)
-            .sort((a, b) => String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || '')));
+        const stored = (await loadArchiveBids(filePath)).map(normalizeStoredRecord);
+        const archivedBids = sortByRegistration(
+            collapseRecords([...stored, ...monthBids]).filter((bid) => recordMonth(bid) === month)
+        );
         await fs.writeFile(filePath, JSON.stringify({ generatedAt, month, totalCount: archivedBids.length, bids: archivedBids }, null, 2), 'utf-8');
     }
 
@@ -931,6 +991,17 @@ async function updateMonthlyArchives(bids, generatedAt) {
         .filter((name) => /^\d{4}-\d{2}\.json$/.test(name))
         .sort((a, b) => b.localeCompare(a))
         .slice(0, HISTORY_RETENTION_MONTHS);
+
+    // 이번 수집에 없는 지난 달 파일도 규칙이 바뀌면 다시 정리한다. 내용이 같으면 건드리지 않는다.
+    for (const name of files) {
+        const month = name.slice(0, 7);
+        if (grouped.has(month)) continue;
+        const filePath = path.join(archiveDir, name);
+        const stored = await loadArchiveBids(filePath);
+        const cleaned = sortByRegistration(collapseRecords(stored.map(normalizeStoredRecord)));
+        if (JSON.stringify(cleaned) === JSON.stringify(stored)) continue;
+        await fs.writeFile(filePath, JSON.stringify({ generatedAt, month, totalCount: cleaned.length, bids: cleaned }, null, 2), 'utf-8');
+    }
     const months = [];
     for (const name of files) {
         const month = name.slice(0, 7);
@@ -1035,17 +1106,7 @@ async function main() {
         process.exit(1);
     }
 
-    const uniqueMap = new Map();
-
-    for (const b of allBids) {
-        uniqueMap.set(`${b.serviceType}:${b.bidId || b.bidNtceNo}`, b);
-    }
-
-    const unique = Array.from(uniqueMap.values());
-
-    unique.sort((a, b) =>
-        String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || ''))
-    );
+    const unique = sortByRegistration(collapseRecords(allBids));
 
     const categoryStats = {};
     for (const cat of Object.keys(KEYWORD_CATEGORY)) {
