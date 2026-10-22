@@ -23,8 +23,7 @@ GitHub Pages / di.html
 DI영업지원 대시보드 UI
 ```
 
-현재 자동 수집기는 **입찰공고 데이터 중심**으로 구성되어 있다.  
-UI는 `입찰공고 · 사전규격 · 발주계획` 3대 조달 서비스 화면 구조를 지원하지만, 현 수집 스크립트는 우선 `물품/용역 입찰공고`를 수집한다. 사전규격과 발주계획은 향후 API 확장 대상이다.
+자동 수집기는 `입찰공고 · 사전규격 · 발주계획` 3대 조달 서비스를 각각 `물품/용역`으로 나눠 수집한다(데이터소스 6개).
 
 ---
 
@@ -32,14 +31,19 @@ UI는 `입찰공고 · 사전규격 · 발주계획` 3대 조달 서비스 화�
 
 ```txt
 /
+├─ index.html, di-actionboard.html   (di.html로 이동하는 안내 페이지)
 ├─ di.html
 ├─ data/
-│  └─ bids.json
+│  ├─ bids.json
+│  ├─ workflow-config.json
+│  └─ archive/  (YYYY-MM.json, index.json)
 ├─ scripts/
 │  └─ fetch-nara-bids.mjs
 ├─ .github/
 │  └─ workflows/
-│     └─ fetch-bids.yml
+│     ├─ fetch-bids.yml
+│     └─ validate-dashboard.yml
+├─ database.rules.json, firebase.json
 └─ docs/
    └─ DI_DASHBOARD_INTERNAL.md
 ```
@@ -47,9 +51,14 @@ UI는 `입찰공고 · 사전규격 · 발주계획` 3대 조달 서비스 화�
 | 경로 | 역할 |
 |---|---|
 | `di.html` | DI영업지원 대시보드 단일 HTML UI |
-| `data/bids.json` | GitHub Actions가 생성하는 정적 조달 데이터 |
+| `index.html`, `di-actionboard.html` | 기존 주소 호환용. 접속하면 `di.html`로 이동 |
+| `data/bids.json` | GitHub Actions가 생성하는 정적 조달 데이터 (최근 30일 + 발주월이 남은 발주계획) |
+| `data/archive/` | 등록월별 누적 데이터 (최근 12개월 목록을 `index.json`에 기록) |
+| `data/workflow-config.json` | 검토 기록 공유용 Firebase 설정 |
 | `scripts/fetch-nara-bids.mjs` | 나라장터 API 수집 스크립트 |
 | `.github/workflows/fetch-bids.yml` | 자동 수집 워크플로 |
+| `.github/workflows/validate-dashboard.yml` | `di.html` 스크립트 문법 검사 |
+| `database.rules.json`, `firebase.json` | Firebase Realtime Database 보안 규칙 |
 | `docs/DI_DASHBOARD_INTERNAL.md` | 본 내부 운영 문서 |
 
 ---
@@ -90,8 +99,8 @@ UI는 `입찰공고 · 사전규격 · 발주계획` 3대 조달 서비스 화�
 | 영역 | 설명 |
 |---|---|
 | 실시간 입찰공고 | 현재 수집된 입찰공고 건수 및 예산 |
-| 사전규격 공개 | 향후 사전규격 API 확장 시 표시 |
-| 발주계획 현황 | 향후 발주계획 API 확장 시 표시 |
+| 사전규격 공개 | 사전규격 공개 건수 |
+| 발주계획 현황 | 발주계획 건수 (발주월이 지나지 않은 계획 포함) |
 | 3대 정보망 누적 집계 | 전체 데이터 합산 지표 |
 | 마감 임박 TOP 3 | 각 서비스 유형별 우선 검토 항목 |
 | 3대 통합 조달 트렌드 | 등록 추세 차트 |
@@ -172,18 +181,24 @@ fetch('./data/bids.json?t=' + Date.now(), { cache: 'no-store' })
 |---|---|
 | `generatedAt` | 데이터 생성 시각 |
 | `timezone` | 기준 시간대 |
-| `rangeDays` | 수집 대상 기간 |
+| `fetchMode` | 이번 실행 방식. `full`(30일 전체) 또는 `incremental`(최근 3일) |
+| `fetchDays` | 이번 실행에서 API로 받은 기간(일) |
+| `lastFullRefreshAt` | 마지막 전체 재수집 시각 |
+| `planLookaheadEndYm` | 발주계획 선행 조회 끝 월. 빈 값이면 이번 실행에서 선행 조회가 거부되어 기존 범위로 수집 |
+| `rangeDays` | 데이터셋 유지 기간 |
 | `chunkDays` | 날짜 분할 단위 |
-| `rangeBegin` | 수집 시작 일시 |
-| `rangeEnd` | 수집 종료 일시 |
+| `rangeBegin` | 데이터셋 시작 일시 |
+| `rangeEnd` | 데이터셋 종료 일시 |
 | `totalCount` | 중복 제거 후 최종 건수 |
-| `rawCount` | 중복 제거 전 원본 건수 |
+| `rawCount` | 이번 실행에서 받은 원본 건수 |
 | `successCalls` | 성공 호출 수 |
 | `failedCalls` | 실패 호출 수 |
 | `requestDelayMs` | 요청 간격 |
 | `maxPagesPerQuery` | 검색어별 최대 페이지 |
-| `categoryStats` | 키워드 계열별 건수 |
+| `serviceStats` | 서비스(공고·사전규격·발주계획)별 건수 |
+| `categoryStats` | 키워드 계열별 건수 (대표 검색어 기준) |
 | `errors` | 오류 목록 |
+| `warnings` | 경고 목록. 페이지 상한(500건) 잘림, 발주계획 선행 조회 전환 등 |
 | `bids` | 실제 공고 배열 |
 
 ---
@@ -202,9 +217,11 @@ fetch('./data/bids.json?t=' + Date.now(), { cache: 'no-store' })
 | `dminsttNm` | 수요기관 |
 | `assignBudgetAmt` | 배정예산액 |
 | `bidNtceRegistDt` | 공고 등록일 |
-| `bidClseDt` | 입찰 마감일 |
-| `searchKeyword` | 매칭 검색어 |
-| `region` | 분류 지역 |
+| `bidClseDt` | 입찰 마감일. 사전규격은 의견등록 마감일, 발주계획은 발주 예정월 |
+| `deadlineBasis` | `개찰`이면 입찰마감일이 없어 개찰일을 마감으로 사용한 공고 |
+| `searchKeyword` | 대표 검색어 (직접 키워드 우선) |
+| `matchedKeywords` | 이 공고에 걸린 검색어 전체 |
+| `region` | 분류 지역. 수요기관 → 공고명 → 공고기관 순으로 판단, 조달청 기관명은 제외 |
 | `g2bUrl` | 나라장터 상세 URL |
 | `serviceType` | 서비스 구분. 없으면 UI에서 자동 보정 |
 
@@ -217,27 +234,28 @@ fetch('./data/bids.json?t=' + Date.now(), { cache: 'no-store' })
 현재 운영 기준:
 
 ```txt
-수집 기간: 최근 30일
+데이터셋: 최근 30일 등록분 + 발주월이 지나지 않은 발주계획
+수집 방식: 하루 첫 실행(직전 전체 수집 후 20시간 경과)은 30일 전체, 나머지는 최근 3일 증분
+           수동 실행에서 force 체크 시 항상 30일 전체
+발주계획: 발주 예정월을 6개월 앞까지 조회 (API가 거부하면 그 실행만 기존 범위로 자동 전환, warnings에 기록)
 데이터 보관: 최근 12개월 월별 파일로 누적
 날짜 분할: 15일 단위
-검색어: 30개
-엔드포인트: 물품 / 용역
+검색어: 22개
+데이터소스: 입찰공고 / 사전규격 / 발주계획 × 물품 / 용역
+호출 수: 전체 264회, 증분 132회
 요청 간격: 1000ms
 재시도: 3회
-최대 페이지: 검색어/엔드포인트/날짜구간당 5페이지
+최대 페이지: 검색어/데이터소스/날짜구간당 5페이지(500건). 넘으면 warnings에 기록
 ```
+
+정정공고(같은 공고번호의 차수 000 → 001 …)는 최신 차수 1건만 남긴다.
 
 검색어 기준:
 
+`디지털 전광판` 같은 변형 검색어는 결과가 `전광판` 검색 결과에 모두 포함되므로 쓰지 않는다.
+
 ```txt
-전광판, 디지털 전광판
-미디어, 디지털 미디어
-파사드, 디지털 파사드
-사이니지, 디지털 사이니지
-디스플레이, 디지털 디스플레이
-LED, 디지털 LED
-ITS, 디지털 ITS
-VMS, 디지털 VMS
+전광판, 미디어, 파사드, 사이니지, 디스플레이, LED, ITS, VMS
 
 전광판 외 간접 사업/문화시설:
 문화센터, 체육센터, 복합센터, 커뮤니티센터
@@ -249,19 +267,21 @@ VMS, 디지털 VMS
 체육관, 운동장, 경기장, 수영장, 축구, 야구, 스포츠파크, 스포츠타운
 ```
 
+간접 사업 중 감리·폐기물·조경·소방·자재 구매처럼 전광판 영업과 무관한 공고는 대시보드에서 `연관성 낮음`으로 내려 기본 검토 목록에서 뺀다(전체 보기에는 남는다). 제외어 목록은 `di.html`의 `INDIRECT_NOISE_PATTERN` 한 곳에서 관리한다.
+
 ---
 
 ### 5.2 사용 API
 
-현재 스크립트는 차세대 나라장터 신규 API 경로를 사용한다.
+차세대 나라장터 신규 API 경로를 사용한다. 공공데이터포털에서 아래 3개 서비스 활용신청이 되어 있어야 한다.
 
-```txt
-물품:
-https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoThngPPSSrch
+| 서비스 | Base URL | 물품 / 용역 오퍼레이션 | 검색 파라미터 |
+|---|---|---|---|
+| 입찰공고정보서비스 | `https://apis.data.go.kr/1230000/ad/BidPublicInfoService` | `getBidPblancListInfoThngPPSSrch` / `getBidPblancListInfoServcPPSSrch` | `bidNtceNm` |
+| 사전규격정보서비스 | `https://apis.data.go.kr/1230000/ao/HrcspSsstndrdInfoService` | `getPublicPrcureThngInfoThngPPSSrch` / `getPublicPrcureThngInfoServcPPSSrch` | `prdctClsfcNoNm` |
+| 발주계획현황서비스 | `https://apis.data.go.kr/1230000/ao/OrderPlanSttusService` | `getOrderPlanSttusListThngPPSSrch` / `getOrderPlanSttusListServcPPSSrch` | `bizNm` (기간: `orderBgnYm`, `orderEndYm`, `inqryBgnDt`, `inqryEndDt`) |
 
-용역:
-https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServcPPSSrch
-```
+인증키 Secret: `NARA_API_KEY`(필수). 서비스별로 키를 따로 쓰려면 `NARA_PRESPEC_API_KEY`, `NARA_PLAN_API_KEY`를 등록한다. 없으면 `NARA_API_KEY`를 재사용한다.
 
 기존 `BidPublicInfoService04/...01` 경로는 HTTP 500이 반복될 수 있으므로 운영 코드에서 사용하지 않는다.
 
@@ -269,13 +289,14 @@ https://apis.data.go.kr/1230000/ad/BidPublicInfoService/getBidPblancListInfoServ
 
 ### 5.3 실패 보호 로직
 
-모든 API 호출이 실패하면 기존 `data/bids.json`을 덮어쓰지 않는다.
+API 호출 성공률이 80% 미만이면 기존 `data/bids.json`을 덮어쓰지 않는다.
 
 운영 원칙:
 
 ```txt
-일부 실패 + 일부 성공 → data/bids.json 갱신
-전체 실패 → 프로세스 실패 처리, 기존 JSON 유지
+성공률 80% 이상 → data/bids.json 갱신 (실패 내역은 errors에 기록)
+성공률 80% 미만 → 프로세스 실패 처리, 기존 JSON 유지
+연결 오류 3회 연속 → 즉시 중단, 워크플로가 대기 후 최대 3회 재시도
 ```
 
 이 원칙은 빈 데이터가 운영 화면에 배포되는 사고를 막기 위한 필수 방어 로직이다.
@@ -483,24 +504,17 @@ UI는 `data/bids.json?t=Date.now()` 형태로 캐시 우회를 수행한다.
 | 일부 검색어만 실패 | 나라장터 일시 장애 또는 검색어별 응답 문제 | 재실행 후 `errors` 확인 |
 | 전체 실패 | 인증키/활용신청/API 경로 문제 | 키 재발급, 활용신청 상태, API URL 확인 |
 | CSV 한글 깨짐 | BOM 누락 | UTF-8 BOM 포함 로직 유지 |
-| UI는 열리는데 차트 오류 | Chart.js CDN 차단 | 네트워크/방화벽/CDN 접근 확인 |
+| UI는 열리는데 아이콘이 안 보임 | unpkg CDN(lucide) 차단 | 네트워크/방화벽/CDN 접근 확인 |
+| 상단 상태가 주황색 `갱신 지연` | 18시간 넘게 수집 성공 없음 | Actions 실행 기록, 외부 스케줄러 토큰 만료 여부 확인 |
+| 발주계획에 다음 달 이후 계획이 없음 | API가 발주월 선행 조회를 거부 | `bids.json`의 `warnings`, `planLookaheadEndYm` 확인 (10.1 참고) |
 
 ---
 
 ## 10. 향후 개선 과제
 
-### 10.1 진짜 3대 서비스 수집 확장
+### 10.1 3대 서비스 수집 (적용 완료)
 
-현재 UI는 3대 서비스 구조를 갖췄지만, 자동 수집기는 입찰공고 중심이다.  
-아래 API 수집을 추가하면 UI와 데이터 구조가 완전히 일치한다.
-
-```txt
-1. 입찰공고: 현재 적용
-2. 사전규격: 추가 필요
-3. 발주계획: 추가 필요
-```
-
-확장 시 권장 ID 규칙:
+입찰공고·사전규격·발주계획 모두 수집 중이다. ID 규칙:
 
 ```txt
 입찰공고: 기존 bidNtceNo 사용
@@ -508,7 +522,7 @@ UI는 `data/bids.json?t=Date.now()` 형태로 캐시 우회를 수행한다.
 발주계획: PL-{원본번호}
 ```
 
-이 규칙을 적용하면 현재 UI의 `serviceType` 자동 보정 로직과 호환된다.
+남은 확인 사항: 발주계획 API가 발주월 6개월 선행 조회를 받아들이는지 실제 실행 로그로 확인한다. `planLookaheadEndYm`이 비어 있고 warnings에 `선행 조회 실패`가 있으면 API가 거부한 것이므로, 참고문서(`조달청_OpenAPI참고자료_나라장터_발주계획현황서비스_1.1.docx`)의 기간 파라미터 제약을 확인해 범위를 조정한다.
 
 ---
 
@@ -517,7 +531,7 @@ UI는 `data/bids.json?t=Date.now()` 형태로 캐시 우회를 수행한다.
 추가 검토 항목:
 
 ```txt
-공고명 기준 불필요 데이터 제외 키워드 추가
+간접 사업 제외어(INDIRECT_NOISE_PATTERN) 운영하며 보정
 예산 0원 데이터 별도 표시
 마감일 없는 공고 상태값 분리
 관심 지역 우선 정렬
@@ -579,9 +593,10 @@ UI: di.html 단일 페이지
 수집: GitHub Actions + Node.js
 인증키: GitHub Secret 관리
 기본 운영 모드: GitHub Static JSON
-수집 범위: 최근 30일
-장애 보호: 전체 실패 시 기존 JSON 유지
-향후 확장: 사전규격/발주계획 API 추가
+수집 대상: 입찰공고 / 사전규격 / 발주계획 × 물품 / 용역
+수집 범위: 최근 30일 (하루 1회 전체, 나머지 3일 증분) + 발주월이 남은 발주계획
+장애 보호: 호출 성공률 80% 미만이면 기존 JSON 유지
+검토 기록: Firebase, Google 로그인 + members 허용 목록만 쓰기
 ```
 
 이 구조가 현재 DI UI 수정안에 맞는 GitHub 내부 운영 기준이다.

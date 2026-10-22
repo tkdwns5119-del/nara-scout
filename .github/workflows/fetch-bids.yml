@@ -31,16 +31,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Latest branch tip, not the SHA at trigger time, so the freshness
           # check sees data committed by a run that finished while this one queued.
           ref: ${{ github.ref }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Skip if data is already fresh
         id: freshness
