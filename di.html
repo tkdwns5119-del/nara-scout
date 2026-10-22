@@ -4,50 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DI 조달 검토 보드</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <script defer src="https://unpkg.com/lucide@1.52.0/dist/umd/lucide.min.js"></script>
   <style>
     :root {
-      --bg: #f3f6f8;
+      --bg: #eef2f5;
       --panel: #ffffff;
-      --panel-soft: #f7f9fb;
-      --line: #d8e0e7;
-      --line-soft: #e9eef2;
-      --text: #182230;
-      --muted: #657386;
+      --panel-soft: #f6f8fa;
+      --line: #d9e1e8;
+      --line-soft: #e8edf1;
+      --text: #17212c;
+      --muted: #546171;
+      --faint: #7a8696;
       --navy: #16324b;
-      --teal: #087d80;
-      --teal-soft: #e8f7f5;
+      --teal: #0b7376;
+      --teal-strong: #085d60;
+      --teal-soft: #e6f4f3;
       --green: #16734a;
-      --green-soft: #eaf7ef;
-      --amber: #9a5c00;
-      --amber-soft: #fff5dd;
-      --red: #b53545;
-      --red-soft: #fff0f1;
-      --blue: #1769aa;
-      --blue-soft: #edf6fd;
-      --radius: 8px;
-      --shadow: 0 1px 2px rgba(20, 35, 50, 0.05), 0 8px 22px rgba(20, 35, 50, 0.04);
+      --green-soft: #e8f5ee;
+      --amber: #9a5600;
+      --amber-soft: #fff4dc;
+      --red: #b8322a;
+      --red-soft: #fdeeed;
+      --blue: #22609f;
+      --blue-soft: #ebf3fb;
+      --radius: 10px;
+      --radius-sm: 7px;
+      --shadow: 0 1px 2px rgba(20, 35, 50, 0.06);
+      --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
     html, body { margin: 0; min-height: 100%; }
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
       background: var(--bg);
       color: var(--text);
-      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
     }
+    .num { font-variant-numeric: tabular-nums; }
 
-    button, input, select, textarea { font: inherit; }
-    button, select, input, textarea { border-radius: 6px; }
+    button, input, select, textarea { font: inherit; color: inherit; }
     button { cursor: pointer; }
-    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline: 3px solid rgba(8, 125, 128, 0.2);
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
+      outline: 3px solid rgba(11, 115, 118, 0.35);
       outline-offset: 2px;
     }
     a { color: inherit; }
-    svg { width: 16px; height: 16px; stroke-width: 2; }
+    svg { width: 16px; height: 16px; stroke-width: 2; flex: 0 0 auto; }
     .sr-only {
       position: absolute;
       width: 1px;
@@ -60,309 +67,292 @@
       border: 0;
     }
 
+    /* 상단 바 */
     .app { min-height: 100vh; }
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
-      min-height: 64px;
-      padding: 10px 18px;
+      min-height: 60px;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      background: rgba(255, 255, 255, 0.97);
-      border-bottom: 1px solid var(--line);
-      box-shadow: 0 2px 12px rgba(20, 35, 50, 0.05);
-      backdrop-filter: blur(10px);
-    }
-
-    .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border-radius: var(--radius);
       background: var(--navy);
       color: #fff;
     }
-    .brand h1 { margin: 0; font-size: 17px; line-height: 1.2; }
-    .brand-sub { margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .brand-mark svg { width: 20px; height: 20px; }
+    .brand h1 { margin: 0; font-size: 18px; line-height: 1.25; font-weight: 700; }
+    .brand-sub { margin-top: 1px; color: #b8c6d4; font-size: 13px; }
 
     .top-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
     .sync-pill {
-      min-height: 34px;
-      padding: 0 10px;
+      min-height: 36px;
+      padding: 0 12px;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      border: 1px solid var(--line);
+      gap: 8px;
       border-radius: 999px;
-      background: #fff;
-      color: var(--muted);
-      font-size: 11px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #dbe4ec;
+      font-size: 13px;
       white-space: nowrap;
     }
     .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa7b5; }
-    .sync-pill.ok .sync-dot { background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
-    .sync-pill.error .sync-dot { background: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
-    .sync-pill.warn .sync-dot { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+    .sync-pill.ok .sync-dot { background: #4cc38a; }
+    .sync-pill.error .sync-dot { background: #ff7a6e; }
+    .sync-pill.warn .sync-dot { background: #f2b33d; }
+    .sync-pill.warn, .sync-pill.error { background: rgba(255, 255, 255, 0.16); color: #fff; }
 
     .btn, .link-btn {
-      min-height: 34px;
-      padding: 0 11px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fff;
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 750;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .btn:hover, .link-btn:hover { border-color: #aebbc8; background: #f8fafb; }
-    .btn.primary, .link-btn.primary { border-color: var(--teal); background: var(--teal); color: #fff; }
-    .btn.primary:hover, .link-btn.primary:hover { background: #066d70; }
-    .btn.icon-only { width: 34px; padding: 0; }
-
-    .workspace {
-      padding: 14px 16px 22px;
-      display: grid;
-      grid-template-columns: minmax(690px, 1fr) minmax(410px, 450px);
-      gap: 14px;
-      align-items: start;
-    }
-    .board, .detail-pane { min-width: 0; }
-
-    .summary-strip {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .summary-item { padding: 12px 14px; border-right: 1px solid var(--line-soft); }
-    .summary-item:last-child { border-right: 0; }
-    .summary-label { color: var(--muted); font-size: 11px; font-weight: 750; }
-    .summary-value { margin-top: 4px; font-size: 21px; line-height: 1.15; font-weight: 850; }
-    .summary-hint { margin-left: 4px; color: var(--muted); font-size: 10px; font-weight: 600; }
-
-    .control-panel {
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .view-tabs {
-      min-height: 48px;
-      padding: 6px 8px 0;
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      overflow-x: auto;
-      border-bottom: 1px solid var(--line);
-    }
-    .view-tab {
-      min-height: 41px;
-      padding: 0 8px;
+      min-height: 38px;
+      padding: 0 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 7px;
-      flex: 1 1 auto;
-      border: 0;
-      border-bottom: 3px solid transparent;
-      border-radius: 5px 5px 0 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 750;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    .view-tab:hover { background: var(--panel-soft); color: var(--text); }
-    .view-tab.active { color: var(--teal); border-bottom-color: var(--teal); background: var(--teal-soft); }
-    .tab-count {
-      min-width: 21px;
+    .btn:hover, .link-btn:hover { border-color: #aebbc8; background: var(--panel-soft); }
+    .btn.primary, .link-btn.primary { border-color: var(--teal); background: var(--teal); color: #fff; }
+    .btn.primary:hover, .link-btn.primary:hover { background: var(--teal-strong); }
+    .btn.icon-only { width: 38px; padding: 0; }
+    .topbar .btn { border-color: rgba(255, 255, 255, 0.22); background: transparent; color: #fff; }
+    .topbar .btn:hover { background: rgba(255, 255, 255, 0.1); }
+    .topbar .btn.primary { border-color: #fff; background: #fff; color: var(--navy); }
+    .topbar .btn.primary:hover { background: #e8eef3; }
+
+    /* 작업 영역 */
+    .workspace {
+      padding: 16px 20px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 16px;
+      align-items: start;
+    }
+    .board, .detail-pane { min-width: 0; }
+    .board {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* 상태 탭: 숫자가 곧 요약 */
+    .view-tabs {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+    }
+    .view-tab {
+      min-height: 76px;
+      padding: 12px 14px 10px;
+      display: grid;
+      align-content: center;
+      gap: 2px;
+      border: 0;
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 3px solid transparent;
+      background: transparent;
+      text-align: left;
+      color: var(--muted);
+    }
+    .view-tab:last-child { border-right: 0; }
+    .view-tab:hover { background: var(--panel-soft); }
+    .view-tab-label { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; white-space: nowrap; }
+    .view-tab-label svg { width: 15px; height: 15px; }
+    .tab-count { color: var(--text); font-size: 24px; line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .tab-count::after { content: "건"; margin-left: 2px; color: var(--faint); font-size: 13px; font-weight: 500; }
+    .tab-count:empty::before { content: "–"; color: var(--line); }
+    .tab-count:empty::after { content: none; }
+    .view-tab.active { border-bottom-color: var(--teal); background: var(--teal-soft); color: var(--teal-strong); }
+    .view-tab.active .tab-count { color: var(--teal-strong); }
+    .view-tab[data-view="soon"] .tab-count { color: var(--red); }
+
+    /* 필터 */
+    .filter-bar { padding: 12px 14px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+    .filter-row {
+      display: grid;
+      grid-template-columns: minmax(240px, 1.6fr) repeat(3, minmax(120px, 1fr)) auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .search-wrap { position: relative; }
+    .search-wrap svg { position: absolute; left: 12px; top: 11px; color: var(--faint); pointer-events: none; }
+    .search-wrap input { padding-left: 38px; width: 100%; }
+    input, select, textarea {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      color: var(--text);
+    }
+    input, select { height: 38px; padding: 0 12px; font-size: 14px; }
+    select { min-width: 0; width: 100%; }
+    select.is-set { border-color: var(--teal); background: var(--teal-soft); color: var(--teal-strong); font-weight: 600; }
+    input::placeholder, textarea::placeholder { color: #8f9aa7; }
+    .more-filters-btn[aria-expanded="true"] { border-color: var(--teal); color: var(--teal-strong); }
+    .filter-badge {
+      min-width: 20px;
       height: 20px;
       padding: 0 6px;
       display: inline-grid;
       place-items: center;
       border-radius: 999px;
-      background: #e9eef2;
-      color: #526274;
-      font-size: 10px;
-      font-weight: 800;
+      background: var(--teal);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
     }
-    .view-tab.active .tab-count { background: #ccebe7; color: #076c6f; }
-
-    .filters {
-      padding: 10px;
+    .filter-reset { color: var(--muted); }
+    .more-filters {
+      padding: 12px;
       display: grid;
-      grid-template-columns: minmax(230px, 1.4fr) repeat(6, minmax(105px, 0.7fr)) auto;
-      gap: 8px;
-      align-items: center;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--panel-soft);
     }
-    .search-wrap { position: relative; }
-    .search-wrap svg { position: absolute; left: 11px; top: 10px; color: var(--muted); pointer-events: none; }
-    .search-wrap input { padding-left: 34px; width: 100%; }
-    input, select, textarea {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--text);
-    }
-    input, select { height: 36px; padding: 0 10px; font-size: 12px; }
-    select { min-width: 0; width: 100%; }
-    input::placeholder, textarea::placeholder { color: #96a2af; }
-    .filter-reset { height: 36px; min-width: 36px; padding: 0 9px; border: 1px solid var(--line); background: #fff; color: var(--muted); }
-
-    .keyword-filters {
-      padding: 9px 10px;
-      display: grid;
-      grid-template-columns: auto minmax(220px, 1fr) minmax(180px, 0.75fr) minmax(180px, 0.9fr);
-      gap: 8px;
-      align-items: center;
-      border-top: 1px solid var(--line-soft);
-      background: #fbfcfd;
-    }
-    .keyword-filter-label {
-      min-height: 36px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: #46576a;
-      font-size: 11px;
-      font-weight: 850;
-      white-space: nowrap;
-    }
-    .keyword-filter-label svg { color: var(--teal); }
-    .keyword-guide { color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .more-filters label { display: grid; gap: 4px; color: var(--muted); font-size: 13px; font-weight: 600; }
+    .more-filters .wide { grid-column: span 2; }
+    .more-filters-note { grid-column: 1 / -1; color: var(--faint); font-size: 12px; }
 
     .list-meta {
-      min-height: 40px;
-      padding: 0 12px;
+      min-height: 44px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      border-top: 1px solid var(--line-soft);
-      background: #fbfcfd;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 13px;
     }
-    .list-meta strong { color: var(--text); }
-    .legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .legend span { display: inline-flex; align-items: center; gap: 4px; }
-    .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .list-meta strong { color: var(--text); font-size: 15px; }
+    .sort-hint { color: var(--faint); font-size: 12px; }
 
-    .table-wrap { overflow: auto; max-height: calc(100vh - 270px); border-top: 1px solid var(--line); }
-    table { width: 100%; min-width: 910px; border-collapse: collapse; table-layout: fixed; }
+    /* 목록 */
+    .table-wrap { overflow: auto; max-height: calc(100vh - 300px); border-top: 1px solid var(--line); }
+    table { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; }
     th {
       position: sticky;
       top: 0;
       z-index: 3;
-      height: 40px;
-      padding: 0 10px;
+      height: 38px;
+      padding: 0 12px;
       border-bottom: 1px solid var(--line);
-      background: #edf3f6;
-      color: #536274;
+      background: var(--panel-soft);
+      color: var(--muted);
       text-align: left;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 13px;
+      font-weight: 600;
     }
-    td {
-      padding: 11px 10px;
-      border-bottom: 1px solid var(--line-soft);
-      vertical-align: top;
-      font-size: 12px;
-    }
-    tbody tr { background: #fff; cursor: pointer; transition: background 120ms ease, box-shadow 120ms ease; }
-    tbody tr:hover { background: #f8fbfc; }
-    tbody tr.selected { background: #edf8f8; box-shadow: inset 3px 0 0 var(--teal); }
-    tbody tr:focus-visible { outline: 3px solid rgba(8, 125, 128, 0.2); outline-offset: -3px; }
-    .col-notice { width: 130px; }
-    .col-business { width: 34%; }
-    .col-verdict { width: 120px; }
-    .col-contract { width: 180px; }
-    .col-budget { width: 105px; }
-    .col-deadline { width: 138px; }
-    .col-link { width: 48px; text-align: center; }
+    td { padding: 14px 12px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+    tbody tr { background: #fff; cursor: pointer; }
+    tbody tr:hover { background: #f7fafb; }
+    tbody tr.selected { background: var(--teal-soft); }
+    tbody tr:focus-visible { outline: 3px solid rgba(11, 115, 118, 0.35); outline-offset: -3px; }
+    .col-deadline { width: 104px; }
+    .col-contract { width: 150px; }
+    .col-budget { width: 104px; text-align: right; }
+    .col-verdict { width: 104px; }
+    .col-link { width: 52px; text-align: center; }
+    td.col-budget { text-align: right; }
 
-    .eyebrow { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
-    .type-badge, .relevance-badge, .review-badge {
-      min-height: 20px;
-      padding: 0 6px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: #f6f8fa;
-      color: #526274;
-      font-size: 10px;
-      font-weight: 800;
-      white-space: nowrap;
+    /* 마감 레일: 이 화면에서 가장 먼저 읽히는 정보 */
+    td.deadline-cell { position: relative; padding-left: 18px; }
+    td.deadline-cell::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--line);
     }
-    .type-badge.bid { border-color: #b8d9ef; background: var(--blue-soft); color: var(--blue); }
-    .type-badge.pre { border-color: #d8c7f0; background: #f6f0fc; color: #7150a0; }
-    .type-badge.plan { border-color: #c9d3dc; background: #f2f5f7; color: #526274; }
-    .relevance-badge.direct { border-color: #b9dfd3; background: var(--green-soft); color: var(--green); }
-    .relevance-badge.check { border-color: #efd29c; background: var(--amber-soft); color: var(--amber); }
-    .review-badge { border: 0; background: #e8eef3; }
-    .review-badge.issue { background: var(--red-soft); color: var(--red); }
-    .review-badge.done { background: var(--green-soft); color: var(--green); }
-    .review-badge.checked { background: var(--blue-soft); color: var(--blue); }
-    .notice-no { margin-top: 5px; color: var(--muted); font-size: 10px; word-break: break-all; }
-    .notice-date { margin-top: 3px; color: #8794a2; font-size: 10px; }
-    .business-title { font-size: 13px; line-height: 1.42; font-weight: 800; word-break: keep-all; }
-    .business-agency { margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .keyword-path { margin-top: 6px; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; color: #526274; font-size: 10px; }
-    .keyword-path strong { color: var(--teal); font-weight: 850; }
-    .keyword-path strong.keyword-check { color: var(--amber); }
-    .keyword-path strong.keyword-low { color: var(--red); }
-    .keyword-evidence { color: #7b8997; }
+    tr[data-urgency="soon"] td.deadline-cell::before { background: var(--red); }
+    tr[data-urgency="mid"] td.deadline-cell::before { background: #e3a13a; }
+    tr[data-urgency="plan"] td.deadline-cell::before { background: #7aa7d6; }
+    tr.selected td.deadline-cell::before { width: 7px; }
+    .dday { display: block; font-size: 22px; line-height: 1.1; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); }
+    .dday.soon { color: var(--red); }
+    .dday.mid { color: var(--amber); }
+    .dday.plan { color: var(--blue); font-size: 17px; }
+    .dday.closed, .dday.text { color: var(--faint); font-size: 17px; }
+    .deadline-date { margin-top: 4px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-    .verdict {
-      min-height: 24px;
+    .business-title { font-size: 15px; line-height: 1.45; font-weight: 650; word-break: keep-all; overflow-wrap: anywhere; }
+    .business-agency { margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tag-row { margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      min-height: 22px;
       padding: 0 8px;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 850;
+      border-radius: 5px;
+      background: #eef2f5;
+      color: #46535f;
+      font-size: 12px;
+      font-weight: 600;
       white-space: nowrap;
     }
-    .verdict.possible { border-color: #b8dfca; background: var(--green-soft); color: var(--green); }
-    .verdict.check { border-color: #f0cf91; background: var(--amber-soft); color: var(--amber); }
-    .verdict.restricted { border-color: #efc1c7; background: var(--red-soft); color: var(--red); }
-    .verdict.closed { border-color: #d8e0e7; background: #f2f5f7; color: #687688; }
-    .verdict-reason { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.35; }
-    .contract-main { font-weight: 750; line-height: 1.35; }
-    .contract-sub { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.35; }
-    .budget { font-weight: 850; white-space: nowrap; }
-    .dday { display: inline-block; font-size: 14px; font-weight: 900; }
-    .dday.soon { color: var(--red); }
-    .dday.mid { color: var(--amber); }
-    .dday.plan { color: var(--blue); }
-    .deadline-date { margin-top: 4px; color: var(--muted); font-size: 10px; white-space: nowrap; }
-    .schedule-line { margin-top: 4px; display: flex; gap: 5px; color: var(--muted); font-size: 10px; white-space: nowrap; }
-    .schedule-label { min-width: 24px; color: #7c8997; font-weight: 750; }
+    .tag.bid { background: var(--blue-soft); color: var(--blue); }
+    .tag.pre { background: #f3eefb; color: #6b4a9b; }
+    .tag.plan { background: #eef2f5; color: #46535f; }
+    .tag.direct { background: var(--green-soft); color: var(--green); }
+    .tag.low { background: #f3f4f6; color: var(--faint); }
+    .tag.review-checked { background: var(--blue); color: #fff; }
+    .tag.review-issue { background: var(--red); color: #fff; }
+    .tag.review-done { background: var(--green); color: #fff; }
+    .keyword-tag { color: var(--teal-strong); background: transparent; padding: 0; }
+    .keyword-tag.keyword-check { color: var(--amber); }
+    .keyword-tag.keyword-low { color: var(--faint); }
+
+    .verdict {
+      min-height: 28px;
+      padding: 0 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .verdict::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .verdict.possible { background: var(--green-soft); color: var(--green); }
+    .verdict.check { background: var(--amber-soft); color: var(--amber); }
+    .verdict.restricted { background: var(--red-soft); color: var(--red); }
+    .verdict.closed { background: #eef2f5; color: var(--faint); }
+    .contract-main { font-size: 14px; font-weight: 600; line-height: 1.4; word-break: keep-all; }
+    .contract-sub { margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .budget { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .budget.unknown { color: var(--faint); font-weight: 500; }
     .row-link {
-      width: 31px;
-      height: 31px;
+      width: 36px;
+      height: 36px;
       display: inline-grid;
       place-items: center;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       background: #fff;
       color: var(--teal);
       text-decoration: none;
@@ -370,20 +360,22 @@
     .row-link:hover { border-color: var(--teal); background: var(--teal-soft); }
 
     .loading, .empty {
-      min-height: 240px;
+      min-height: 260px;
       padding: 32px;
       display: grid;
       place-items: center;
       text-align: center;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 14px;
     }
-    .empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 14px; }
+    .empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 16px; }
+    .empty .btn { margin-top: 14px; }
 
+    /* 상세 패널 */
     .detail-pane {
       position: sticky;
-      top: 78px;
-      height: calc(100vh - 94px);
+      top: 76px;
+      height: calc(100vh - 92px);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--panel);
@@ -392,95 +384,106 @@
     }
     .detail-empty { height: 100%; padding: 40px; display: grid; place-items: center; text-align: center; color: var(--muted); }
     .detail-empty svg { width: 30px; height: 30px; margin-bottom: 12px; color: #91a0af; }
-    .detail-empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 14px; }
-    .detail-content { height: 100%; display: grid; grid-template-rows: auto auto 1fr; }
-    .detail-head { padding: 16px 16px 14px; border-bottom: 1px solid var(--line); }
+    .detail-empty strong { display: block; margin-bottom: 6px; color: var(--text); font-size: 16px; }
+    .detail-content { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+    .detail-head { padding: 18px 18px 16px; border-bottom: 1px solid var(--line); }
     .detail-head-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .detail-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .detail-close { display: none; }
-    .detail-title { margin: 12px 0 0; font-size: 17px; line-height: 1.45; word-break: keep-all; }
-    .detail-sub { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 6px 10px; color: var(--muted); font-size: 10px; }
+    .detail-title { margin: 12px 0 0; font-size: 19px; line-height: 1.4; font-weight: 700; word-break: keep-all; overflow-wrap: anywhere; }
+    .detail-agency { margin-top: 4px; color: var(--muted); font-size: 14px; }
 
-    .decision-box { margin-top: 13px; padding: 11px 12px; border-left: 3px solid var(--amber); background: var(--amber-soft); }
-    .decision-box.possible { border-left-color: var(--green); background: var(--green-soft); }
-    .decision-box.restricted { border-left-color: var(--red); background: var(--red-soft); }
-    .decision-label { font-size: 11px; font-weight: 850; }
-    .decision-reason { margin-top: 4px; color: #526274; font-size: 11px; line-height: 1.45; }
-    .decision-warning { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .fact-grid { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
+    .fact { padding: 10px 12px; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+    .fact:nth-child(2n) { border-right: 0; }
+    .fact:nth-last-child(-n+2) { border-bottom: 0; }
+    .fact-label { color: var(--muted); font-size: 12px; font-weight: 600; }
+    .fact-value { margin-top: 2px; font-size: 15px; font-weight: 700; line-height: 1.35; font-variant-numeric: tabular-nums; word-break: keep-all; }
+    .fact-value.soon { color: var(--red); }
+    .fact-value.mid { color: var(--amber); }
+    .fact-value.muted { color: var(--faint); font-weight: 500; }
+    .fact-sub { margin-top: 2px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 
-    .detail-actions { padding: 9px 12px; display: flex; gap: 7px; border-bottom: 1px solid var(--line); background: #fbfcfd; }
-    .detail-actions .primary { flex: 1; }
+    .decision-box { margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--amber-soft); color: #5f4310; font-size: 13px; line-height: 1.5; }
+    .decision-box.possible { background: var(--green-soft); color: #165036; }
+    .decision-box.restricted { background: var(--red-soft); color: #7c2620; }
+    .decision-box.closed { background: #eef2f5; color: var(--muted); }
+
+    .detail-actions { margin-top: 14px; display: grid; grid-template-columns: 1fr auto auto; gap: 8px; }
+
     .detail-scroll { min-height: 0; overflow-y: auto; }
 
-    .review-block { padding: 13px 15px; border-bottom: 1px solid var(--line); background: #f8fafb; }
-    .section-label { margin: 0 0 8px; color: #526274; font-size: 11px; font-weight: 850; }
-    .review-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-    .review-btn { height: 32px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 11px; font-weight: 800; }
-    .review-btn.active[data-review="unchecked"] { border-color: #9cadbd; background: #edf2f6; color: var(--text); }
-    .review-btn.active[data-review="checked"] { border-color: #8fc6ec; background: var(--blue-soft); color: var(--blue); }
-    .review-btn.active[data-review="issue"] { border-color: #e7a8b1; background: var(--red-soft); color: var(--red); }
-    .review-btn.active[data-review="done"] { border-color: #9fd0b6; background: var(--green-soft); color: var(--green); }
-    .review-note { width: 100%; min-height: 78px; margin-top: 8px; padding: 9px 10px; resize: vertical; font-size: 11px; line-height: 1.45; }
-    .note-foot { min-height: 26px; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; }
-    .save-note { min-height: 28px; padding: 0 9px; border: 1px solid var(--line); background: #fff; font-size: 10px; font-weight: 800; }
-
-    .report-section { padding: 0 15px 15px; }
-    .report-toolbar { min-height: 34px; margin-bottom: 8px; display: flex; align-items: center; justify-content: flex-end; }
-    .copy-report { min-height: 30px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #9dcfd0; background: var(--teal-soft); color: var(--teal); font-size: 10px; font-weight: 850; }
-    .copy-report:hover { border-color: var(--teal); background: #dff3f3; }
-    .report-sheet {
-      margin: 0;
-      min-height: 300px;
-      padding: 13px 14px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fbfcfd;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 11px;
-      line-height: 1.65;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
+    .review-block { padding: 16px 18px; border-bottom: 1px solid var(--line); background: var(--panel-soft); }
+    .section-label { margin: 0 0 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 700; }
+    .section-hint { color: var(--faint); font-size: 12px; font-weight: 500; }
+    .review-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .review-btn { height: 40px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .review-btn:hover { border-color: #aebbc8; color: var(--text); }
+    .review-btn.active[data-review="unchecked"] { border-color: #7e8b99; background: #e9eef2; color: var(--text); }
+    .review-btn.active[data-review="checked"] { border-color: var(--blue); background: var(--blue); color: #fff; }
+    .review-btn.active[data-review="issue"] { border-color: var(--red); background: var(--red); color: #fff; }
+    .review-btn.active[data-review="done"] { border-color: var(--green); background: var(--green); color: #fff; }
+    .review-note { width: 100%; min-height: 84px; margin-top: 10px; padding: 10px 12px; resize: vertical; font-size: 14px; line-height: 1.5; }
+    .note-foot { min-height: 30px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 12px; }
+    .save-note { min-height: 34px; padding: 0 12px; border: 1px solid var(--teal); border-radius: var(--radius-sm); background: #fff; color: var(--teal-strong); font-size: 13px; font-weight: 700; }
+    .save-note:hover { background: var(--teal-soft); }
 
     details { border-bottom: 1px solid var(--line); }
     summary {
-      min-height: 43px;
-      padding: 0 15px;
+      min-height: 48px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       cursor: pointer;
       list-style: none;
       color: var(--text);
-      font-size: 12px;
-      font-weight: 850;
+      font-size: 15px;
+      font-weight: 650;
     }
     summary::-webkit-details-marker { display: none; }
-    summary::after { content: "+"; margin-left: auto; color: var(--muted); font-size: 17px; font-weight: 500; }
-    details[open] summary::after { content: "−"; }
-    summary:hover { background: #f9fbfc; }
-    .detail-section { padding: 0 15px 14px; }
-    .field-grid { display: grid; grid-template-columns: 112px minmax(0, 1fr); }
-    .field-label, .field-value { min-height: 36px; padding: 8px 9px; border-top: 1px solid var(--line-soft); font-size: 11px; line-height: 1.45; }
-    .field-label { background: #f5f8fa; color: var(--muted); font-weight: 750; }
-    .field-value { color: var(--text); overflow-wrap: anywhere; }
-    .field-grid > :nth-child(-n+2) { border-top: 1px solid var(--line); }
-    .field-value.muted { color: #8b98a6; }
+    summary svg { color: var(--muted); }
+    summary::after { content: ""; width: 8px; height: 8px; margin-left: auto; border-right: 2px solid var(--faint); border-bottom: 2px solid var(--faint); transform: rotate(45deg) translate(-2px, -2px); transition: transform 120ms ease; }
+    details[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+    summary:hover { background: var(--panel-soft); }
+    .summary-count { color: var(--faint); font-size: 13px; font-weight: 500; }
+    .detail-section { padding: 0 18px 16px; }
+    .field-grid { display: grid; grid-template-columns: 116px minmax(0, 1fr); }
+    .field-label, .field-value { min-height: 38px; padding: 9px 10px; border-top: 1px solid var(--line-soft); font-size: 13px; line-height: 1.5; }
+    .field-label { color: var(--muted); font-weight: 600; }
+    .field-value { color: var(--text); overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+    .field-grid > :nth-child(-n+2) { border-top: 0; }
+    .field-value.muted { color: var(--faint); }
     .doc-list { display: grid; gap: 6px; }
-    .doc-link { min-height: 34px; padding: 7px 9px; display: flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--blue); font-size: 11px; font-weight: 750; text-decoration: none; }
+    .doc-link { min-height: 40px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--blue); font-size: 13px; font-weight: 600; text-decoration: none; }
+    .doc-link span { flex: 1; }
     .doc-link:hover { border-color: #91bddd; background: var(--blue-soft); }
-    .detail-foot { padding: 14px 15px 20px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .report-sheet {
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--panel-soft);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .detail-foot { padding: 16px 18px 22px; color: var(--faint); font-size: 12px; line-height: 1.6; }
 
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 22px;
+      bottom: 24px;
       z-index: 80;
-      padding: 9px 13px;
-      border-radius: 6px;
+      max-width: calc(100vw - 32px);
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
       background: #1f2f3e;
       color: #fff;
-      font-size: 11px;
+      font-size: 14px;
       opacity: 0;
       pointer-events: none;
       transform: translate(-50%, 8px);
@@ -488,15 +491,22 @@
     }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-    @media (max-width: 1500px) {
-      .filters { grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(105px, 1fr)); }
-      .filter-reset { width: 36px; justify-self: end; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
     }
 
-    @media (max-width: 1260px) {
-      .workspace { grid-template-columns: minmax(620px, 1fr) 390px; }
-      .keyword-filters { grid-template-columns: auto minmax(180px, 1fr) minmax(150px, 0.8fr); }
-      .keyword-guide { display: none; }
+    @media (max-width: 1360px) {
+      .workspace { grid-template-columns: minmax(0, 1fr) 380px; padding: 14px 16px 22px; }
+      .view-tab { min-height: 68px; padding: 10px 12px 8px; }
+      .tab-count { font-size: 21px; }
+      .col-contract { width: 130px; }
+    }
+
+    @media (max-width: 1100px) {
+      .filter-row { grid-template-columns: minmax(200px, 1fr) repeat(3, minmax(100px, 0.6fr)); }
+      .filter-row .more-filters-btn { grid-column: 1 / 2; justify-self: start; }
+      .filter-row .filter-reset { grid-column: 4 / 5; justify-self: end; }
+      .view-tabs { grid-template-columns: repeat(6, minmax(110px, 1fr)); }
     }
 
     @media (max-width: 980px) {
@@ -513,45 +523,55 @@
         transition: transform 180ms ease;
       }
       .detail-pane.open { transform: translateX(0); }
-      .detail-close { display: inline-grid; }
+      .detail-close { display: inline-flex; }
       .table-wrap { max-height: none; }
     }
 
     @media (max-width: 720px) {
-      .topbar { position: static; min-height: auto; padding: 10px 12px; align-items: flex-start; }
-      .brand-mark { width: 34px; height: 34px; }
-      .brand h1 { font-size: 15px; }
-      .top-actions .sync-pill, .top-actions .link-btn { display: none; }
-      .summary-strip { grid-template-columns: repeat(2, 1fr); }
-      .summary-item:nth-child(2) { border-right: 0; }
-      .summary-item:nth-child(-n+2) { border-bottom: 1px solid var(--line-soft); }
-      .view-tab { flex: 0 0 auto; }
-      .filters { grid-template-columns: 1fr 1fr auto; }
-      .search-wrap { grid-column: 1 / -1; }
-      .filters .filter-mobile-hide { display: none; }
-      #budgetFilter { grid-column: 1 / 3; }
-      .keyword-filters { grid-template-columns: 1fr 1fr; }
-      .keyword-filter-label { grid-column: 1 / -1; min-height: 24px; }
-      .list-meta { align-items: flex-start; padding-top: 9px; padding-bottom: 9px; }
-      .legend { display: none; }
-      .table-wrap { padding: 8px; background: #f4f7f9; }
+      body { font-size: 15px; }
+      .topbar { position: static; min-height: auto; padding: 12px; flex-wrap: wrap; }
+      .brand-sub { display: none; }
+      .top-actions { width: 100%; justify-content: flex-start; }
+      .top-actions .sync-pill { order: 3; width: 100%; justify-content: flex-start; background: transparent; padding: 0; min-height: 24px; }
+      .top-actions .btn { flex: 1 1 auto; }
+      .view-tabs { display: flex; }
+      .view-tab { flex: 0 0 auto; min-width: 104px; min-height: 64px; }
+      .filter-bar { padding: 10px; }
+      .filter-row { grid-template-columns: 1fr 1fr; }
+      .filter-row .search-wrap { grid-column: 1 / -1; }
+      .filter-row #regionFilter { grid-column: 1 / -1; }
+      .filter-row .more-filters-btn { grid-column: 1 / 2; justify-self: stretch; }
+      .filter-row .filter-reset { grid-column: 2 / 3; justify-self: stretch; }
+      .more-filters { grid-template-columns: 1fr; }
+      .more-filters .wide { grid-column: auto; }
+      .list-meta { padding: 8px 12px; flex-wrap: wrap; }
+      .table-wrap { padding: 10px; background: var(--bg); }
       table { min-width: 0; display: block; }
       thead { display: none; }
-      tbody { display: grid; gap: 8px; }
-      tbody tr { display: grid; grid-template-columns: 1fr auto; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
-      tbody tr.selected { box-shadow: inset 3px 0 0 var(--teal); }
-      td { display: block; padding: 8px 10px; border-bottom: 0; }
-      td:nth-child(1) { grid-column: 1; padding-bottom: 4px; }
-      td:nth-child(2) { grid-column: 1 / -1; padding-top: 4px; border-bottom: 1px solid var(--line-soft); }
-      td:nth-child(3) { grid-column: 1; }
-      td:nth-child(4) { grid-column: 1 / -1; padding-top: 0; }
-      td:nth-child(5) { grid-column: 1; border-top: 1px solid var(--line-soft); }
-      td:nth-child(6) { grid-column: 2; grid-row: 5; border-top: 1px solid var(--line-soft); text-align: right; }
-      td:nth-child(7) { grid-column: 2; grid-row: 1; }
+      tbody { display: grid; gap: 10px; }
+      tbody tr {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      td { display: block; padding: 10px 12px; border-bottom: 0; }
+      td.deadline-cell { grid-column: 1; grid-row: 1; padding-left: 16px; }
+      td.business-cell { grid-column: 1 / -1; grid-row: 2; padding-top: 0; }
+      td.verdict-cell { grid-column: 2; grid-row: 1; align-self: center; }
+      td.contract-cell { grid-column: 1 / 3; grid-row: 3; padding-top: 0; }
+      td.col-budget { grid-column: 3; grid-row: 3; padding-top: 0; }
+      td.col-link { grid-column: 3; grid-row: 1; }
+      td.deadline-cell::before { bottom: 0; }
+      .dday { font-size: 20px; }
       .business-agency { white-space: normal; }
       .contract-sub { display: none; }
-      .detail-head { padding: 13px 14px; }
-      .detail-title { font-size: 16px; }
+      .detail-head { padding: 14px; }
+      .detail-title { font-size: 18px; }
+      .detail-actions { grid-template-columns: 1fr auto; }
+      .detail-actions .link-btn { grid-column: 1 / -1; }
     }
   </style>
 </head>
@@ -562,7 +582,7 @@
         <div class="brand-mark"><i data-lucide="scan-search" aria-hidden="true"></i></div>
         <div>
           <h1>DI 조달 검토 보드</h1>
-          <div class="brand-sub">나라장터에 들어가기 전, 참여 여부와 검토 순서를 빠르게 정리합니다.</div>
+          <div class="brand-sub">나라장터에 들어가기 전, 참여할 사업과 검토 순서를 정리합니다.</div>
         </div>
       </div>
       <div class="top-actions">
@@ -575,49 +595,29 @@
 
     <main class="workspace">
       <section class="board" aria-label="조달 사업 목록">
-        <div class="summary-strip">
-          <div class="summary-item"><div class="summary-label">검토 대상</div><div class="summary-value" id="metricReview">-</div></div>
-          <div class="summary-item"><div class="summary-label">참여 가능</div><div class="summary-value" id="metricPossible">-</div></div>
-          <div class="summary-item"><div class="summary-label">확인 필요</div><div class="summary-value" id="metricCheck">-</div></div>
-          <div class="summary-item"><div class="summary-label">마감 3일 이내</div><div class="summary-value" id="metricSoon">-</div></div>
-        </div>
+        <nav class="view-tabs" id="viewTabs" aria-label="사업 보기">
+          <button class="view-tab active" type="button" data-view="review" aria-pressed="true"><span class="view-tab-label"><i data-lucide="list-checks"></i>검토 대상</span><span class="tab-count" data-count="review"></span></button>
+          <button class="view-tab" type="button" data-view="soon" aria-pressed="false"><span class="view-tab-label"><i data-lucide="clock-3"></i>3일 내 마감</span><span class="tab-count" data-count="soon"></span></button>
+          <button class="view-tab" type="button" data-view="possible" aria-pressed="false"><span class="view-tab-label"><i data-lucide="circle-check"></i>참여 가능</span><span class="tab-count" data-count="possible"></span></button>
+          <button class="view-tab" type="button" data-view="check" aria-pressed="false"><span class="view-tab-label"><i data-lucide="circle-help"></i>확인 필요</span><span class="tab-count" data-count="check"></span></button>
+          <button class="view-tab" type="button" data-view="restricted" aria-pressed="false"><span class="view-tab-label"><i data-lucide="circle-slash"></i>참여 제한</span><span class="tab-count" data-count="restricted"></span></button>
+          <button class="view-tab" type="button" data-view="all" aria-pressed="false"><span class="view-tab-label"><i data-lucide="layers-3"></i>전체</span><span class="tab-count" data-count="all"></span></button>
+        </nav>
 
-        <div class="control-panel">
-          <nav class="view-tabs" id="viewTabs" aria-label="사업 보기">
-            <button class="view-tab active" type="button" data-view="review"><i data-lucide="list-checks"></i>검토 대상 <span class="tab-count" data-count="review">0</span></button>
-            <button class="view-tab" type="button" data-view="possible"><i data-lucide="circle-check"></i>참여 가능 <span class="tab-count" data-count="possible">0</span></button>
-            <button class="view-tab" type="button" data-view="check"><i data-lucide="circle-help"></i>확인 필요 <span class="tab-count" data-count="check">0</span></button>
-            <button class="view-tab" type="button" data-view="restricted"><i data-lucide="circle-slash"></i>참여 제한 <span class="tab-count" data-count="restricted">0</span></button>
-            <button class="view-tab" type="button" data-view="soon"><i data-lucide="clock-3"></i>마감 임박 <span class="tab-count" data-count="soon">0</span></button>
-            <button class="view-tab" type="button" data-view="all"><i data-lucide="layers-3"></i>전체 진행 <span class="tab-count" data-count="all">0</span></button>
-          </nav>
-
-          <div class="filters">
+        <div class="filter-bar">
+          <div class="filter-row">
             <label class="search-wrap">
               <i data-lucide="search" aria-hidden="true"></i>
-              <input id="searchInput" type="search" placeholder="사업명, 기관, 공고번호 검색" aria-label="사업 검색">
+              <input id="searchInput" type="search" placeholder="사업명, 기관, 공고번호로 찾기" aria-label="사업 검색">
             </label>
-            <select id="registeredFilter" aria-label="등록월 기준">
-              <option value="">전체 등록월</option>
-              <option value="today">오늘 등록</option>
-              <option value="last3">최근 3일</option>
-              <option value="last7">최근 7일</option>
-            </select>
             <select id="serviceFilter" aria-label="공고 형태">
-              <option value="">전체 형태</option>
-              <option value="공고">공고</option>
+              <option value="">공고 형태</option>
+              <option value="공고">입찰공고</option>
               <option value="사전규격">사전규격</option>
               <option value="발주계획">발주계획</option>
             </select>
-            <select id="businessFilter" class="filter-mobile-hide" aria-label="업무 구분">
-              <option value="">전체 업무</option>
-              <option value="물품">물품</option>
-              <option value="용역">용역</option>
-              <option value="공사">공사</option>
-            </select>
-            <select id="contractFilter" class="filter-secondary filter-mobile-hide" aria-label="계약 방법"><option value="">전체 계약방법</option></select>
             <select id="budgetFilter" aria-label="사업 금액">
-              <option value="">전체 사업금액</option>
+              <option value="">사업 금액</option>
               <option value="under50m">5천만원 미만</option>
               <option value="50m-100m">5천만원~1억원</option>
               <option value="100m-300m">1억원~3억원</option>
@@ -625,50 +625,69 @@
               <option value="over1b">10억원 이상</option>
               <option value="unknown">금액 미정</option>
             </select>
-            <select id="regionFilter" class="filter-secondary filter-mobile-hide" aria-label="지역"><option value="">전체 지역</option></select>
-            <button class="filter-reset" id="resetBtn" type="button" aria-label="필터 초기화" title="필터 초기화"><i data-lucide="rotate-ccw"></i></button>
+            <select id="regionFilter" aria-label="지역"><option value="">지역</option></select>
+            <button class="btn more-filters-btn" id="moreFiltersBtn" type="button" aria-expanded="false" aria-controls="moreFilters"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>필터 더보기<span class="filter-badge" id="moreFilterCount" hidden>0</span></button>
+            <button class="btn filter-reset" id="resetBtn" type="button" title="검색어와 필터를 모두 지웁니다"><i data-lucide="rotate-ccw" aria-hidden="true"></i>초기화</button>
           </div>
-
-          <div class="keyword-filters">
-            <div class="keyword-filter-label"><i data-lucide="tags" aria-hidden="true"></i>상세 키워드</div>
-            <select id="keywordFilter" aria-label="전광판 상세 분류"><option value="">전체 키워드 분류</option></select>
-            <select id="workFilter" aria-label="업무 유형"><option value="">전체 업무 유형</option></select>
-            <div class="keyword-guide">품명만이 아니라 사업명·세부품목·사용목적까지 함께 검색합니다.</div>
+          <div class="more-filters" id="moreFilters" hidden>
+            <label>등록 시기
+              <select id="registeredFilter">
+                <option value="">전체 등록월</option>
+                <option value="today">오늘 등록</option>
+                <option value="last3">최근 3일</option>
+                <option value="last7">최근 7일</option>
+              </select>
+            </label>
+            <label>업무 구분
+              <select id="businessFilter">
+                <option value="">전체 업무</option>
+                <option value="물품">물품</option>
+                <option value="용역">용역</option>
+                <option value="공사">공사</option>
+              </select>
+            </label>
+            <label>계약 방법
+              <select id="contractFilter"><option value="">전체 계약방법</option></select>
+            </label>
+            <label class="wide">품목 분류
+              <select id="keywordFilter"><option value="">전체 품목 분류</option></select>
+            </label>
+            <label>업무 유형
+              <select id="workFilter"><option value="">전체 업무 유형</option></select>
+            </label>
+            <div class="more-filters-note">품목 분류는 사업명, 품명, 세부품목, 사용 목적을 함께 보고 나눕니다.</div>
           </div>
+        </div>
 
-          <div class="list-meta">
-            <div><strong id="resultCount">0건</strong> <span id="resultDescription">진행 중 검토 대상</span></div>
-            <div class="legend" aria-label="참여 판단 범례">
-              <span><i class="legend-dot" style="background:var(--green)"></i>가능</span>
-              <span><i class="legend-dot" style="background:#d38a12"></i>확인</span>
-              <span><i class="legend-dot" style="background:var(--red)"></i>제한</span>
-            </div>
-          </div>
+        <div class="list-meta">
+          <div><strong id="resultCount" class="num">0건</strong> <span id="resultDescription">진행 중 검토 대상</span></div>
+          <div class="sort-hint">이슈 표시한 사업, 직접 연관, 마감 빠른 순으로 보여줍니다.</div>
+        </div>
 
-          <div class="table-wrap" id="tableWrap">
-            <div class="loading" id="loadingState">최신 조달 정보를 정리하고 있습니다.</div>
-            <table id="bidTable" hidden>
-              <thead>
-                <tr>
-                  <th class="col-notice">공고</th>
-                  <th class="col-business">사업 / 기관</th>
-                  <th class="col-verdict">참여 판단</th>
-                  <th class="col-contract">계약 방법</th>
-                  <th class="col-budget">예산</th>
-                  <th class="col-deadline">등록 / 마감</th>
-                  <th class="col-link"><span class="sr-only">원문</span></th>
-                </tr>
-              </thead>
-              <tbody id="bidRows"></tbody>
-            </table>
-            <div class="empty" id="emptyState" hidden><div><strong>조건에 맞는 사업이 없습니다.</strong>필터를 초기화하거나 전체 진행을 확인해 보세요.</div></div>
+        <div class="table-wrap" id="tableWrap">
+          <div class="loading" id="loadingState">최신 조달 정보를 불러오고 있습니다.</div>
+          <table id="bidTable" hidden>
+            <thead>
+              <tr>
+                <th class="col-deadline">마감</th>
+                <th>사업 / 기관</th>
+                <th class="col-contract">계약 방법</th>
+                <th class="col-budget">예산</th>
+                <th class="col-verdict">참여 판단</th>
+                <th class="col-link"><span class="sr-only">원문</span></th>
+              </tr>
+            </thead>
+            <tbody id="bidRows"></tbody>
+          </table>
+          <div class="empty" id="emptyState" hidden>
+            <div><strong>조건에 맞는 사업이 없습니다.</strong>검색어나 필터를 줄이거나 전체 탭에서 찾아보세요.<br><button class="btn" id="emptyResetBtn" type="button"><i data-lucide="rotate-ccw" aria-hidden="true"></i>필터 초기화</button></div>
           </div>
         </div>
       </section>
 
       <aside class="detail-pane" id="detailPane" aria-label="사업 상세">
         <div class="detail-empty" id="detailEmpty">
-          <div><i data-lucide="panel-right-open" aria-hidden="true"></i><strong>사업을 선택해 주세요.</strong>참여 판단 근거와 나라장터 핵심 항목을 한 화면에서 확인할 수 있습니다.</div>
+          <div><i data-lucide="panel-right-open" aria-hidden="true"></i><strong>목록에서 사업을 고르세요.</strong>마감, 예산, 참여 판단 근거와 검토 기록을 여기서 확인합니다.</div>
         </div>
         <div class="detail-content" id="detailContent" hidden></div>
       </aside>
@@ -941,7 +960,14 @@
         authBtn.title = reviewCanWrite ? "검토 기록이 팀과 공유 저장됩니다." : "로그인했지만 공유 권한이 아직 등록되지 않았습니다.";
         authBtn.innerHTML = `${icon("log-out")}${name} · 로그아웃`;
       }
+      // 작성 중인 메모를 지우지 않도록 상세 패널은 다시 그리지 않고 안내 문구만 바꾼다.
+      const hint = $("#detailContent .section-hint");
+      if (hint) hint.textContent = reviewHintText();
       refreshIcons();
+    }
+
+    function reviewHintText() {
+      return reviewCanWrite ? "저장하면 팀과 공유됩니다" : "로그인 전에는 이 브라우저에만 저장됩니다";
     }
 
     async function toggleReviewLogin() {
@@ -1076,10 +1102,13 @@
     }
 
     function deadlineInfo(item) {
-      if (item.serviceType === "발주계획") return { text: "계획", tone: "plan", date: safe(item.bidClseDt, "일정 미정"), days: null };
+      if (item.serviceType === "발주계획") {
+        const month = safe(item.bidClseDt, "").match(/^(\d{4})-(\d{2})/);
+        return { text: month ? `${Number(month[2])}월 발주` : "발주 예정", tone: "plan", date: month ? `${month[1]}년 계획` : "일정 미정", days: null };
+      }
       const days = dayDiff(item.bidClseDt);
-      if (days == null) return { text: "일정 확인", tone: "mid", date: safe(item.bidClseDt), days: null };
-      if (days < 0) return { text: "마감", tone: "", date: safe(item.bidClseDt), days };
+      if (days == null) return { text: "일정 확인", tone: "text", date: "원문 확인", days: null };
+      if (days < 0) return { text: "마감", tone: "closed", date: safe(item.bidClseDt), days };
       if (days === 0) return { text: "D-DAY", tone: "soon", date: safe(item.bidClseDt), days };
       return { text: `D-${days}`, tone: days <= 3 ? "soon" : days <= 7 ? "mid" : "", date: safe(item.bidClseDt), days };
     }
@@ -1295,7 +1324,7 @@
     }
 
     function reviewLabel(status) {
-      return ({ unchecked: "미검토", checked: "검토", issue: "이슈", done: "완료" })[status] || "미검토";
+      return ({ unchecked: "미검토", checked: "검토 중", issue: "이슈", done: "완료" })[status] || "미검토";
     }
 
     function keywordTone(label) {
@@ -1349,24 +1378,26 @@
         });
     }
 
+    function serviceLabel(type) {
+      return type === "공고" ? "입찰공고" : type || "공고";
+    }
+
+    function relevanceTone(item) {
+      return item._relevance.key === "direct" ? "direct" : item._relevance.key === "low" ? "low" : "";
+    }
+
+    function deadlineDateText(item) {
+      if (item.serviceType === "발주계획") return item._deadline.date;
+      if (!item.bidClseDt) return item._deadline.date;
+      return `${item.deadlineBasis === "개찰" ? "개찰 " : ""}${shortDateTime(item.bidClseDt)}`;
+    }
+
     function typeClass(type) {
       return type === "공고" ? "bid" : type === "사전규격" ? "pre" : "plan";
     }
 
-    function shortReason(reason) {
-      return reason.replace("수의시담·전자시담 방식으로 ", "").replace("해야 합니다.", " 필요").replace("됩니다.", "");
-    }
-
+    // 상태 탭의 숫자가 곧 요약 지표다.
     function renderMetrics() {
-      const active = state.bids.filter((item) => item._active && !item._scope.excluded);
-      const review = baseForView("review");
-      const possible = active.filter((item) => item._participation.key === "possible");
-      const check = active.filter((item) => item._participation.key === "check");
-      const soon = active.filter((item) => item._deadline.days != null && item._deadline.days >= 0 && item._deadline.days <= 3);
-      $("#metricReview").innerHTML = `${review.length}<span class="summary-hint">건</span>`;
-      $("#metricPossible").innerHTML = `${possible.length}<span class="summary-hint">건</span>`;
-      $("#metricCheck").innerHTML = `${check.length}<span class="summary-hint">건</span>`;
-      $("#metricSoon").innerHTML = `${soon.length}<span class="summary-hint">건</span>`;
       ["review", "possible", "check", "restricted", "soon", "all"].forEach((view) => {
         const el = $(`[data-count="${view}"]`);
         if (el) el.textContent = baseForView(view).length;
@@ -1394,28 +1425,28 @@
       const rows = items.map((item) => {
         const review = reviewFor(item);
         const detail = item.detailInfo || {};
-        const reviewBadge = review.status === "unchecked" ? "" : `<span class="review-badge ${review.status}">${reviewLabel(review.status)}</span>`;
+        const amount = businessAmount(item);
+        const reviewTag = review.status === "unchecked" ? "" : `<span class="tag review-${review.status}">${reviewLabel(review.status)}</span>`;
         return `
-          <tr tabindex="0" data-id="${escapeHtml(item.bidId)}" class="${state.selectedId === item.bidId ? "selected" : ""}" aria-label="${escapeHtml(item.bidNtceNm)} 상세 보기">
-            <td>
-              <div class="eyebrow"><span class="type-badge ${typeClass(item.serviceType)}">${escapeHtml(item.serviceType)}</span><span class="relevance-badge ${item._relevance.key === "direct" ? "direct" : "check"}">${escapeHtml(item._relevance.label)}</span>${reviewBadge}</div>
-              <div class="notice-no">${escapeHtml(item.bidNtceNo)}</div>
-              <div class="notice-date">등록일 ${escapeHtml(item.bidNtceRegistDt)}</div>
+          <tr tabindex="0" data-id="${escapeHtml(item.bidId)}" data-urgency="${item._deadline.tone}" class="${state.selectedId === item.bidId ? "selected" : ""}" aria-label="${escapeHtml(item.bidNtceNm)} 상세 보기">
+            <td class="deadline-cell">
+              <span class="dday ${item._deadline.tone}">${escapeHtml(item._deadline.text)}</span>
+              <div class="deadline-date">${escapeHtml(deadlineDateText(item))}</div>
             </td>
-            <td>
+            <td class="business-cell">
               <div class="business-title">${escapeHtml(item.bidNtceNm)}</div>
               <div class="business-agency">${escapeHtml(item.dminsttNm || item.ntceInsttNm)}</div>
-              <div class="keyword-path"><strong class="${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</strong><span>· ${escapeHtml(item._keyword.workLabel)}</span><span class="keyword-evidence">${escapeHtml(item._keyword.evidence)}${item._keyword.matchedTerm ? ` “${escapeHtml(item._keyword.matchedTerm)}”` : ""}</span></div>
+              <div class="tag-row">
+                ${reviewTag}
+                <span class="tag ${typeClass(item.serviceType)}">${escapeHtml(serviceLabel(item.serviceType))}</span>
+                <span class="tag ${relevanceTone(item)}">${escapeHtml(item._relevance.label)}</span>
+                <span class="tag keyword-tag ${keywordTone(item._keyword.primaryLabel)}">${escapeHtml(item._keyword.primaryLabel)}</span>
+              </div>
             </td>
-            <td><span class="verdict ${item._participation.key}">${escapeHtml(item._participation.label)}</span><div class="verdict-reason">${escapeHtml(shortReason(item._participation.reason))}</div></td>
-            <td><div class="contract-main">${escapeHtml(item.contractMethod)}</div><div class="contract-sub">${escapeHtml(detail.bidMethod)}${detail.awardMethod ? ` · ${escapeHtml(detail.awardMethod)}` : ""}</div></td>
-            <td><div class="budget">${money(businessAmount(item))}</div></td>
-            <td>
-              <div class="dday ${item._deadline.tone}">${escapeHtml(item._deadline.text)}</div>
-              <div class="schedule-line"><span class="schedule-label">등록</span><span>${escapeHtml(shortDateTime(item.bidNtceRegistDt))}</span></div>
-              <div class="schedule-line"><span class="schedule-label">${item.deadlineBasis === "개찰" ? "개찰" : "마감"}</span><span>${escapeHtml(shortDateTime(item.bidClseDt))}</span></div>
-            </td>
-            <td class="col-link"><a class="row-link" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener" title="나라장터 원문" aria-label="나라장터 원문 열기">${icon("external-link", 15)}</a></td>
+            <td class="contract-cell"><div class="contract-main">${escapeHtml(item.contractMethod)}</div><div class="contract-sub">${escapeHtml(detail.bidMethod)}</div></td>
+            <td class="col-budget"><span class="budget ${amount ? "" : "unknown"}">${money(amount)}</span></td>
+            <td class="verdict-cell"><span class="verdict ${item._participation.key}" title="${escapeHtml(item._participation.reason)}">${escapeHtml(item._participation.label)}</span></td>
+            <td class="col-link"><a class="row-link" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener" title="나라장터 원문 열기" aria-label="나라장터 원문 열기">${icon("external-link", 16)}</a></td>
           </tr>`;
       }).join("");
       $("#bidRows").innerHTML = rows;
@@ -1453,74 +1484,51 @@
       const detail = item.detailInfo || {};
       const review = reviewFor(item);
       const docs = (item.documentUrls || []).filter((doc, index, list) => doc.url && list.findIndex((entry) => entry.url === doc.url) === index);
-      const docHtml = docs.length ? `<div class="doc-list">${docs.map((doc) => `<a class="doc-link" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${icon("paperclip", 14)}<span>${escapeHtml(doc.label || "첨부 문서")}</span>${icon("external-link", 13)}</a>`).join("")}</div>` : "등록된 첨부 문서가 없습니다.";
+      const docHtml = docs.length ? `<div class="doc-list">${docs.map((doc) => `<a class="doc-link" href="${escapeHtml(doc.url)}" target="_blank" rel="noopener">${icon("paperclip", 15)}<span>${escapeHtml(doc.label || "첨부 문서")}</span>${icon("external-link", 14)}</a>`).join("")}</div>` : "등록된 첨부 문서가 없습니다.";
       const verdictClass = item._participation.key;
       const reportText = buildReportText(item, detail, docs, review);
+      const amount = businessAmount(item);
+      const region = detail.restrictionRegion ? `${detail.restrictionRegion} 제한` : item.region || "";
+      const deadlineLabel = item.serviceType === "발주계획" ? "발주 예정" : item.serviceType === "사전규격" ? "의견 마감" : item.deadlineBasis === "개찰" ? "개찰(마감 기준)" : "입찰 마감";
+      const deadlineSub = item.serviceType === "발주계획" ? item._deadline.date : item.bidClseDt ? reportDate(item.bidClseDt) : "원문에서 확인";
+      const reviewHint = reviewHintText();
       $("#detailContent").innerHTML = `
         <div class="detail-head">
           <div class="detail-head-top">
-            <span class="verdict ${verdictClass}">${escapeHtml(item._participation.label)}</span>
-            <button class="btn icon-only detail-close" id="detailClose" type="button" aria-label="상세 닫기" title="상세 닫기">${icon("x")}</button>
+            <div class="detail-tags">
+              <span class="tag ${typeClass(item.serviceType)}">${escapeHtml(serviceLabel(item.serviceType))}</span>
+              <span class="tag">${escapeHtml(item.businessType)}</span>
+              <span class="tag ${relevanceTone(item)}">${escapeHtml(item._relevance.label)}</span>
+            </div>
+            <button class="btn icon-only detail-close" id="detailClose" type="button" aria-label="상세 닫기" title="목록으로">${icon("x")}</button>
           </div>
           <h2 class="detail-title">${escapeHtml(item.bidNtceNm)}</h2>
-          <div class="detail-sub"><span>${escapeHtml(item.serviceType)} · ${escapeHtml(item.businessType)}</span><span>${escapeHtml(item._keyword.primaryLabel)} · ${escapeHtml(item._keyword.workLabel)}</span><span>${escapeHtml(item.bidNtceNo)}</span><span>등록 ${escapeHtml(item.bidNtceRegistDt)}</span></div>
-          <div class="decision-box ${verdictClass}">
-            <div class="decision-label">1차 참여 판단 근거</div>
-            <div class="decision-reason">${escapeHtml(item._participation.reason)}</div>
-            <div class="decision-warning">보드의 1차 분류입니다. 최종 참가 자격과 제출 조건은 나라장터 원문에서 확인하세요.</div>
+          <div class="detail-agency">${escapeHtml(item.dminsttNm || item.ntceInsttNm)}</div>
+          <div class="fact-grid">
+            <div class="fact"><div class="fact-label">${escapeHtml(deadlineLabel)}</div><div class="fact-value ${["soon", "mid"].includes(item._deadline.tone) ? item._deadline.tone : ""}">${escapeHtml(item._deadline.text)}</div><div class="fact-sub">${escapeHtml(deadlineSub)}</div></div>
+            <div class="fact"><div class="fact-label">예산</div><div class="fact-value ${amount ? "" : "muted"}">${amount ? escapeHtml(money(amount)) : "미정"}</div><div class="fact-sub">${amount ? escapeHtml(fullMoney(amount)) : "원문에서 확인"}</div></div>
+            <div class="fact"><div class="fact-label">계약 방법</div><div class="fact-value">${escapeHtml(safe(item.contractMethod, "확인 필요"))}</div></div>
+            <div class="fact"><div class="fact-label">지역</div><div class="fact-value ${region ? "" : "muted"}">${escapeHtml(safe(region, "정보 없음"))}</div></div>
+          </div>
+          <div class="decision-box ${verdictClass}"><strong>${escapeHtml(item._participation.label)}</strong> ${escapeHtml(item._participation.reason)}</div>
+          <div class="detail-actions">
+            <a class="link-btn primary" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener">${icon("external-link")}나라장터 원문 열기</a>
+            <button class="btn copy-report-btn" id="copyReportBtn" type="button" title="보고용 정리 내용을 복사합니다">${icon("clipboard-list")}보고서 복사</button>
+            <button class="btn icon-only" id="copyNoBtn" type="button" title="공고번호 복사" aria-label="공고번호 복사">${icon("copy")}</button>
           </div>
         </div>
-        <div class="detail-actions">
-          <a class="link-btn primary" href="${escapeHtml(item.g2bUrl)}" target="_blank" rel="noopener">${icon("external-link")}나라장터 원문 열기</a>
-          <button class="btn icon-only" id="copyNoBtn" type="button" title="공고번호 복사" aria-label="공고번호 복사">${icon("copy")}</button>
-        </div>
         <div class="detail-scroll">
-          <details open>
-            <summary>${icon("clipboard-list", 15)}공고 보고용 정리</summary>
-            <div class="report-section">
-              <div class="report-toolbar"><button class="copy-report" id="copyReportBtn" type="button">${icon("copy", 14)}보고서 복사</button></div>
-              <pre class="report-sheet" id="reportText">${escapeHtml(reportText)}</pre>
+          <section class="review-block" aria-label="내 검토 상태">
+            <h3 class="section-label">내 검토 상태<span class="section-hint">${reviewHint}</span></h3>
+            <div class="review-tabs" role="group" aria-label="검토 상태 선택">
+              ${["unchecked", "checked", "issue", "done"].map((status) => `<button class="review-btn ${review.status === status ? "active" : ""}" type="button" data-review="${status}" aria-pressed="${review.status === status}">${reviewLabel(status)}</button>`).join("")}
             </div>
-          </details>
-
-          <section class="review-block">
-            <h3 class="section-label">내 검토 상태</h3>
-            <div class="review-tabs">
-              ${["unchecked", "checked", "issue", "done"].map((status) => `<button class="review-btn ${review.status === status ? "active" : ""}" type="button" data-review="${status}">${reviewLabel(status)}</button>`).join("")}
-            </div>
-            <textarea class="review-note" id="reviewNote" placeholder="체크 사유, 이슈 내용, 완료 근거를 적어 두세요.">${escapeHtml(review.note || "")}</textarea>
-            <div class="note-foot"><span id="noteTime">${review.updatedAt ? `저장 ${escapeHtml(formatReviewTime(review.updatedAt))}` : "검토 메모는 팀과 공유됩니다."}</span><button class="save-note" id="saveNoteBtn" type="button">메모 저장</button></div>
+            <textarea class="review-note" id="reviewNote" placeholder="검토 이유, 이슈, 다음 할 일을 적어 두세요." aria-label="검토 메모">${escapeHtml(review.note || "")}</textarea>
+            <div class="note-foot"><span id="noteTime">${review.updatedAt ? `마지막 저장 ${escapeHtml(formatReviewTime(review.updatedAt))}` : "아직 저장한 메모가 없습니다."}</span><button class="save-note" id="saveNoteBtn" type="button">메모 저장</button></div>
           </section>
 
           <details open>
-            <summary>${icon("file-text", 15)}공고 일반</summary>
-            <div class="detail-section"><div class="field-grid">
-              ${field("공고 형태", `${item.serviceType} / ${item.businessType}`)}
-              ${field("공고번호", `${item.bidNtceNo}${item.bidNtceOrd ? `-${item.bidNtceOrd}` : ""}`)}
-              ${field("공고기관", item.ntceInsttNm)}
-              ${field("수요기관", item.dminsttNm)}
-              ${field("등록일", item.bidNtceRegistDt)}
-              ${field("공고 구분", detail.noticeKind)}
-              ${field("참조번호", detail.referenceNo || item.refNo)}
-              ${field("키워드 분류", `${item._keyword.primaryLabel} / ${item._keyword.workLabel}`)}
-              ${field("검색 근거", `${item._keyword.evidence}${item._keyword.matchedTerm ? ` - ${item._keyword.matchedTerm}` : ""}`)}
-            </div></div>
-          </details>
-
-          <details open>
-            <summary>${icon("shield-check", 15)}참가·제한</summary>
-            <div class="detail-section"><div class="field-grid">
-              ${field("계약 방법", item.contractMethod)}
-              ${field("입찰 방법", detail.bidMethod)}
-              ${field("낙찰 방법", detail.awardMethod)}
-              ${field("계약 유형", detail.contractType)}
-              ${field("지역 제한", detail.restrictionRegion || item.region)}
-              ${field("참여 판단", `${item._participation.label} - ${item._participation.reason}`)}
-            </div></div>
-          </details>
-
-          <details open>
-            <summary>${icon("calendar-clock", 15)}입찰 진행 일정</summary>
+            <summary>${icon("calendar-clock", 16)}입찰 일정</summary>
             <div class="detail-section"><div class="field-grid">
               ${field("참가등록 마감", detail.registerDeadline)}
               ${field("입찰 시작", detail.bidBeginDt)}
@@ -1531,8 +1539,19 @@
             </div></div>
           </details>
 
+          <details open>
+            <summary>${icon("shield-check", 16)}참가 조건</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("계약 방법", item.contractMethod)}
+              ${field("입찰 방법", detail.bidMethod)}
+              ${field("낙찰 방법", detail.awardMethod)}
+              ${field("계약 유형", detail.contractType)}
+              ${field("지역 제한", detail.restrictionRegion || item.region)}
+            </div></div>
+          </details>
+
           <details>
-            <summary>${icon("banknote", 15)}가격·구매 대상</summary>
+            <summary>${icon("banknote", 16)}금액·구매 대상</summary>
             <div class="detail-section"><div class="field-grid">
               ${field("배정 예산", fullMoney(item.assignBudgetAmt))}
               ${field("발주 금액", fullMoney(detail.orderAmount))}
@@ -1544,7 +1563,7 @@
           </details>
 
           <details>
-            <summary>${icon("contact", 15)}기관 담당자</summary>
+            <summary>${icon("contact", 16)}기관 담당자</summary>
             <div class="detail-section"><div class="field-grid">
               ${field("담당 부서", detail.department)}
               ${field("담당자", detail.officerName)}
@@ -1554,10 +1573,29 @@
           </details>
 
           <details>
-            <summary>${icon("paperclip", 15)}첨부·연관 정보 <span class="tab-count">${docs.length}</span></summary>
+            <summary>${icon("paperclip", 16)}첨부 문서 <span class="summary-count">${docs.length}건</span></summary>
             <div class="detail-section">${docHtml}</div>
           </details>
-          <div class="detail-foot">이 화면은 빠른 선별과 검토 기록을 위한 보조 도구입니다. 입찰 참가 전에는 반드시 나라장터 원문과 첨부 규격서를 기준으로 판단하세요.</div>
+
+          <details>
+            <summary>${icon("file-text", 16)}공고 정보</summary>
+            <div class="detail-section"><div class="field-grid">
+              ${field("공고번호", `${item.bidNtceNo}${item.bidNtceOrd ? `-${item.bidNtceOrd}` : ""}`)}
+              ${field("공고기관", item.ntceInsttNm)}
+              ${field("수요기관", item.dminsttNm)}
+              ${field("등록일", item.bidNtceRegistDt)}
+              ${field("공고 구분", detail.noticeKind)}
+              ${field("참조번호", detail.referenceNo || item.refNo)}
+              ${field("품목 분류", `${item._keyword.primaryLabel} / ${item._keyword.workLabel}`)}
+              ${field("분류 근거", `${item._keyword.evidence}${item._keyword.matchedTerm ? ` - ${item._keyword.matchedTerm}` : ""}`)}
+            </div></div>
+          </details>
+
+          <details>
+            <summary>${icon("clipboard-list", 16)}보고서 미리보기</summary>
+            <div class="detail-section"><pre class="report-sheet" id="reportText">${escapeHtml(reportText)}</pre></div>
+          </details>
+          <div class="detail-foot">빠른 선별과 검토 기록을 위한 보조 화면입니다. 참가 전에는 나라장터 원문과 첨부 규격서를 기준으로 판단하세요.</div>
         </div>`;
 
       $("#detailClose")?.addEventListener("click", () => $("#detailPane").classList.remove("open"));
@@ -1632,7 +1670,7 @@
         return `<option value="${group.id}">${escapeHtml(group.label)} (${count})</option>`;
       }).join("");
       $("#contractFilter").innerHTML = `<option value="">전체 계약방법</option>${contracts.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
-      $("#regionFilter").innerHTML = `<option value="">전체 지역</option>${regions.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
+      $("#regionFilter").innerHTML = `<option value="">지역</option>${regions.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
       $("#keywordFilter").innerHTML = `<option value="">전체 키워드 분류</option>${keywordOptions}`;
       $("#workFilter").innerHTML = `<option value="">전체 업무 유형</option>${workOptions}`;
       $("#registeredFilter").innerHTML = `
@@ -1645,8 +1683,27 @@
 
     function setView(view) {
       state.view = view;
-      $$(".view-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
+      $$(".view-tab").forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.view === view);
+        tab.setAttribute("aria-pressed", String(tab.dataset.view === view));
+      });
       renderRows();
+    }
+
+    // 값이 들어간 필터는 강조하고, 접힌 '필터 더보기' 안에 걸린 필터 수를 버튼에 표시한다.
+    const MORE_FILTER_KEYS = ["registered", "business", "contract", "keyword", "work"];
+    const FILTER_SELECTS = { registered: "#registeredFilter", service: "#serviceFilter", business: "#businessFilter", contract: "#contractFilter", budget: "#budgetFilter", region: "#regionFilter", keyword: "#keywordFilter", work: "#workFilter" };
+
+    function updateFilterIndicators() {
+      Object.entries(FILTER_SELECTS).forEach(([key, selector]) => $(selector).classList.toggle("is-set", Boolean(state.filters[key])));
+      const hiddenCount = MORE_FILTER_KEYS.filter((key) => state.filters[key]).length;
+      $("#moreFilterCount").hidden = hiddenCount === 0;
+      $("#moreFilterCount").textContent = hiddenCount;
+    }
+
+    function toggleMoreFilters(open = $("#moreFilters").hidden) {
+      $("#moreFilters").hidden = !open;
+      $("#moreFiltersBtn").setAttribute("aria-expanded", String(open));
     }
 
     function resetFilters() {
@@ -1660,7 +1717,9 @@
       $("#regionFilter").value = "";
       $("#keywordFilter").value = "";
       $("#workFilter").value = "";
+      updateFilterIndicators();
       renderRows();
+      showToast("검색어와 필터를 모두 지웠습니다.");
     }
 
     function showToast(message) {
@@ -1711,16 +1770,19 @@
         if (tab) setView(tab.dataset.view);
       });
       $("#searchInput").addEventListener("input", (event) => { state.filters.search = event.target.value.trim(); renderRows(); });
-      [["#registeredFilter", "registered"], ["#serviceFilter", "service"], ["#businessFilter", "business"], ["#contractFilter", "contract"], ["#budgetFilter", "budget"], ["#regionFilter", "region"], ["#keywordFilter", "keyword"], ["#workFilter", "work"]].forEach(([selector, key]) => {
+      Object.entries(FILTER_SELECTS).forEach(([key, selector]) => {
         $(selector).addEventListener("change", async (event) => {
           state.filters[key] = event.target.value;
+          updateFilterIndicators();
           if (key === "registered" && state.filters.registered.startsWith("month:")) {
             await loadArchiveMonth(state.filters.registered.slice(6));
           }
           renderRows();
         });
       });
+      $("#moreFiltersBtn").addEventListener("click", () => toggleMoreFilters());
       $("#resetBtn").addEventListener("click", resetFilters);
+      $("#emptyResetBtn").addEventListener("click", resetFilters);
       $("#reloadBtn").addEventListener("click", loadData);
       $("#authBtn").addEventListener("click", toggleReviewLogin);
       $("#authUidBtn").addEventListener("click", copyReviewUid);
