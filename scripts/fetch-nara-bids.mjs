@@ -41,8 +41,9 @@ const INDIRECT_KEYWORDS = {
     "건립": ["건립", "신축"],
     "체육시설": ["체육관", "운동장", "경기장", "수영장", "축구", "야구", "스포츠파크", "스포츠타운"]
 };
+// '디지털 전광판' 같은 변형 검색어는 결과가 '전광판' 검색 결과에 모두 포함되므로 따로 호출하지 않는다.
 const SEARCH_TERMS = [
-    ...BASE_KEYWORDS.flatMap(k => [k, `디지털 ${k}`]),
+    ...BASE_KEYWORDS,
     ...Object.values(INDIRECT_KEYWORDS).flat()
 ];
 
@@ -120,7 +121,12 @@ const DATA_SOURCES = [
     }
 ];
 
+// 데이터셋은 최근 30일을 유지한다. 전체 재수집은 하루 한 번, 그 사이 실행은 최근 3일만 받아 이전 데이터에 합친다.
 const DAYS_TO_FETCH = 30;
+const INCREMENTAL_DAYS = 3;
+const FULL_REFRESH_INTERVAL_HOURS = 20;
+const FETCH_MODE = String(process.env.NARA_FETCH_MODE || 'auto').toLowerCase();
+const PLAN_LOOKAHEAD_MONTHS = 6;
 const CHUNK_DAYS = 15;
 const HISTORY_RETENTION_MONTHS = 12;
 const NUM_OF_ROWS = 100;
@@ -206,6 +212,15 @@ function addDays(date, days) {
     const d = new Date(date);
     d.setDate(d.getDate() + days);
     return d;
+}
+
+function addMonths(date, months) {
+    return new Date(date.getFullYear(), date.getMonth() + months, 1);
+}
+
+function formatIsoDate(d) {
+    const g = formatG2BDate(d);
+    return `${g.slice(0, 4)}-${g.slice(4, 6)}-${g.slice(6, 8)}`;
 }
 
 function makeDateRanges(startDate, endDate, chunkDays) {
@@ -503,6 +518,7 @@ async function fetchOne(source, keyword, dateRange) {
     const allItems = [];
     let totalCount = 0;
     let totalPages = 1;
+    let truncated = false;
 
     for (let pageNo = 1; pageNo <= totalPages; pageNo++) {
         const result = await fetchPageWithRetry(source, keyword, dateRange, pageNo);
@@ -511,6 +527,7 @@ async function fetchOne(source, keyword, dateRange) {
             return {
                 items: allItems,
                 totalCount,
+                truncated,
                 error: result.error
             };
         }
@@ -524,6 +541,7 @@ async function fetchOne(source, keyword, dateRange) {
             if (totalPages > MAX_PAGES_PER_QUERY) {
                 console.log(`    WARN ${source.serviceType}/${source.businessType} / "${keyword}" — ${totalCount}건, ${totalPages}페이지 중 ${MAX_PAGES_PER_QUERY}페이지만 수집`);
                 totalPages = MAX_PAGES_PER_QUERY;
+                truncated = true;
             }
         }
 
@@ -535,6 +553,7 @@ async function fetchOne(source, keyword, dateRange) {
     return {
         items: allItems,
         totalCount,
+        truncated,
         error: null
     };
 }
@@ -956,6 +975,31 @@ function sortByRegistration(bids) {
     return bids.sort((a, b) => String(b.bidNtceRegistDt || '').localeCompare(String(a.bidNtceRegistDt || '')));
 }
 
+// 발주 예정월이 아직 지나지 않은 발주계획은 게시일이 30일을 넘어도 목록에 남긴다.
+function isUpcomingPlan(bid, currentYm) {
+    if (bid.serviceType !== '발주계획') return false;
+    const month = String(bid.bidClseDt || '').slice(0, 7);
+    return /^\d{4}-\d{2}$/.test(month) && month >= currentYm;
+}
+
+async function loadPreviousOutput(filePath) {
+    try {
+        const stored = JSON.parse(await fs.readFile(filePath, 'utf-8'));
+        return Array.isArray(stored?.bids) ? stored : null;
+    } catch {
+        return null;
+    }
+}
+
+function chooseFetchMode(previous, now) {
+    if (FETCH_MODE === 'full' || FETCH_MODE === 'incremental') {
+        return FETCH_MODE === 'incremental' && !previous ? 'full' : FETCH_MODE;
+    }
+    const lastFull = Date.parse(previous?.lastFullRefreshAt || '');
+    if (!previous || Number.isNaN(lastFull)) return 'full';
+    return now.getTime() - lastFull >= FULL_REFRESH_INTERVAL_HOURS * 3600000 ? 'full' : 'incremental';
+}
+
 async function loadArchiveBids(filePath) {
     try {
         const stored = JSON.parse(await fs.readFile(filePath, 'utf-8'));
@@ -1017,13 +1061,24 @@ async function updateMonthlyArchives(bids, generatedAt) {
 }
 
 async function main() {
+    const outPath = path.join('data', 'bids.json');
+    const previous = await loadPreviousOutput(outPath);
+    const fetchMode = chooseFetchMode(previous, new Date());
+    const fetchDays = fetchMode === 'full' ? DAYS_TO_FETCH : INCREMENTAL_DAYS;
+
     const now = getKstDate();
     const past = getKstDate();
     past.setDate(now.getDate() - (DAYS_TO_FETCH - 1));
+    const fetchStart = getKstDate();
+    fetchStart.setDate(now.getDate() - (fetchDays - 1));
+    const currentYm = `${formatYm(now).slice(0, 4)}-${formatYm(now).slice(4)}`;
+    const planLookahead = { enabled: true, endYm: formatYm(addMonths(now, PLAN_LOOKAHEAD_MONTHS)) };
 
-    const dateRanges = makeDateRanges(past, now, CHUNK_DAYS);
+    const dateRanges = makeDateRanges(fetchStart, now, CHUNK_DAYS);
 
-    console.log(`[INFO] 수집 범위: ${formatG2BDate(past)}0000 ~ ${formatG2BDate(now)}2359`);
+    console.log(`[INFO] 수집 모드: ${fetchMode} (${fetchDays}일, 요청값 ${FETCH_MODE})`);
+    console.log(`[INFO] 수집 범위: ${formatG2BDate(fetchStart)}0000 ~ ${formatG2BDate(now)}2359 / 데이터셋 ${formatG2BDate(past)} 이후`);
+    console.log(`[INFO] 발주계획 발주월 선행 조회: ~${planLookahead.endYm}`);
     console.log(`[INFO] 날짜 분할: ${dateRanges.length}개 구간 / ${CHUNK_DAYS}일 단위`);
     console.log(`[INFO] 검색어 ${SEARCH_TERMS.length}개 × 데이터소스 ${DATA_SOURCES.length}개 × 날짜구간 ${dateRanges.length}개 = ${SEARCH_TERMS.length * DATA_SOURCES.length * dateRanges.length}개 기본 호출`);
     console.log(`[INFO] 최대 페이지: 검색어/데이터소스/날짜구간당 ${MAX_PAGES_PER_QUERY}페이지`);
@@ -1033,6 +1088,7 @@ async function main() {
 
     const allBids = [];
     const errors = [];
+    const warnings = [];
     let successCount = 0;
     let attemptedCount = 0;
     let consecutiveConnectivityFailures = 0;
@@ -1051,7 +1107,23 @@ async function main() {
             for (const term of SEARCH_TERMS) {
                 attemptedCount++;
                 try {
-                    const result = await fetchOne(source, term, dateRange);
+                    let result;
+                    if (source.dateMode === 'planYmAndPostDate' && planLookahead.enabled) {
+                        result = await fetchOne(source, term, { ...dateRange, endYm: planLookahead.endYm });
+                        if (result.error) {
+                            // API가 넓힌 발주월 범위를 거부하면 이번 실행은 기존 범위로 되돌린다.
+                            planLookahead.enabled = false;
+                            warnings.push(`발주계획 ${PLAN_LOOKAHEAD_MONTHS}개월 선행 조회 실패, 기존 범위로 전환: ${result.error}`);
+                            console.log(`  - WARN 발주계획 선행 조회 실패 → 기존 범위로 재시도 — ${result.error}`);
+                            result = await fetchOne(source, term, dateRange);
+                        }
+                    } else {
+                        result = await fetchOne(source, term, dateRange);
+                    }
+
+                    if (result.truncated) {
+                        warnings.push(`[${source.serviceType}/${source.businessType}/${term}/${dateRange.bgn}-${dateRange.end}] ${result.totalCount}건 중 ${MAX_PAGES_PER_QUERY * NUM_OF_ROWS}건만 수집`);
+                    }
 
                     if (result.error) {
                         consecutiveConnectivityFailures = 0;
@@ -1106,7 +1178,16 @@ async function main() {
         process.exit(1);
     }
 
-    const unique = sortByRegistration(collapseRecords(allBids));
+    // 증분 수집은 이전 데이터 전체에, 전체 재수집은 아직 유효한 발주계획에만 새 결과를 덮어 합친다.
+    const windowStart = formatIsoDate(past);
+    const carried = (previous?.bids || [])
+        .filter((bid) => fetchMode === 'incremental' || isUpcomingPlan(bid, currentYm))
+        .map(normalizeStoredRecord);
+    const unique = sortByRegistration(
+        collapseRecords([...carried, ...allBids])
+            .filter((bid) => String(bid.bidNtceRegistDt || '').slice(0, 10) >= windowStart || isUpcomingPlan(bid, currentYm))
+    );
+    console.log(`[INFO] 이전 데이터 이월: ${carried.length}건 → 최종 ${unique.length}건`);
 
     const categoryStats = {};
     for (const cat of Object.keys(KEYWORD_CATEGORY)) {
@@ -1135,6 +1216,10 @@ async function main() {
     const output = {
         generatedAt,
         timezone: 'Asia/Seoul',
+        fetchMode,
+        fetchDays,
+        lastFullRefreshAt: fetchMode === 'full' ? generatedAt : previous?.lastFullRefreshAt || '',
+        planLookaheadEndYm: planLookahead.enabled ? planLookahead.endYm : '',
         rangeDays: DAYS_TO_FETCH,
         chunkDays: CHUNK_DAYS,
         historyRetentionMonths: HISTORY_RETENTION_MONTHS,
@@ -1156,13 +1241,11 @@ async function main() {
         serviceStats,
         categoryStats,
         errors: errors.slice(0, 50),
+        warnings: warnings.slice(0, 50),
         bids: unique
     };
 
-    const outDir = 'data';
-    const outPath = path.join(outDir, 'bids.json');
-
-    await fs.mkdir(outDir, { recursive: true });
+    await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, JSON.stringify(output, null, 2), 'utf-8');
 
     console.log('');
@@ -1173,6 +1256,9 @@ async function main() {
 
     if (errors.length > 0) {
         console.log('[WARN] 일부 호출 실패 있음. data/bids.json의 errors 필드 확인 필요.');
+    }
+    if (warnings.length > 0) {
+        console.log(`[WARN] 경고 ${warnings.length}건 (페이지 상한 잘림·발주계획 선행 조회 전환 등). data/bids.json의 warnings 필드 확인 필요.`);
     }
 }
 

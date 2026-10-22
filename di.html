@@ -693,6 +693,8 @@
     let reviewCanWrite = false;
     const DIRECT_DISPLAY_PATTERN = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|\bvms\b|\bits\b|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
     const INDIRECT_PROJECT_PATTERN = /(문화센터|체육센터|복합센터|커뮤니티센터|건립|신축|체육관|운동장|경기장|수영장|축구|야구|스포츠\s*(파크|타운))/i;
+    // 간접 사업 중 전광판 영업과 무관한 용역·자재. 여기에 걸리면 '연관성 낮음'으로 내려 기본 목록에서 뺀다(전체 보기에는 남음).
+    const INDIRECT_NOISE_PATTERN = /(폐기물|석면|철거|해체|감리|건설사업관리|\bve\b|설계\s*경제성|안전\s*(진단|점검)|타당성|측량|지반\s*조사|지질\s*조사|환경\s*영향|문화재|발굴|태양광|조경|보험|청소|경비|소독|급식|감정\s*평가|매입|토지|보상|이주|분양|임대|예술품|미술작품|잔디|재활용|약품|피복|운동복|유니폼|소방|기계|항온항습|냉난방|냉방기|에어컨|실외기|공기조화|보일러|승강기|안전보건|적정성|정화조|수처리|급수|배수|방수|도장|창호|지붕|운영\s*위탁|위탁\s*운영|운영\s*대행|강사|프로그램|수강|식자재|부지|개발\s*계획|기본\s*계획|시멘트|레미콘|골재|철근|분전반|배전반|수배전|금속제\s*패널|볼라드|차량|가구)/i;
     const KEYWORD_GROUPS = [
       { id: "display_all", section: "전광판", label: "전광판 전체", pattern: /(전광판|전광표지|안내전광|문자전광|led\s*(display|디스플레이|스크린)|옥외\s*led|실내\s*led|\bvms\b)/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "display_traffic", section: "전광판", label: "교통·도로 전광판", pattern: /(도로.*(전광|표지)|교통.*(전광|정보표시)|가변정보표지|전광.*교통|its.*(도로|교통|관제|전광|표지)|버스정보.*(안내|표시))/i, exclude: /(세계총회.*(부스|전시관)|it서비스)/i },
@@ -1087,7 +1089,9 @@
       const text = [item.bidNtceNm, detail.productName, detail.productDetails, detail.purpose].filter(Boolean).join(" ").toLowerCase();
       const offTarget = /(조명|가로등|등기구|살균|현미경|센서|휴지통|반도체|교육|연구|부트캠프|소프트웨어|전세버스|콘텐츠 제작)/i;
       if (DIRECT_DISPLAY_PATTERN.test(text)) return { key: "direct", label: "직접 연관" };
-      if (INDIRECT_PROJECT_PATTERN.test(text)) return { key: "check", label: "간접 사업" };
+      if (INDIRECT_PROJECT_PATTERN.test(text)) {
+        return INDIRECT_NOISE_PATTERN.test(text) ? { key: "low", label: "연관성 낮음" } : { key: "check", label: "간접 사업" };
+      }
       if (offTarget.test(text)) return { key: "low", label: "연관성 낮음" };
       return { key: "check", label: "연관 확인" };
     }

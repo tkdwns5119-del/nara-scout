@@ -79,6 +79,8 @@ jobs:
           NARA_API_KEY: ${{ secrets.NARA_API_KEY }}
           NARA_PRESPEC_API_KEY: ${{ secrets.NARA_PRESPEC_API_KEY }}
           NARA_PLAN_API_KEY: ${{ secrets.NARA_PLAN_API_KEY }}
+          # force 실행은 30일 전체 재수집, 그 외에는 하루 한 번 전체 + 나머지 증분 수집.
+          NARA_FETCH_MODE: ${{ inputs.force && 'full' || 'auto' }}
           NODE_OPTIONS: --dns-result-order=ipv4first
         run: |
           for attempt in 1 2 3; do
