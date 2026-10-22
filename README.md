@@ -8,7 +8,7 @@
 ## 구조
 
 ```txt
-GitHub Actions (fetch-bids.yml, 하루 3회)
+GitHub Actions (fetch-bids.yml, 하루 6회: 07·09·11·13·15·17시)
   → scripts/fetch-nara-bids.mjs  (data.go.kr OpenAPI 호출)
   → data/bids.json, data/archive/YYYY-MM.json  (자동 커밋)
   → GitHub Pages의 di.html 이 정적 JSON을 읽어 표시
@@ -35,7 +35,7 @@ GitHub Actions (fetch-bids.yml, 하루 3회)
 
 ## 수동 수집
 
-Actions → **Sync Nara Bids** → Run workflow. 최근 3시간 안에 수집했으면 건너뛰므로, 바로 다시 받으려면 `force`를 체크합니다 (30일 전체 재수집).
+Actions → **Sync Nara Bids** → Run workflow. 최근 90분 안에 수집했으면 건너뛰므로, 바로 다시 받으려면 `force`를 체크합니다 (30일 전체 재수집).
 
 ## 로컬에서 보기
 

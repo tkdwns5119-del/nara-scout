@@ -4,12 +4,10 @@ on:
   schedule:
     # GitHub Actions cron uses UTC and is a best-effort backup: scheduled runs here
     # have started 2-5 hours late. The primary trigger is an external scheduler
-    # calling workflow_dispatch at 07:00 / 11:00 / 16:00 KST (see docs).
+    # calling workflow_dispatch at 07 / 09 / 11 / 13 / 15 / 17:00 KST (see docs).
     # Off-the-hour minutes avoid the top-of-hour queue.
-    # 22:13 UTC = 07:13 KST (next day), 02:13 UTC = 11:13 KST, 07:13 UTC = 16:13 KST.
-    - cron: '13 22 * * *'
-    - cron: '13 2 * * *'
-    - cron: '13 7 * * *'
+    # UTC 22,00,02,04,06,08 :13 = KST 07,09,11,13,15,17 :13.
+    - cron: '13 22,0,2,4,6,8 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -46,7 +44,8 @@ jobs:
         id: freshness
         env:
           FORCE: ${{ inputs.force }}
-          MIN_INTERVAL_MINUTES: '180'
+          # Shorter than the 2-hour slot spacing minus run time, so on-time runs never skip each other.
+          MIN_INTERVAL_MINUTES: '90'
         run: |
           if [ "$FORCE" = "true" ]; then
             echo "Forced run."
