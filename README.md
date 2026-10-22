@@ -1,6 +1,6 @@
 # nara-scout · DI 조달 검토 보드
 
-나라장터(조달청) 입찰공고·사전규격·발주계획 중 전광판·LED·미디어파사드·ITS/VMS 관련 사업과 체육·문화시설 신축 같은 간접 사업을 모아, 영업 담당자가 참여 여부와 검토 순서를 빠르게 정리하는 정적 대시보드입니다.
+나라장터(조달청) 입찰공고·사전규격·발주계획 중 전광판·LED·미디어파사드·ITS/VMS·버스정보(BIT/BIS) 관련 사업과 체육·문화시설 신축 같은 간접 사업을 모아, 영업 담당자가 참여 여부와 검토 순서를 빠르게 정리하는 정적 대시보드입니다.
 
 - 대시보드: https://tkdwns5119-del.github.io/nara-scout/ (→ `di.html`)
 - 운영 문서: [docs/DI_DASHBOARD_INTERNAL.md](docs/DI_DASHBOARD_INTERNAL.md)

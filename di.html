@@ -710,7 +710,8 @@
     let reviewMembersRef = null;
     let reviewUser = null;
     let reviewCanWrite = false;
-    const DIRECT_DISPLAY_PATTERN = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|\bvms\b|\bits\b|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
+    const DIRECT_DISPLAY_PATTERN = /(전광판|안내전광판|교통정보판|정보표시판|미디어\s*파사드|미디어월|사이니지|digital signage|\bvms\b|\bits\b|\bbit\b|\bbis\b|버스\s*정보|버스\s*도착\s*(안내|정보)|정류(장|소)\s*(안내기|안내판|안내단말기|도착안내)|led\s*(전광판|스크린|디스플레이|display)|옥외전광)/i;
+    const BUS_INFO_PATTERN = /(\bbit\b|\bbis\b|버스\s*정보|버스\s*도착\s*(안내|정보)|정류(장|소).{0,12}(전광|안내기|안내판|안내단말|도착\s*안내|표시)|버스\s*전광)/i;
     const INDIRECT_PROJECT_PATTERN = /(문화센터|체육센터|복합센터|커뮤니티센터|건립|신축|체육관|운동장|경기장|수영장|축구|야구|스포츠\s*(파크|타운))/i;
     // 간접 사업 중 전광판 영업과 무관한 용역·자재. 여기에 걸리면 '연관성 낮음'으로 내려 기본 목록에서 뺀다(전체 보기에는 남음).
     const INDIRECT_NOISE_PATTERN = /(폐기물|석면|철거|해체|감리|건설사업관리|\bve\b|설계\s*경제성|안전\s*(진단|점검)|타당성|측량|지반\s*조사|지질\s*조사|환경\s*영향|문화재|발굴|태양광|조경|보험|청소|경비|소독|급식|감정\s*평가|매입|토지|보상|이주|분양|임대|예술품|미술작품|잔디|재활용|약품|피복|운동복|유니폼|소방|기계|항온항습|냉난방|냉방기|에어컨|실외기|공기조화|보일러|승강기|안전보건|적정성|정화조|수처리|급수|배수|방수|도장|창호|지붕|운영\s*위탁|위탁\s*운영|운영\s*대행|강사|프로그램|수강|식자재|부지|개발\s*계획|기본\s*계획|시멘트|레미콘|골재|철근|분전반|배전반|수배전|금속제\s*패널|볼라드|차량|가구)/i;
@@ -768,6 +769,11 @@
       { id: "vms_road", section: "VMS", label: "도로전광표지·VMS 장비", pattern: /((국도|도로|교통|its).*vms|vms.*(국도|도로|교통|전광|관급))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "vms_maintenance", section: "VMS", label: "VMS 유지보수·부품", pattern: /(vms.*(유지|보수|교체|예비품|부품))/i, exclude: /(진동감시|진동감시설비|vibration)/i },
       { id: "vms_vibration", section: "VMS", label: "[비대상] 진동감시 VMS", pattern: /((진동감시|진동감시설비|vibration).*vms|vms.*(진동감시|진동감시설비|vibration))/i },
+
+      { id: "bus_all", section: "버스정보(BIT·BIS)", label: "버스정보 전체", pattern: BUS_INFO_PATTERN },
+      { id: "bus_terminal", section: "버스정보(BIT·BIS)", label: "BIT 안내단말기·정류장 전광판", pattern: /(\bbit\b|버스\s*정보\s*안내\s*(단말기|기|판)|버스\s*도착\s*(안내|정보)|정류(장|소).{0,12}(전광|안내기|안내판|안내단말|도착\s*안내|표시)|버스\s*전광)/i },
+      { id: "bus_system", section: "버스정보(BIT·BIS)", label: "BIS 버스정보시스템", pattern: /(\bbis\b|버스\s*정보\s*시스템|버스\s*관제|버스정보\s*(센터|서버|플랫폼))/i },
+      { id: "bus_maintenance", section: "버스정보(BIT·BIS)", label: "BIT·BIS 유지보수·교체", pattern: /((\bbit\b|\bbis\b|버스\s*정보).*(유지|보수|교체|이전|철거|개선))/i },
 
       { id: "indirect_all", section: "전광판 외 간접 사업", label: "간접 사업 전체", pattern: INDIRECT_PROJECT_PATTERN, exclude: DIRECT_DISPLAY_PATTERN },
       { id: "indirect_culture", section: "전광판 외 간접 사업", label: "문화시설", pattern: /(문화센터|체육센터|복합센터|커뮤니티센터)/i, exclude: DIRECT_DISPLAY_PATTERN },
@@ -1033,7 +1039,7 @@
       const fullText = sources.map((source) => source.text).join(" ");
       const matchedGroups = KEYWORD_GROUPS.filter((group) => group.pattern.test(fullText) && !(group.exclude && group.exclude.test(fullText)));
       const productPriority = [
-        "vms_vibration", "display_traffic", "vms_road", "display_safety", "display_sports", "display_info", "display_indoor", "display_outdoor",
+        "vms_vibration", "bus_maintenance", "bus_terminal", "bus_system", "bus_all", "display_traffic", "vms_road", "display_safety", "display_sports", "display_info", "display_indoor", "display_outdoor",
         "facade_install", "facade_content", "facade_maintenance", "facade_all",
         "signage_system", "signage_guidance", "signage_equipment", "signage_all",
         "its_equipment", "its_construction", "its_plan", "its_event", "its_other", "its_all",

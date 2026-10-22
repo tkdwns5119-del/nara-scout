@@ -35,7 +35,8 @@ if (!API_KEYS.BID) {
     process.exit(1);
 }
 
-const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS"];
+// BIT(버스정보안내단말기)·BIS(버스정보시스템)·정류장 안내 전광판도 직접 사업으로 본다.
+const BASE_KEYWORDS = ["전광판", "미디어", "파사드", "사이니지", "디스플레이", "LED", "ITS", "VMS", "BIT", "BIS", "버스정보", "정류장"];
 const INDIRECT_KEYWORDS = {
     "문화시설": ["문화센터", "체육센터", "복합센터", "커뮤니티센터"],
     "건립": ["건립", "신축"],
@@ -51,6 +52,7 @@ const KEYWORD_CATEGORY = {
     "디스플레이/사이니지 계열": ["전광판", "LED", "디스플레이", "사이니지"],
     "미디어/파사드 계열": ["미디어", "파사드"],
     "ITS/VMS 계열": ["ITS", "VMS"],
+    "버스정보(BIT/BIS) 계열": ["BIT", "BIS", "버스정보", "정류장"],
     "전광판 외 간접 사업/문화시설": INDIRECT_KEYWORDS["문화시설"],
     "전광판 외 간접 사업/건립": INDIRECT_KEYWORDS["건립"],
     "전광판 외 간접 사업/체육시설": INDIRECT_KEYWORDS["체육시설"]
@@ -393,6 +395,10 @@ function itemContainsKeyword(item, term) {
         item.rlDminsttNm
     ].filter(Boolean).join(' ').toLowerCase();
 
+    // BIT·BIS·ITS 같은 영문 약어는 'exhibit', 'units'처럼 단어 일부로 걸리지 않게 앞뒤가 영문·숫자가 아닐 때만 일치로 본다.
+    if (/^[a-z0-9]+$/.test(base)) {
+        return new RegExp(`(^|[^a-z0-9])${base}([^a-z0-9]|$)`).test(text);
+    }
     return text.includes(base);
 }
 
