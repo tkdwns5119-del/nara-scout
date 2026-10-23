@@ -22,6 +22,7 @@ GitHub Actions (fetch-bids.yml, 하루 6회: 07·09·11·13·15·17시)
 | `scripts/fetch-nara-bids.mjs` | 수집 스크립트 |
 | `data/` | 수집 결과와 Firebase 설정 (`workflow-config.json`) |
 | `.github/workflows/fetch-bids.yml` | 자동 수집 |
+| `.github/workflows/slot-timer.yml` | 수집 시각 타이머 (GitHub 예약 지연 대응) |
 | `.github/workflows/validate-dashboard.yml` | `di.html` 스크립트 문법 검사 |
 | `database.rules.json`, `firebase.json` | Firebase 보안 규칙 |
 
@@ -30,7 +31,7 @@ GitHub Actions (fetch-bids.yml, 하루 6회: 07·09·11·13·15·17시)
 1. **API 키**: 공공데이터포털에서 입찰공고정보·사전규격정보·발주계획현황 서비스 활용신청 → Settings → Secrets and variables → Actions에 `NARA_API_KEY` 등록 (Decoding 키 권장)
 2. **Actions 권한**: Settings → Actions → General → Workflow permissions → Read and write
 3. **Pages**: Settings → Pages → Deploy from a branch → `main` / root
-4. **수집 시각**: 업무 시간 15분마다 판정해 07·09·11·13·15·17시 수집을 시작합니다 (운영 문서 6.1). 별도 설정 필요 없음
+4. **수집 시각**: `Slot Timer` 워크플로가 07·09·11·13·15·17시에 수집을 시작합니다 (운영 문서 6.1). 별도 설정 필요 없음. 멈췄으면 Actions → Slot Timer → Run workflow
 5. **검토 기록 공유**: Firebase Google 로그인, 승인 도메인, `members` 등록, 보안 규칙 게시 (운영 문서 8.4)
 
 ## 수동 수집
