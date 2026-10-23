@@ -320,35 +320,30 @@ API 호출 성공률이 80% 미만이면 기존 `data/bids.json`을 덮어쓰지
 
 호출 한도: 하루 첫 실행만 30일 전체(서비스당 약 104회), 나머지는 3일 증분(서비스당 약 52회)이라 하루 서비스당 약 365회에 페이지 추가분을 더해도 개발계정 한도(보통 서비스당 1,000회/일) 안에 든다. 공공데이터포털 마이페이지에서 서비스별 일일 트래픽을 확인한다.
 
-GitHub Actions의 `schedule`은 이 저장소에서 2~5시간 늦거나 아예 실행되지 않았다(2026년 10월 실측, 15분 간격 예약도 2시간 넘게 한 번도 실행 안 됨). 그래서 **타이머 워크플로가 스스로 시각을 지킨다.**
+GitHub Actions의 `schedule`은 이 저장소에서 2~5시간 늦거나 아예 실행되지 않았다(2026년 10월 실측, 15분 간격 예약도 2시간 넘게 한 번도 실행 안 됨). 그래서 **외부 스케줄러(cron-job.org)가 정시에 `workflow_dispatch`로 수집을 시작한다**(설정은 6.2).
 
 | 구성 | 하는 일 |
 |---|---|
-| `Slot Timer` (`slot-timer.yml`, ubuntu) | 다음 수집 시각까지 기다렸다가 `Sync Nara Bids`를 시작하고, 이어서 다음 타이머를 시작한다. 실행 하나는 최대 330분만 기다리므로 밤사이는 중간 타이머 2~3개로 이어진다. 판정은 `.github/scripts/slot-timer.mjs` |
+| cron-job.org | 07·09·11·13·15·17시 정각에 `Sync Nara Bids`를 `slot=true`로 시작 |
 | `Sync Nara Bids` (`fetch-bids.yml`) | `gate`(ubuntu, 수 초)가 수집 여부를 판정하고 `fetch`(macOS)가 API 수집과 데이터 커밋을 한다. 판정은 `.github/scripts/should-fetch.mjs` |
+| GitHub 15분 예약 | **예비.** 외부 스케줄러가 멈췄을 때, GitHub이 예약을 실행해 주면 같은 기준으로 수집 |
 
-동작 원칙:
+판정 기준:
 
-- 타이머가 시작하는 수집은 "이번 수집 시각 이후로 아직 수집하지 않았을 때"만 실제로 수집한다. 수동 실행은 마지막 수집 후 90분이 지났을 때(또는 `force`) 수집한다.
-- 타이머는 GitHub 기본 토큰으로 다음 실행을 띄운다(`workflow_dispatch`는 기본 토큰으로도 새 실행을 만든다). 개인 토큰이나 외부 서비스가 필요 없다.
-- 타이머는 한 번에 하나만 돈다(concurrency). 대기 중인 실행이 겹치면 가장 최근 것만 남아 체인이 둘로 갈라지지 않는다.
-- 체인이 끊기면: `slot-timer.yml`을 수정해 푸시하거나 **Actions → Slot Timer → Run workflow**로 다시 시작한다. GitHub 예약(2시간마다)이 실행될 때도 자동으로 다시 시작된다. 방금 지난 수집 시각(110분 이내)을 놓쳤으면 시작하자마자 수집한다.
-- `fetch-bids.yml`의 15분 예약 판정은 예비로 남겨 둔다. 실행되면 같은 기준으로 판정하므로 중복 수집은 없다.
-
-주의: 타이머는 GitHub 실행기 하나를 하루 종일 대기 상태로 쓴다. 공개 저장소라 비용은 없지만 GitHub 이용 정책상 과도한 사용으로 제한될 수 있다. 제한되면 6.2의 외부 스케줄러로 바꾸고 `Slot Timer` 워크플로를 비활성화한다(Actions → Slot Timer → ⋯ → Disable workflow).
+- 외부 스케줄러(`slot=true`)·예약 실행: "오늘 지난 수집 시각 중 가장 최근 시각 이후로 아직 수집하지 않았을 때"만 수집한다. 둘이 겹쳐도 중복 수집은 없다.
+- 수동 실행: 마지막 수집 후 90분이 지났을 때, 또는 `force`를 체크했을 때 수집한다.
+- `fetch`는 시작할 때 최신 데이터로 같은 판정을 다시 해서, 줄을 서 있던 두 번째 수집은 API를 호출하지 않는다.
 
 수동으로 즉시 다시 수집하려면 **Actions → Sync Nara Bids → Run workflow**에서 `force`를 체크한다.
 
 대시보드 상단 상태 표시는 마지막 수집 후 18시간이 지나면 주황색 `갱신 지연`으로 바뀐다.
 
-### 6.2 (선택) 외부 스케줄러 설정 (cron-job.org 예시)
+### 6.2 외부 스케줄러 설정 (cron-job.org)
 
-6.1의 15분 판정만으로 운영할 수 있다. 정각에 더 가깝게 맞춰야 할 때만 외부 스케줄러로 `workflow_dispatch`를 함께 호출한다. 수동 호출은 마지막 수집 후 90분이 지났을 때만 수집하므로 판정 실행과 겹쳐도 중복되지 않는다.
-
-1. GitHub → Settings → Developer settings → **Fine-grained personal access token** 생성
+1. GitHub → Settings → Developer settings → **Fine-grained personal access token** 생성 (https://github.com/settings/personal-access-tokens/new)
    - Repository access: `nara-scout`만 선택
    - Permissions: **Actions: Read and write** (그 외 권한 없음)
-   - 만료일을 정하고, 만료 전에 재발급한다.
+   - 만료일을 정하고, **만료 전에 재발급해 cron-job.org의 헤더 값을 바꾼다.** 만료되면 정시 수집이 멈추고 GitHub 15분 예약만 남는다.
 2. cron-job.org에서 작업 1개를 만들고 실행 시각을 07·09·11·13·15·17시 정각(시간대 `Asia/Seoul`)으로 지정한다.
    - URL: `https://api.github.com/repos/tkdwns5119-del/nara-scout/actions/workflows/fetch-bids.yml/dispatches`
    - Method: `POST`
@@ -356,8 +351,8 @@ GitHub Actions의 `schedule`은 이 저장소에서 2~5시간 늦거나 아예 �
      - `Authorization: Bearer <토큰>`
      - `Accept: application/vnd.github+json`
      - `X-GitHub-Api-Version: 2022-11-28`
-   - Body: `{"ref":"main"}`
-3. 성공 응답은 `204 No Content`다. Actions 탭에서 `workflow_dispatch` 실행이 정시에 시작되는지 확인한다.
+   - Body: `{"ref":"main","inputs":{"slot":"true"}}`
+3. 성공 응답은 `204 No Content`다(TEST RUN으로 확인). `401`은 토큰 오류, `403`/`404`는 저장소 선택이나 Actions 권한 문제다. Actions 탭에서 `workflow_dispatch` 실행이 정시에 시작되는지 확인한다.
 
 토큰은 저장소 Secret이 아니라 외부 스케줄러에만 저장된다. 노출되면 즉시 폐기하고 재발급한다.
 

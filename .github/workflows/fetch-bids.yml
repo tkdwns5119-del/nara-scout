@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
       slot:
-        description: 'Started by Slot Timer: fetch only if the current slot is not collected yet'
+        description: 'Started by the external scheduler at a slot: fetch only if this slot is not collected yet'
         type: boolean
         default: false
 
