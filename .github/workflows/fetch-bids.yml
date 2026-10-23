@@ -2,12 +2,11 @@ name: Sync Nara Bids
 
 on:
   schedule:
-    # GitHub Actions cron uses UTC and is a best-effort backup: scheduled runs here
-    # have started 2-5 hours late. The primary trigger is an external scheduler
-    # calling workflow_dispatch at 07 / 09 / 11 / 13 / 15 / 17:00 KST (see docs).
-    # Off-the-hour minutes avoid the top-of-hour queue.
-    # UTC 22,00,02,04,06,08 :13 = KST 07,09,11,13,15,17 :13.
-    - cron: '13 22,0,2,4,6,8 * * *'
+    # GitHub delays or drops individual scheduled runs (2-5 hours late was observed with one
+    # cron per slot). Instead a cheap gate fires every 15 minutes during working hours and starts
+    # the fetch once per slot (KST 07/09/11/13/15/17) as soon as any trigger gets through.
+    # UTC 22-23,0-8 = KST 07-17; minutes 7/22/37/52 avoid the top-of-hour queue.
+    - cron: '7,22,37,52 22-23,0-8 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -18,14 +17,39 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: sync-nara-bids
-  cancel-in-progress: false
-
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - name: Checkout data timestamp
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref }}
+          sparse-checkout: |
+            data/bids.json
+            .github/scripts
+          sparse-checkout-cone-mode: false
+
+      - name: Decide whether to fetch
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          FORCE: ${{ inputs.force }}
+          SLOTS_KST: '7,9,11,13,15,17'
+          MIN_INTERVAL_MINUTES: '90'
+        run: node .github/scripts/should-fetch.mjs
+
   fetch:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: macos-latest
     timeout-minutes: 45
+    concurrency:
+      group: sync-nara-bids
+      cancel-in-progress: false
 
     steps:
       - name: Checkout
@@ -44,7 +68,7 @@ jobs:
         id: freshness
         env:
           FORCE: ${{ inputs.force }}
-          # Shorter than the 2-hour slot spacing minus run time, so on-time runs never skip each other.
+          # Guards against a second fetch that queued behind one which just finished.
           MIN_INTERVAL_MINUTES: '90'
         run: |
           if [ "$FORCE" = "true" ]; then

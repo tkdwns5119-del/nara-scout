@@ -30,7 +30,7 @@ GitHub Actions (fetch-bids.yml, 하루 6회: 07·09·11·13·15·17시)
 1. **API 키**: 공공데이터포털에서 입찰공고정보·사전규격정보·발주계획현황 서비스 활용신청 → Settings → Secrets and variables → Actions에 `NARA_API_KEY` 등록 (Decoding 키 권장)
 2. **Actions 권한**: Settings → Actions → General → Workflow permissions → Read and write
 3. **Pages**: Settings → Pages → Deploy from a branch → `main` / root
-4. **정시 수집**: 외부 스케줄러로 `workflow_dispatch` 호출 (운영 문서 6.2)
+4. **수집 시각**: 업무 시간 15분마다 판정해 07·09·11·13·15·17시 수집을 시작합니다 (운영 문서 6.1). 별도 설정 필요 없음
 5. **검토 기록 공유**: Firebase Google 로그인, 승인 도메인, `members` 등록, 보안 규칙 게시 (운영 문서 8.4)
 
 ## 수동 수집
