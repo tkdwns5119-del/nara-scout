@@ -12,6 +12,11 @@ on:
       - .github/workflows/slot-timer.yml
       - .github/scripts/slot-timer.mjs
   workflow_dispatch:
+    inputs:
+      fired_slot_at:
+        description: 'Slot (epoch ms) a previous timer already started; it is not started again'
+        required: false
+        default: ''
   # Restarts the chain if it ever breaks, whenever GitHub manages to fire a schedule.
   # With the concurrency group below, a restart never runs alongside a live timer.
   schedule:
@@ -48,14 +53,19 @@ jobs:
           SLOTS_KST: '7,9,11,13,15,17'
           MAX_WAIT_MINUTES: '330'
           CATCH_UP_MINUTES: '110'
+          FIRED_SLOT_AT: ${{ inputs.fired_slot_at }}
         run: node .github/scripts/slot-timer.mjs
 
-      # If planning failed, still wait 10 minutes so a broken run can't spin the chain.
+      # Every timer waits at least 60 seconds, and 10 minutes if planning failed, so no bug can
+      # make the chain spin faster than once a minute.
       - name: Wait
         if: ${{ !cancelled() }}
         env:
           WAIT_SECONDS: ${{ steps.plan.outputs.wait_seconds }}
-        run: sleep "${WAIT_SECONDS:-600}"
+        run: |
+          wait="${WAIT_SECONDS:-600}"
+          [ "$wait" -lt 60 ] && wait=60
+          sleep "$wait"
 
       - name: Start collection
         if: steps.plan.outputs.fire == 'true'
@@ -68,13 +78,16 @@ jobs:
           done
           exit 1
 
+      # Tells the next timer which slot was already started, so it doesn't start it again
+      # while this slot's collection is still running.
       - name: Start next timer
         if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
+          FIRED_SLOT_AT: ${{ steps.plan.outputs.fired_slot_at }}
         run: |
           for attempt in 1 2 3; do
-            gh workflow run slot-timer.yml --repo "$GITHUB_REPOSITORY" --ref main && exit 0
+            gh workflow run slot-timer.yml --repo "$GITHUB_REPOSITORY" --ref main -f fired_slot_at="$FIRED_SLOT_AT" && exit 0
             sleep 20
           done
           exit 1

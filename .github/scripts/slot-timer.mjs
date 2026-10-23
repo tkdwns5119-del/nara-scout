@@ -5,13 +5,14 @@
 // - 다음 수집 시각이 기다릴 수 있는 범위 안이면: 그때까지 기다린 뒤 수집(fire=true)
 // - 너무 멀면(밤사이): MAX_WAIT_MINUTES만 기다리고 수집 없이 다음 타이머로 넘김(fire=false)
 // - 방금 지난 수집 시각(CATCH_UP_MINUTES 이내)을 아직 수집하지 않았으면: 바로 수집
+//   단, 앞 타이머가 이미 그 시각 수집을 시작했으면(firedSlotAt) 수집이 끝나기 전이라도 다시 시작하지 않는다.
 
 import fs from 'node:fs';
 
 const KST_OFFSET_MS = 9 * 3600 * 1000;
 const DAY_MS = 24 * 3600 * 1000;
 
-export function planNext({ now, lastGeneratedAt, slotsKst, maxWaitMinutes, catchUpMinutes }) {
+export function planNext({ now, lastGeneratedAt, firedSlotAt, slotsKst, maxWaitMinutes, catchUpMinutes }) {
     const kst = new Date(now + KST_OFFSET_MS);
     const kstMidnight = Date.UTC(kst.getUTCFullYear(), kst.getUTCMonth(), kst.getUTCDate()) - KST_OFFSET_MS;
     const slotTimes = [-1, 0, 1]
@@ -19,7 +20,8 @@ export function planNext({ now, lastGeneratedAt, slotsKst, maxWaitMinutes, catch
         .sort((a, b) => a - b);
 
     const lastSlot = slotTimes.filter((at) => at <= now).at(-1);
-    if (lastSlot !== undefined && now - lastSlot <= catchUpMinutes * 60000 && !(lastGeneratedAt >= lastSlot)) {
+    const alreadyHandled = lastGeneratedAt >= lastSlot || firedSlotAt >= lastSlot;
+    if (lastSlot !== undefined && now - lastSlot <= catchUpMinutes * 60000 && !alreadyHandled) {
         return { waitSeconds: 0, fire: true, slotAt: lastSlot, reason: '방금 지난 수집 시각을 아직 수집하지 않음' };
     }
 
@@ -47,12 +49,15 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('/slot-timer.mjs')) {
     const plan = planNext({
         now: process.env.NOW ? Date.parse(process.env.NOW) : Date.now(),
         lastGeneratedAt,
+        firedSlotAt: Number(process.env.FIRED_SLOT_AT) || NaN,
         slotsKst: String(process.env.SLOTS_KST || '7,9,11,13,15,17').split(',').map(Number).sort((a, b) => a - b),
         maxWaitMinutes: Number(process.env.MAX_WAIT_MINUTES || 330),
         catchUpMinutes: Number(process.env.CATCH_UP_MINUTES || 110)
     });
     console.log(`${plan.reason}: ${kstLabel(plan.slotAt)} 수집, ${Math.round(plan.waitSeconds / 60)}분 대기, 수집 ${plan.fire ? '함' : '안 함'}`);
     if (process.env.GITHUB_OUTPUT) {
-        fs.appendFileSync(process.env.GITHUB_OUTPUT, `wait_seconds=${plan.waitSeconds}\nfire=${plan.fire}\n`);
+        // 다음 타이머에 넘길 '이미 시작한 수집 시각'. 이번에 수집하면 그 시각, 아니면 받은 값을 그대로 넘긴다.
+        const firedSlotAt = plan.fire ? plan.slotAt : Number(process.env.FIRED_SLOT_AT) || '';
+        fs.appendFileSync(process.env.GITHUB_OUTPUT, `wait_seconds=${plan.waitSeconds}\nfire=${plan.fire}\nfired_slot_at=${firedSlotAt}\n`);
     }
 }
