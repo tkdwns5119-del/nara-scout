@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-24T05:05:39.927Z",
+  "generatedAt": "2026-10-24T09:28:28.489Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-10-24T05:05:39.927Z",
   "planLookaheadEndYm": "202704",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 3,
   "rangeBegin": "202609250000",
   "rangeEnd": "202610242359",
-  "totalCount": 1779,
-  "rawCount": 2074,
-  "successCalls": 312,
+  "totalCount": 1780,
+  "rawCount": 230,
+  "successCalls": 156,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -33,7 +33,7 @@
   "serviceStats": {
     "공고": 805,
     "사전규격": 368,
-    "발주계획": 606
+    "발주계획": 607
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 143,
@@ -41,12 +41,76 @@
     "ITS/VMS 계열": 31,
     "버스정보(BIT/BIS) 계열": 40,
     "전광판 외 간접 사업/문화시설": 127,
-    "전광판 외 간접 사업/건립": 1009,
+    "전광판 외 간접 사업/건립": 1010,
     "전광판 외 간접 사업/체육시설": 308
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20906505",
+      "bidNtceNo": "PL-R26DD20906505",
+      "bidNtceOrd": "",
+      "bidNtceNm": "김해제2특수학교 교사 신축 설계의 경제성(VE) 등 검토용역",
+      "ntceInsttNm": "경상남도교육청",
+      "dminsttNm": "경상남도교육청",
+      "assignBudgetAmt": 32990000,
+      "bidNtceRegistDt": "2026-10-24 15:23",
+      "bidClseDt": "2026-10",
+      "searchKeyword": "신축",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20906505",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20906505"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20906505",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "10",
+        "department": "시설과",
+        "officerName": "조상현",
+        "officerTel": "055-268-1533",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 32990000,
+        "rawBusinessDivision": "기술용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "10",
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
     {
       "bidId": "BF-R26BD00289923",
       "bidNtceNo": "BF-R26BD00289923",
@@ -1783,11 +1847,11 @@
       "searchKeyword": "신축",
       "region": "서울",
       "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20906262",
-      "contractMethod": "제한경쟁",
+      "contractMethod": "수의계약",
       "contractMethods": [
-        "제한경쟁"
+        "수의계약"
       ],
-      "contractMethodRaw": "제한경쟁",
+      "contractMethodRaw": "수의계약",
       "serviceType": "발주계획",
       "businessType": "물품",
       "documentUrls": [
@@ -1800,10 +1864,10 @@
         "serviceType": "발주계획",
         "businessType": "물품",
         "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20906262",
-        "contractMethodRaw": "제한경쟁",
+        "contractMethodRaw": "수의계약",
         "bidMethod": "",
         "awardMethod": "",
-        "contractType": "제한경쟁",
+        "contractType": "수의계약",
         "noticeKind": "",
         "restrictionRegion": "",
         "bidBeginDt": "",
