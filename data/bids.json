@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-27T02:10:53.138Z",
+  "generatedAt": "2026-10-27T04:04:50.290Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-10-27T02:10:53.138Z",
   "planLookaheadEndYm": "202704",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 3,
   "rangeBegin": "202609280000",
   "rangeEnd": "202610272359",
-  "totalCount": 1915,
-  "rawCount": 2231,
-  "successCalls": 312,
+  "totalCount": 1919,
+  "rawCount": 179,
+  "successCalls": 156,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -31,22 +31,291 @@
     "note": "Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late."
   },
   "serviceStats": {
-    "공고": 865,
-    "사전규격": 399,
-    "발주계획": 651
+    "공고": 867,
+    "사전규격": 400,
+    "발주계획": 652
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 154,
+    "디스플레이/사이니지 계열": 156,
     "미디어/파사드 계열": 127,
-    "ITS/VMS 계열": 35,
+    "ITS/VMS 계열": 36,
     "버스정보(BIT/BIS) 계열": 44,
     "전광판 외 간접 사업/문화시설": 142,
-    "전광판 외 간접 사업/건립": 1080,
+    "전광판 외 간접 사업/건립": 1081,
     "전광판 외 간접 사업/체육시설": 333
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01792673-000",
+      "bidNtceNo": "R26BK01792673",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "본사 로비 LED전광판 구매",
+      "ntceInsttNm": "한국전력거래소",
+      "dminsttNm": "한국전력거래소",
+      "assignBudgetAmt": 161000000,
+      "bidNtceRegistDt": "2026-10-27 12:27",
+      "bidClseDt": "2026-10-29 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "전광판",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01792673&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01792673&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01792673&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01792673&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-10-27 14:00",
+        "bidClseDt": "2026-10-29 10:00",
+        "openDt": "2026-10-29 11:00",
+        "registerDeadline": "2026-10-28 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "추민엽",
+        "officerTel": "",
+        "officerEmail": "hschumin@kpx.or.kr",
+        "referenceNo": "20261027-1",
+        "linkedBidNoList": "",
+        "productName": "안내전광판",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "전광판",
+        "LED"
+      ]
+    },
+    {
+      "bidId": "PL-R26DD20908460",
+      "bidNtceNo": "PL-R26DD20908460",
+      "bidNtceOrd": "",
+      "bidNtceNm": "서남센터 악취모니터링시스템 전광판 개선 용역",
+      "ntceInsttNm": "서울물재생시설공단",
+      "dminsttNm": "서울물재생시설공단",
+      "assignBudgetAmt": 9735000,
+      "bidNtceRegistDt": "2026-10-27 11:35",
+      "bidClseDt": "2026-10",
+      "searchKeyword": "전광판",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20908460",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20908460"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20908460",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "10",
+        "department": "재무팀",
+        "officerName": "김태인",
+        "officerTel": "02-3410-9744",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 9735000,
+        "rawBusinessDivision": "일반용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "10",
+      "matchedKeywords": [
+        "전광판"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01791568-000",
+      "bidNtceNo": "R26BK01791568",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(가칭)이의8초중 신축공사 관급자재(빌딩자동제어) 구매[계속비]",
+      "ntceInsttNm": "조달청 인천지방조달청",
+      "dminsttNm": "경기도교육청 경기도수원교육지원청",
+      "assignBudgetAmt": 198896410,
+      "bidNtceRegistDt": "2026-10-27 11:27",
+      "bidClseDt": "2026-11-05 11:30",
+      "deadlineBasis": "",
+      "searchKeyword": "신축",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01791568&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01791568&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01791568&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01791568&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01791568&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-05 10:30",
+        "bidClseDt": "2026-11-05 11:30",
+        "openDt": "2026-11-05 12:30",
+        "registerDeadline": "2026-11-04 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김은석",
+        "officerTel": "070-4056-7869",
+        "officerEmail": "turntiger@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "빌딩자동제어장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
+    {
+      "bidId": "BF-R26BD00290841",
+      "bidNtceNo": "BF-R26BD00290841",
+      "bidNtceOrd": "",
+      "bidNtceNm": "2027년 부천시 ITS(BIS, 불법주정차단속, VMS, EDGE) 유지관리 용역",
+      "ntceInsttNm": "조달청 인천지방조달청",
+      "dminsttNm": "부천도시공사",
+      "assignBudgetAmt": 663107790,
+      "bidNtceRegistDt": "2026-10-27 11:23",
+      "bidClseDt": "2026-11-01 23:59",
+      "searchKeyword": "ITS",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00290841",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00290841&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-01 23:59",
+        "deliveryLimitDt": "2027-12-31 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이민정",
+        "officerTel": "070-4056-7870",
+        "officerEmail": "",
+        "referenceNo": "부천도시공사 경영지원처-4809",
+        "linkedBidNoList": "",
+        "productName": "2027년 부천시 ITS(BIS, 불법주정차단속, VMS, EDGE) 유지관리 용역",
+        "productDetails": "[1^8111189901^정보시스템유지관리서비스]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "일반용역"
+      },
+      "refNo": "부천도시공사 경영지원처-4809",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "ITS",
+        "VMS",
+        "BIS"
+      ]
+    },
     {
       "bidId": "BF-R26BD00290821",
       "bidNtceNo": "BF-R26BD00290821",
@@ -456,7 +725,7 @@
         "officerTel": "031-8082-6411",
         "officerEmail": "",
         "referenceNo": "양주시공고 제2026-2330호",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01793112",
         "productName": "양주 옥정지구 LH매입주택 신축공사",
         "productDetails": "",
         "purpose": "",
@@ -466,7 +735,7 @@
         "rawBusinessDivision": "기술용역"
       },
       "refNo": "양주시공고 제2026-2330호",
-      "linkedBidNtceNoList": "",
+      "linkedBidNtceNoList": "R26BK01793112",
       "matchedKeywords": [
         "신축"
       ]
@@ -4528,7 +4797,7 @@
       "bidId": "PL-R26DD20907679",
       "bidNtceNo": "PL-R26DD20907679",
       "bidNtceOrd": "",
-      "bidNtceNm": "(가칭)경기안산1교 신축 및 부대시설공사 감독권한 대행 건설사업관리용역",
+      "bidNtceNm": "(가칭)경기안산1교 신축 및 부대시설공사 건설사업관리용역",
       "ntceInsttNm": "경기도교육청",
       "dminsttNm": "경기도교육청",
       "assignBudgetAmt": 3574615000,
