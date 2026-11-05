@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-04T22:14:49.466Z",
+  "generatedAt": "2026-11-05T00:07:32.908Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-11-04T22:14:49.466Z",
   "planLookaheadEndYm": "202705",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610070000",
   "rangeEnd": "202611052359",
-  "totalCount": 1967,
-  "rawCount": 2347,
-  "successCalls": 312,
+  "totalCount": 1968,
+  "rawCount": 176,
+  "successCalls": 156,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -33,7 +33,7 @@
   "serviceStats": {
     "공고": 893,
     "사전규격": 433,
-    "발주계획": 641
+    "발주계획": 642
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 195,
@@ -41,12 +41,76 @@
     "ITS/VMS 계열": 42,
     "버스정보(BIT/BIS) 계열": 46,
     "전광판 외 간접 사업/문화시설": 187,
-    "전광판 외 간접 사업/건립": 999,
+    "전광판 외 간접 사업/건립": 1000,
     "전광판 외 간접 사업/체육시설": 351
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "PL-R26DD20918615",
+      "bidNtceNo": "PL-R26DD20918615",
+      "bidNtceOrd": "",
+      "bidNtceNm": "가칭 순천정원초등학교 신축 통신공사 관급자재(통합배선반)구입",
+      "ntceInsttNm": "전남광주통합특별시교육청 전남청사",
+      "dminsttNm": "전남광주통합특별시교육청 전남청사",
+      "assignBudgetAmt": 208457000,
+      "bidNtceRegistDt": "2026-11-05 07:32",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "신축",
+      "region": "광주",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20918615",
+      "contractMethod": "제한경쟁",
+      "contractMethods": [
+        "제한경쟁"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20918615"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20918615",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "제한경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "교육시설과",
+        "officerName": "배석희",
+        "officerTel": "061-260-0901",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "배선반",
+        "productDetails": "",
+        "purpose": "공사자재",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 208457000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
     {
       "bidId": "BF-R26BD00295225",
       "bidNtceNo": "BF-R26BD00295225",
