@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-06T22:10:19.215Z",
+  "generatedAt": "2026-11-07T00:05:52.637Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-11-06T22:10:19.215Z",
   "planLookaheadEndYm": "202705",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610090000",
   "rangeEnd": "202611072359",
-  "totalCount": 1972,
-  "rawCount": 2363,
-  "successCalls": 312,
+  "totalCount": 1973,
+  "rawCount": 239,
+  "successCalls": 156,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -32,7 +32,7 @@
   },
   "serviceStats": {
     "공고": 888,
-    "사전규격": 431,
+    "사전규격": 432,
     "발주계획": 653
   },
   "categoryStats": {
@@ -41,12 +41,76 @@
     "ITS/VMS 계열": 39,
     "버스정보(BIT/BIS) 계열": 47,
     "전광판 외 간접 사업/문화시설": 183,
-    "전광판 외 간접 사업/건립": 1003,
+    "전광판 외 간접 사업/건립": 1004,
     "전광판 외 간접 사업/체육시설": 348
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00296587",
+      "bidNtceNo": "BF-R26BD00296587",
+      "bidNtceOrd": "",
+      "bidNtceNm": "체인지업그라운드 지역확산 모델 구축 건립공사 전기감리용역",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "재단법인 포항테크노파크",
+      "assignBudgetAmt": 413902410,
+      "bidNtceRegistDt": "2026-11-07 08:08",
+      "bidClseDt": "2026-11-12 23:59",
+      "searchKeyword": "건립",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00296587",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00296587&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-12 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이용범",
+        "officerTel": "042-724-7515",
+        "officerEmail": "",
+        "referenceNo": "경영지원실-6470",
+        "linkedBidNoList": "",
+        "productName": "체인지업그라운드 지역확산 모델 구축 건립공사 전기감리용역",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "기술용역"
+      },
+      "refNo": "경영지원실-6470",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
     {
       "bidId": "PL-R26DD20921532",
       "bidNtceNo": "PL-R26DD20921532",
