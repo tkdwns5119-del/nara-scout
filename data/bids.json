@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-11-07T08:04:23.549Z",
+  "generatedAt": "2026-11-07T22:09:36.347Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "incremental",
-  "fetchDays": 3,
-  "lastFullRefreshAt": "2026-11-06T22:10:19.215Z",
+  "fetchMode": "full",
+  "fetchDays": 30,
+  "lastFullRefreshAt": "2026-11-07T22:09:36.347Z",
   "planLookaheadEndYm": "202705",
   "rangeDays": 30,
   "chunkDays": 15,
   "historyRetentionMonths": 12,
   "archiveMonthCount": 4,
-  "rangeBegin": "202610090000",
-  "rangeEnd": "202611072359",
-  "totalCount": 1975,
-  "rawCount": 241,
-  "successCalls": 156,
+  "rangeBegin": "202610100000",
+  "rangeEnd": "202611082359",
+  "totalCount": 1970,
+  "rawCount": 2364,
+  "successCalls": 312,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -32,8 +32,8 @@
   },
   "serviceStats": {
     "공고": 888,
-    "사전규격": 432,
-    "발주계획": 655
+    "사전규격": 430,
+    "발주계획": 652
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 194,
@@ -41,12 +41,78 @@
     "ITS/VMS 계열": 39,
     "버스정보(BIT/BIS) 계열": 47,
     "전광판 외 간접 사업/문화시설": 184,
-    "전광판 외 간접 사업/건립": 1005,
+    "전광판 외 간접 사업/건립": 1000,
     "전광판 외 간접 사업/체육시설": 348
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01809463-001",
+      "bidNtceNo": "R26BK01809463",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "[취소공고]다사 복합커뮤니티센터 및 다목적체육관 건립 전기설계 용역",
+      "ntceInsttNm": "대구광역시 달성군",
+      "dminsttNm": "대구광역시 달성군",
+      "assignBudgetAmt": 191039000,
+      "bidNtceRegistDt": "2026-11-07 18:33",
+      "bidClseDt": "2026-11-10 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "커뮤니티센터",
+      "region": "대구",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=001",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=001",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 2억원 미만 1억원 이상인 P.Q비대상 기술용역의 평가기준",
+        "contractType": "제한경쟁",
+        "noticeKind": "취소공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-05 10:00",
+        "bidClseDt": "2026-11-10 10:00",
+        "openDt": "2026-11-10 11:00",
+        "registerDeadline": "2026-11-09 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "장현주",
+        "officerTel": "053-668-2693",
+        "officerEmail": "",
+        "referenceNo": "달성군 공고 제2026-2266호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "커뮤니티센터",
+        "건립",
+        "체육관"
+      ]
+    },
     {
       "bidId": "PL-R26DD20921627",
       "bidNtceNo": "PL-R26DD20921627",
@@ -17865,80 +17931,6 @@
         "rawBusinessDivision": ""
       },
       "matchedKeywords": [
-        "체육관"
-      ]
-    },
-    {
-      "bidId": "BID-R26BK01809463-000",
-      "bidNtceNo": "R26BK01809463",
-      "bidNtceOrd": "000",
-      "bidNtceNm": "다사 복합커뮤니티센터 및 다목적체육관 건립 전기설계 용역",
-      "ntceInsttNm": "대구광역시 달성군",
-      "dminsttNm": "대구광역시 달성군",
-      "assignBudgetAmt": 191039000,
-      "bidNtceRegistDt": "2026-11-04 13:41",
-      "bidClseDt": "2026-11-10 10:00",
-      "deadlineBasis": "",
-      "searchKeyword": "커뮤니티센터",
-      "region": "대구",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=000",
-      "contractMethod": "제한경쟁 / 적격심사",
-      "contractMethods": [
-        "제한경쟁",
-        "적격심사"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "공고",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01809463&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=05"
-        },
-        {
-          "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01809463&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
-        },
-        {
-          "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=000"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "공고",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01809463&bidPbancOrd=000",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "전자입찰",
-        "awardMethod": "적격심사제-추정가격이 2억원 미만 1억원 이상인 P.Q비대상 기술용역의 평가기준",
-        "contractType": "제한경쟁",
-        "noticeKind": "등록공고",
-        "restrictionRegion": "",
-        "bidBeginDt": "2026-11-05 10:00",
-        "bidClseDt": "2026-11-10 10:00",
-        "openDt": "2026-11-10 11:00",
-        "registerDeadline": "2026-11-09 18:00",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "장현주",
-        "officerTel": "053-668-2693",
-        "officerEmail": "",
-        "referenceNo": "달성군 공고 제2026-2266호",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": ""
-      },
-      "matchedKeywords": [
-        "커뮤니티센터",
-        "건립",
         "체육관"
       ]
     },
@@ -41573,7 +41565,7 @@
         "officerTel": "053-668-8433",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "R26BK01809463000",
+        "linkedBidNoList": "R26BK01809463001",
         "productName": "",
         "productDetails": "",
         "purpose": "",
@@ -107948,70 +107940,6 @@
       ]
     },
     {
-      "bidId": "BF-R26BD00283120",
-      "bidNtceNo": "BF-R26BD00283120",
-      "bidNtceOrd": "",
-      "bidNtceNm": "(긴급)가칭 서사중학교 신축공사 관급자재(AL복합패널) 제작.설치(계속비)",
-      "ntceInsttNm": "울산광역시교육청",
-      "dminsttNm": "울산광역시교육청",
-      "assignBudgetAmt": 1247939000,
-      "bidNtceRegistDt": "2026-10-15 17:18",
-      "bidClseDt": "2026-10-18 23:59",
-      "searchKeyword": "신축",
-      "region": "울산",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00283120",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00283120&fileType=BFDTL&fileSeq=1"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "물품",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-10-18 23:59",
-        "deliveryLimitDt": "2027-10-31 00:00",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "박주희",
-        "officerTel": "",
-        "officerEmail": "",
-        "referenceNo": "재정복지과-23350",
-        "linkedBidNoList": "R26BK01776767",
-        "productName": "(긴급)가칭 서사중학교 신축공사 관급자재(AL복합패널) 제작.설치(계속비)",
-        "productDetails": "[1^3015180209^금속제패널]",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "물품"
-      },
-      "refNo": "재정복지과-23350",
-      "linkedBidNtceNoList": "R26BK01776767",
-      "matchedKeywords": [
-        "신축"
-      ]
-    },
-    {
       "bidId": "PL-R26DD20897097",
       "bidNtceNo": "PL-R26DD20897097",
       "bidNtceOrd": "",
@@ -136528,266 +136456,6 @@
       },
       "orderYear": "2026",
       "orderMnth": "11",
-      "matchedKeywords": [
-        "신축"
-      ]
-    },
-    {
-      "bidId": "BF-R26BD00283135",
-      "bidNtceNo": "BF-R26BD00283135",
-      "bidNtceOrd": "",
-      "bidNtceNm": "방폐물검사건물 신축사업 확인측량반 운영 용역",
-      "ntceInsttNm": "한국원자력환경공단",
-      "dminsttNm": "한국원자력환경공단",
-      "assignBudgetAmt": 21505000,
-      "bidNtceRegistDt": "2026-10-09 21:08",
-      "bidClseDt": "2026-10-14 12:00",
-      "searchKeyword": "신축",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00283135",
-      "contractMethod": "사전규격",
-      "contractMethods": [
-        "사전규격"
-      ],
-      "contractMethodRaw": "",
-      "serviceType": "사전규격",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "규격문서 1",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00283135&fileType=BFDTL&fileSeq=1"
-        },
-        {
-          "label": "규격문서 2",
-          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00283135&fileType=BFDTL&fileSeq=2"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "사전규격",
-        "businessType": "용역",
-        "originalPageUrl": "",
-        "contractMethodRaw": "",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "2026-10-14 12:00",
-        "deliveryLimitDt": "",
-        "orderYear": "",
-        "orderMonth": "",
-        "department": "",
-        "officerName": "최준하",
-        "officerTel": "054-750-4076",
-        "officerEmail": "",
-        "referenceNo": "한국원자력환경공단 2026-187",
-        "linkedBidNoList": "",
-        "productName": "방폐물검사건물 신축사업 확인측량반 운영 용역",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "",
-        "unit": "",
-        "orderAmount": 0,
-        "rawBusinessDivision": "기술용역"
-      },
-      "refNo": "한국원자력환경공단 2026-187",
-      "linkedBidNtceNoList": "",
-      "matchedKeywords": [
-        "신축"
-      ]
-    },
-    {
-      "bidId": "PL-R26DD20891420",
-      "bidNtceNo": "PL-R26DD20891420",
-      "bidNtceOrd": "",
-      "bidNtceNm": "방폐물검사건물 신축사업 확인측량반 운영 용역",
-      "ntceInsttNm": "한국원자력환경공단",
-      "dminsttNm": "한국원자력환경공단",
-      "assignBudgetAmt": 21505000,
-      "bidNtceRegistDt": "2026-10-09 20:55",
-      "bidClseDt": "2026-10",
-      "searchKeyword": "신축",
-      "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891420",
-      "contractMethod": "수의계약",
-      "contractMethods": [
-        "수의계약"
-      ],
-      "contractMethodRaw": "수의계약",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891420"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891420",
-        "contractMethodRaw": "수의계약",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "수의계약",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "10",
-        "department": "품질보증실",
-        "officerName": "박신욱",
-        "officerTel": "054-778-3216",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "0",
-        "unit": "",
-        "orderAmount": 21505000,
-        "rawBusinessDivision": "기술용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "10",
-      "matchedKeywords": [
-        "신축"
-      ]
-    },
-    {
-      "bidId": "PL-R26DD20891404",
-      "bidNtceNo": "PL-R26DD20891404",
-      "bidNtceOrd": "",
-      "bidNtceNm": "(가칭)동탄12고 신축 전기공사 감리용역",
-      "ntceInsttNm": "경기도교육청 경기도화성오산교육지원청",
-      "dminsttNm": "경기도교육청 경기도화성오산교육지원청",
-      "assignBudgetAmt": 359392000,
-      "bidNtceRegistDt": "2026-10-09 17:03",
-      "bidClseDt": "2026-10",
-      "searchKeyword": "신축",
-      "region": "경기",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891404",
-      "contractMethod": "제한경쟁",
-      "contractMethods": [
-        "제한경쟁"
-      ],
-      "contractMethodRaw": "제한경쟁",
-      "serviceType": "발주계획",
-      "businessType": "용역",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891404"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "용역",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891404",
-        "contractMethodRaw": "제한경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "제한경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "10",
-        "department": "교육시설과",
-        "officerName": "이석우",
-        "officerTel": "031-371-0675",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "",
-        "productName": "",
-        "productDetails": "",
-        "purpose": "",
-        "quantity": "0",
-        "unit": "",
-        "orderAmount": 359392000,
-        "rawBusinessDivision": "기술용역"
-      },
-      "orderYear": "2026",
-      "orderMnth": "10",
-      "matchedKeywords": [
-        "신축"
-      ]
-    },
-    {
-      "bidId": "PL-R26DD20891369",
-      "bidNtceNo": "PL-R26DD20891369",
-      "bidNtceOrd": "",
-      "bidNtceNm": "가칭 서사중학교 신축공사 관급자재(AL복합패널) 제작.설치(계속비)",
-      "ntceInsttNm": "울산광역시교육청",
-      "dminsttNm": "울산광역시교육청",
-      "assignBudgetAmt": 1247939000,
-      "bidNtceRegistDt": "2026-10-09 13:31",
-      "bidClseDt": "2026-10",
-      "searchKeyword": "신축",
-      "region": "울산",
-      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891369",
-      "contractMethod": "일반경쟁",
-      "contractMethods": [
-        "일반경쟁"
-      ],
-      "contractMethodRaw": "일반경쟁",
-      "serviceType": "발주계획",
-      "businessType": "물품",
-      "documentUrls": [
-        {
-          "label": "발주계획 상세 URL",
-          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891369"
-        }
-      ],
-      "detailInfo": {
-        "serviceType": "발주계획",
-        "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20891369",
-        "contractMethodRaw": "일반경쟁",
-        "bidMethod": "",
-        "awardMethod": "",
-        "contractType": "일반경쟁",
-        "noticeKind": "",
-        "restrictionRegion": "",
-        "bidBeginDt": "",
-        "bidClseDt": "",
-        "openDt": "",
-        "registerDeadline": "",
-        "opinionCloseDt": "",
-        "deliveryLimitDt": "",
-        "orderYear": "2026",
-        "orderMonth": "10",
-        "department": "교육시설과",
-        "officerName": "이인자",
-        "officerTel": "052-210-5942",
-        "officerEmail": "",
-        "referenceNo": "",
-        "linkedBidNoList": "R26BK01776767000",
-        "productName": "외벽패널",
-        "productDetails": "",
-        "purpose": "관급자재",
-        "quantity": "1",
-        "unit": "식",
-        "orderAmount": 1247939000,
-        "rawBusinessDivision": "물품"
-      },
-      "orderYear": "2026",
-      "orderMnth": "10",
       "matchedKeywords": [
         "신축"
       ]
