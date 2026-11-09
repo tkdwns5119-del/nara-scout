@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-08T22:09:37.037Z",
+  "generatedAt": "2026-11-09T00:08:21.416Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-11-08T22:09:37.037Z",
   "planLookaheadEndYm": "202705",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610110000",
   "rangeEnd": "202611092359",
-  "totalCount": 1973,
-  "rawCount": 2366,
-  "successCalls": 312,
+  "totalCount": 1975,
+  "rawCount": 11,
+  "successCalls": 156,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -32,8 +32,8 @@
   },
   "serviceStats": {
     "공고": 888,
-    "사전규격": 431,
-    "발주계획": 654
+    "사전규격": 432,
+    "발주계획": 655
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 195,
@@ -41,12 +41,140 @@
     "ITS/VMS 계열": 39,
     "버스정보(BIT/BIS) 계열": 47,
     "전광판 외 간접 사업/문화시설": 184,
-    "전광판 외 간접 사업/건립": 1002,
+    "전광판 외 간접 사업/건립": 1004,
     "전광판 외 간접 사업/체육시설": 348
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BF-R26BD00296654",
+      "bidNtceNo": "BF-R26BD00296654",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안산단원경찰서 이전 신축사업 교통영향평가 용역",
+      "ntceInsttNm": "조달청 인천지방조달청",
+      "dminsttNm": "경찰청 경기도남부경찰청",
+      "assignBudgetAmt": 216818000,
+      "bidNtceRegistDt": "2026-11-09 09:06",
+      "bidClseDt": "2026-11-16 23:59",
+      "searchKeyword": "신축",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00296654",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00296654&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-16 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "송상훈",
+        "officerTel": "070-4056-7723",
+        "officerEmail": "",
+        "referenceNo": "경무기획과-42435",
+        "linkedBidNoList": "",
+        "productName": "안산단원경찰서 이전 신축사업 교통영향평가 용역",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "기술용역"
+      },
+      "refNo": "경무기획과-42435",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
+    {
+      "bidId": "PL-R26DD20921807",
+      "bidNtceNo": "PL-R26DD20921807",
+      "bidNtceOrd": "",
+      "bidNtceNm": "안전점검 수행기관 지정 공고(둔산동 탄탄병원 신축공사)",
+      "ntceInsttNm": "대전광역시 서구",
+      "dminsttNm": "대전광역시 서구",
+      "assignBudgetAmt": 73480100,
+      "bidNtceRegistDt": "2026-11-09 08:54",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "신축",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20921807",
+      "contractMethod": "지명경쟁",
+      "contractMethods": [
+        "지명경쟁"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20921807"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20921807",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "지명경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "도시관리국 건축과",
+        "officerName": "정다희",
+        "officerTel": "042-288-3714",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 73480100,
+        "rawBusinessDivision": "기술용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
     {
       "bidId": "PL-R26DD20921722",
       "bidNtceNo": "PL-R26DD20921722",
