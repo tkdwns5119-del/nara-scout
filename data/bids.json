@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T02:05:46.453Z",
+  "generatedAt": "2026-11-10T04:06:11.810Z",
   "timezone": "Asia/Seoul",
   "fetchMode": "incremental",
   "fetchDays": 3,
@@ -11,8 +11,8 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610120000",
   "rangeEnd": "202611102359",
-  "totalCount": 2123,
-  "rawCount": 183,
+  "totalCount": 2131,
+  "rawCount": 191,
   "successCalls": 162,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -31,23 +31,621 @@
     "note": "Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late."
   },
   "serviceStats": {
-    "공고": 958,
-    "사전규격": 460,
+    "공고": 963,
+    "사전규격": 463,
     "발주계획": 705
   },
   "categoryStats": {
     "디스플레이/사이니지 계열": 216,
     "미디어/파사드 계열": 173,
-    "ITS/VMS 계열": 41,
+    "ITS/VMS 계열": 42,
     "버스정보(BIT/BIS) 계열": 53,
     "전광판 외 간접 사업/문화시설": 194,
-    "전광판 외 간접 사업/건립": 1060,
-    "전광판 외 간접 사업/리모델링": 19,
-    "전광판 외 간접 사업/체육시설": 367
+    "전광판 외 간접 사업/건립": 1065,
+    "전광판 외 간접 사업/리모델링": 20,
+    "전광판 외 간접 사업/체육시설": 368
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01816066-000",
+      "bidNtceNo": "R26BK01816066",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "국회 통합디지털센터 건립사업 전기 감리용역",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "국회 국회사무처",
+      "assignBudgetAmt": 1223677000,
+      "bidNtceRegistDt": "2026-11-10 12:58",
+      "bidClseDt": "2026-12-01 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "건립",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01816066&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 적격심사",
+      "contractMethods": [
+        "일반경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 6",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01816066&bidPbancOrd=000&fileType=&fileSeq=6&prcmBsneSeCd=05"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01816066&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01816066&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 10억원 이상인 기술용역의 평가기준",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-27 00:00",
+        "bidClseDt": "2026-12-01 10:00",
+        "openDt": "2026-12-01 11:00",
+        "registerDeadline": "2026-11-30 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이용범",
+        "officerTel": "042-724-7515",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01819844-000",
+      "bidNtceNo": "R26BK01819844",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "관급자재(빌딩자동제어장치) 구매·설치 - [면목동 도서관/주차장 복합시설 신축공사]",
+      "ntceInsttNm": "조달청 서울지방조달청",
+      "dminsttNm": "서울특별시 중랑구",
+      "assignBudgetAmt": 381283560,
+      "bidNtceRegistDt": "2026-11-10 11:24",
+      "bidClseDt": "2026-11-11 12:00",
+      "deadlineBasis": "",
+      "searchKeyword": "신축",
+      "region": "서울",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819844&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819844&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819844&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819844&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-11 10:00",
+        "bidClseDt": "2026-11-11 12:00",
+        "openDt": "2026-11-11 13:00",
+        "registerDeadline": "2026-11-10 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이소연",
+        "officerTel": "070-4056-8763",
+        "officerEmail": "syalice@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "빌딩자동제어장치",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01819482-000",
+      "bidNtceNo": "R26BK01819482",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "고흥지역 학교복합시설 증축 및 리모델링 소방공사 감리용역에 따른 사업수행능력평가서 제출 입찰 공고",
+      "ntceInsttNm": "전남광주통합특별시교육청 전남청사",
+      "dminsttNm": "전남광주통합특별시교육청 전남청사",
+      "assignBudgetAmt": 36320000,
+      "bidNtceRegistDt": "2026-11-10 11:18",
+      "bidClseDt": "2026-12-01 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "리모델링",
+      "region": "광주",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819482&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 적격심사",
+      "contractMethods": [
+        "제한경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 5",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=6&prcmBsneSeCd=05"
+        },
+        {
+          "label": "공고규격서 6",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01819482&bidPbancOrd=000&fileType=&fileSeq=7&prcmBsneSeCd=05"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819482&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01819482&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 5억원 미만인 P.Q 대상 기술용역의 평가기준",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-27 09:00",
+        "bidClseDt": "2026-12-01 10:00",
+        "openDt": "2026-12-01 11:00",
+        "registerDeadline": "2026-11-30 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김소형",
+        "officerTel": "061-260-0843",
+        "officerEmail": "",
+        "referenceNo": "전남광주통합특별시교육청 공고 제2026-466호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "리모델링"
+      ]
+    },
+    {
+      "bidId": "BF-R26BD00297552",
+      "bidNtceNo": "BF-R26BD00297552",
+      "bidNtceOrd": "",
+      "bidNtceNm": "[사전규격공개] (가칭)경상북도교육청 포항도서관 건립 기계설비공사 관급자재(냉난방기) 구매 설치",
+      "ntceInsttNm": "경상북도교육청",
+      "dminsttNm": "경상북도교육청",
+      "assignBudgetAmt": 1299727000,
+      "bidNtceRegistDt": "2026-11-10 11:15",
+      "bidClseDt": "2026-11-16 23:59",
+      "searchKeyword": "건립",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00297552",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297552&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297552&fileType=BFDTL&fileSeq=2"
+        },
+        {
+          "label": "규격문서 3",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297552&fileType=BFDTL&fileSeq=3"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-16 23:59",
+        "deliveryLimitDt": "2029-04-05 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "윤진슬",
+        "officerTel": "054-805-3826",
+        "officerEmail": "",
+        "referenceNo": "재무과-24058",
+        "linkedBidNoList": "",
+        "productName": "[사전규격공개] (가칭)경상북도교육청 포항도서관 건립 기계설비공사 관급자재(냉난방기) 구매 설치",
+        "productDetails": "[1^4010180601^전기히트펌프]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "재무과-24058",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01820128-000",
+      "bidNtceNo": "R26BK01820128",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2027년 ITS센터 및 현장장비 유지보수 용역",
+      "ntceInsttNm": "조달청",
+      "dminsttNm": "대전광역시",
+      "assignBudgetAmt": 1789795510,
+      "bidNtceRegistDt": "2026-11-10 11:14",
+      "bidClseDt": "2026-11-24 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "ITS",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820128&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 협상계약",
+      "contractMethods": [
+        "제한경쟁",
+        "협상계약"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01820128&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820128&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820128&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "협상에의한계약-협상에 의한 낙찰자 결정(SW사업)",
+        "contractType": "제한경쟁",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-20 10:00",
+        "bidClseDt": "2026-11-24 10:00",
+        "openDt": "2026-11-24 11:00",
+        "registerDeadline": "2026-11-23 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김수현",
+        "officerTel": "070-4056-7497",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "ITS"
+      ]
+    },
+    {
+      "bidId": "BF-R26BD00297358",
+      "bidNtceNo": "BF-R26BD00297358",
+      "bidNtceOrd": "",
+      "bidNtceNm": "(가칭)미래융합체험교육원 건립공사 관급자재(불연세라믹도장 합금도금강판) 구매",
+      "ntceInsttNm": "충청북도교육청",
+      "dminsttNm": "충청북도교육청",
+      "assignBudgetAmt": 313863250,
+      "bidNtceRegistDt": "2026-11-10 11:11",
+      "bidClseDt": "2026-11-13 23:59",
+      "searchKeyword": "건립",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00297358",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297358&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297358&fileType=BFDTL&fileSeq=2"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-13 23:59",
+        "deliveryLimitDt": "2027-10-22 00:00",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "최선영",
+        "officerTel": "043-290-2584",
+        "officerEmail": "",
+        "referenceNo": "재정복지과-31722",
+        "linkedBidNoList": "",
+        "productName": "(가칭)미래융합체험교육원 건립공사 관급자재(불연세라믹도장 합금도금강판) 구매",
+        "productDetails": "[1^3015180209^금속제패널]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "재정복지과-31722",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
+    {
+      "bidId": "BF-R26BD00297543",
+      "bidNtceNo": "BF-R26BD00297543",
+      "bidNtceOrd": "",
+      "bidNtceNm": "청주체육관 정밀안전진단 및 내진성능평가 용역",
+      "ntceInsttNm": "충청북도 청주시",
+      "dminsttNm": "충청북도 청주시",
+      "assignBudgetAmt": 134550000,
+      "bidNtceRegistDt": "2026-11-10 11:09",
+      "bidClseDt": "2026-11-15 23:59",
+      "searchKeyword": "체육관",
+      "region": "충청",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00297543",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297543&fileType=BFDTL&fileSeq=1"
+        },
+        {
+          "label": "규격문서 2",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00297543&fileType=BFDTL&fileSeq=2"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "용역",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-15 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김민경",
+        "officerTel": "043-201-1732",
+        "officerEmail": "",
+        "referenceNo": "회계과-39697",
+        "linkedBidNoList": "",
+        "productName": "청주체육관 정밀안전진단 및 내진성능평가 용역",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "기술용역"
+      },
+      "refNo": "회계과-39697",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "체육관"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01820137-000",
+      "bidNtceNo": "R26BK01820137",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(가칭)용마루초 신축공사 폐기물 처리용역(계속비)",
+      "ntceInsttNm": "인천광역시교육청",
+      "dminsttNm": "인천광역시교육청",
+      "assignBudgetAmt": 89628000,
+      "bidNtceRegistDt": "2026-11-10 11:08",
+      "bidClseDt": "2026-11-17 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "신축",
+      "region": "인천",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820137&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01820137&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01820137&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01820137&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 4",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01820137&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820137&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01820137&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자입찰",
+        "awardMethod": "소액수의견적-소액수의견적(2인 이상 견적 제출)",
+        "contractType": "수의계약",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-11 10:00",
+        "bidClseDt": "2026-11-17 10:00",
+        "openDt": "2026-11-17 11:00",
+        "registerDeadline": "2026-11-16 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "김현경",
+        "officerTel": "032-420-6580",
+        "officerEmail": "",
+        "referenceNo": "인천광역시교육청 공고 제2026-463호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
     {
       "bidId": "BID-R26BK01819997-000",
       "bidNtceNo": "R26BK01819997",
@@ -2186,7 +2784,7 @@
         "officerTel": "061-260-0893",
         "officerEmail": "",
         "referenceNo": "",
-        "linkedBidNoList": "",
+        "linkedBidNoList": "R26BK01819482000",
         "productName": "",
         "productDetails": "",
         "purpose": "",
