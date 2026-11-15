@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T04:04:16.939Z",
+  "generatedAt": "2026-11-15T06:04:20.199Z",
   "timezone": "Asia/Seoul",
   "fetchMode": "incremental",
   "fetchDays": 3,
@@ -11,8 +11,8 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610170000",
   "rangeEnd": "202611152359",
-  "totalCount": 1261,
-  "rawCount": 132,
+  "totalCount": 1262,
+  "rawCount": 133,
   "successCalls": 162,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -31,7 +31,7 @@
     "note": "Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late."
   },
   "serviceStats": {
-    "공고": 47,
+    "공고": 48,
     "사전규격": 500,
     "발주계획": 714
   },
@@ -41,13 +41,89 @@
     "ITS/VMS 계열": 32,
     "버스정보(BIT/BIS) 계열": 31,
     "전광판 외 간접 사업/문화시설": 130,
-    "전광판 외 간접 사업/건립": 537,
+    "전광판 외 간접 사업/건립": 538,
     "전광판 외 간접 사업/리모델링": 115,
     "전광판 외 간접 사업/체육시설": 184
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01825921-000",
+      "bidNtceNo": "R26BK01825921",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "(가칭)대전학하2초 신축  관급자재(냉난방기) 구매 설치",
+      "ntceInsttNm": "조달청 대전지방조달청",
+      "dminsttNm": "대전광역시교육청",
+      "assignBudgetAmt": 1606163900,
+      "bidNtceRegistDt": "2026-11-15 13:48",
+      "bidClseDt": "2026-11-24 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "신축",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01825921&bidPbancOrd=000",
+      "contractMethod": "일반경쟁 / 적격심사",
+      "contractMethods": [
+        "일반경쟁",
+        "적격심사"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01825921&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01825921&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 3",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01825921&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01825921&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01825921&bidPbancOrd=000",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "적격심사제-추정가격이 10억원 이상인 물품의 평가기준(물품구매)",
+        "contractType": "일반경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-20 10:00",
+        "bidClseDt": "2026-11-24 10:00",
+        "openDt": "2026-11-24 11:00",
+        "registerDeadline": "2026-11-23 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "양지은",
+        "officerTel": "070-4056-8387",
+        "officerEmail": "jeyang8@korea.kr",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "히트펌프용실내기",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
     {
       "bidId": "PL-R26DD20930295",
       "bidNtceNo": "PL-R26DD20930295",
