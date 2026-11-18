@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T02:05:22.712Z",
+  "generatedAt": "2026-11-18T04:05:20.754Z",
   "timezone": "Asia/Seoul",
   "fetchMode": "incremental",
   "fetchDays": 3,
@@ -11,8 +11,8 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610200000",
   "rangeEnd": "202611182359",
-  "totalCount": 1483,
-  "rawCount": 402,
+  "totalCount": 1489,
+  "rawCount": 409,
   "successCalls": 162,
   "failedCalls": 0,
   "requestDelayMs": 1000,
@@ -31,17 +31,17 @@
     "note": "Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late."
   },
   "serviceStats": {
-    "공고": 168,
-    "사전규격": 536,
-    "발주계획": 779
+    "공고": 169,
+    "사전규격": 537,
+    "발주계획": 783
   },
   "categoryStats": {
-    "디스플레이/사이니지 계열": 130,
+    "디스플레이/사이니지 계열": 132,
     "미디어/파사드 계열": 143,
     "ITS/VMS 계열": 35,
     "버스정보(BIT/BIS) 계열": 40,
     "전광판 외 간접 사업/문화시설": 165,
-    "전광판 외 간접 사업/건립": 615,
+    "전광판 외 간접 사업/건립": 619,
     "전광판 외 간접 사업/리모델링": 122,
     "전광판 외 간접 사업/체육시설": 233
   },
@@ -49,19 +49,83 @@
   "warnings": [],
   "bids": [
     {
-      "bidId": "BID-R26BK01838401-000",
-      "bidNtceNo": "R26BK01838401",
+      "bidId": "PL-R26DD20934801",
+      "bidNtceNo": "PL-R26DD20934801",
+      "bidNtceOrd": "",
+      "bidNtceNm": "대덕구 신청사 건립 관급자재(CCTV) 구매설치",
+      "ntceInsttNm": "대전광역시 대덕구",
+      "dminsttNm": "대전광역시 대덕구",
+      "assignBudgetAmt": 419486820,
+      "bidNtceRegistDt": "2026-11-18 12:44",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "건립",
+      "region": "대전",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934801",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934801"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934801",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "신청사건립과",
+        "officerName": "송윤우",
+        "officerTel": "042-608-4252",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "영상감시장치",
+        "productDetails": "",
+        "purpose": "신청사 청사방호 및 범죄예방용",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 419486820,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01838745-000",
+      "bidNtceNo": "R26BK01838745",
       "bidNtceOrd": "000",
-      "bidNtceNm": "광교지사 노후 LED 천장 조명기구 구매설치",
+      "bidNtceNm": "광교지사 노후 LED 천장 조명기구 구매",
       "ntceInsttNm": "한국지역난방공사 광교지사",
       "dminsttNm": "한국지역난방공사 광교지사",
       "assignBudgetAmt": 10831000,
-      "bidNtceRegistDt": "2026-11-18 10:56",
-      "bidClseDt": "2026-11-18 12:00",
+      "bidNtceRegistDt": "2026-11-18 12:05",
+      "bidClseDt": "2026-11-18 16:00",
       "deadlineBasis": "",
       "searchKeyword": "LED",
       "region": "전국",
-      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=000",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838745&bidPbancOrd=000",
       "contractMethod": "수의계약",
       "contractMethods": [
         "수의계약"
@@ -72,42 +136,225 @@
       "documentUrls": [
         {
           "label": "공고규격서 1",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838745&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
         },
         {
           "label": "공고규격서 2",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838745&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
         },
         {
           "label": "공고규격서 3",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838745&bidPbancOrd=000&fileType=&fileSeq=3&prcmBsneSeCd=01"
         },
         {
           "label": "공고규격서 4",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 5",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=5&prcmBsneSeCd=01"
-        },
-        {
-          "label": "공고규격서 6",
-          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838401&bidPbancOrd=000&fileType=&fileSeq=6&prcmBsneSeCd=01"
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838745&bidPbancOrd=000&fileType=&fileSeq=4&prcmBsneSeCd=01"
         },
         {
           "label": "상세 URL",
-          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=000"
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838745&bidPbancOrd=000"
         }
       ],
       "detailInfo": {
         "serviceType": "공고",
         "businessType": "물품",
-        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=000",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838745&bidPbancOrd=000",
         "contractMethodRaw": "수의계약",
         "bidMethod": "전자시담",
         "awardMethod": "수의시담-수의시담",
         "contractType": "수의계약",
         "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-18 13:00",
+        "bidClseDt": "2026-11-18 16:00",
+        "openDt": "2026-11-18 17:00",
+        "registerDeadline": "2026-11-18 13:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "백아현",
+        "officerTel": "031-218-9714",
+        "officerEmail": "back@kdhc.co.kr",
+        "referenceNo": "311100-26079",
+        "linkedBidNoList": "",
+        "productName": "LED실내조명등",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "LED"
+      ]
+    },
+    {
+      "bidId": "PL-R26DD20934761",
+      "bidNtceNo": "PL-R26DD20934761",
+      "bidNtceOrd": "",
+      "bidNtceNm": "부산 에코델타시티 단독6-25블록 5로트 신축공사",
+      "ntceInsttNm": "부산광역시 강서구",
+      "dminsttNm": "부산광역시 강서구",
+      "assignBudgetAmt": 3000000,
+      "bidNtceRegistDt": "2026-11-18 11:39",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "신축",
+      "region": "부산",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934761",
+      "contractMethod": "지명경쟁",
+      "contractMethods": [
+        "지명경쟁"
+      ],
+      "contractMethodRaw": "지명경쟁",
+      "serviceType": "발주계획",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934761"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934761",
+        "contractMethodRaw": "지명경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "지명경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "안전도시국 건축과",
+        "officerName": "이종면",
+        "officerTel": "051-970-2681",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "0",
+        "unit": "",
+        "orderAmount": 3000000,
+        "rawBusinessDivision": "기술용역"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "신축"
+      ]
+    },
+    {
+      "bidId": "PL-R26DD20934705",
+      "bidNtceNo": "PL-R26DD20934705",
+      "bidNtceOrd": "",
+      "bidNtceNm": "소스산업화센터 영상기기(사이니지) 구매",
+      "ntceInsttNm": "한국식품산업클러스터진흥원",
+      "dminsttNm": "한국식품산업클러스터진흥원",
+      "assignBudgetAmt": 21989000,
+      "bidNtceRegistDt": "2026-11-18 11:16",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "사이니지",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934705",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934705"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934705",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "수의계약",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "경영지원부",
+        "officerName": "김태영",
+        "officerTel": "063-720-0536",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "영상정보디스플레이장치",
+        "productDetails": "",
+        "purpose": "소스산업화센터내부  홍보영상기기설치",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 21989000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "사이니지"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01838401-001",
+      "bidNtceNo": "R26BK01838401",
+      "bidNtceOrd": "001",
+      "bidNtceNm": "광교지사 노후 LED 천장 조명기구 구매설치",
+      "ntceInsttNm": "한국지역난방공사 광교지사",
+      "dminsttNm": "한국지역난방공사 광교지사",
+      "assignBudgetAmt": 10831000,
+      "bidNtceRegistDt": "2026-11-18 11:13",
+      "bidClseDt": "2026-11-18 12:00",
+      "deadlineBasis": "",
+      "searchKeyword": "LED",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=001",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=001"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838401&bidPbancOrd=001",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "취소공고",
         "restrictionRegion": "",
         "bidBeginDt": "2026-11-18 11:00",
         "bidClseDt": "2026-11-18 12:00",
@@ -133,6 +380,134 @@
       },
       "matchedKeywords": [
         "LED"
+      ]
+    },
+    {
+      "bidId": "PL-R26DD20934687",
+      "bidNtceNo": "PL-R26DD20934687",
+      "bidNtceOrd": "",
+      "bidNtceNm": "내서도서관 건립공사 기계공사 관급자재 냉난방기 구매 설치",
+      "ntceInsttNm": "경상남도 창원시 도서관사업소",
+      "dminsttNm": "경상남도 창원시 도서관사업소",
+      "assignBudgetAmt": 1094181000,
+      "bidNtceRegistDt": "2026-11-18 11:09",
+      "bidClseDt": "2026-11",
+      "searchKeyword": "건립",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934687",
+      "contractMethod": "일반경쟁",
+      "contractMethods": [
+        "일반경쟁"
+      ],
+      "contractMethodRaw": "일반경쟁",
+      "serviceType": "발주계획",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "발주계획 상세 URL",
+          "url": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934687"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "발주계획",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PRPA015_01/single/?oderPlanNo=R26DD20934687",
+        "contractMethodRaw": "일반경쟁",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "일반경쟁",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "2026",
+        "orderMonth": "11",
+        "department": "성산도서관과",
+        "officerName": "백정은",
+        "officerTel": "055-225-7333",
+        "officerEmail": "",
+        "referenceNo": "",
+        "linkedBidNoList": "",
+        "productName": "냉난방기",
+        "productDetails": "",
+        "purpose": "내서도서관 건립  기계공사 관급자재",
+        "quantity": "1",
+        "unit": "식",
+        "orderAmount": 1094181000,
+        "rawBusinessDivision": "물품"
+      },
+      "orderYear": "2026",
+      "orderMnth": "11",
+      "matchedKeywords": [
+        "건립"
+      ]
+    },
+    {
+      "bidId": "BF-R26BD00302225",
+      "bidNtceNo": "BF-R26BD00302225",
+      "bidNtceOrd": "",
+      "bidNtceNm": "공립 항공우주분야 전문과학관 건립공사 냉난방기(EHP,GHP) 구매 설치",
+      "ntceInsttNm": "경상남도 진주시",
+      "dminsttNm": "경상남도 진주시",
+      "assignBudgetAmt": 926222000,
+      "bidNtceRegistDt": "2026-11-18 11:07",
+      "bidClseDt": "2026-11-23 23:59",
+      "searchKeyword": "건립",
+      "region": "경상",
+      "g2bUrl": "https://www.g2b.go.kr/search.do?category=TGONG&kwd=R26BD00302225",
+      "contractMethod": "사전규격",
+      "contractMethods": [
+        "사전규격"
+      ],
+      "contractMethodRaw": "",
+      "serviceType": "사전규격",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "규격문서 1",
+          "url": "https://www.g2b.go.kr/pn/pnz/pnza/UntyAtchFile/downloadFile.do?bfSpecRegNo=R26BD00302225&fileType=BFDTL&fileSeq=1"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "사전규격",
+        "businessType": "물품",
+        "originalPageUrl": "",
+        "contractMethodRaw": "",
+        "bidMethod": "",
+        "awardMethod": "",
+        "contractType": "",
+        "noticeKind": "",
+        "restrictionRegion": "",
+        "bidBeginDt": "",
+        "bidClseDt": "",
+        "openDt": "",
+        "registerDeadline": "",
+        "opinionCloseDt": "2026-11-23 23:59",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "이정용",
+        "officerTel": "055-749-3126",
+        "officerEmail": "",
+        "referenceNo": "우주항공산업과",
+        "linkedBidNoList": "",
+        "productName": "공립 항공우주분야 전문과학관 건립공사 냉난방기(EHP,GHP) 구매 설치",
+        "productDetails": "[1^4010180601^전기히트펌프]",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": "물품"
+      },
+      "refNo": "우주항공산업과",
+      "linkedBidNtceNoList": "",
+      "matchedKeywords": [
+        "건립"
       ]
     },
     {
