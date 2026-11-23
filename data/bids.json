@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-22T22:07:33.856Z",
+  "generatedAt": "2026-11-23T00:05:17.957Z",
   "timezone": "Asia/Seoul",
-  "fetchMode": "full",
-  "fetchDays": 30,
+  "fetchMode": "incremental",
+  "fetchDays": 3,
   "lastFullRefreshAt": "2026-11-22T22:07:33.856Z",
   "planLookaheadEndYm": "202705",
   "rangeDays": 30,
@@ -11,9 +11,9 @@
   "archiveMonthCount": 4,
   "rangeBegin": "202610250000",
   "rangeEnd": "202611232359",
-  "totalCount": 1060,
-  "rawCount": 564,
-  "successCalls": 324,
+  "totalCount": 1062,
+  "rawCount": 2,
+  "successCalls": 162,
   "failedCalls": 0,
   "requestDelayMs": 1000,
   "maxPagesPerQuery": 5,
@@ -31,7 +31,7 @@
     "note": "Triggered by an external scheduler via workflow_dispatch; GitHub cron is a backup that can start hours late."
   },
   "serviceStats": {
-    "공고": 0,
+    "공고": 2,
     "사전규격": 497,
     "발주계획": 563
   },
@@ -42,12 +42,155 @@
     "버스정보(BIT/BIS) 계열": 32,
     "전광판 외 간접 사업/문화시설": 134,
     "전광판 외 간접 사업/건립": 409,
-    "전광판 외 간접 사업/리모델링": 89,
-    "전광판 외 간접 사업/체육시설": 172
+    "전광판 외 간접 사업/리모델링": 90,
+    "전광판 외 간접 사업/체육시설": 173
   },
   "errors": [],
   "warnings": [],
   "bids": [
+    {
+      "bidId": "BID-R26BK01846248-000",
+      "bidNtceNo": "R26BK01846248",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "노후 건축물의 건물 에너지성능 개선을 위한그린리모델링 기술 패키지 시스템 제작",
+      "ntceInsttNm": "한국건설기술연구원",
+      "dminsttNm": "한국건설기술연구원",
+      "assignBudgetAmt": 199875000,
+      "bidNtceRegistDt": "2026-11-23 08:54",
+      "bidClseDt": "2026-11-23 17:00",
+      "deadlineBasis": "",
+      "searchKeyword": "리모델링",
+      "region": "전국",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01846248&bidPbancOrd=000",
+      "contractMethod": "수의계약",
+      "contractMethods": [
+        "수의계약"
+      ],
+      "contractMethodRaw": "수의계약",
+      "serviceType": "공고",
+      "businessType": "물품",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01846248&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=01"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01846248&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=01"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01846248&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "물품",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01846248&bidPbancOrd=000",
+        "contractMethodRaw": "수의계약",
+        "bidMethod": "전자시담",
+        "awardMethod": "수의시담-수의시담",
+        "contractType": "수의계약",
+        "noticeKind": "재공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-23 13:30",
+        "bidClseDt": "2026-11-23 17:00",
+        "openDt": "2026-11-23 18:00",
+        "registerDeadline": "2026-11-23 11:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "임주영",
+        "officerTel": "031-910-0463",
+        "officerEmail": "jy1002@kict.re.kr",
+        "referenceNo": "건축에너지연구본부-8238",
+        "linkedBidNoList": "",
+        "productName": "외벽단열마감재",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "리모델링"
+      ]
+    },
+    {
+      "bidId": "BID-R26BK01838253-000",
+      "bidNtceNo": "R26BK01838253",
+      "bidNtceOrd": "000",
+      "bidNtceNm": "2026학년도 김포과학기술고 야구부 동계전지훈련 숙식용역 업체 선정",
+      "ntceInsttNm": "경기도교육청 김포과학기술고등학교",
+      "dminsttNm": "경기도교육청 김포과학기술고등학교",
+      "assignBudgetAmt": 84470000,
+      "bidNtceRegistDt": "2026-11-21 19:45",
+      "bidClseDt": "2026-12-04 10:00",
+      "deadlineBasis": "",
+      "searchKeyword": "야구",
+      "region": "경기",
+      "g2bUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838253&bidPbancOrd=000",
+      "contractMethod": "제한경쟁 / 규격가격동시",
+      "contractMethods": [
+        "제한경쟁",
+        "규격가격동시"
+      ],
+      "contractMethodRaw": "제한경쟁",
+      "serviceType": "공고",
+      "businessType": "용역",
+      "documentUrls": [
+        {
+          "label": "공고규격서 1",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838253&bidPbancOrd=000&fileType=&fileSeq=1&prcmBsneSeCd=03"
+        },
+        {
+          "label": "공고규격서 2",
+          "url": "https://www.g2b.go.kr/pn/pnp/pnpe/UntyAtchFile/downloadFile.do?bidPbancNo=R26BK01838253&bidPbancOrd=000&fileType=&fileSeq=2&prcmBsneSeCd=03"
+        },
+        {
+          "label": "상세 URL",
+          "url": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838253&bidPbancOrd=000"
+        }
+      ],
+      "detailInfo": {
+        "serviceType": "공고",
+        "businessType": "용역",
+        "originalPageUrl": "https://www.g2b.go.kr/link/PNPE027_01/single/?bidPbancNo=R26BK01838253&bidPbancOrd=000",
+        "contractMethodRaw": "제한경쟁",
+        "bidMethod": "전자입찰",
+        "awardMethod": "규격가격동시입찰-제안적격자 중 예가 내 최저가 투찰자",
+        "contractType": "제한경쟁",
+        "noticeKind": "등록공고",
+        "restrictionRegion": "",
+        "bidBeginDt": "2026-11-23 10:00",
+        "bidClseDt": "2026-12-04 10:00",
+        "openDt": "2026-12-04 16:00",
+        "registerDeadline": "2026-12-03 18:00",
+        "opinionCloseDt": "",
+        "deliveryLimitDt": "",
+        "orderYear": "",
+        "orderMonth": "",
+        "department": "",
+        "officerName": "조세희",
+        "officerTel": "031-999-3605",
+        "officerEmail": "",
+        "referenceNo": "김포과학기술고 공고  제2026-65호",
+        "linkedBidNoList": "",
+        "productName": "",
+        "productDetails": "",
+        "purpose": "",
+        "quantity": "",
+        "unit": "",
+        "orderAmount": 0,
+        "rawBusinessDivision": ""
+      },
+      "matchedKeywords": [
+        "야구"
+      ]
+    },
     {
       "bidId": "BF-R26BD00304329",
       "bidNtceNo": "BF-R26BD00304329",
